@@ -1,8 +1,10 @@
 # Studio POD — POD T-Shirt Muse
 
-App tạo thiết kế để sản xuất POD (print-on-demand) t-shirt: từ 1 hình áo mẫu / artwork, tạo ra bản design 2D khổ lớn tràn mặt trước áo, sẵn sàng để in.
+App tạo thiết kế để sản xuất POD (print-on-demand) t-shirt: từ 1 ảnh chụp áo mẫu, TÁCH design khỏi áo thành file in phẳng, nền trong suốt, 300 DPI (Flow V3 — trục chính), kèm bộ công cụ chỉnh tay nâng cao đầy đủ bên dưới.
 
 ## Tính năng hiện tại (bản trong `index.html`)
+
+**⚡ Tách design khỏi áo — Flow V3 (trục chính, khu trên cùng)** — nạp ảnh chụp áo mẫu (kéo thả / Ctrl+V / chọn file / link Drive; có sẵn ảnh mẫu thật để thử), app tự đề xuất khung vùng in, người dùng kéo 4 góc cho khít design, 1 nút chạy toàn trình: gỡ nghiêng phối cảnh về mặt phẳng, chuẩn hoá sáng + khoá nền vải thành trong suốt, san phẳng màu 3 mức, tự nâng phân giải (Upscale AI Real-ESRGAN; lỗi thì tự lùi về pica và ghi rõ), quét watermark tự động với cổng khoá xuất như Bước 3, xem đối chiếu 3 ô (ảnh gốc ↔ design trong suốt ↔ mockup áo trắng/đen), tải ZIP (PNG in 4500×5400 300 DPI + file `.txt` hồ sơ) / PNG. Mọi tính năng bên dưới nằm trong khu "Chỉnh tay nâng cao" mặc định thu gọn, dùng chung ảnh nguồn và art đã tách.
 
 **Radar mẫu áo bán chạy** — panel ở đầu trang dùng mỗi ngày: gợi ý ngách theo ngày và theo mùa, 3 thẻ nguồn Amazon / Etsy / Shopify tự dựng link theo ngách đang chọn (Shopify đi qua Google lọc shop thật), khay lưu ý tưởng trong phiên, nút đưa ngách sang khung Prompt sửa art. App không bịa bảng xếp hạng — số liệu xem trực tiếp tại nguồn.
 
