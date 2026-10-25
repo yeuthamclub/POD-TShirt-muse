@@ -27,6 +27,8 @@ App tạo thiết kế để sản xuất POD (print-on-demand) t-shirt: từ 1 
 7. **Xuất file in** — đúng 1 file khổ lớn 4500×5400 px (tuỳ chọn 5000×5400 / 6000×6000), 300 DPI nhúng trong file PNG/JPG, tên file kèm prompt rút gọn và tải kèm file `.txt` ghi nguyên văn prompt đã dùng cùng kết quả kiểm tra watermark trước/sau. Xuất bị khoá cho tới khi bước kiểm tra watermark đạt "Sạch" hoặc người dùng xác nhận soi tay.
 8. **Panel "Tương tác trực tiếp với Muse — sửa cấu trúc app nhanh"** (trong Bước 4, dưới khung Prompt) — soạn lệnh sửa app với tiền tố `[Studio POD — sửa cấu trúc app]`, sao chép và dán vào chat Muse tại https://muse.ai để Muse sửa app ngay trong phiên. App tĩnh không tự gửi tin cho Muse được; panel ghi rõ giới hạn này.
 
+**Sửa lỗi Upscale AI Real-ESRGAN (25/10/2026)** — 2 nguồn model cũ đã chết (Kizi-Art trả HTTP 401; repo Qualcomm không chứa file .onnx nào nên 404), thay bằng 3 nguồn đã kiểm chứng tải ẩn danh + chạy suy luận thật bằng onnxruntime-web 1.20.1: tamnvcc realesr-general-x4v3 (tile cố định 128), Meeperomi x4plus (đầu vào động), imgdesignart x4plus (tile cố định 64). App nay lưu và dùng đúng cỡ tile cố định của từng model khi chạy upscale.
+
 ## Cách chạy
 
 Mở trực tiếp file `index.html` trên trình duyệt, hoặc bật GitHub Pages cho repo này (Settings → Pages → Branch `main`, thư mục `/ (root)`) để có link web chạy app.

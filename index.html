@@ -4227,9 +4227,16 @@ function resetDerivedUi(){
 
 /* ================= LỘ TRÌNH 2 · UPSCALE AI (onnxruntime-web + Real-ESRGAN ONNX) ================= */
 var ORT_BASE="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.20.1/dist/";
+/* 2 nguồn Real-ESRGAN cũ đã chết: Kizi-Art/real-esrgan-v3 → HTTP 401 (không còn truy cập ẩn danh được)
+   và qualcomm/Real-ESRGAN-x4plus → HTTP 404 (repo không chứa file .onnx nào, chỉ README/LICENSE).
+   3 nguồn dưới đây đã kiểm chứng thật ngày 25/10/2026: tải ẩn danh thành công và chạy suy luận thật
+   bằng chính onnxruntime-web 1.20.1 (WASM) — ra đúng ×4, không NaN. Trường tile là cỡ đầu vào CỐ ĐỊNH
+   của model (nếu có): onnxruntime-web 1.20.1 không có session.inputMetadata nên app không tự đọc được
+   cỡ cố định từ model — model không khai tile thì coi là đầu vào động, dùng tile 128 mặc định. */
 var ESRGAN_CANDIDATES=[
-  {label:"Real-ESRGAN realesr-general-x4v3 (Hugging Face)",url:"https://huggingface.co/Kizi-Art/real-esrgan-v3/resolve/main/realesr-general-x4v3.onnx"},
-  {label:"Real-ESRGAN x4plus — Qualcomm AI Hub (Hugging Face)",url:"https://huggingface.co/qualcomm/Real-ESRGAN-x4plus/resolve/main/Real-ESRGAN-x4plus.onnx"}
+  {label:"Real-ESRGAN realesr-general-x4v3 (tamnvcc — Hugging Face)",url:"https://huggingface.co/tamnvcc/Real-ESRGAN-General-x4v3_float/resolve/main/onnx/model.onnx",tile:128},
+  {label:"Real-ESRGAN x4plus (Meeperomi — Hugging Face)",url:"https://huggingface.co/Meeperomi/RealESRGAN_x4-onnx/resolve/main/RealESRGAN_x4.onnx"},
+  {label:"Real-ESRGAN x4plus (imgdesignart — Hugging Face)",url:"https://huggingface.co/imgdesignart/realesrgan-x4-onnx/resolve/main/onnx/model.onnx",tile:64}
 ];
 /* SwinIR (đợt 4 lộ trình gộp): bản ONNX SwinIR-M realSR ×4 GAN của rocca/swin-ir-onnx — chính là file
    model mà demo super-resolution-js (josephrocca) chạy thật trong trình duyệt bằng onnxruntime-web/WASM.
@@ -4247,7 +4254,7 @@ var UP_MODELS={
   esrgan:{name:"Real-ESRGAN",candidates:ESRGAN_CANDIDATES},
   swinir:{name:"SwinIR",candidates:SWINIR_CANDIDATES}
 };
-var up={ortPromise:null,modelLabel:"",running:false,cancelled:false,abort:null,scale:4,candidate:null,model:"esrgan",sessions:{},sessionPromises:{},modelLabels:{},runLabel:"",runScale:4};
+var up={ortPromise:null,modelLabel:"",running:false,cancelled:false,abort:null,scale:4,candidate:null,model:"esrgan",sessions:{},sessionPromises:{},modelLabels:{},modelTiles:{},runLabel:"",runScale:4};
 function setUpModel(m){
   up.model=m;
   var e=$("upModelEsrgan"), s=$("upModelSwin");
@@ -4309,7 +4316,7 @@ function ensureUpSession(kind){
         if(up.cancelled)throw new Error("__cancel__");
         setUpLoad(true,68,"Đã tải model xong — đang khởi tạo phiên chạy (WASM)…");
         var sess=await window.ort.InferenceSession.create(buf,{executionProviders:["wasm"],graphOptimizationLevel:"all"});
-        up.sessions[kind]=sess; up.modelLabels[kind]=cand.label; up.modelLabel=cand.label;
+        up.sessions[kind]=sess; up.modelLabels[kind]=cand.label; up.modelLabel=cand.label; up.modelTiles[kind]=cand.tile||0;
         return sess;
       }catch(e){
         if(up.cancelled)throw e;
@@ -4392,8 +4399,9 @@ async function runUpscale(){
     if(up.cancelled)throw new Error("__cancel__");
     var meta=(session.inputMetadata&&session.inputMetadata[0])||null;
     var dims=meta?(meta.shape||meta.dims):null;
-    var tileH=(dims&&typeof dims[2]==="number"&&dims[2]>0)?dims[2]:128;
-    var tileW=(dims&&typeof dims[3]==="number"&&dims[3]>0)?dims[3]:128;
+    var candTile=up.modelTiles[kind]||0;
+    var tileH=(dims&&typeof dims[2]==="number"&&dims[2]>0)?dims[2]:(candTile>0?candTile:128);
+    var tileW=(dims&&typeof dims[3]==="number"&&dims[3]>0)?dims[3]:(candTile>0?candTile:128);
     var pad=Math.max(4,Math.min(16,Math.floor(Math.min(tileW,tileH)/4)));
     var ext=extendPad(input,pad);
     var originsX=tileOrigins(ext.width,tileW), originsY=tileOrigins(ext.height,tileH);
