@@ -199,6 +199,24 @@ input[type=color].ed-color{width:52px;height:38px;border:1px solid var(--line);b
 .ed-mini:disabled{opacity:.38;cursor:not-allowed}
 .ed-mini.danger{border-color:#a3260c;color:#a3260c}
 .ed-sel-tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
+/* Xưởng sáng tạo art + Google Drive */
+.cs-stage{position:relative;max-width:760px;margin:0 auto;border:1px solid var(--line);border-radius:12px;overflow:hidden;background-color:#fff;background-image:conic-gradient(#e6e3d8 25%,#fff 0 50%,#e6e3d8 0 75%,#fff 0);background-size:18px 18px;line-height:0}
+.cs-stage canvas{display:block;width:100%;height:auto}
+#csDrawCanvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+.cs-group{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:12px;background:#faf9f5}
+.cs-group h3{margin:0 0 4px;font-size:14.5px;font-weight:800}
+.cs-shape-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}
+.cs-shape{border:1.5px solid var(--dark);background:#fff;border-radius:9px;padding:8px 11px;font-size:12.5px;font-weight:700}
+.cs-shape:hover{background:#fff3ec}
+.cs-seg{max-width:560px}
+input[type=text].txtin,input[type=url].txtin{width:100%;padding:11px;border:1px solid var(--line);border-radius:10px;font-size:14px;background:#fff}
+.cs-textprev{max-width:760px;margin:10px auto 0;border:1px dashed var(--line);border-radius:12px;background-color:#fff;background-image:conic-gradient(#e6e3d8 25%,#fff 0 50%,#e6e3d8 0 75%,#fff 0);background-size:16px 16px;line-height:0;overflow:hidden}
+.cs-textprev canvas{display:block;width:100%;height:auto}
+.drive-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px}
+@media(max-width:700px){.drive-grid{grid-template-columns:1fr}}
+.drive-box{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#faf9f5}
+.drive-box h3{margin:0 0 2px;font-size:14.5px;font-weight:800}
+.drive-load{border:1.5px dashed #c9c6ba;border-radius:12px;padding:12px 14px;margin-top:12px;background:#faf9f5}
 </style>
 </head>
 <body>
@@ -302,6 +320,50 @@ input[type=color].ed-color{width:52px;height:38px;border:1px solid var(--line);b
     </div>
     <input type="file" id="fileInput" accept="image/*" hidden>
     <p class="hint" id="srcInfo" style="margin-top:10px">Chưa có ảnh nào.</p>
+
+    <div class="drive-load">
+      <strong style="font-size:13.5px">Nạp ảnh từ link file Google Drive</strong>
+      <p class="hint" style="margin:4px 0 8px">Dán link chia sẻ của <b>1 file ảnh</b> trên Drive (dạng <i>drive.google.com/file/d/…/view</i>) — app tự trích file ID và nạp ảnh thẳng vào bước cắt. File phải bật chia sẻ <b>“Bất kỳ ai có link đều xem được”</b> thì mới nạp được (xem panel Kết nối Google Drive ngay bên dưới để rõ giới hạn).</p>
+      <div class="row" style="max-width:760px">
+        <input type="url" class="txtin" id="driveImgLink" placeholder="https://drive.google.com/file/d/…/view?usp=sharing" style="flex:2;min-width:220px">
+        <button class="btn btn-dark" id="btnDriveImg" type="button">Nạp ảnh từ Drive</button>
+      </div>
+      <p class="hint" id="driveImgStatus" style="margin-top:8px">Chưa nạp ảnh từ Drive trong phiên này. Kéo thả / chọn file từ máy ở trên vẫn dùng bình thường.</p>
+    </div>
+  </section>
+
+  <!-- KẾT NỐI GOOGLE DRIVE (LƯU LINK — APP TĨNH, KHÔNG OAUTH) -->
+  <section class="panel" id="drivePanel">
+    <div class="panel-head"><div class="num">G</div><div><h2>Kết nối Google Drive — 2 folder làm việc</h2><p>Lưu sẵn link folder để mở nhanh mỗi ngày: <b>folder ảnh mẫu</b> để lấy ảnh về làm art, <b>folder sản phẩm</b> là đích để đưa file in hoàn thiện vào. Link + tên gợi nhớ được <b>lưu trong trình duyệt này (localStorage)</b> — lần mở app sau trên cùng trình duyệt vẫn còn; đổi máy / đổi trình duyệt thì dán lại.</p></div></div>
+
+    <div class="notice" style="margin-top:0"><b>Nói rõ giới hạn thật của app tĩnh:</b><br>· App chạy hoàn toàn trong trình duyệt, <b>không đăng nhập OAuth vào Google Drive được</b> — app không xem được nội dung folder, không liệt kê file bên trong. Muốn nạp 1 ảnh từ Drive vào app, hãy mở folder, lấy <b>link chia sẻ của từng file ảnh</b> rồi dán vào ô “Nạp ảnh từ link file Google Drive” ở bước 1.<br>· Ảnh chỉ nạp trực tiếp được khi file đã chia sẻ dạng <b>“Bất kỳ ai có link đều xem được”</b>. File để riêng tư thì Drive chặn, app sẽ báo lỗi rõ.<br>· <b>App cũng không tự tải file thành phẩm lên folder sản phẩm được</b> — ô folder sản phẩm chỉ lưu link đích: xuất file ở bước 7 xong, bấm “Mở folder trên Drive” rồi tự kéo file vào như bình thường.</div>
+
+    <div class="drive-grid">
+      <div class="drive-box">
+        <h3>Folder ảnh mẫu</h3>
+        <p class="hint" style="margin:0">Nơi bạn để ảnh áo mẫu / artwork gốc trên Drive để lấy về xử lý.</p>
+        <label class="f" for="drvSampleLink">Link folder trên Google Drive</label>
+        <input type="url" class="txtin" id="drvSampleLink" placeholder="https://drive.google.com/drive/folders/…">
+        <label class="f" for="drvSampleName">Tên gợi nhớ</label>
+        <input type="text" class="txtin" id="drvSampleName" placeholder="Ví dụ: Ảnh mẫu hoodie anime">
+        <div class="row" style="margin-top:12px">
+          <button class="btn btn-dark" id="btnDrvSampleOpen" type="button" disabled>Mở folder trên Drive</button>
+        </div>
+        <p class="hint" id="drvSampleState" style="margin-top:8px">Chưa lưu link nào.</p>
+      </div>
+      <div class="drive-box">
+        <h3>Folder sản phẩm</h3>
+        <p class="hint" style="margin:0">Đích đến của file in hoàn thiện — app chỉ lưu link, bạn tự đưa file vào folder sau khi xuất ở bước 7.</p>
+        <label class="f" for="drvProductLink">Link folder trên Google Drive</label>
+        <input type="url" class="txtin" id="drvProductLink" placeholder="https://drive.google.com/drive/folders/…">
+        <label class="f" for="drvProductName">Tên gợi nhớ</label>
+        <input type="text" class="txtin" id="drvProductName" placeholder="Ví dụ: File in chờ gửi nhà in">
+        <div class="row" style="margin-top:12px">
+          <button class="btn btn-dark" id="btnDrvProductOpen" type="button" disabled>Mở folder trên Drive</button>
+        </div>
+        <p class="hint" id="drvProductState" style="margin-top:8px">Chưa lưu link nào.</p>
+      </div>
+    </div>
   </section>
 
   <!-- BƯỚC 2: CẮT -->
@@ -572,6 +634,222 @@ input[type=color].ed-color{width:52px;height:38px;border:1px solid var(--line);b
       <div class="tool-card"><a href="https://www.kittl.com" target="_blank" rel="noopener">Kittl</a><span class="api-tag">Web app · Không API</span><small>Thiết kế artwork áo thun: text cong, hiệu ứng chữ (artword), kho template POD lớn.</small></div>
       <div class="tool-card"><a href="https://cleanup.pictures" target="_blank" rel="noopener">Cleanup.pictures</a><span class="api-tag">Có API</span><small>Xoá vật thể / chữ thừa bằng inpainting AI — bản nâng cấp AI của bước xoá ở bước 3 app này.</small></div>
       <div class="tool-card"><a href="https://www.remove.bg" target="_blank" rel="noopener">remove.bg</a><span class="api-tag">Có API</span><small>Tách nền 1 chạm rất chuẩn — khi cần art nền trong suốt thay vì nền đặc.</small></div>
+    </div>
+  </section>
+
+  <!-- XƯỞNG SÁNG TẠO ART (CANVAS 2D — KHÔNG AI TẠO SINH) -->
+  <section class="panel" id="csPanel">
+    <div class="panel-head"><div class="num hot">✦</div><div><h2>Xưởng sáng tạo art — chữ, vẽ tay, hiệu ứng &amp; nền</h2><p>Bốn nhóm công cụ sáng tạo chạy <b>thuần trong trình duyệt bằng Canvas 2D</b>: <b>không API, không máy chủ, và không phải AI tạo sinh</b> — mọi thứ bạn thấy là thuật toán vẽ / xử lý điểm ảnh áp dụng chính xác lên art của bạn, xem trước trực tiếp tại đây. Ưng ý thì bấm <b>“Áp dụng vào art”</b>: xưởng kết xuất lại toàn bộ ở <b>độ phân giải đầy đủ của art</b> và đặt làm art chính cho bước 6 (mockup) và bước 7 (xuất file).</p></div></div>
+
+    <p class="subhead">Bản xem trước của xưởng</p>
+    <div class="cs-stage" id="csStage">
+      <canvas id="csCanvas" width="880" height="520"></canvas>
+      <canvas id="csDrawCanvas" width="880" height="520" style="pointer-events:none"></canvas>
+    </div>
+    <p class="hint" id="csInfo" style="margin-top:8px">Xưởng chưa có art. Bấm “Nạp art hiện tại vào xưởng” để lấy art đang xử lý ở bước 5, hoặc tạo art mới từ chữ ở nhóm 1 (nền trong suốt).</p>
+    <div class="row" style="max-width:860px">
+      <button class="btn btn-dark" id="btnCsLoad" type="button">Nạp art hiện tại vào xưởng</button>
+      <button class="btn btn-light" id="btnCsUndo" type="button" disabled>Hoàn tác</button>
+      <button class="btn btn-light" id="btnCsRedo" type="button" disabled>Làm lại</button>
+    </div>
+    <div class="row" style="max-width:860px;margin-top:8px">
+      <button class="btn btn-accent" id="btnCsApply" type="button">Áp dụng vào art (độ phân giải đầy đủ)</button>
+      <button class="btn btn-light" id="btnCsUndoApply" type="button" disabled>Hoàn tác áp dụng</button>
+    </div>
+    <p class="hint" id="csStatus">Mỗi thao tác trong 4 nhóm dưới đây đều áp dụng lên bản xem trước này và hoàn tác / làm lại được. “Hoàn tác áp dụng” đưa art chính về đúng bản trước lần áp dụng gần nhất.</p>
+
+    <div class="cs-group">
+      <h3>1 · Tạo art từ chữ</h3>
+      <p class="hint" style="margin:0">Gõ chữ nhiều dòng, chỉnh kiểu rồi xem trước trực tiếp. Font Google Fonts (Anton, Bangers, Bebas Neue…) <b>nạp lười từ CDN khi bạn chọn dùng</b>; font hệ thống có sẵn ngay. Tạo thành <b>art mới trên nền trong suốt</b> hoặc <b>phủ lên art hiện tại</b> trong bản xem trước.</p>
+      <label class="f" for="csText">Nội dung chữ (mỗi dòng 1 hàng)</label>
+      <textarea id="csText" rows="3">YOUR TEXT&#10;EST. 2026</textarea>
+      <div class="grid2">
+        <div><label class="f" for="csFont">Font chữ</label>
+          <select id="csFont">
+            <option value="Be Vietnam Pro" selected>Be Vietnam Pro (font của app)</option>
+            <option value="Archivo Black">Archivo Black (đậm, poster)</option>
+            <option value="Anton">Anton — Google Fonts (nạp lười)</option>
+            <option value="Bebas Neue">Bebas Neue — Google Fonts (nạp lười)</option>
+            <option value="Bangers">Bangers — Google Fonts (truyện tranh)</option>
+            <option value="Pacifico">Pacifico — Google Fonts (viết tay)</option>
+            <option value="Lobster">Lobster — Google Fonts (viết tay đậm)</option>
+            <option value="Oswald">Oswald — Google Fonts (nén)</option>
+            <option value="Dancing Script">Dancing Script — Google Fonts (mềm)</option>
+            <option value="Playfair Display">Playfair Display — Google Fonts (sang)</option>
+            <option value="Arial">Arial (hệ thống)</option>
+            <option value="Georgia">Georgia (hệ thống)</option>
+            <option value="Times New Roman">Times New Roman (hệ thống)</option>
+            <option value="Courier New">Courier New (hệ thống)</option>
+            <option value="Impact">Impact (hệ thống)</option>
+            <option value="Verdana">Verdana (hệ thống)</option>
+          </select></div>
+        <div><label class="f">Cỡ chữ (theo bản xem trước) <span id="csSizeVal">110</span></label><input type="range" id="csSize" min="24" max="300" value="110"></div>
+        <div><label class="f">Màu chữ &amp; màu viền</label>
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+            <input type="color" class="ed-color" id="csFill" value="#171713" aria-label="Màu chữ">
+            <input type="color" class="ed-color" id="csStrokeC" value="#ffffff" aria-label="Màu viền chữ">
+            <span class="hint" style="margin:0">trái: màu chữ · phải: màu viền</span>
+          </div></div>
+        <div><label class="f">Độ dày viền chữ <span id="csStrokeWVal">0</span></label><input type="range" id="csStrokeW" min="0" max="30" value="0"></div>
+        <div><label class="f" for="csShadow">Bóng đổ</label>
+          <select id="csShadow">
+            <option value="none" selected>Không bóng</option>
+            <option value="soft">Bóng mềm</option>
+            <option value="hard">Bóng cứng (lệch xuống phải)</option>
+          </select></div>
+        <div><label class="f">Màu bóng</label><input type="color" class="ed-color" id="csShadowC" value="#000000" aria-label="Màu bóng đổ"></div>
+        <div><label class="f">Chữ cong <span id="csCurveVal">0</span> <span style="float:none">(âm: cong xuống · dương: cong lên)</span></label><input type="range" id="csCurve" min="-100" max="100" value="0"></div>
+        <div><label class="f">Giãn dòng <span id="csLineHVal">120%</span></label><input type="range" id="csLineH" min="90" max="200" value="120"></div>
+        <div><label class="f">Giãn chữ <span id="csLetterVal">0</span></label><input type="range" id="csLetter" min="-5" max="40" value="0"></div>
+      </div>
+      <div class="cs-textprev"><canvas id="csTextPrev" width="760" height="300"></canvas></div>
+      <p class="hint" style="margin-top:6px">Xem trước chữ trực tiếp ở trên (nền caro = trong suốt). Font Google Fonts cần mạng để tải lần đầu; tải không được, app dùng font dự phòng và báo rõ.</p>
+      <div class="row" style="max-width:760px">
+        <button class="btn btn-dark" id="btnCsTextNew" type="button">Tạo art mới từ chữ (nền trong suốt)</button>
+        <button class="btn btn-outline" id="btnCsTextOver" type="button">Phủ chữ lên bản xem trước</button>
+      </div>
+      <p class="hint" id="csTextStatus">Chưa tạo chữ trong phiên này.</p>
+    </div>
+
+    <div class="cs-group">
+      <h3>2 · Vẽ tay &amp; sticker</h3>
+      <p class="hint" style="margin:0">Bật chế độ vẽ để vẽ trực tiếp lên bản xem trước. Sticker chèn vào là kéo dời được, kéo ô vuông ở góc phải dưới để đổi cỡ, kéo chấm tròn phía trên để xoay. Khi ưng ý, bấm <b>“Ghép vào bản xem trước”</b> — từ lúc đó nét vẽ thành một phần của art và hoàn tác chung với các nhóm khác.</p>
+      <div class="ed-sel-tools">
+        <button class="tgl" id="btnCsDrawMode" type="button">Chế độ vẽ: Đang tắt</button>
+        <button class="tgl" id="btnCsEraser" type="button">Tẩy</button>
+        <button class="btn btn-light" id="btnCsStrokeUndo" type="button">Hoàn tác nét</button>
+        <button class="btn btn-light" id="btnCsStrokeRedo" type="button">Làm lại nét</button>
+        <button class="btn btn-light" id="btnCsDrawClear" type="button">Xoá hết nét &amp; sticker</button>
+      </div>
+      <div class="grid2" style="max-width:760px">
+        <div><label class="f">Màu cọ / màu sticker</label>
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+            <input type="color" class="ed-color" id="csBrushC" value="#ff4d0d" aria-label="Màu cọ vẽ">
+            <input type="color" class="ed-color" id="csStickerC" value="#ffb800" aria-label="Màu sticker">
+            <span class="hint" style="margin:0">trái: màu cọ · phải: màu sticker mới</span>
+          </div></div>
+        <div><label class="f">Cỡ cọ <span id="csBrushSizeVal">10</span></label><input type="range" id="csBrushSize" min="2" max="60" value="10"></div>
+      </div>
+      <div class="cs-shape-row" id="csShapeRow">
+        <button class="cs-shape" type="button" data-shape="star">★ Ngôi sao</button>
+        <button class="cs-shape" type="button" data-shape="heart">♥ Trái tim</button>
+        <button class="cs-shape" type="button" data-shape="bolt">⚡ Tia sét</button>
+        <button class="cs-shape" type="button" data-shape="smiley">☺ Mặt cười</button>
+        <button class="cs-shape" type="button" data-shape="crown">♛ Vương miện</button>
+        <button class="cs-shape" type="button" data-shape="arrow">➜ Mũi tên</button>
+        <button class="cs-shape" type="button" data-shape="bubble">💬 Bong bóng thoại</button>
+      </div>
+      <div class="ed-sel-tools">
+        <button class="btn btn-dark" id="btnCsFlatten" type="button">Ghép nét vẽ + sticker vào bản xem trước</button>
+        <button class="btn btn-light" id="btnCsStickerDel" type="button">Xoá sticker đang chọn</button>
+      </div>
+      <p class="hint" id="csDrawStatus">Chế độ vẽ đang tắt — lớp vẽ trong suốt nằm trên bản xem trước, chưa đụng gì tới art.</p>
+    </div>
+
+    <div class="cs-group">
+      <h3>3 · Hiệu ứng sáng tạo lên art hiện tại</h3>
+      <p class="hint" style="margin:0">Mỗi hiệu ứng áp dụng lên toàn bộ bản xem trước (chồng thêm được nhiều hiệu ứng liên tiếp) và hoàn tác được bằng nút “Hoàn tác” ở đầu panel.</p>
+
+      <p class="subhead" style="margin-top:10px">Pattern lặp liền mạch</p>
+      <div class="ed-sel-tools">
+        <label class="hint" style="margin:0" for="csPatN">Mật độ lặp (số ô ngang)</label>
+        <select id="csPatN" style="width:auto;padding:8px">
+          <option value="2">2 × 2</option>
+          <option value="3" selected>3 × 3</option>
+          <option value="4">4 × 4</option>
+          <option value="6">6 × 6</option>
+          <option value="8">8 × 8</option>
+        </select>
+        <button class="tgl" id="btnCsPatDrop" type="button">Lệch nửa ô (half-drop): Tắt</button>
+        <button class="btn btn-dark" id="btnCsPattern" type="button">Áp dụng pattern</button>
+      </div>
+
+      <p class="subhead">Kaleidoscope — đối xứng nhiều cánh</p>
+      <div class="ed-sel-tools">
+        <button class="tgl cs-kal" type="button" data-seg="2">2 cánh</button>
+        <button class="tgl cs-kal on" type="button" data-seg="4">4 cánh</button>
+        <button class="tgl cs-kal" type="button" data-seg="8">8 cánh</button>
+        <button class="btn btn-dark" id="btnCsKaleido" type="button">Áp dụng kaleidoscope</button>
+      </div>
+
+      <p class="subhead">Halftone chấm</p>
+      <div class="grid2" style="max-width:760px">
+        <div><label class="f">Cỡ ô chấm (bản xem trước) <span id="csHalfCellVal">14</span></label><input type="range" id="csHalfCell" min="6" max="40" value="14"></div>
+        <div><label class="f">Màu chấm &amp; màu nền</label>
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+            <input type="color" class="ed-color" id="csHalfInk" value="#171713" aria-label="Màu chấm halftone">
+            <input type="color" class="ed-color" id="csHalfBg" value="#ffffff" aria-label="Màu nền halftone">
+            <span class="hint" style="margin:0">trái: chấm · phải: nền</span>
+          </div></div>
+      </div>
+      <div class="ed-sel-tools"><button class="btn btn-dark" id="btnCsHalftone" type="button">Áp dụng halftone</button></div>
+
+      <p class="subhead">Duotone 2 màu</p>
+      <div class="ed-sel-tools">
+        <span class="hint" style="margin:0">Vùng tối →</span>
+        <input type="color" class="ed-color" id="csDuoA" value="#1b2a4a" aria-label="Màu vùng tối">
+        <span class="hint" style="margin:0">Vùng sáng →</span>
+        <input type="color" class="ed-color" id="csDuoB" value="#ffd9a0" aria-label="Màu vùng sáng">
+        <button class="btn btn-dark" id="btnCsDuotone" type="button">Áp dụng duotone</button>
+      </div>
+
+      <p class="subhead">Thay một màu trong art</p>
+      <div class="grid2" style="max-width:760px">
+        <div><label class="f">Màu nguồn → màu đích</label>
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+            <input type="color" class="ed-color" id="csSwapFrom" value="#ffffff" aria-label="Màu nguồn cần thay">
+            <span aria-hidden="true">→</span>
+            <input type="color" class="ed-color" id="csSwapTo" value="#ff4d0d" aria-label="Màu đích">
+            <button class="tgl" id="btnCsPick" type="button">Chọn màu trên bản xem trước</button>
+          </div></div>
+        <div><label class="f">Ngưỡng giống màu <span id="csSwapTolVal">25</span></label><input type="range" id="csSwapTol" min="1" max="100" value="25"></div>
+      </div>
+      <div class="ed-sel-tools"><button class="btn btn-dark" id="btnCsSwap" type="button">Áp dụng thay màu</button></div>
+
+      <p class="subhead">Viền khung trang trí</p>
+      <div class="grid2" style="max-width:760px">
+        <div><label class="f" for="csFrameStyle">Kiểu khung</label>
+          <select id="csFrameStyle">
+            <option value="double" selected>Đường đôi</option>
+            <option value="dots">Hàng chấm</option>
+            <option value="zigzag">Zigzag</option>
+            <option value="corners">Góc trang trí</option>
+          </select></div>
+        <div><label class="f">Màu khung &amp; độ dày</label>
+          <div style="display:flex;gap:10px;align-items:center">
+            <input type="color" class="ed-color" id="csFrameC" value="#171713" aria-label="Màu khung">
+            <input type="range" id="csFrameW" min="4" max="60" value="16" style="flex:1" aria-label="Độ dày khung">
+          </div></div>
+      </div>
+      <div class="ed-sel-tools"><button class="btn btn-dark" id="btnCsFrame" type="button">Áp dụng khung</button></div>
+      <p class="hint" id="csFxStatus">Chưa áp dụng hiệu ứng nào trong phiên này.</p>
+    </div>
+
+    <div class="cs-group">
+      <h3>4 · Nền</h3>
+      <p class="hint" style="margin:0">Đặt nền phía sau art trong bản xem trước — nền chỉ hiện qua vùng trong suốt của art (ví dụ art chữ hoặc art đã tách nền). Cũng có thể <b>tải nền riêng thành file PNG</b> ở đúng kích thước art để dùng nơi khác.</p>
+      <div class="seg cs-seg" role="group" aria-label="Loại nền">
+        <button id="csBgTrans" class="on" type="button">Trong suốt</button>
+        <button id="csBgSolid" type="button">Màu trơn</button>
+        <button id="csBgGrad" type="button">Gradient 2 màu</button>
+      </div>
+      <div class="grid2" style="max-width:760px">
+        <div><label class="f">Màu nền / màu gradient 1</label><input type="color" class="ed-color" id="csBgC1" value="#ff4d0d" aria-label="Màu nền 1"></div>
+        <div><label class="f">Màu gradient 2</label><input type="color" class="ed-color" id="csBgC2" value="#ffb800" aria-label="Màu nền 2"></div>
+        <div><label class="f" for="csBgDir">Hướng gradient</label>
+          <select id="csBgDir">
+            <option value="right" selected>Ngang (trái → phải)</option>
+            <option value="down">Dọc (trên → dưới)</option>
+            <option value="diag">Chéo xuống (↘)</option>
+            <option value="diagup">Chéo lên (↗)</option>
+            <option value="radial">Toả tròn giữa ảnh</option>
+          </select></div>
+      </div>
+      <div class="ed-sel-tools">
+        <button class="btn btn-dark" id="btnCsBgApply" type="button">Ghép nền vào bản xem trước</button>
+        <button class="btn btn-outline" id="btnCsBgDownload" type="button">Tải nền riêng (PNG)</button>
+      </div>
+      <p class="hint" id="csBgStatus">Đang chọn nền trong suốt.</p>
     </div>
   </section>
 
@@ -2846,6 +3124,7 @@ function edOnArtReset(){
     var b=$("btnEdUndo"); if(b)b.disabled=true;
     if(ed.open)edSetStatus("Art chính vừa thay đổi ở các bước trước — nếu editor đang giữ nền cũ, bấm “Nạp lại art hiện tại làm nền” để editor dùng đúng bản art mới nhất trước khi áp dụng tiếp.","");
   }catch(e){}
+  try{csOnArtReset()}catch(e){}
 }
 /* --- hiệu chuẩn đơn vị skew của Konva bằng node dò (attr skew có thể là tang / độ / radian tuỳ bản) --- */
 function edSkewUnit(){
@@ -3181,6 +3460,7 @@ $("btnEdApply").onclick=function(){
     derivedArt=out;
     derivedLabel="bản Editor lớp (Konva + Moveable) — "+ed.layers.length+" lớp phụ gộp trên art "+ed.fullW+"×"+ed.fullH+" px";
     updateArtSrcNote(); scheduleRender();
+    try{csOnArtReset()}catch(e){}
     edSetStatus("✓ Đã áp dụng: toàn bộ "+ed.layers.length+" lớp phụ + nền đã kết xuất ở độ phân giải đầy đủ "+out.width+" × "+out.height+" px và trở thành art chính — bước 5 (làm đẹp / vẽ nét), bước 6 (mockup) và bước 7 (xuất file) giờ dùng bản này. Cổng xuất file ở bước 7 vẫn theo kết quả kiểm tra watermark như cũ.","ok");
   }catch(err){
     edSetStatus("✗ Áp dụng không thành công: "+((err&&err.message)||"lỗi không rõ")+" — art chính giữ nguyên, các lớp trong editor vẫn còn để thử lại.","err");
@@ -3191,8 +3471,721 @@ $("btnEdUndo").onclick=function(){
   derivedArt=ed.undoArt; derivedLabel=ed.undoLabel;
   ed.undoArt=null; ed.undoLabel=""; ed.hasUndo=false; $("btnEdUndo").disabled=true;
   updateArtSrcNote(); scheduleRender();
+  try{csOnArtReset()}catch(e){}
   edSetStatus("Đã hoàn tác áp dụng — art chính quay lại đúng bản trước lần áp dụng gần nhất. Các lớp trong editor vẫn giữ nguyên, sửa tiếp rồi áp dụng lại được.","ok");
 };
+
+/* ================= KẾT NỐI GOOGLE DRIVE (LƯU LINK — APP TĨNH, KHÔNG OAUTH) =================
+   Chỉ lưu link + tên gợi nhớ của 2 folder vào localStorage của chính trình duyệt này và mở folder khi bấm nút.
+   Nạp ảnh: trích file ID từ link chia sẻ, dựng URL ảnh trực tiếp; kiểm tra CORS thật bằng cách vẽ thử + đọc pixel
+   trước khi đưa vào pipeline — ảnh bị chặn CORS thì báo rõ và KHÔNG nạp, để tránh khoá canvas lúc xuất file. */
+function driveWire(linkId,nameId,btnId,stateId,key){
+  var data={link:"",name:""};
+  try{var v=localStorage.getItem(key); if(v){var p=JSON.parse(v); if(p){data.link=p.link||""; data.name=p.name||""}}}catch(e){}
+  var li=$(linkId), ni=$(nameId), btn=$(btnId), st=$(stateId);
+  if(!li||!ni||!btn||!st)return;
+  li.value=data.link; ni.value=data.name;
+  function save(){
+    var obj={link:li.value.trim(),name:ni.value.trim()};
+    try{localStorage.setItem(key,JSON.stringify(obj))}catch(e){}
+    btn.disabled=!obj.link;
+    st.textContent=obj.link?("Đã lưu trong trình duyệt này: "+(obj.name?("“"+obj.name+"” — "):"")+obj.link):"Chưa lưu link nào.";
+  }
+  li.addEventListener("input",save); ni.addEventListener("input",save); save();
+  btn.onclick=function(){var u=li.value.trim(); if(u)window.open(u,"_blank","noopener")};
+}
+driveWire("drvSampleLink","drvSampleName","btnDrvSampleOpen","drvSampleState","studiopod.drive.sampleFolder");
+driveWire("drvProductLink","drvProductName","btnDrvProductOpen","drvProductState","studiopod.drive.productFolder");
+function parseDriveId(s){
+  if(!s)return "";
+  s=String(s).trim();
+  var m=s.match(/\/file\/d\/([-\w]{10,})/)||s.match(/[?&]id=([-\w]{10,})/)||s.match(/\/folders\/([-\w]{10,})/)||s.match(/\/d\/([-\w]{10,})/)||s.match(/^([-\w]{25,})$/);
+  return m?m[1]:"";
+}
+function loadDriveImage(){
+  var st=$("driveImgStatus");
+  var id=parseDriveId($("driveImgLink").value);
+  if(!id){setLibStatus(st,"✗ Không trích được file ID từ link này. Hãy dán link chia sẻ của 1 file ảnh, dạng drive.google.com/file/d/…/view — link folder thì app không tự mở ra xem file bên trong được.","err");return}
+  setLibStatus(st,"Đang nạp ảnh từ Google Drive…","");
+  var candidates=[
+    "https://lh3.googleusercontent.com/d/"+id+"=w4000",
+    "https://drive.google.com/thumbnail?id="+id+"&sz=w4000",
+    "https://drive.usercontent.google.com/download?id="+id+"&export=view"
+  ];
+  var idx=0;
+  function corsBlocked(){
+    setLibStatus(st,"✗ Ảnh tải về được nhưng Google không cấp quyền CORS cho ảnh này — nếu vẫn đưa vào app, trình duyệt sẽ khoá canvas và KHÔNG xuất được file in ở bước 7. Cách xử lý: mở ảnh trên Drive, tải file về máy / điện thoại, rồi nạp lại bằng kéo thả hoặc nút “Chọn ảnh” ở bước 1 — cách đó không bị chặn.","err");
+  }
+  function tryNext(){
+    if(idx>=candidates.length){
+      var probe=new Image();
+      probe.onload=function(){corsBlocked()};
+      probe.onerror=function(){setLibStatus(st,"✗ Không nạp được ảnh từ Drive. Kiểm tra lại: file đã bật chia sẻ “Bất kỳ ai có link đều xem được” chưa, và link có đúng là link của 1 file ảnh không. Vẫn không được thì tải ảnh về máy rồi kéo thả / bấm “Chọn ảnh” như cũ.","err")};
+      probe.src="https://drive.google.com/thumbnail?id="+id+"&sz=w1000";
+      return;
+    }
+    var url=candidates[idx++]; var img=new Image(); img.crossOrigin="anonymous";
+    img.onload=function(){
+      try{
+        var t=mkCanvas(8,8), tx=t.getContext("2d");
+        tx.drawImage(img,0,0,8,8); tx.getImageData(0,0,1,1);
+      }catch(e){corsBlocked(); return}
+      setImage(img,"drive-"+id.slice(0,10));
+      setLibStatus(st,"✓ Đã nạp ảnh từ Google Drive ("+img.width+" × "+img.height+" px) và kiểm tra CORS đạt — dùng được cho mọi bước kể cả xuất file. Sang bước 2 để cắt vùng in.","ok");
+    };
+    img.onerror=function(){tryNext()};
+    img.src=url;
+  }
+  tryNext();
+}
+$("btnDriveImg").onclick=loadDriveImage;
+$("driveImgLink").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();loadDriveImage()}});
+
+/* ================= XƯỞNG SÁNG TẠO ART (CANVAS 2D THUẦN — KHÔNG API, KHÔNG AI TẠO SINH) =================
+   Mô hình: xưởng giữ 1 art gốc (base) + danh sách thao tác (ops). Bản xem trước = base thu nhỏ rồi chạy lại ops;
+   "Áp dụng vào art" = chạy lại ops trên base ở độ phân giải đầy đủ rồi đặt làm derivedArt (cùng cơ chế upscale / editor lớp).
+   Mọi kích thước trong ops lưu theo tỉ lệ bề ngang canvas nên khi phóng lên độ phân giải thật vẫn đúng tỉ lệ. */
+var CS_MAX_PREVIEW=880;
+var cs={baseFull:null,baseKind:"art",blankW:2000,blankH:2500,ops:[],redo:[],undoArt:null,undoLabel:"",hasUndoArt:false,fontsTried:false,pickMode:false,kalSeg:4,bgMode:"transparent",patDrop:false,
+  draw:{on:false,strokes:[],redoStrokes:[],stickers:[],cur:null,sel:-1,drag:null,erase:false}};
+function csSetStatus(m,k){setLibStatus($("csStatus"),m,k)}
+function csOnArtReset(){
+  if(typeof cs==="undefined"||!cs)return;
+  try{
+    cs.hasUndoArt=false; cs.undoArt=null; cs.undoLabel="";
+    var b=$("btnCsUndoApply"); if(b)b.disabled=true;
+    if(cs.baseFull&&cs.baseKind==="art")csSetStatus("Art chính vừa thay đổi ở bước khác — bấm “Nạp art hiện tại vào xưởng” để xưởng dùng đúng bản art mới nhất trước khi áp dụng tiếp.","");
+  }catch(e){}
+}
+function csHexRgb(hex){var n=parseInt(String(hex||"#000000").replace("#",""),16);return{r:(n>>16)&255,g:(n>>8)&255,b:n&255}}
+function csDims(){
+  if(cs.baseKind==="blank")return{w:cs.blankW,h:cs.blankH};
+  if(cs.baseFull)return{w:cs.baseFull.width,h:cs.baseFull.height};
+  return null;
+}
+function csBaseCanvas(){
+  if(cs.baseKind==="blank")return mkCanvas(cs.blankW,cs.blankH);
+  return cs.baseFull?copyCanvas(cs.baseFull):null;
+}
+function csEnsureBase(){
+  if(cs.baseKind==="art"&&!cs.baseFull){
+    if(srcImg){cs.baseFull=getArtCanvas(1000000000); return true}
+    return false;
+  }
+  return true;
+}
+function csNeedArt(statusEl){
+  if(cs.baseKind==="art"&&!csEnsureBase()){setLibStatus(statusEl,"Chưa có art trong xưởng — bấm “Nạp art hiện tại vào xưởng” ở đầu panel, hoặc tạo art mới từ chữ ở nhóm 1 trước.","err");return false}
+  return true;
+}
+/* ---------- chạy 1 thao tác lên canvas (k = tỉ lệ so với độ phân giải đầy đủ) ---------- */
+function csApplyOp(c,op,k){
+  switch(op.t){
+    case "text": csPaintText(c.getContext("2d"),c.width,c.height,op); return c;
+    case "draw": {var lay=mkCanvas(c.width,c.height); csPaintDrawLayer(lay.getContext("2d"),lay.width,lay.height,op); c.getContext("2d").drawImage(lay,0,0); return c}
+    case "pattern": return csOpPattern(c,op);
+    case "kaleido": return csOpKaleido(c,op);
+    case "halftone": return csOpHalftone(c,op);
+    case "duotone": csOpDuotone(c,op); return c;
+    case "swap": csOpSwap(c,op); return c;
+    case "frame": csPaintFrame(c.getContext("2d"),c.width,c.height,op); return c;
+    case "bg": {var out=mkCanvas(c.width,c.height); var x=out.getContext("2d"); csPaintBg(x,out.width,out.height,op); x.drawImage(c,0,0); return out}
+  }
+  return c;
+}
+function csCompose(maxDim){
+  var base=csBaseCanvas(); if(!base)return null;
+  var fw=base.width, c=base;
+  if(maxDim&&Math.max(fw,base.height)>maxDim){
+    var s=maxDim/Math.max(fw,base.height);
+    c=mkCanvas(Math.max(1,Math.round(fw*s)),Math.max(1,Math.round(base.height*s)));
+    var x=c.getContext("2d"); x.imageSmoothingEnabled=true; x.imageSmoothingQuality="high";
+    x.drawImage(base,0,0,c.width,c.height);
+  }
+  var k=c.width/fw;
+  for(var i=0;i<cs.ops.length;i++)c=csApplyOp(c,cs.ops[i],k);
+  return c;
+}
+function csRender(){
+  var cv=$("csCanvas"); if(!cv)return;
+  var c=csCompose(CS_MAX_PREVIEW);
+  if(!c){
+    cv.width=880; cv.height=520;
+    var x=cv.getContext("2d"); x.fillStyle="#e9e7e0"; x.fillRect(0,0,cv.width,cv.height);
+    x.fillStyle="#8a887e"; x.font="600 15px 'Be Vietnam Pro'"; x.textAlign="center";
+    x.fillText("Nạp art hiện tại vào xưởng, hoặc tạo art mới từ chữ ở nhóm 1",cv.width/2,cv.height/2);
+  }else{
+    cv.width=c.width; cv.height=c.height;
+    cv.getContext("2d").drawImage(c,0,0);
+    var d=csDims();
+    if(d)$("csInfo").textContent="Bản xem trước "+c.width+" × "+c.height+" px — art gốc "+d.w+" × "+d.h+" px. “Áp dụng vào art” sẽ kết xuất lại toàn bộ thao tác ở đúng "+d.w+" × "+d.h+" px.";
+  }
+  csSyncDraw(); csUpdateUndoBtns();
+}
+function csPushOp(op){cs.ops.push(op); cs.redo=[]; csRender()}
+function csUpdateUndoBtns(){
+  var u=$("btnCsUndo"), r=$("btnCsRedo");
+  if(u)u.disabled=!cs.ops.length;
+  if(r)r.disabled=!cs.redo.length;
+}
+$("btnCsUndo").onclick=function(){if(!cs.ops.length)return; cs.redo.push(cs.ops.pop()); csRender()};
+$("btnCsRedo").onclick=function(){if(!cs.redo.length)return; cs.ops.push(cs.redo.pop()); csRender()};
+$("btnCsLoad").onclick=function(){
+  if(!srcImg){csSetStatus("Chưa có ảnh nào — nạp ảnh ở bước 1 và cắt ở bước 2 trước. Muốn làm từ đầu, dùng nhóm 1 để tạo art mới từ chữ.","err");return}
+  cs.baseFull=getArtCanvas(1000000000); cs.baseKind="art"; cs.ops=[]; cs.redo=[]; csClearDraw(false);
+  csRender();
+  csSetStatus("Đã nạp art hiện tại ("+cs.baseFull.width+" × "+cs.baseFull.height+" px) vào xưởng. Dùng 4 nhóm công cụ bên dưới để sáng tạo, xong bấm “Áp dụng vào art”.","ok");
+};
+function csOpsSummary(){
+  var names={text:"chữ",draw:"vẽ tay/sticker",pattern:"pattern",kaleido:"kaleidoscope",halftone:"halftone",duotone:"duotone",swap:"thay màu",frame:"khung viền",bg:"nền"};
+  var seen=[]; cs.ops.forEach(function(o){var n=names[o.t]||o.t; if(seen.indexOf(n)<0)seen.push(n)});
+  return seen.join(", ");
+}
+$("btnCsApply").onclick=function(){
+  if(!cs.ops.length){csSetStatus("Xưởng chưa có thao tác nào để áp dụng — tạo chữ, vẽ, áp hiệu ứng hoặc ghép nền trước đã.","err");return}
+  var btn=this; btn.disabled=true; var old=btn.textContent; btn.textContent="Đang kết xuất độ phân giải đầy đủ…";
+  setTimeout(function(){
+    try{
+      var full=csCompose(0);
+      if(!full)throw new Error("chưa có art gốc");
+      cs.undoArt=derivedArt; cs.undoLabel=derivedLabel; cs.hasUndoArt=true; $("btnCsUndoApply").disabled=false;
+      derivedArt=full;
+      derivedLabel="bản Xưởng sáng tạo art ("+cs.ops.length+" thao tác: "+csOpsSummary()+")";
+      try{edOnArtReset()}catch(e){}
+      updateArtSrcNote(); scheduleRender();
+      csSetStatus("✓ Đã áp dụng: xưởng đã kết xuất "+full.width+" × "+full.height+" px và đặt làm art chính — bước 5 làm đẹp, bước 6 mockup và bước 7 xuất file giờ dùng bản này.","ok");
+    }catch(err){
+      csSetStatus("✗ Áp dụng không thành công ("+((err&&err.message)||"lỗi không rõ")+") — art chính giữ nguyên.","err");
+    }
+    btn.disabled=false; btn.textContent=old;
+  },40);
+};
+$("btnCsUndoApply").onclick=function(){
+  if(!cs.hasUndoArt)return;
+  derivedArt=cs.undoArt; derivedLabel=cs.undoLabel;
+  cs.undoArt=null; cs.undoLabel=""; cs.hasUndoArt=false; $("btnCsUndoApply").disabled=true;
+  try{edOnArtReset()}catch(e){}
+  updateArtSrcNote(); scheduleRender();
+  csSetStatus("Đã hoàn tác áp dụng — art chính quay lại đúng bản trước lần áp dụng gần nhất của xưởng.","ok");
+};
+/* ---------- NHÓM 1 · CHỮ ---------- */
+var CS_GFONTS=["Anton","Bangers","Bebas Neue","Dancing Script","Lobster","Oswald","Pacifico","Playfair Display"];
+function csIsGoogleFont(f){return CS_GFONTS.indexOf(f)>=0}
+function csEnsureFonts(){
+  if(cs.fontsTried)return Promise.resolve(false);
+  cs.fontsTried=true;
+  var l=document.createElement("link"); l.rel="stylesheet";
+  l.href="https://fonts.googleapis.com/css2?family=Anton&family=Bangers&family=Bebas+Neue&family=Dancing+Script:wght@700&family=Lobster&family=Oswald:wght@600;700&family=Pacifico&family=Playfair+Display:wght@800;900&display=swap";
+  document.head.appendChild(l);
+  if(document.fonts&&document.fonts.load){
+    return Promise.all(CS_GFONTS.map(function(f){return document.fonts.load("40px '"+f+"'").catch(function(){})})).then(function(){return true});
+  }
+  return Promise.resolve(false);
+}
+function csPaintText(x,W,H,op){
+  var sizePx=Math.max(6,op.sizeRel*W);
+  x.save();
+  x.font="800 "+sizePx+"px '"+op.font+"','Be Vietnam Pro',sans-serif";
+  x.textAlign="center"; x.textBaseline="middle";
+  if(op.shadow!=="none"){
+    x.shadowColor=op.shadowC;
+    if(op.shadow==="soft"){x.shadowBlur=sizePx*0.16; x.shadowOffsetX=0; x.shadowOffsetY=sizePx*0.06}
+    else{x.shadowBlur=0; x.shadowOffsetX=sizePx*0.055; x.shadowOffsetY=sizePx*0.085}
+  }
+  var lsPx=op.letterRel*W;
+  function lineW(s){var w=0; for(var i=0;i<s.length;i++)w+=x.measureText(s[i]).width; if(s.length>1)w+=lsPx*(s.length-1); return w}
+  function drawCh(ch,px,py,rot){
+    x.save(); x.translate(px,py); if(rot)x.rotate(rot);
+    if(op.strokeRel>0){x.lineWidth=Math.max(1,op.strokeRel*W); x.lineJoin="round"; x.strokeStyle=op.strokeC; x.strokeText(ch,0,0)}
+    x.fillStyle=op.fill; x.fillText(ch,0,0);
+    x.restore();
+  }
+  var lines=String(op.text||"").split("\n");
+  var lineH=sizePx*op.lineH;
+  var startY=H/2-(lines.length*lineH)/2+lineH/2;
+  lines.forEach(function(s,li){
+    if(!s)return;
+    var cy=startY+li*lineH, lw=lineW(s), i, wch;
+    if(!op.curve){
+      var acc=W/2-lw/2;
+      for(i=0;i<s.length;i++){wch=x.measureText(s[i]).width; drawCh(s[i],acc+wch/2,cy,0); acc+=wch+lsPx}
+    }else{
+      var sgn=op.curve>0?1:-1;
+      var A=Math.min(1.35,Math.abs(op.curve)/100*1.35); if(A<0.06)A=0.06;
+      var R=Math.max(lw,(lw/2)/Math.sin(A));
+      var acc2=-lw/2;
+      for(i=0;i<s.length;i++){
+        wch=x.measureText(s[i]).width;
+        var sm=acc2+wch/2, th=sm/R;
+        drawCh(s[i], W/2+R*Math.sin(th), cy+sgn*(R*Math.cos(A)-R*Math.cos(th)), sgn*th);
+        acc2+=wch+lsPx;
+      }
+    }
+  });
+  x.restore();
+}
+function csTextOpFromUi(){
+  var cv=$("csCanvas"); var W=(cv&&cv.width)||CS_MAX_PREVIEW;
+  return {t:"text", text:$("csText").value||"YOUR TEXT", font:$("csFont").value,
+    sizeRel:parseFloat($("csSize").value)/W, fill:$("csFill").value,
+    strokeC:$("csStrokeC").value, strokeRel:parseFloat($("csStrokeW").value)/W,
+    shadow:$("csShadow").value, shadowC:$("csShadowC").value,
+    curve:parseFloat($("csCurve").value), lineH:parseFloat($("csLineH").value)/100,
+    letterRel:parseFloat($("csLetter").value)/W};
+}
+var csTextPrevTimer=null;
+function csRenderTextPrev(){
+  var cv=$("csTextPrev"); if(!cv)return;
+  var op=csTextOpFromUi();
+  var sizePx=parseFloat($("csSize").value);
+  var lines=String(op.text||"").split("\n");
+  cv.height=Math.max(90,Math.round(lines.length*sizePx*op.lineH+36));
+  var x=cv.getContext("2d"); x.clearRect(0,0,cv.width,cv.height);
+  var op2={}; for(var kk in op)op2[kk]=op[kk];
+  op2.sizeRel=sizePx/cv.width; op2.strokeRel=parseFloat($("csStrokeW").value)/cv.width; op2.letterRel=parseFloat($("csLetter").value)/cv.width;
+  csPaintText(x,cv.width,cv.height,op2);
+}
+function csScheduleTextPrev(){clearTimeout(csTextPrevTimer); csTextPrevTimer=setTimeout(csRenderTextPrev,60)}
+[["csSize","csSizeVal",""],["csStrokeW","csStrokeWVal",""],["csCurve","csCurveVal",""],["csLineH","csLineHVal","%"],["csLetter","csLetterVal",""]].forEach(function(pair){
+  $(pair[0]).addEventListener("input",function(){$(pair[1]).textContent=this.value+pair[2]; csScheduleTextPrev()});
+});
+["csText","csFill","csStrokeC","csShadow","csShadowC"].forEach(function(id){$(id).addEventListener("input",csScheduleTextPrev)});
+$("csFont").addEventListener("change",function(){
+  if(csIsGoogleFont(this.value)){
+    setLibStatus($("csTextStatus"),"Đang nạp font “"+this.value+"” từ Google Fonts…","");
+    csEnsureFonts().then(function(){csRenderTextPrev(); setLibStatus($("csTextStatus"),"Đã sẵn sàng font “"+$("csFont").value+"” (nếu mạng chặn Google Fonts, bản xem trước đang dùng font dự phòng gần nhất).","")});
+  }
+  csScheduleTextPrev();
+});
+$("btnCsTextNew").onclick=function(){
+  csEnsureFonts().then(function(){
+    var op=csTextOpFromUi();
+    if(cs.baseFull){cs.blankW=cs.baseFull.width; cs.blankH=cs.baseFull.height}
+    else if(srcImg){var a=getArtCanvas(1000000000); cs.blankW=a.width; cs.blankH=a.height}
+    cs.baseKind="blank"; cs.ops=[op]; cs.redo=[]; csClearDraw(false);
+    csRender();
+    setLibStatus($("csTextStatus"),"✓ Đã tạo art mới từ chữ trên nền trong suốt "+cs.blankW+" × "+cs.blankH+" px — xem ở bản xem trước đầu panel. Bấm “Áp dụng vào art” để đưa thành art chính.","ok");
+  });
+};
+$("btnCsTextOver").onclick=function(){
+  csEnsureFonts().then(function(){
+    if(!csNeedArt($("csTextStatus")))return;
+    csPushOp(csTextOpFromUi());
+    setLibStatus($("csTextStatus"),"✓ Đã phủ chữ lên bản xem trước. Chưa ưng thì bấm “Hoàn tác” ở đầu panel.","ok");
+  });
+};
+/* ---------- NHÓM 2 · VẼ TAY & STICKER ---------- */
+function csShapePath(x,shape,size){
+  var r=size/2, i; x.beginPath();
+  if(shape==="star"){
+    for(i=0;i<10;i++){var ang=-Math.PI/2+i*Math.PI/5, rad=i%2?r*0.45:r; var px=Math.cos(ang)*rad, py=Math.sin(ang)*rad; if(i===0)x.moveTo(px,py); else x.lineTo(px,py)} x.closePath();
+  }else if(shape==="heart"){
+    x.moveTo(0,r*0.85);
+    x.bezierCurveTo(-r*1.25,r*0.1,-r*0.72,-r*0.95,0,-r*0.32);
+    x.bezierCurveTo(r*0.72,-r*0.95,r*1.25,r*0.1,0,r*0.85);
+    x.closePath();
+  }else if(shape==="bolt"){
+    var pts=[[0.18,-1],[-0.55,0.18],[-0.08,0.18],[-0.22,1],[0.58,-0.22],[0.1,-0.22]];
+    pts.forEach(function(p,j){if(j===0)x.moveTo(p[0]*r,p[1]*r); else x.lineTo(p[0]*r,p[1]*r)}); x.closePath();
+  }else if(shape==="smiley"){
+    x.arc(0,0,r*0.92,0,7);
+  }else if(shape==="crown"){
+    var cp=[[-0.95,0.75],[-0.95,-0.45],[-0.5,0.05],[0,-0.8],[0.5,0.05],[0.95,-0.45],[0.95,0.75]];
+    cp.forEach(function(p,j){if(j===0)x.moveTo(p[0]*r,p[1]*r); else x.lineTo(p[0]*r,p[1]*r)}); x.closePath();
+  }else if(shape==="arrow"){
+    var ap=[[-0.95,-0.28],[-0.25,-0.28],[-0.25,-0.62],[0.95,0],[-0.25,0.62],[-0.25,0.28],[-0.95,0.28]];
+    ap.forEach(function(p,j){if(j===0)x.moveTo(p[0]*r,p[1]*r); else x.lineTo(p[0]*r,p[1]*r)}); x.closePath();
+  }else if(shape==="bubble"){
+    var w=r*0.95, h=r*0.72, rad=r*0.28;
+    x.moveTo(-w+rad,-h); x.lineTo(w-rad,-h); x.arc(w-rad,-h+rad,rad,-Math.PI/2,0);
+    x.lineTo(w,h-rad); x.arc(w-rad,h-rad,rad,0,Math.PI/2);
+    x.lineTo(-r*0.02,h); x.lineTo(-r*0.34,h+r*0.42); x.lineTo(-r*0.44,h);
+    x.lineTo(-w+rad,h); x.arc(-w+rad,h-rad,rad,Math.PI/2,Math.PI);
+    x.lineTo(-w,-h+rad); x.arc(-w+rad,-h+rad,rad,Math.PI,Math.PI*1.5);
+    x.closePath();
+  }else{ x.arc(0,0,r,0,7) }
+}
+function csPaintSticker(x,W,H,st){
+  var px=st.cx*W, py=st.cy*H, size=Math.max(6,st.size*W), r=size/2;
+  x.save(); x.translate(px,py); x.rotate((st.rot||0)*Math.PI/180);
+  csShapePath(x,st.shape,size);
+  x.fillStyle=st.color; x.fill();
+  if(st.shape==="smiley"){
+    x.fillStyle="rgba(20,20,18,.72)";
+    x.beginPath(); x.arc(-r*0.34,-r*0.18,r*0.1,0,7); x.arc(r*0.34,-r*0.18,r*0.1,0,7); x.fill();
+    x.strokeStyle="rgba(20,20,18,.72)"; x.lineWidth=Math.max(1,size*0.045); x.lineCap="round";
+    x.beginPath(); x.arc(0,r*0.02,r*0.52,Math.PI*0.2,Math.PI*0.8); x.stroke();
+  }
+  if(st.shape==="bubble"){
+    x.fillStyle="rgba(255,255,255,.85)";
+    x.beginPath(); x.ellipse(0,-size*0.05,size*0.29,size*0.19,0,0,7); x.fill();
+  }
+  x.restore();
+}
+function csPaintDrawLayer(x,W,H,op){
+  var layer=mkCanvas(W,H), lx=layer.getContext("2d");
+  (op.strokes||[]).forEach(function(st){
+    if(!st.pts||!st.pts.length)return;
+    lx.save();
+    lx.globalCompositeOperation=st.erase?"destination-out":"source-over";
+    lx.strokeStyle=st.color; lx.fillStyle=st.color;
+    lx.lineWidth=Math.max(1,st.sizeRel*W); lx.lineJoin="round"; lx.lineCap="round";
+    if(st.pts.length===1){
+      lx.beginPath(); lx.arc(st.pts[0][0]*W,st.pts[0][1]*H,Math.max(0.5,st.sizeRel*W/2),0,7); lx.fill();
+    }else{
+      lx.beginPath();
+      st.pts.forEach(function(p,i){var px=p[0]*W, py=p[1]*H; if(i===0)lx.moveTo(px,py); else lx.lineTo(px,py)});
+      lx.stroke();
+    }
+    lx.restore();
+  });
+  x.drawImage(layer,0,0);
+  (op.stickers||[]).forEach(function(st){csPaintSticker(x,W,H,st)});
+}
+function csSyncDraw(){
+  var dc=$("csDrawCanvas"), pc=$("csCanvas");
+  if(!dc||!pc)return;
+  if(dc.width!==pc.width||dc.height!==pc.height){dc.width=pc.width; dc.height=pc.height}
+  dc.style.pointerEvents=cs.draw.on?"auto":"none";
+  csDrawRender();
+}
+function csDrawRender(){
+  var dc=$("csDrawCanvas"); if(!dc)return;
+  var x=dc.getContext("2d"); x.clearRect(0,0,dc.width,dc.height);
+  var op={strokes:cs.draw.cur?cs.draw.strokes.concat([cs.draw.cur]):cs.draw.strokes, stickers:cs.draw.stickers};
+  csPaintDrawLayer(x,dc.width,dc.height,op);
+  var st=cs.draw.stickers[cs.draw.sel];
+  if(st&&cs.draw.on){
+    var px=st.cx*dc.width, py=st.cy*dc.height, size=Math.max(6,st.size*dc.width), r=size/2;
+    var rot=(st.rot||0)*Math.PI/180;
+    function rotP(lx,ly){return[px+lx*Math.cos(rot)-ly*Math.sin(rot), py+lx*Math.sin(rot)+ly*Math.cos(rot)]}
+    var corners=[rotP(-r,-r),rotP(r,-r),rotP(r,r),rotP(-r,r)];
+    x.save(); x.strokeStyle="#ff4d0d"; x.lineWidth=2; x.setLineDash([6,4]);
+    x.beginPath(); corners.forEach(function(p,i){if(i===0)x.moveTo(p[0],p[1]); else x.lineTo(p[0],p[1])}); x.closePath(); x.stroke();
+    x.setLineDash([]);
+    var rp=rotP(r,r);
+    x.fillStyle="#fff"; x.beginPath(); x.rect(rp[0]-7,rp[1]-7,14,14); x.fill(); x.stroke();
+    var tc=rotP(0,-r), tp=rotP(0,-r-24);
+    x.beginPath(); x.moveTo(tc[0],tc[1]); x.lineTo(tp[0],tp[1]); x.stroke();
+    x.fillStyle="#ff4d0d"; x.beginPath(); x.arc(tp[0],tp[1],7,0,7); x.fill();
+    x.restore();
+  }
+}
+function csClearDraw(rerender){
+  cs.draw.strokes=[]; cs.draw.redoStrokes=[]; cs.draw.stickers=[]; cs.draw.cur=null; cs.draw.sel=-1; cs.draw.drag=null;
+  if(rerender)csDrawRender();
+}
+function csDrawPos(e){
+  var dc=$("csDrawCanvas"), r=dc.getBoundingClientRect();
+  return{x:(e.clientX-r.left)/r.width, y:(e.clientY-r.top)/r.height,
+    px:(e.clientX-r.left)*dc.width/r.width, py:(e.clientY-r.top)*dc.height/r.height};
+}
+function csStickerHit(p){
+  var dc=$("csDrawCanvas");
+  for(var i=cs.draw.stickers.length-1;i>=0;i--){
+    var st=cs.draw.stickers[i];
+    var cxp=st.cx*dc.width, cyp=st.cy*dc.height, size=Math.max(6,st.size*dc.width), r=size/2;
+    var rot=-(st.rot||0)*Math.PI/180;
+    var dx=p.px-cxp, dy=p.py-cyp;
+    var lx=dx*Math.cos(rot)-dy*Math.sin(rot), ly=dx*Math.sin(rot)+dy*Math.cos(rot);
+    if(Math.abs(lx)<=r&&Math.abs(ly)<=r)return i;
+  }
+  return -1;
+}
+function csHandleHit(p){
+  var st=cs.draw.stickers[cs.draw.sel]; if(!st)return "";
+  var dc=$("csDrawCanvas");
+  var cxp=st.cx*dc.width, cyp=st.cy*dc.height, size=Math.max(6,st.size*dc.width), r=size/2;
+  var rot=(st.rot||0)*Math.PI/180;
+  function rotP(lx,ly){return[cxp+lx*Math.cos(rot)-ly*Math.sin(rot), cyp+lx*Math.sin(rot)+ly*Math.cos(rot)]}
+  var rp=rotP(r,r); if(Math.hypot(p.px-rp[0],p.py-rp[1])<18)return "resize";
+  var tp=rotP(0,-r-24); if(Math.hypot(p.px-tp[0],p.py-tp[1])<18)return "rotate";
+  return "";
+}
+var csDc=$("csDrawCanvas");
+if(csDc){
+  csDc.addEventListener("pointerdown",function(e){
+    if(!cs.draw.on)return;
+    e.preventDefault();
+    try{csDc.setPointerCapture(e.pointerId)}catch(err){}
+    var p=csDrawPos(e);
+    var h=csHandleHit(p);
+    if(h&&cs.draw.sel>=0){
+      var st=cs.draw.stickers[cs.draw.sel];
+      cs.draw.drag={mode:h, idx:cs.draw.sel, cxp:st.cx*csDc.width, cyp:st.cy*csDc.height,
+        startSize:st.size, startDist:Math.max(8,Math.hypot(p.px-st.cx*csDc.width,p.py-st.cy*csDc.height)),
+        startAngle:Math.atan2(p.py-st.cy*csDc.height,p.px-st.cx*csDc.width), startRot:st.rot||0};
+      return;
+    }
+    var hit=csStickerHit(p);
+    if(hit>=0){
+      cs.draw.sel=hit;
+      var st2=cs.draw.stickers[hit];
+      cs.draw.drag={mode:"move", idx:hit, offX:p.x-st2.cx, offY:p.y-st2.cy};
+      csDrawRender(); return;
+    }
+    cs.draw.sel=-1;
+    cs.draw.cur={color:cs.draw.erase?"rgba(0,0,0,1)":$("csBrushC").value, sizeRel:parseFloat($("csBrushSize").value)/csDc.width, erase:cs.draw.erase, pts:[[p.x,p.y]]};
+    cs.draw.drag={mode:"stroke"};
+    csDrawRender();
+  });
+  csDc.addEventListener("pointermove",function(e){
+    var d=cs.draw.drag; if(!d)return;
+    var p=csDrawPos(e), st;
+    if(d.mode==="stroke"&&cs.draw.cur){
+      var pts=cs.draw.cur.pts, last=pts[pts.length-1];
+      if(Math.hypot(p.x-last[0],p.y-last[1])>0.0015){pts.push([p.x,p.y]); csDrawRender()}
+    }else if(d.mode==="move"){
+      st=cs.draw.stickers[d.idx]; if(st){st.cx=clamp(p.x-d.offX,0,1); st.cy=clamp(p.y-d.offY,0,1); csDrawRender()}
+    }else if(d.mode==="resize"){
+      st=cs.draw.stickers[d.idx]; if(st){var dist=Math.hypot(p.px-d.cxp,p.py-d.cyp); st.size=clamp(d.startSize*dist/d.startDist,0.02,1.2); csDrawRender()}
+    }else if(d.mode==="rotate"){
+      st=cs.draw.stickers[d.idx]; if(st){var ang=Math.atan2(p.py-d.cyp,p.px-d.cxp); st.rot=d.startRot+(ang-d.startAngle)*180/Math.PI; csDrawRender()}
+    }
+  });
+  function csDrawEnd(){
+    if(cs.draw.cur){cs.draw.strokes.push(cs.draw.cur); cs.draw.cur=null; cs.draw.redoStrokes=[]}
+    cs.draw.drag=null; csDrawRender();
+  }
+  csDc.addEventListener("pointerup",csDrawEnd);
+  csDc.addEventListener("pointercancel",csDrawEnd);
+}
+$("btnCsDrawMode").onclick=function(){
+  cs.draw.on=!cs.draw.on;
+  this.textContent="Chế độ vẽ: "+(cs.draw.on?"Đang bật":"Đang tắt");
+  this.classList.toggle("on",cs.draw.on);
+  csSyncDraw();
+  setLibStatus($("csDrawStatus"),cs.draw.on?"Chế độ vẽ đang bật — vẽ trực tiếp lên bản xem trước, hoặc bấm 1 hình bên dưới để chèn sticker rồi kéo / đổi cỡ / xoay.":"Chế độ vẽ đã tắt — nét vẽ & sticker vẫn giữ trên lớp vẽ, bấm “Ghép…” để đưa vào bản xem trước.","");
+};
+$("btnCsEraser").onclick=function(){
+  cs.draw.erase=!cs.draw.erase;
+  this.classList.toggle("on",cs.draw.erase);
+  this.textContent=cs.draw.erase?"Tẩy: Đang bật":"Tẩy";
+};
+$("csBrushSize").addEventListener("input",function(){$("csBrushSizeVal").textContent=this.value});
+$("btnCsStrokeUndo").onclick=function(){var s=cs.draw.strokes.pop(); if(s){cs.draw.redoStrokes.push(s); csDrawRender()}};
+$("btnCsStrokeRedo").onclick=function(){var s=cs.draw.redoStrokes.pop(); if(s){cs.draw.strokes.push(s); csDrawRender()}};
+$("btnCsDrawClear").onclick=function(){csClearDraw(true)};
+Array.prototype.forEach.call(document.querySelectorAll("#csShapeRow .cs-shape"),function(b){
+  b.addEventListener("click",function(){
+    if(!cs.draw.on)$("btnCsDrawMode").click();
+    cs.draw.stickers.push({shape:b.getAttribute("data-shape"), cx:0.5, cy:0.5, size:0.22, rot:0, color:$("csStickerC").value});
+    cs.draw.sel=cs.draw.stickers.length-1;
+    csDrawRender();
+    setLibStatus($("csDrawStatus"),"Đã chèn sticker — kéo để dời vị trí, kéo ô vuông ở góc phải dưới để đổi cỡ, kéo chấm tròn cam phía trên để xoay.","ok");
+  });
+});
+$("btnCsStickerDel").onclick=function(){if(cs.draw.sel>=0){cs.draw.stickers.splice(cs.draw.sel,1); cs.draw.sel=-1; csDrawRender()}};
+$("btnCsFlatten").onclick=function(){
+  if(!cs.draw.strokes.length&&!cs.draw.stickers.length){setLibStatus($("csDrawStatus"),"Chưa có nét vẽ hay sticker nào để ghép.","err");return}
+  if(!csNeedArt($("csDrawStatus")))return;
+  var op={t:"draw", strokes:JSON.parse(JSON.stringify(cs.draw.strokes)), stickers:JSON.parse(JSON.stringify(cs.draw.stickers))};
+  csClearDraw(false);
+  csPushOp(op);
+  setLibStatus($("csDrawStatus"),"✓ Đã ghép nét vẽ + sticker vào bản xem trước (tính là 1 thao tác — hoàn tác chung ở đầu panel).","ok");
+};
+/* ---------- NHÓM 3 · HIỆU ỨNG ---------- */
+function csOpPattern(c,op){
+  var n=Math.max(2,op.n|0);
+  var tw=Math.max(8,Math.round(c.width/n)), th=Math.max(8,Math.round(c.height/n));
+  var tile=mkCanvas(tw,th); tile.getContext("2d").drawImage(c,0,0,tw,th);
+  var out=mkCanvas(c.width,c.height), x=out.getContext("2d");
+  for(var ci=0;ci<n;ci++){
+    var off=(op.drop&&ci%2)?Math.round(th/2):0;
+    for(var ri=-1;ri<=n;ri++)x.drawImage(tile,ci*tw,ri*th+off);
+  }
+  return out;
+}
+function csOpKaleido(c,op){
+  var seg=op.seg||4, w=c.width, h=c.height;
+  var out=mkCanvas(w,h), x=out.getContext("2d");
+  var cx=w/2, cy=h/2, r=Math.hypot(w,h)/2+2, a=(Math.PI*2)/seg, t=Math.tan(a/2);
+  for(var i=0;i<seg;i++){
+    x.save(); x.translate(cx,cy); x.rotate(i*a); if(i%2)x.scale(1,-1);
+    x.beginPath(); x.moveTo(0,0); x.lineTo(r,-r*t); x.lineTo(r,r*t); x.closePath(); x.clip();
+    x.drawImage(c,-cx,-cy);
+    x.restore();
+  }
+  return out;
+}
+function csOpHalftone(c,op){
+  var cell=Math.max(3,Math.round(op.cellRel*c.width));
+  var cols=Math.max(1,Math.ceil(c.width/cell)), rows=Math.max(1,Math.ceil(c.height/cell));
+  var tiny=mkCanvas(cols,rows), tx=tiny.getContext("2d");
+  tx.imageSmoothingEnabled=true; tx.drawImage(c,0,0,cols,rows);
+  var data; try{data=tx.getImageData(0,0,cols,rows).data}catch(e){return c}
+  var out=mkCanvas(c.width,c.height), x=out.getContext("2d");
+  x.fillStyle=op.bg; x.fillRect(0,0,out.width,out.height);
+  x.fillStyle=op.ink;
+  for(var j=0;j<rows;j++)for(var i=0;i<cols;i++){
+    var idx=(j*cols+i)*4;
+    var lum=(0.2126*data[idx]+0.7152*data[idx+1]+0.0722*data[idx+2])/255;
+    var dark=(1-lum)*(data[idx+3]/255);
+    if(dark<0.03)continue;
+    var rad=cell*0.62*dark; if(rad<0.4)continue;
+    x.beginPath(); x.arc(i*cell+cell/2,j*cell+cell/2,rad,0,7); x.fill();
+  }
+  return out;
+}
+function csOpDuotone(c,op){
+  var x=c.getContext("2d"), w=c.width, h=c.height, img;
+  try{img=x.getImageData(0,0,w,h)}catch(e){return}
+  var d=img.data, A=csHexRgb(op.dark), B=csHexRgb(op.light);
+  for(var i=0;i<d.length;i+=4){
+    var lum=(0.2126*d[i]+0.7152*d[i+1]+0.0722*d[i+2])/255;
+    d[i]=A.r+(B.r-A.r)*lum; d[i+1]=A.g+(B.g-A.g)*lum; d[i+2]=A.b+(B.b-A.b)*lum;
+  }
+  x.putImageData(img,0,0);
+}
+function csOpSwap(c,op){
+  var x=c.getContext("2d"), w=c.width, h=c.height, img;
+  try{img=x.getImageData(0,0,w,h)}catch(e){return}
+  var d=img.data, F=csHexRgb(op.from), T=csHexRgb(op.to), thr=op.tol/100*441.7;
+  for(var i=0;i<d.length;i+=4){
+    if(d[i+3]<8)continue;
+    var dr=d[i]-F.r, dg=d[i+1]-F.g, db=d[i+2]-F.b;
+    var dist=Math.sqrt(dr*dr+dg*dg+db*db);
+    if(dist<thr){
+      var f=dist<thr*0.55?1:(thr-dist)/(thr*0.45);
+      d[i]+=(T.r-d[i])*f; d[i+1]+=(T.g-d[i+1])*f; d[i+2]+=(T.b-d[i+2])*f;
+    }
+  }
+  x.putImageData(img,0,0);
+}
+function csPaintFrame(x,W,H,op){
+  var wdt=Math.max(2,op.wRel*W);
+  x.save(); x.strokeStyle=op.color; x.fillStyle=op.color;
+  if(op.style==="double"){
+    x.lineWidth=Math.max(1,wdt*0.42); x.strokeRect(wdt*0.7,wdt*0.7,W-wdt*1.4,H-wdt*1.4);
+    x.lineWidth=Math.max(1,wdt*0.2); x.strokeRect(wdt*1.7,wdt*1.7,W-wdt*3.4,H-wdt*3.4);
+  }else if(op.style==="dots"){
+    var step=wdt*2.3, rad=wdt*0.5, inset=wdt*1.1, i2;
+    function dot(px,py){x.beginPath(); x.arc(px,py,rad,0,7); x.fill()}
+    for(i2=inset;i2<=W-inset;i2+=step){dot(i2,inset); dot(i2,H-inset)}
+    for(i2=inset+step;i2<H-inset;i2+=step){dot(inset,i2); dot(W-inset,i2)}
+  }else if(op.style==="zigzag"){
+    x.lineWidth=Math.max(1,wdt*0.4); x.lineJoin="round";
+    var ins=wdt*1.1, amp=wdt*0.8, stp=wdt*2.0, ii;
+    var n1=Math.max(1,Math.floor((W-2*ins)/stp)), n2=Math.max(1,Math.floor((H-2*ins)/stp));
+    x.beginPath();
+    for(ii=0;ii<=n1;ii++){var zx=ins+ii*stp, zy=ins+(ii%2?amp:0); if(ii===0)x.moveTo(zx,zy); else x.lineTo(zx,zy)}
+    for(ii=1;ii<=n2;ii++){x.lineTo(W-ins-(ii%2?amp:0), ins+ii*stp)}
+    for(ii=1;ii<=n1;ii++){x.lineTo(W-ins-ii*stp, H-ins-(ii%2?amp:0))}
+    for(ii=1;ii<=n2;ii++){x.lineTo(ins+(ii%2?amp:0), H-ins-ii*stp)}
+    x.closePath(); x.stroke();
+  }else{
+    x.lineWidth=Math.max(1,wdt*0.45); x.lineCap="round";
+    var ins2=wdt*1.2, arm=wdt*4.2;
+    [[ins2,ins2,1,1],[W-ins2,ins2,-1,1],[W-ins2,H-ins2,-1,-1],[ins2,H-ins2,1,-1]].forEach(function(cn){
+      x.beginPath(); x.moveTo(cn[0]+arm*cn[2],cn[1]); x.lineTo(cn[0],cn[1]); x.lineTo(cn[0],cn[1]+arm*cn[3]); x.stroke();
+      x.beginPath(); x.arc(cn[0]+arm*cn[2]*0.55,cn[1]+arm*cn[3]*0.55,Math.max(1,wdt*0.32),0,7); x.fill();
+    });
+  }
+  x.restore();
+}
+$("btnCsPattern").onclick=function(){
+  if(!csNeedArt($("csFxStatus")))return;
+  csPushOp({t:"pattern", n:parseInt($("csPatN").value,10)||3, drop:cs.patDrop});
+  setLibStatus($("csFxStatus"),"✓ Đã áp dụng pattern lặp "+$("csPatN").value+" × "+$("csPatN").value+(cs.patDrop?" (lệch nửa ô)":"")+" lên bản xem trước.","ok");
+};
+$("btnCsPatDrop").onclick=function(){
+  cs.patDrop=!cs.patDrop;
+  this.classList.toggle("on",cs.patDrop);
+  this.textContent="Lệch nửa ô (half-drop): "+(cs.patDrop?"Bật":"Tắt");
+};
+Array.prototype.forEach.call(document.querySelectorAll(".cs-kal"),function(b){
+  b.addEventListener("click",function(){
+    cs.kalSeg=parseInt(b.getAttribute("data-seg"),10)||4;
+    Array.prototype.forEach.call(document.querySelectorAll(".cs-kal"),function(o){o.classList.toggle("on",o===b)});
+  });
+});
+$("btnCsKaleido").onclick=function(){
+  if(!csNeedArt($("csFxStatus")))return;
+  csPushOp({t:"kaleido", seg:cs.kalSeg});
+  setLibStatus($("csFxStatus"),"✓ Đã áp dụng kaleidoscope "+cs.kalSeg+" cánh.","ok");
+};
+$("csHalfCell").addEventListener("input",function(){$("csHalfCellVal").textContent=this.value});
+$("btnCsHalftone").onclick=function(){
+  if(!csNeedArt($("csFxStatus")))return;
+  var W=($("csCanvas").width)||CS_MAX_PREVIEW;
+  csPushOp({t:"halftone", cellRel:parseFloat($("csHalfCell").value)/W, ink:$("csHalfInk").value, bg:$("csHalfBg").value});
+  setLibStatus($("csFxStatus"),"✓ Đã áp dụng halftone chấm lên bản xem trước.","ok");
+};
+$("btnCsDuotone").onclick=function(){
+  if(!csNeedArt($("csFxStatus")))return;
+  csPushOp({t:"duotone", dark:$("csDuoA").value, light:$("csDuoB").value});
+  setLibStatus($("csFxStatus"),"✓ Đã áp dụng duotone 2 màu lên bản xem trước.","ok");
+};
+$("btnCsPick").onclick=function(){
+  cs.pickMode=!cs.pickMode;
+  this.classList.toggle("on",cs.pickMode);
+  setLibStatus($("csFxStatus"),cs.pickMode?"Đang chọn màu: bấm vào đúng điểm màu cần lấy trên bản xem trước ở đầu panel.":"Đã tắt chế độ chọn màu trên ảnh.","");
+};
+$("csCanvas").addEventListener("pointerdown",function(ev){
+  if(!cs.pickMode)return;
+  var r=this.getBoundingClientRect();
+  var px=clamp(Math.floor((ev.clientX-r.left)*this.width/r.width),0,this.width-1);
+  var py=clamp(Math.floor((ev.clientY-r.top)*this.height/r.height),0,this.height-1);
+  try{
+    var d=this.getContext("2d").getImageData(px,py,1,1).data;
+    var hex=rgbToHex(d[0],d[1],d[2]);
+    $("csSwapFrom").value=hex;
+    setLibStatus($("csFxStatus"),"Đã lấy màu nguồn "+hex.toUpperCase()+" từ bản xem trước — chọn màu đích rồi bấm “Áp dụng thay màu”.","ok");
+  }catch(err){setLibStatus($("csFxStatus"),"Không đọc được màu tại điểm vừa bấm.","err")}
+  cs.pickMode=false; $("btnCsPick").classList.remove("on");
+});
+$("csSwapTol").addEventListener("input",function(){$("csSwapTolVal").textContent=this.value});
+$("btnCsSwap").onclick=function(){
+  if(!csNeedArt($("csFxStatus")))return;
+  csPushOp({t:"swap", from:$("csSwapFrom").value, to:$("csSwapTo").value, tol:parseFloat($("csSwapTol").value)});
+  setLibStatus($("csFxStatus"),"✓ Đã thay màu "+$("csSwapFrom").value.toUpperCase()+" → "+$("csSwapTo").value.toUpperCase()+" (ngưỡng "+$("csSwapTol").value+") trên bản xem trước.","ok");
+};
+$("btnCsFrame").onclick=function(){
+  if(!csNeedArt($("csFxStatus")))return;
+  var W=($("csCanvas").width)||CS_MAX_PREVIEW;
+  csPushOp({t:"frame", style:$("csFrameStyle").value, color:$("csFrameC").value, wRel:parseFloat($("csFrameW").value)/W});
+  setLibStatus($("csFxStatus"),"✓ Đã thêm viền khung trang trí lên bản xem trước.","ok");
+};
+/* ---------- NHÓM 4 · NỀN ---------- */
+function csPaintBg(x,W,H,op){
+  if(op.mode==="transparent")return;
+  if(op.mode==="solid"){x.fillStyle=op.c1; x.fillRect(0,0,W,H); return}
+  var g;
+  if(op.dir==="down")g=x.createLinearGradient(0,0,0,H);
+  else if(op.dir==="diag")g=x.createLinearGradient(0,0,W,H);
+  else if(op.dir==="diagup")g=x.createLinearGradient(0,H,W,0);
+  else if(op.dir==="radial")g=x.createRadialGradient(W/2,H/2,10,W/2,H/2,Math.max(W,H)*0.72);
+  else g=x.createLinearGradient(0,0,W,0);
+  g.addColorStop(0,op.c1); g.addColorStop(1,op.c2);
+  x.fillStyle=g; x.fillRect(0,0,W,H);
+}
+function csBgOpFromUi(){return{t:"bg", mode:cs.bgMode, c1:$("csBgC1").value, c2:$("csBgC2").value, dir:$("csBgDir").value}}
+function csSetBgMode(m){
+  cs.bgMode=m;
+  $("csBgTrans").classList.toggle("on",m==="transparent");
+  $("csBgSolid").classList.toggle("on",m==="solid");
+  $("csBgGrad").classList.toggle("on",m==="gradient");
+  setLibStatus($("csBgStatus"),m==="transparent"?"Đang chọn nền trong suốt.":("Đang chọn nền "+(m==="solid"?"màu trơn":"gradient 2 màu")+" — bấm “Ghép nền vào bản xem trước” để đặt nền phía sau art, hoặc “Tải nền riêng” để lấy file nền trống."),"");
+}
+$("csBgTrans").onclick=function(){csSetBgMode("transparent")};
+$("csBgSolid").onclick=function(){csSetBgMode("solid")};
+$("csBgGrad").onclick=function(){csSetBgMode("gradient")};
+$("btnCsBgApply").onclick=function(){
+  if(cs.bgMode==="transparent"){setLibStatus($("csBgStatus"),"Đang chọn nền trong suốt — không có gì để ghép. Chọn “Màu trơn” hoặc “Gradient 2 màu” trước.","err");return}
+  if(!csNeedArt($("csBgStatus")))return;
+  csPushOp(csBgOpFromUi());
+  setLibStatus($("csBgStatus"),"✓ Đã ghép nền vào bản xem trước — nền nằm phía sau art, chỉ hiện qua vùng trong suốt của art.","ok");
+};
+$("btnCsBgDownload").onclick=function(){
+  if(cs.bgMode==="transparent"){setLibStatus($("csBgStatus"),"Nền trong suốt không có gì để tải riêng — chọn màu trơn hoặc gradient trước.","err");return}
+  var d=csDims()||{w:2000,h:2500};
+  var c=mkCanvas(d.w,d.h);
+  csPaintBg(c.getContext("2d"),c.width,c.height,csBgOpFromUi());
+  if(c.toBlob)c.toBlob(function(b){if(b){downloadBlob(b,"nen-rieng-"+d.w+"x"+d.h+".png"); setLibStatus($("csBgStatus"),"✓ Đã tải file nền riêng "+d.w+" × "+d.h+" px (PNG).","ok")}},"image/png");
+};
+/* khởi tạo xưởng */
+csRender();
+csRenderTextPrev();
 
 /* ================= INIT ================= */
 drawCrop();
