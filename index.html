@@ -114,6 +114,27 @@ footer{max-width:1060px;margin:0 auto;padding:0 18px 26px;color:var(--muted);fon
 .muse-empty{font-size:12.5px;color:#a9a79c;margin:8px 0 0;line-height:1.55}
 .muse-note{margin:12px 0 0;font-size:12px;line-height:1.65;color:#c9c7bc;background:rgba(255,255,255,.06);border-radius:10px;padding:10px 12px}
 .muse-note b{color:#fff}
+.repbox{border-radius:10px;padding:11px 12px;font-size:12.5px;line-height:1.6;margin-top:10px;display:none}
+.repbox.ok{background:#e8f8f1;border:1px solid #bfe9d5;color:#075e3e}
+.repbox.warn{background:#fff8e6;border:1px solid #f0d98a;color:#7a5b00}
+.repbox.bad{background:#fdeceb;border:1px solid #f3c1b8;color:#7a1408}
+.checkrow{display:flex;gap:9px;align-items:flex-start;font-size:13px;line-height:1.55;margin-top:10px;cursor:pointer}
+.checkrow input{width:18px;height:18px;margin-top:2px;flex:none;accent-color:var(--accent)}
+.wm-stage{position:relative;max-width:760px;margin:0 auto;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#e9e7e0}
+.wm-stage canvas{display:block;width:100%;height:auto}
+.wm-stage canvas.abs{position:absolute;inset:0;width:100%;height:100%}
+#wmHeat{pointer-events:none}
+#wmMaskView{touch-action:none;cursor:crosshair}
+.seg.small button{font-size:12.5px;padding:7px 4px}
+.wm-zoomrow{display:flex;gap:12px;align-items:flex-start;margin-top:10px;flex-wrap:wrap}
+.wm-zoomrow canvas{width:180px;height:180px;flex:none;border:1px solid var(--line);border-radius:10px;background:#e9e7e0}
+.wm-zoomrow .hint{flex:1;min-width:200px;margin:0}
+.tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px;margin-top:10px}
+.tool-card{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#faf9f5}
+.tool-card a{font-weight:800;color:var(--dark);text-decoration:none;font-size:13.5px}
+.tool-card a:hover{color:var(--accent)}
+.tool-card small{display:block;color:var(--muted);font-size:12px;line-height:1.5;margin-top:3px}
+.api-tag{display:inline-block;font-size:10.5px;font-weight:800;background:#eceae3;color:var(--dark);border-radius:999px;padding:2px 8px;margin-left:6px;vertical-align:middle}
 </style>
 </head>
 <body>
@@ -122,7 +143,7 @@ footer{max-width:1060px;margin:0 auto;padding:0 18px 26px;color:var(--muted);fon
   <div class="in">
     <div>
       <h1>STUDIO <span>POD 2D</span> — Ảnh khổ lớn tràn mặt trước áo</h1>
-      <p>Một luồng duy nhất: nạp 1 ảnh → cắt 1 vùng lớn tràn mặt trước → sửa art bằng prompt + làm đẹp / vẽ lại nét → xem mockup → xuất <b>1 file 2D khổ lớn 300 DPI</b> gửi nhà in.</p>
+      <p>Một luồng duy nhất: nạp 1 ảnh → cắt 1 vùng lớn tràn mặt trước → <b>kiểm tra &amp; xoá watermark</b> → sửa art bằng prompt + làm đẹp / vẽ lại nét → xem mockup → xuất <b>1 file 2D khổ lớn 300 DPI</b> gửi nhà in.</p>
     </div>
     <div class="badge">1 ảnh · 1 file in</div>
   </div>
@@ -162,9 +183,71 @@ footer{max-width:1060px;margin:0 auto;padding:0 18px 26px;color:var(--muted);fon
     <p class="hint" style="margin-top:10px">Kéo giữa khung để dời vùng cắt · kéo 4 góc cam để phóng to / thu nhỏ (tỉ lệ khung luôn được giữ) · kéo nền ảnh ngoài khung để dời nhanh.</p>
   </section>
 
-  <!-- BƯỚC 3: PROMPT -->
+  <!-- BƯỚC 3: KIỂM TRA & XOÁ WATERMARK -->
+  <section class="panel">
+    <div class="panel-head"><div class="num hot">3</div><div><h2>Kiểm tra &amp; xoá watermark</h2><p>Bước bắt buộc trước khi xuất file — <b>đã tự động hoá toàn bộ phần kiểm tra</b>: app tự quét vùng đã cắt ngay khi bạn cắt xong / đổi khung để tìm dấu hiệu watermark (chữ / logo mờ lặp lại kiểu ảnh stock), tự tô sẵn mặt nạ theo ô nghi ngờ, và tự <b>kiểm tra lại</b> ngay sau khi xoá để xác nhận đã sạch. Xuất file ở bước 7 tự mở / khoá theo kết quả — bạn chỉ cần soi tay và quyết định xoá hay không.</p></div></div>
+    <p class="hint" id="wmFileInfo">Chưa có ảnh — nạp ảnh ở bước 1 và cắt ở bước 2, app sẽ tự quét watermark ngay tại đây.</p>
+
+    <p class="subhead">A · Kiểm tra tự động</p>
+    <div class="row">
+      <button class="btn btn-dark" id="btnWmCheck">Quét lại watermark ngay (thủ công)</button>
+    </div>
+    <p class="hint" style="margin-top:8px">App tự quét mỗi khi vùng cắt ổn định — sau khi nạp ảnh, kéo xong khung cắt, đổi tỉ lệ hay chỉnh bleed — và tự tô mặt nạ theo ô nghi ngờ. Nút trên chỉ để quét lại thủ công khi bạn muốn.</p>
+    <label class="checkrow"><input type="checkbox" id="wmHeatToggle" checked><span>Hiện bản đồ nhiệt — ô đỏ là ô bị đánh dấu nghi ngờ, ô vàng là ô sát ngưỡng (bật / tắt lớp phủ này không thay đổi kết quả quét).</span></label>
+    <div class="repbox" id="wmReport"></div>
+    <div class="notice"><b>Trung thực về độ chính xác:</b> đây là kiểm tra <b>heuristic chạy trên trình duyệt</b> — app chia ảnh thành lưới 6×6, đo mật độ cạnh (Sobel), độ lệch sáng cục bộ, tính lặp chu kỳ (tự tương quan ngang / dọc để bắt hoạ tiết chữ mờ lặp lại) và ưu tiên soi 4 góc + vùng giữa, nơi watermark hay nằm. Đây <b>không phải khẳng định tuyệt đối</b>: vùng art nhiều chi tiết có thể bị đánh dấu nhầm, watermark quá mờ có thể bị sót. Hãy tự soi tay từng ô nghi ngờ bằng chế độ <b>Soi ô</b> bên dưới trước khi quyết định.</div>
+    <div style="height:12px"></div>
+    <div class="wm-stage">
+      <canvas id="wmCanvas" width="760" height="500"></canvas>
+      <canvas id="wmHeat" class="abs" width="760" height="500"></canvas>
+      <canvas id="wmMaskView" class="abs" width="760" height="500"></canvas>
+    </div>
+    <div class="seg small" role="group" aria-label="Chế độ thao tác trên ảnh" style="max-width:420px;margin-top:10px">
+      <button id="wmModePaint" class="on">Tô mặt nạ xoá</button>
+      <button id="wmModeZoom">Soi ô (zoom)</button>
+    </div>
+    <p class="hint" style="margin-top:8px">Chế độ <b>Tô mặt nạ</b>: kéo chuột / ngón tay tô đỏ lên đúng vùng watermark. Chế độ <b>Soi ô</b>: bấm vào 1 ô trong lưới 6×6 để xem phóng to ô đó bên dưới. Thao tác xoá chạy trên bản làm việc tối đa 1800 px của vùng cắt — bản này cũng là bản được dùng cho các bước sau và khi xuất file.</p>
+    <div class="wm-zoomrow">
+      <canvas id="wmZoom" width="260" height="260"></canvas>
+      <p class="hint" id="wmZoomCap">Chưa soi ô nào — chuyển sang chế độ Soi ô rồi bấm vào 1 ô trên ảnh để phóng to kiểm tra có chữ / logo mờ lặp lại hay không.</p>
+    </div>
+
+    <p class="subhead">B · Xoá watermark — chỉ với ảnh bạn sở hữu / có quyền sử dụng</p>
+    <label class="checkrow"><input type="checkbox" id="wmRights"><span><b>Tôi xác nhận ảnh này là của tôi hoặc tôi có quyền sử dụng / chỉnh sửa nó.</b> Chỉ xoá watermark trên ảnh bạn có quyền — nút xoá chỉ bật sau khi tích ô này và đã tô mặt nạ.</span></label>
+    <label class="f" style="max-width:420px">Cỡ cọ tô <span id="wmBrushVal">26</span></label>
+    <input type="range" id="wmBrush" min="6" max="90" value="26" style="max-width:420px">
+    <div class="row" style="margin-top:10px">
+      <button class="btn btn-light" id="btnWmEraseMode">Cọ xoá mặt nạ: Tắt</button>
+      <button class="btn btn-light" id="btnWmUndoMask">Hoàn tác nét tô</button>
+      <button class="btn btn-light" id="btnWmClearMask">Xoá hết mặt nạ</button>
+      <button class="btn btn-outline" id="btnWmAutoMask">Tự tô theo ô nghi ngờ</button>
+    </div>
+    <div style="height:10px"></div>
+    <button class="btn btn-accent btn-block" id="btnWmInpaint" disabled>Xoá vùng đã tô (inpainting)</button>
+    <p class="hint" id="wmStatus" style="margin-top:8px">Cách xoá hoạt động: inpainting diffusion đa tỉ lệ — lan truyền màu / texture từ biên vùng tô vào trong qua nhiều vòng lặp, cộng lấy mẫu texture lân cận và hạt nhiễu mịn để vùng lấp trông tự nhiên. Vùng tô càng sát watermark, kết quả càng sạch. Sau khi xoá, app tự kiểm tra lại ngay — không cần bấm tay.</p>
+    <div id="wmCmpBlock" style="display:none;margin-top:12px">
+      <div class="cmp-wrap">
+        <canvas id="wmCmpA" width="640" height="480"></canvas>
+        <canvas id="wmCmpB" class="top" width="640" height="480"></canvas>
+      </div>
+      <div class="cmp-labels"><span>TRƯỚC XOÁ</span><span>SAU XOÁ</span></div>
+      <label class="f" style="max-width:680px;margin-left:auto;margin-right:auto">Kéo để so sánh trước / sau xoá <span id="wmCmpVal">50%</span></label>
+      <input type="range" id="wmCmpRange" min="0" max="100" value="50" style="max-width:680px;display:block;margin:0 auto">
+    </div>
+
+    <p class="subhead">C · Kiểm tra lại sau khi xoá — bắt buộc trước khi xuất</p>
+    <div class="row">
+      <button class="btn btn-dark" id="btnWmRecheck">Kiểm tra lại trên ảnh đã xoá (thủ công)</button>
+    </div>
+    <p class="hint" style="margin-top:8px">App tự kiểm tra lại ngay khi xoá xong và tự mở / khoá xuất file theo kết quả — nút này chỉ để chạy lại thủ công khi bạn muốn.</p>
+    <div class="repbox" id="wmReport2"></div>
+    <label class="checkrow"><input type="checkbox" id="wmManualConfirm"><span><b>Đã soi tay từng ô, xác nhận không còn watermark và tôi có quyền dùng ảnh này.</b> Tích ô này sẽ mở khoá xuất file kể cả khi máy vẫn còn đánh dấu vài ô (ví dụ chi tiết thật của art bị nhận nhầm là watermark).</span></label>
+    <p class="hint">Xuất file ở bước 7 chỉ mở khi: kiểm tra (lại) cho kết quả <b>0 ô nghi ngờ</b>, hoặc bạn tích xác nhận soi tay ở trên. Kết quả kiểm tra trước / sau kèm thời gian sẽ được ghi vào file <b>.txt</b> tải kèm file in.</p>
+  </section>
+
+  <!-- BƯỚC 4: PROMPT -->
   <section class="panel prompt-panel">
-    <div class="panel-head"><div class="num hot">3</div><div><h2>Prompt sửa art theo ý muốn</h2><p>Gõ yêu cầu bằng tiếng Việt rồi bấm <b>Áp dụng prompt</b> — app đọc từ khoá trong câu và áp dụng đúng hiệu ứng tương ứng lên ảnh ngay lập tức, liệt kê rõ đã áp dụng những gì bên dưới.</p></div></div>
+    <div class="panel-head"><div class="num hot">4</div><div><h2>Prompt sửa art theo ý muốn</h2><p>Gõ yêu cầu bằng tiếng Việt rồi bấm <b>Áp dụng prompt</b> — app đọc từ khoá trong câu và áp dụng đúng hiệu ứng tương ứng lên ảnh ngay lập tức, liệt kê rõ đã áp dụng những gì bên dưới.</p></div></div>
     <textarea id="promptInput" placeholder="VD: Cho tông đỏ ấm, rực hơn, tăng nét, hơi vintage"></textarea>
     <div class="row" style="margin-top:10px">
       <button class="btn btn-accent" id="btnApplyPrompt">Áp dụng prompt</button>
@@ -197,9 +280,9 @@ footer{max-width:1060px;margin:0 auto;padding:0 18px 26px;color:var(--muted);fon
     </div>
   </section>
 
-  <!-- BƯỚC 4: LÀM ĐẸP + VẼ LẠI NÉT -->
+  <!-- BƯỚC 5: LÀM ĐẸP + VẼ LẠI NÉT -->
   <section class="panel">
-    <div class="panel-head"><div class="num">4</div><div><h2>Làm đẹp &amp; vẽ lại nét</h2><p>Chỉnh tay từng thông số, kéo thanh so sánh để xem trước / sau. Các chỉnh tay cộng dồn với hiệu ứng prompt ở bước 3.</p></div></div>
+    <div class="panel-head"><div class="num">5</div><div><h2>Làm đẹp &amp; vẽ lại nét</h2><p>Chỉnh tay từng thông số, kéo thanh so sánh để xem trước / sau. Các chỉnh tay cộng dồn với hiệu ứng prompt ở bước 4.</p></div></div>
     <div class="cmp-wrap">
       <canvas id="beforeCanvas" width="880" height="660"></canvas>
       <canvas id="afterCanvas" class="top" width="880" height="660"></canvas>
@@ -233,11 +316,26 @@ footer{max-width:1060px;margin:0 auto;padding:0 18px 26px;color:var(--muted);fon
       <div><label class="f">Độ đậm nét / viền <span id="vLine">140</span></label><input type="range" id="sLine" min="40" max="255" value="140"></div>
       <div><label class="f">Số mức màu (posterize) <span id="vLevels">6</span></label><input type="range" id="sLevels" min="4" max="10" value="6"></div>
     </div>
+    <p class="subhead">Công cụ nâng chất lượng &amp; sáng tạo — tra cứu ngoài</p>
+    <p class="hint">App xử lý cơ bản ngay trên trình duyệt; khi cần upscale AI thật, vector hoá hay xoá vật thể bằng AI chuyên sâu, dùng các công cụ dưới đây (mở tab mới). <b>Đây là mục tham khảo — app không tích hợp API của các dịch vụ này.</b></p>
+    <div class="tool-grid">
+      <div class="tool-card"><a href="https://upscayl.org" target="_blank" rel="noopener">Upscayl</a><span class="api-tag">Desktop · Không API</span><small>Upscale AI miễn phí, mã nguồn mở (Real-ESRGAN), chạy offline trên máy — hợp để phóng ảnh lớn trước khi cắt.</small></div>
+      <div class="tool-card"><a href="https://www.topazlabs.com/gigapixel" target="_blank" rel="noopener">Topaz Gigapixel</a><span class="api-tag">Desktop · Không API</span><small>Upscale chất lượng in ấn, khử nhiễu và khôi phục chi tiết rất mạnh — chuẩn studio in.</small></div>
+      <div class="tool-card"><a href="https://magnific.ai" target="_blank" rel="noopener">Magnific AI</a><span class="api-tag">Có API</span><small>Upscale kèm “sáng tạo lại” chi tiết (creative upscaling) — ảnh giàu texture, hợp artwork minh hoạ.</small></div>
+      <div class="tool-card"><a href="https://letsenhance.io" target="_blank" rel="noopener">Let's Enhance</a><span class="api-tag">Có API</span><small>Upscale + tăng nét + sửa màu tự động cho ảnh sản phẩm và in ấn.</small></div>
+      <div class="tool-card"><a href="https://claid.ai" target="_blank" rel="noopener">Claid.ai</a><span class="api-tag">Có API</span><small>API xử lý ảnh cho thương mại điện tử: upscale, xoá nền, chỉnh sáng / màu hàng loạt.</small></div>
+      <div class="tool-card"><a href="https://vectorizer.ai" target="_blank" rel="noopener">Vectorizer.AI</a><span class="api-tag">Có API</span><small>Chuyển art raster thành vector SVG / EPS sắc nét — in khổ lớn không vỡ nét.</small></div>
+      <div class="tool-card"><a href="https://www.recraft.ai" target="_blank" rel="noopener">Recraft</a><span class="api-tag">Có API</span><small>Tạo &amp; sửa minh hoạ / vector bằng AI, giữ phong cách nhất quán cho cả bộ sưu tập áo.</small></div>
+      <div class="tool-card"><a href="https://ideogram.ai" target="_blank" rel="noopener">Ideogram</a><span class="api-tag">Có API</span><small>AI tạo ảnh mạnh nhất về chữ — artwork có typography / slogan ít lỗi chính tả chữ nhất.</small></div>
+      <div class="tool-card"><a href="https://www.kittl.com" target="_blank" rel="noopener">Kittl</a><span class="api-tag">Web app · Không API</span><small>Thiết kế artwork áo thun: text cong, hiệu ứng chữ (artword), kho template POD lớn.</small></div>
+      <div class="tool-card"><a href="https://cleanup.pictures" target="_blank" rel="noopener">Cleanup.pictures</a><span class="api-tag">Có API</span><small>Xoá vật thể / chữ thừa bằng inpainting AI — bản nâng cấp AI của bước xoá ở bước 3 app này.</small></div>
+      <div class="tool-card"><a href="https://www.remove.bg" target="_blank" rel="noopener">remove.bg</a><span class="api-tag">Có API</span><small>Tách nền 1 chạm rất chuẩn — khi cần art nền trong suốt thay vì nền đặc.</small></div>
+    </div>
   </section>
 
-  <!-- BƯỚC 5: MOCKUP -->
+  <!-- BƯỚC 6: MOCKUP -->
   <section class="panel">
-    <div class="panel-head"><div class="num">5</div><div><h2>Mockup xem trước trên áo trơn</h2><p>Chỉ để hình dung vị trí và độ phủ của ảnh trên mặt trước áo — file in vẫn là ảnh 2D ở bước 6.</p></div></div>
+    <div class="panel-head"><div class="num">6</div><div><h2>Mockup xem trước trên áo trơn</h2><p>Chỉ để hình dung vị trí và độ phủ của ảnh trên mặt trước áo — file in vẫn là ảnh 2D ở bước 7.</p></div></div>
     <div class="swatches"><span class="hint" style="font-weight:700;color:var(--ink)">Màu áo:</span><span id="shirtSwatches"></span></div>
     <div class="mock-wrap">
       <svg id="mockSvg" width="300" height="300" viewBox="0 0 260 260" role="img" aria-label="Mockup áo thun mặt trước">
@@ -250,9 +348,9 @@ footer{max-width:1060px;margin:0 auto;padding:0 18px 26px;color:var(--muted);fon
     <p class="hint" style="text-align:center">Ảnh được phủ tràn từ dưới cổ xuống gần lai áo, đúng tinh thần in tràn mặt trước.</p>
   </section>
 
-  <!-- BƯỚC 6: XUẤT FILE -->
+  <!-- BƯỚC 7: XUẤT FILE -->
   <section class="panel">
-    <div class="panel-head"><div class="num">6</div><div><h2>Xuất 1 file in 2D khổ lớn</h2><p>Một file duy nhất, 300 DPI thật (đã nhúng thông số DPI vào file), kèm file .txt ghi lại prompt đã dùng.</p></div></div>
+    <div class="panel-head"><div class="num">7</div><div><h2>Xuất 1 file in 2D khổ lớn</h2><p>Một file duy nhất, 300 DPI thật (đã nhúng thông số DPI vào file), kèm file .txt hồ sơ ghi kết quả kiểm tra watermark + prompt đã dùng.</p></div></div>
     <p class="subhead" style="margin-top:0">Khổ xuất</p>
     <div class="size-grid" id="sizeGrid">
       <button class="size-card on" data-w="4500" data-h="5400"><strong>4500 × 5400 px</strong><small>38,1 × 45,7 cm @ 300 DPI — khổ chuẩn tràn mặt trước</small></button>
@@ -265,12 +363,13 @@ footer{max-width:1060px;margin:0 auto;padding:0 18px 26px;color:var(--muted);fon
       <div class="spec"><span>Prompt kèm theo</span><b id="specPrompt">Chưa có prompt</b></div>
     </div>
     <div style="height:12px"></div>
+    <div class="repbox warn" id="exportGateNote" style="display:none"></div>
     <div class="row">
       <button class="btn btn-accent" id="btnExportPng" disabled>Tải file IN — PNG 300 DPI</button>
       <button class="btn btn-dark" id="btnExportJpg" disabled>Tải file IN — JPG 300 DPI</button>
     </div>
     <div class="success" id="okMsg"></div>
-    <p class="hint" style="margin-top:10px">Tên file in mang theo khổ + prompt rút gọn; một file <b>.txt</b> cùng tên sẽ tải kèm, ghi nguyên văn prompt để lưu hồ sơ hoặc dùng lại. Ảnh gốc nhỏ phóng lên khổ lớn sẽ mềm hơn ảnh gốc lớn — đó là giới hạn vật lý của ảnh nguồn, app không tạo thêm chi tiết không có thật.</p>
+    <p class="hint" style="margin-top:10px">Tên file in mang theo khổ + prompt rút gọn; một file <b>.txt</b> hồ sơ cùng tên sẽ tải kèm, ghi kết quả kiểm tra watermark trước / sau (kèm thời gian) và nguyên văn prompt để lưu hồ sơ hoặc dùng lại. Ảnh gốc nhỏ phóng lên khổ lớn sẽ mềm hơn ảnh gốc lớn — đó là giới hạn vật lý của ảnh nguồn, app không tạo thêm chi tiết không có thật.</p>
   </section>
 </div>
 
@@ -304,8 +403,11 @@ function setImage(img,name){
   view.W=Math.round(img.width*view.scale); view.H=Math.round(img.height*view.scale);
   view.ox=(STAGE_W-view.W)/2; view.oy=(STAGE_H-view.H)/2;
   resetCrop();
-  $("srcInfo").innerHTML="Đã nạp: <b>"+img.width+" × "+img.height+" px</b> — "+(name||"ảnh")+". Sang bước 2 kéo khung cam để cắt vùng tràn mặt trước.";
-  $("btnExportPng").disabled=false; $("btnExportJpg").disabled=false;
+  wm.fileNameWarn=detectNameWarn(name||"");
+  wm.dpiText="không khai (mặc định web 72)";
+  resetWmState();
+  updateWmFileInfo();
+  $("srcInfo").innerHTML="Đã nạp: <b>"+img.width+" × "+img.height+" px</b> — "+(name||"ảnh")+". Sang bước 2 kéo khung cam để cắt vùng tràn mặt trước, rồi qua bước 3 kiểm tra watermark trước khi sửa art.";
   drawCrop(); scheduleRender();
 }
 function resetCrop(){
@@ -317,6 +419,7 @@ function resetCrop(){
 }
 function loadFile(f){
   if(!f)return;
+  parseFileDpi(f);
   var url=URL.createObjectURL(f); var img=new Image();
   img.onload=function(){setImage(img,f.name)}; img.onerror=function(){$("srcInfo").textContent="Không đọc được file ảnh này — hãy thử JPG/PNG khác."};
   img.src=url;
@@ -335,9 +438,9 @@ dz.addEventListener("dragleave",function(){dz.classList.remove("drag")});
 dz.addEventListener("drop",function(e){e.preventDefault();dz.classList.remove("drag");loadFile(e.dataTransfer.files[0])});
 
 /* ratio + bleed */
-$("ratio45").onclick=function(){ratio=4/5;$("ratio45").classList.add("on");$("ratio11").classList.remove("on");resetCrop();drawCrop();scheduleRender()};
-$("ratio11").onclick=function(){ratio=1;$("ratio11").classList.add("on");$("ratio45").classList.remove("on");resetCrop();drawCrop();scheduleRender()};
-$("bleed").addEventListener("input",function(){$("bleedVal").textContent=$("bleed").value+"%";drawCrop();updateCropInfo();scheduleRender()});
+$("ratio45").onclick=function(){ratio=4/5;$("ratio45").classList.add("on");$("ratio11").classList.remove("on");resetCrop();drawCrop();resetWmState();scheduleRender()};
+$("ratio11").onclick=function(){ratio=1;$("ratio11").classList.add("on");$("ratio45").classList.remove("on");resetCrop();drawCrop();resetWmState();scheduleRender()};
+$("bleed").addEventListener("input",function(){$("bleedVal").textContent=$("bleed").value+"%";drawCrop();updateCropInfo();resetWmState();scheduleRender()});
 function bleedFrac(){return parseFloat($("bleed").value)/100}
 function updateCropInfo(){
   if(!srcImg){$("cropInfo").textContent="Chưa có ảnh";return}
@@ -414,7 +517,7 @@ cropC.addEventListener("pointermove",function(e){
   }
   drawCrop(); updateCropInfo();
 });
-cropC.addEventListener("pointerup",function(){if(drag){drag=null;scheduleRender()}});
+cropC.addEventListener("pointerup",function(){if(drag){drag=null;resetWmState();scheduleRender()}});
 cropC.addEventListener("pointercancel",function(){drag=null});
 
 /* source crop rect in original pixels, bleed included */
@@ -433,6 +536,18 @@ function getCropCanvas(maxDim){
   var x=c.getContext("2d"); x.imageSmoothingEnabled=true; x.imageSmoothingQuality="high";
   x.drawImage(srcImg,r.x,r.y,r.w,r.h,0,0,c.width,c.height);
   return c;
+}
+/* art source for later steps: the watermark-step working copy (possibly cleaned) wins over the raw crop */
+function getArtCanvas(maxDim){
+  if(wm.base&&!wm.baseDirty){
+    var sc=Math.min(1,maxDim/Math.max(wm.base.width,wm.base.height));
+    if(sc>=0.999)return copyCanvas(wm.base);
+    var c=mkCanvas(wm.base.width*sc,wm.base.height*sc);
+    var x=c.getContext("2d"); x.imageSmoothingEnabled=true; x.imageSmoothingQuality="high";
+    x.drawImage(wm.base,0,0,c.width,c.height);
+    return c;
+  }
+  return getCropCanvas(maxDim);
 }
 
 /* ================= IMAGE OPS ================= */
@@ -663,7 +778,7 @@ function renderPreview(){
     });
     return;
   }
-  var base=getCropCanvas(880);
+  var base=getArtCanvas(880);
   var eff=effectiveSettings();
   var geoOnly={bright:0,contrast:0,sat:0,temp:0,shadow:0,high:0,smooth:0,sharp:0,line:eff.line,levels:eff.levels,tintR:1,tintG:1,tintB:1,hueShift:0,pastel:false,vintage:false,bw:false,posterize:0,zoom:eff.zoom,mirror:eff.mirror,pattern:eff.pattern,bgBlur:false,style:"none",edgeBoost:0};
   var before=applyGeometry(base,geoOnly);
@@ -718,7 +833,7 @@ $("btnAuto").onclick=function(){
   var vals;
   if(srcImg){
     /* simple auto white-balance estimate from the cropped art */
-    var sample=getCropCanvas(120); var x=sample.getContext("2d");
+    var sample=getArtCanvas(120); var x=sample.getContext("2d");
     var d=x.getImageData(0,0,sample.width,sample.height).data;
     var r=0,g=0,b=0,n=d.length/4;
     for(var i=0;i<d.length;i+=4){r+=d[i];g+=d[i+1];b+=d[i+2]}
@@ -922,6 +1037,517 @@ $("btnCopyMuseCmd").onclick=function(){
 $("btnClearMuseHistory").onclick=function(){museHistory=[];renderMuseHistory()};
 renderMuseHistory();
 
+/* ================= WATERMARK: KIỂM TRA / XOÁ / KIỂM TRA LẠI ================= */
+var wm={
+  base:null, baseDirty:true, mask:null,
+  before:null, after:null, cleaned:false,
+  beforeSnap:null, heatCells:null, mode:"paint",
+  painting:false, undoStack:[], maskHas:false,
+  fileNameWarn:"", dpiText:"không khai (mặc định web 72)"
+};
+var wmErase=false, wmLastPt=null;
+function detectNameWarn(name){
+  var n=(name||"").toLowerCase();
+  var keys=["watermark","water-mark","preview","comp-","-comp","stock","dreamstime","shutterstock","getty","istock","alamy","depositphotos","123rf","fotolia","sample"];
+  for(var i=0;i<keys.length;i++){if(n.indexOf(keys[i])>-1)return keys[i]}
+  return "";
+}
+function parseFileDpi(f){
+  if(!f||!f.arrayBuffer)return;
+  f.arrayBuffer().then(function(ab){
+    var b=new Uint8Array(ab);
+    try{
+      if(b[0]===0xFF&&b[1]===0xD8){ /* JPEG: quét APP0 JFIF */
+        var off=2;
+        while(off+4<b.length){
+          if(b[off]!==0xFF)break;
+          var marker=b[off+1]; var len=(b[off+2]<<8)|b[off+3];
+          if(marker===0xE0&&len>=16&&b[off+4]===0x4A&&b[off+5]===0x46&&b[off+6]===0x49&&b[off+7]===0x46){
+            var units=b[off+11]; var xd=(b[off+12]<<8)|b[off+13];
+            if(units===1&&xd>0)wm.dpiText=xd+" DPI";
+            else if(units===2&&xd>0)wm.dpiText=Math.round(xd*2.54)+" DPI";
+            break;
+          }
+          if(marker===0xDA||len<2)break;
+          off+=2+len;
+        }
+      }else if(b[0]===0x89&&b[1]===0x50){ /* PNG: chunk pHYs */
+        var p=8;
+        while(p+12<b.length){
+          var clen=((b[p]<<24)|(b[p+1]<<16)|(b[p+2]<<8)|b[p+3])>>>0;
+          var type=String.fromCharCode(b[p+4],b[p+5],b[p+6],b[p+7]);
+          if(type==="pHYs"){
+            var ppu=((b[p+8]<<24)|(b[p+9]<<16)|(b[p+10]<<8)|b[p+11])>>>0;
+            if(b[p+16]===1&&ppu>0)wm.dpiText=Math.round(ppu*0.0254)+" DPI";
+            break;
+          }
+          if(type==="IEND")break;
+          p+=12+clen;
+        }
+      }
+    }catch(e){}
+    if(wm.base)updateWmFileInfo();
+  });
+}
+function updateWmFileInfo(){
+  var el=$("wmFileInfo"); if(!el)return;
+  if(!srcImg){el.textContent="Chưa có ảnh — nạp ảnh ở bước 1 và cắt ở bước 2, app sẽ tự quét watermark ngay tại đây.";return}
+  var r=cropRectSrc();
+  var html="Vùng cắt hiện tại: <b>"+Math.round(r.w)+" × "+Math.round(r.h)+" px</b> · Ảnh gốc: <b>"+srcImg.width+" × "+srcImg.height+" px</b> · DPI khai trong file gốc: <b>"+wm.dpiText+"</b> (file xuất của app luôn nhúng 300 DPI).";
+  if(wm.fileNameWarn)html+="<br><span style=\"color:#a3260c;font-weight:700\">⚠ Tên file chứa dấu hiệu ảnh stock / preview (“"+wm.fileNameWarn+"”) — hãy chắc chắn bạn có quyền sử dụng ảnh này trước khi xoá watermark.</span>";
+  el.innerHTML=html;
+}
+function resetWmState(){
+  wm.base=null; wm.baseDirty=true; wm.mask=null; wm.before=null; wm.after=null;
+  wm.cleaned=false; wm.beforeSnap=null; wm.heatCells=null; wm.undoStack=[]; wm.maskHas=false; wm.painting=false;
+  var rep=$("wmReport"); if(rep){rep.style.display="none";rep.innerHTML=""}
+  var rep2=$("wmReport2"); if(rep2){rep2.style.display="none";rep2.innerHTML=""}
+  var st=$("wmStatus"); if(st)st.textContent="Cách xoá hoạt động: inpainting diffusion đa tỉ lệ — lan truyền màu / texture từ biên vùng tô vào trong qua nhiều vòng lặp, cộng lấy mẫu texture lân cận và hạt nhiễu mịn để vùng lấp trông tự nhiên. Vùng tô càng sát watermark, kết quả càng sạch. Sau khi xoá, app tự kiểm tra lại ngay — không cần bấm tay.";
+  var cmp=$("wmCmpBlock"); if(cmp)cmp.style.display="none";
+  var mc=$("wmManualConfirm"); if(mc)mc.checked=false;
+  var rc=$("wmRights"); if(rc)rc.checked=false;
+  var zc=$("wmZoomCap"); if(zc)zc.textContent="Chưa soi ô nào — chuyển sang chế độ Soi ô rồi bấm vào 1 ô trên ảnh để phóng to kiểm tra có chữ / logo mờ lặp lại hay không.";
+  drawWmStage();
+  updateInpaintBtn();
+  updateExportGate();
+  scheduleAutoWmCheck();
+}
+function ensureWorkBase(){
+  if(wm.base&&!wm.baseDirty)return wm.base;
+  if(!srcImg)return null;
+  var c=getCropCanvas(1800);
+  wm.base=c; wm.baseDirty=false;
+  wm.mask=mkCanvas(c.width,c.height);
+  wm.undoStack=[]; wm.maskHas=false;
+  ["wmCanvas","wmHeat","wmMaskView"].forEach(function(id){var cv=$(id);cv.width=c.width;cv.height=c.height});
+  drawWmStage(); drawMaskView(); updateInpaintBtn();
+  return c;
+}
+function drawWmStage(){
+  var cv=$("wmCanvas"); if(!cv)return;
+  var x=cv.getContext("2d");
+  if(!wm.base){
+    cv.width=760; cv.height=500;
+    ["wmHeat","wmMaskView"].forEach(function(id){var o=$(id);o.width=760;o.height=500;o.getContext("2d").clearRect(0,0,760,500)});
+    x.fillStyle="#e9e7e0"; x.fillRect(0,0,760,500);
+    x.fillStyle="#8a887e"; x.font="600 15px 'Be Vietnam Pro'"; x.textAlign="center";
+    x.fillText("Vùng đã cắt ở bước 2 sẽ hiện ở đây và được tự quét watermark",380,242);
+    x.font="400 13px 'Be Vietnam Pro'";
+    x.fillText("ngay khi nạp ảnh / cắt xong — soi từng ô, tô mặt nạ và xoá tại đây",380,266);
+    return;
+  }
+  x.drawImage(wm.base,0,0);
+  drawHeat();
+}
+function drawHeat(){
+  var hv=$("wmHeat"); if(!hv||!wm.base)return;
+  var x=hv.getContext("2d"); x.clearRect(0,0,hv.width,hv.height);
+  if(!wm.heatCells)return;
+  var S=6, cw=hv.width/S, ch=hv.height/S;
+  var show=$("wmHeatToggle")&&$("wmHeatToggle").checked;
+  wm.heatCells.forEach(function(cell){
+    x.strokeStyle="rgba(20,20,18,.28)"; x.lineWidth=1;
+    x.strokeRect(cell.c*cw+0.5,cell.r*ch+0.5,cw-1,ch-1);
+    if(!show)return;
+    if(cell.score>=0.42){
+      x.fillStyle=cell.suspect?("rgba(255,45,0,"+(0.15+0.45*cell.score).toFixed(2)+")"):"rgba(255,170,0,0.30)";
+      x.fillRect(cell.c*cw,cell.r*ch,cw,ch);
+    }
+    if(cell.suspect){
+      x.fillStyle="#fff"; x.font="800 13px 'Be Vietnam Pro'"; x.textAlign="center";
+      x.fillText(Math.round(cell.score*100)+"%",(cell.c+0.5)*cw,(cell.r+0.5)*ch+5);
+    }
+  });
+}
+$("wmHeatToggle").addEventListener("change",drawHeat);
+/* --- phân tích heuristic 6x6 --- */
+function autoCorrPeak(prof){
+  var n=prof.length; if(n<12)return 0;
+  var m=0,i; for(i=0;i<n;i++)m+=prof[i]; m/=n;
+  var den=0; for(i=0;i<n;i++)den+=(prof[i]-m)*(prof[i]-m);
+  if(den<1)return 0;
+  var best=0, maxLag=Math.min(42,Math.floor(n/2));
+  for(var lag=4;lag<=maxLag;lag++){
+    var num=0; for(i=0;i+lag<n;i++)num+=(prof[i]-m)*(prof[i+lag]-m);
+    var v=num/den; if(v>best)best=v;
+  }
+  return best;
+}
+function analyzeWm(srcCanvas){
+  var maxD=720, sc=Math.min(1,maxD/Math.max(srcCanvas.width,srcCanvas.height));
+  var c=mkCanvas(srcCanvas.width*sc,srcCanvas.height*sc);
+  c.getContext("2d").drawImage(srcCanvas,0,0,c.width,c.height);
+  var w=c.width, h=c.height, S=6;
+  var edges=sobelEdges(c);
+  var d=c.getContext("2d").getImageData(0,0,w,h).data;
+  var lum=new Float32Array(w*h), gSum=0, i;
+  for(i=0;i<w*h;i++){lum[i]=0.299*d[i*4]+0.587*d[i*4+1]+0.114*d[i*4+2]; gSum+=lum[i]}
+  var gMean=gSum/(w*h);
+  var cw=w/S, chh=h/S, cells=[], suspects=[];
+  for(var r=0;r<S;r++)for(var cc=0;cc<S;cc++){
+    var x0=Math.floor(cc*cw), x1=Math.floor((cc+1)*cw), y0=Math.floor(r*chh), y1=Math.floor((r+1)*chh);
+    var eSum=0,lSum=0,lSq=0,cnt=0, rowProf=[], colProf=[], xx, yy;
+    for(yy=y0;yy<y1;yy++){var rs=0;for(xx=x0;xx<x1;xx++){var idx=yy*w+xx;eSum+=edges.mag[idx];var L=lum[idx];lSum+=L;lSq+=L*L;rs+=L;cnt++}rowProf.push(rs/Math.max(1,x1-x0))}
+    for(xx=x0;xx<x1;xx++){var cs=0;for(yy=y0;yy<y1;yy++)cs+=lum[yy*w+xx];colProf.push(cs/Math.max(1,y1-y0))}
+    var eMean=eSum/Math.max(1,cnt), lMean=lSum/Math.max(1,cnt);
+    var lStd=Math.sqrt(Math.max(0,lSq/Math.max(1,cnt)-lMean*lMean));
+    var per=Math.max(autoCorrPeak(rowProf),autoCorrPeak(colProf));
+    var eN=clamp(eMean/0.26,0,1);
+    var lN=clamp((lStd/46)*0.55+Math.abs(lMean-gMean)/150*0.45,0,1);
+    var loc=0, isCorner=(r===0||r===S-1)&&(cc===0||cc===S-1), isCenter=(r>=2&&r<=3&&cc>=2&&cc<=3);
+    if(isCorner)loc=0.07; else if(isCenter)loc=0.05;
+    var score=clamp(0.42*eN+0.38*clamp(per,0,1)+0.20*lN+loc,0,1);
+    var cell={r:r,c:cc,score:score,suspect:score>=0.55,edge:eMean,per:per};
+    cells.push(cell); if(cell.suspect)suspects.push(cell);
+  }
+  var conf=suspects.length?Math.round(suspects.reduce(function(a,b){return a+b.score},0)/suspects.length*100):0;
+  return{cells:cells,count:suspects.length,suspects:suspects,confidence:conf,time:new Date()};
+}
+function cellPos(cell){
+  var vv=cell.r<2?"trên":(cell.r>3?"dưới":"giữa");
+  var hh=cell.c<2?"trái":(cell.c>3?"phải":"giữa");
+  var zone;
+  if(vv==="giữa"&&hh==="giữa")zone="vùng giữa";
+  else if(vv==="giữa")zone="dải giữa, phía "+hh;
+  else if(hh==="giữa")zone="dải "+vv+", ở giữa";
+  else zone="góc "+vv+"-"+hh;
+  return "hàng "+(cell.r+1)+", cột "+(cell.c+1)+" ("+zone+")";
+}
+function renderWmReport(el,res,phaseLabel){
+  el.style.display="block";
+  if(res.count===0){
+    el.className="repbox ok";
+    el.innerHTML="<b>✓ Chưa thấy dấu hiệu watermark</b> — 0 / 36 ô vượt ngưỡng nghi ngờ ("+phaseLabel+"). Đây là kiểm tra heuristic trên trình duyệt, không phải khẳng định tuyệt đối — vẫn nên soi tay vài ô bằng chế độ Soi ô trước khi in.";
+  }else{
+    el.className="repbox "+(res.count>=4?"bad":"warn");
+    var list=res.suspects.map(function(s){return cellPos(s)+" — mức nghi "+Math.round(s.score*100)+"%"}).join("<br>");
+    el.innerHTML="<b>⚠ Nghi có watermark: "+res.count+" ô</b> — độ tin cậy trung bình "+res.confidence+"% ("+phaseLabel+"). Vị trí nghi ngờ:<br>"+list+"<br><span>Hãy soi tay các ô này (chế độ Soi ô), rồi tô mặt nạ và xoá ở mục B bên dưới.</span>";
+  }
+}
+/* --- tự động hoá: tự quét sau khi cắt, tự tô mặt nạ, tự kiểm tra lại sau khi xoá --- */
+var wmAutoTimer=null;
+function scheduleAutoWmCheck(){
+  clearTimeout(wmAutoTimer);
+  wmAutoTimer=setTimeout(function(){
+    if(!srcImg||wm.painting)return;
+    runWmCheck(wm.cleaned,true);
+  },900);
+}
+function fillMaskFromCells(cells){
+  if(!wm.mask||!cells||!cells.length)return;
+  var mx=wm.mask.getContext("2d");
+  mx.globalCompositeOperation="source-over"; mx.fillStyle="#ffffff";
+  var S=6, cwid=wm.mask.width/S, chh=wm.mask.height/S;
+  cells.forEach(function(cell){mx.fillRect(cell.c*cwid,cell.r*chh,cwid,chh)});
+  wm.maskHas=true;
+  drawMaskView(); updateInpaintBtn();
+}
+function runWmCheck(isRecheck,auto){
+  if(!srcImg){$("wmFileInfo").textContent="Chưa có ảnh — nạp ảnh ở bước 1 và cắt ở bước 2 trước.";return null}
+  var base=ensureWorkBase(); if(!base)return null;
+  updateWmFileInfo();
+  var res=analyzeWm(base);
+  wm.heatCells=res.cells;
+  var repEl;
+  if(isRecheck){
+    wm.after=res;
+    repEl=$("wmReport2");
+    renderWmReport(repEl,res,(auto?"tự động kiểm tra lại lúc ":"kiểm tra lại lúc ")+res.time.toLocaleTimeString("vi-VN"));
+    if(wm.before){
+      var extra=document.createElement("div");
+      extra.style.marginTop="6px";
+      extra.innerHTML="So sánh: <b>trước "+wm.before.count+" ô nghi ngờ → sau "+res.count+" ô</b>."+(res.count>0?" Còn ô nghi ngờ — mặt nạ đã được tự tô lại theo các ô này ở mục B, xoá tiếp hoặc tích xác nhận soi tay ở mục C nếu chắc chắn đó là chi tiết thật của art.":"");
+      repEl.appendChild(extra);
+    }
+  }else{
+    wm.before=res;
+    repEl=$("wmReport");
+    renderWmReport(repEl,res,(auto?"tự động quét lúc ":"kiểm tra lúc ")+res.time.toLocaleTimeString("vi-VN"));
+  }
+  if(res.count>0&&wm.mask&&!wm.maskHas){
+    fillMaskFromCells(res.suspects);
+    var note=document.createElement("div");
+    note.style.marginTop="6px";
+    note.innerHTML="App đã <b>tự tô mặt nạ</b> theo "+res.count+" ô nghi ngờ này — soi lại từng ô, chỉnh mặt nạ nếu cần, tích xác nhận quyền ở mục B rồi bấm xoá.";
+    repEl.appendChild(note);
+  }
+  drawHeat();
+  updateExportGate();
+  return res;
+}
+$("btnWmCheck").onclick=function(){runWmCheck(wm.cleaned)};
+$("btnWmRecheck").onclick=function(){
+  if(!wm.cleaned){
+    var r=runWmCheck(false);
+    if(r)$("wmStatus").textContent="Bạn chưa xoá gì nên đây vẫn là kết quả trên ảnh gốc — kết quả này được tính là kiểm tra ban đầu.";
+    return;
+  }
+  runWmCheck(true);
+};
+/* --- soi ô (zoom) --- */
+function drawZoomCell(r,c){
+  var base=wm.base; if(!base)return;
+  var S=6, sw=base.width/S, sh=base.height/S;
+  var z=$("wmZoom"), zx=z.getContext("2d");
+  zx.clearRect(0,0,z.width,z.height);
+  zx.drawImage(base,c*sw,r*sh,sw,sh,0,0,z.width,z.height);
+  $("wmZoomCap").textContent="Đang soi "+cellPos({r:r,c:c})+" — nhìn kỹ: có chữ / logo mờ lặp đi lặp lại, đều nhau bất thường không? Chi tiết art thật thường không lặp đều như vậy.";
+}
+/* --- mặt nạ: tô / xoá / hoàn tác / tự tô --- */
+function drawMaskView(){
+  var mv=$("wmMaskView"); if(!mv)return;
+  var x=mv.getContext("2d");
+  x.clearRect(0,0,mv.width,mv.height);
+  if(!wm.mask)return;
+  x.globalCompositeOperation="source-over";
+  x.drawImage(wm.mask,0,0);
+  x.globalCompositeOperation="source-in";
+  x.fillStyle="rgba(255,45,0,0.5)"; x.fillRect(0,0,mv.width,mv.height);
+  x.globalCompositeOperation="source-over";
+}
+function pushWmUndo(){
+  if(!wm.mask)return;
+  wm.undoStack.push(copyCanvas(wm.mask));
+  if(wm.undoStack.length>12)wm.undoStack.shift();
+}
+function maskAny(){
+  if(!wm.mask)return false;
+  var t=mkCanvas(48,48), tx=t.getContext("2d");
+  tx.drawImage(wm.mask,0,0,48,48);
+  var d=tx.getImageData(0,0,48,48).data;
+  for(var i=3;i<d.length;i+=16)if(d[i]>8)return true;
+  return false;
+}
+function updateInpaintBtn(){
+  var b=$("btnWmInpaint"); if(!b)return;
+  b.disabled=!($("wmRights")&&$("wmRights").checked&&wm.maskHas&&wm.base);
+}
+$("wmRights").addEventListener("change",updateInpaintBtn);
+$("wmBrush").addEventListener("input",function(){$("wmBrushVal").textContent=$("wmBrush").value});
+$("btnWmEraseMode").onclick=function(){
+  wmErase=!wmErase;
+  $("btnWmEraseMode").textContent="Cọ xoá mặt nạ: "+(wmErase?"Bật":"Tắt");
+  $("btnWmEraseMode").className="btn "+(wmErase?"btn-dark":"btn-light");
+};
+$("btnWmUndoMask").onclick=function(){
+  if(!wm.undoStack.length){$("wmStatus").textContent="Không còn nét tô nào để hoàn tác.";return}
+  wm.mask=wm.undoStack.pop();
+  wm.maskHas=maskAny();
+  drawMaskView(); updateInpaintBtn();
+};
+$("btnWmClearMask").onclick=function(){
+  if(!wm.mask)return;
+  pushWmUndo();
+  wm.mask=mkCanvas(wm.mask.width,wm.mask.height);
+  wm.maskHas=false;
+  drawMaskView(); updateInpaintBtn();
+};
+$("btnWmAutoMask").onclick=function(){
+  if(!srcImg)return;
+  ensureWorkBase(); if(!wm.mask)return;
+  if(!wm.before){$("wmStatus").textContent="Hãy chạy kiểm tra ở mục A trước — app sẽ tự tô đúng các ô đã bị đánh dấu nghi ngờ.";return}
+  if(!wm.before.count){$("wmStatus").textContent="Kiểm tra ban đầu không có ô nghi ngờ nào — không có gì để tự tô. Nếu bạn tự thấy watermark, cứ tô tay lên vùng đó.";return}
+  pushWmUndo();
+  fillMaskFromCells(wm.before.suspects);
+  $("wmStatus").textContent="Đã tự tô "+wm.before.count+" ô nghi ngờ vào mặt nạ. Bạn có thể tô nới thêm quanh mép chữ, xoá bớt phần tô thừa, rồi bấm “Xoá vùng đã tô”.";
+};
+$("wmModePaint").onclick=function(){wm.mode="paint";$("wmModePaint").classList.add("on");$("wmModeZoom").classList.remove("on")};
+$("wmModeZoom").onclick=function(){wm.mode="zoom";$("wmModeZoom").classList.add("on");$("wmModePaint").classList.remove("on")};
+function wmPos(e){
+  var cv=$("wmMaskView"), r=cv.getBoundingClientRect();
+  return{x:(e.clientX-r.left)*(cv.width/r.width), y:(e.clientY-r.top)*(cv.height/r.height), fx:(e.clientX-r.left)/r.width, fy:(e.clientY-r.top)/r.height};
+}
+function wmPaintDot(p){
+  if(!wm.mask)return;
+  var x=wm.mask.getContext("2d");
+  var rad=Math.max(2,parseFloat($("wmBrush").value)*(wm.mask.width/760));
+  x.globalCompositeOperation=wmErase?"destination-out":"source-over";
+  x.fillStyle="#ffffff";
+  function dot(cx,cy){x.beginPath();x.arc(cx,cy,rad,0,7);x.fill()}
+  if(wmLastPt){
+    var dx=p.x-wmLastPt.x, dy=p.y-wmLastPt.y, dist=Math.sqrt(dx*dx+dy*dy), steps=Math.max(1,Math.floor(dist/Math.max(2,rad*0.5)));
+    for(var i=1;i<=steps;i++)dot(wmLastPt.x+dx*i/steps,wmLastPt.y+dy*i/steps);
+  }else dot(p.x,p.y);
+  wmLastPt=p;
+  if(!wmErase)wm.maskHas=true;
+  drawMaskView();
+}
+$("wmMaskView").addEventListener("pointerdown",function(e){
+  if(!srcImg)return;
+  ensureWorkBase(); if(!wm.mask)return;
+  var p=wmPos(e);
+  if(wm.mode==="zoom"){
+    var c=clamp(Math.floor(p.fx*6),0,5), r=clamp(Math.floor(p.fy*6),0,5);
+    drawZoomCell(r,c);
+    return;
+  }
+  pushWmUndo();
+  wm.painting=true; wmLastPt=null;
+  wmPaintDot(p);
+  try{$("wmMaskView").setPointerCapture(e.pointerId)}catch(err){}
+});
+$("wmMaskView").addEventListener("pointermove",function(e){
+  if(!wm.painting)return;
+  wmPaintDot(wmPos(e));
+});
+$("wmMaskView").addEventListener("pointerup",function(){
+  if(wm.painting){wm.painting=false; wmLastPt=null; if(wmErase)wm.maskHas=maskAny(); updateInpaintBtn()}
+});
+$("wmMaskView").addEventListener("pointercancel",function(){wm.painting=false; wmLastPt=null});
+/* --- inpainting: diffusion đa tỉ lệ + tinh chỉnh full-res + hạt texture --- */
+function inpaintSync(work,mask){
+  var out=copyCanvas(work);
+  var w=out.width, h=out.height, n=w*h;
+  var x=out.getContext("2d");
+  var img=x.getImageData(0,0,w,h), d=img.data;
+  var md=mask.getContext("2d").getImageData(0,0,w,h).data;
+  var isM=new Uint8Array(n), list=[], i, px, py;
+  for(i=0;i<n;i++){if(md[i*4+3]>8){isM[i]=1;list.push(i)}}
+  if(!list.length)return out;
+  /* giai đoạn 1: giải lan truyền ở độ phân giải thấp */
+  var ds=Math.max(1,Math.round(Math.max(w,h)/420));
+  var sw=Math.max(1,Math.round(w/ds)), sh=Math.max(1,Math.round(h/ds)), sn=sw*sh;
+  var sSumR=new Float32Array(sn), sSumG=new Float32Array(sn), sSumB=new Float32Array(sn), sCnt=new Float32Array(sn), sMC=new Float32Array(sn), sTot=new Float32Array(sn);
+  for(py=0;py<h;py++){
+    var sy=Math.min(sh-1,Math.floor(py/ds));
+    for(px=0;px<w;px++){
+      var sxx=Math.min(sw-1,Math.floor(px/ds)), si=sy*sw+sxx, pi=py*w+px;
+      sTot[si]++;
+      if(isM[pi])sMC[si]++;
+      else{sSumR[si]+=d[pi*4]; sSumG[si]+=d[pi*4+1]; sSumB[si]+=d[pi*4+2]; sCnt[si]++}
+    }
+  }
+  var sR=new Float32Array(sn), sG=new Float32Array(sn), sB=new Float32Array(sn), sM=new Uint8Array(sn);
+  var gR=0,gG=0,gB=0,gN=0;
+  for(i=0;i<sn;i++){
+    if(sCnt[i]>0){sR[i]=sSumR[i]/sCnt[i]; sG[i]=sSumG[i]/sCnt[i]; sB[i]=sSumB[i]/sCnt[i]; gR+=sR[i]; gG+=sG[i]; gB+=sB[i]; gN++}
+    sM[i]=(sTot[i]>0&&sMC[i]/sTot[i]>0.45)?1:0;
+  }
+  if(gN>0){gR/=gN; gG/=gN; gB/=gN}
+  for(i=0;i<sn;i++){if(sM[i]){sR[i]=gR; sG[i]=gG; sB[i]=gB}}
+  var tR=new Float32Array(sn), tG=new Float32Array(sn), tB=new Float32Array(sn), it, xx, yy;
+  for(it=0;it<110;it++){
+    tR.set(sR); tG.set(sG); tB.set(sB);
+    for(yy=0;yy<sh;yy++)for(xx=0;xx<sw;xx++){
+      var ci=yy*sw+xx; if(!sM[ci])continue;
+      var aR=0,aG=0,aB=0,ac=0;
+      if(xx>0){aR+=sR[ci-1];aG+=sG[ci-1];aB+=sB[ci-1];ac++}
+      if(xx<sw-1){aR+=sR[ci+1];aG+=sG[ci+1];aB+=sB[ci+1];ac++}
+      if(yy>0){aR+=sR[ci-sw];aG+=sG[ci-sw];aB+=sB[ci-sw];ac++}
+      if(yy<sh-1){aR+=sR[ci+sw];aG+=sG[ci+sw];aB+=sB[ci+sw];ac++}
+      if(ac){tR[ci]=aR/ac; tG[ci]=aG/ac; tB[ci]=aB/ac}
+    }
+    sR.set(tR); sG.set(tG); sB.set(tB);
+  }
+  /* giai đoạn 2: nội suy song tuyến nghiệm low-res lên từng pixel bị tô */
+  function sampleS(arr,fx,fy){
+    var x0=clamp(Math.floor(fx),0,sw-1), y0=clamp(Math.floor(fy),0,sh-1);
+    var x1=Math.min(sw-1,x0+1), y1=Math.min(sh-1,y0+1);
+    var ax=clamp(fx-x0,0,1), ay=clamp(fy-y0,0,1);
+    return (arr[y0*sw+x0]*(1-ax)+arr[y0*sw+x1]*ax)*(1-ay)+(arr[y1*sw+x0]*(1-ax)+arr[y1*sw+x1]*ax)*ay;
+  }
+  var idxMap=new Int32Array(n);
+  for(i=0;i<n;i++)idxMap[i]=-1;
+  var cR=new Float32Array(list.length), cG=new Float32Array(list.length), cB=new Float32Array(list.length);
+  list.forEach(function(pi,k){
+    idxMap[pi]=k;
+    var X=pi%w, Y=Math.floor(pi/w);
+    var fx=clamp((X+0.5)/ds-0.5,0,sw-1), fy=clamp((Y+0.5)/ds-0.5,0,sh-1);
+    cR[k]=sampleS(sR,fx,fy); cG[k]=sampleS(sG,fx,fy); cB[k]=sampleS(sB,fx,fy);
+  });
+  /* giai đoạn 3: diffusion full-res chỉ trên pixel bị tô (Jacobi) */
+  var nR=new Float32Array(list.length), nG=new Float32Array(list.length), nB=new Float32Array(list.length);
+  for(it=0;it<9;it++){
+    for(var k=0;k<list.length;k++){
+      var pi2=list[k], X2=pi2%w, Y2=Math.floor(pi2/w);
+      var sRr=0,sGg=0,sBb=0,ac2=0, ni, nk;
+      if(X2>0){ni=pi2-1; if(isM[ni]){nk=idxMap[ni]; sRr+=cR[nk]; sGg+=cG[nk]; sBb+=cB[nk]}else{sRr+=d[ni*4]; sGg+=d[ni*4+1]; sBb+=d[ni*4+2]} ac2++}
+      if(X2<w-1){ni=pi2+1; if(isM[ni]){nk=idxMap[ni]; sRr+=cR[nk]; sGg+=cG[nk]; sBb+=cB[nk]}else{sRr+=d[ni*4]; sGg+=d[ni*4+1]; sBb+=d[ni*4+2]} ac2++}
+      if(Y2>0){ni=pi2-w; if(isM[ni]){nk=idxMap[ni]; sRr+=cR[nk]; sGg+=cG[nk]; sBb+=cB[nk]}else{sRr+=d[ni*4]; sGg+=d[ni*4+1]; sBb+=d[ni*4+2]} ac2++}
+      if(Y2<h-1){ni=pi2+w; if(isM[ni]){nk=idxMap[ni]; sRr+=cR[nk]; sGg+=cG[nk]; sBb+=cB[nk]}else{sRr+=d[ni*4]; sGg+=d[ni*4+1]; sBb+=d[ni*4+2]} ac2++}
+      if(ac2){nR[k]=sRr/ac2; nG[k]=sGg/ac2; nB[k]=sBb/ac2}else{nR[k]=cR[k]; nG[k]=cG[k]; nB[k]=cB[k]}
+    }
+    cR.set(nR); cG.set(nG); cB.set(nB);
+  }
+  /* hạt texture mịn để vùng lấp không bị "phẳng nhựa" */
+  for(var k2=0;k2<list.length;k2++){
+    var nz=(Math.random()*2-1)*5;
+    cR[k2]+=nz; cG[k2]+=nz*0.9; cB[k2]+=nz*0.9;
+    var pj=list[k2];
+    d[pj*4]=clamp(cR[k2],0,255); d[pj*4+1]=clamp(cG[k2],0,255); d[pj*4+2]=clamp(cB[k2],0,255);
+  }
+  x.putImageData(img,0,0);
+  return out;
+}
+$("btnWmInpaint").onclick=function(){
+  if(!srcImg)return;
+  ensureWorkBase(); if(!wm.mask||!wm.maskHas)return;
+  if(!($("wmRights")&&$("wmRights").checked))return;
+  var btn=$("btnWmInpaint");
+  wm.beforeSnap=copyCanvas(wm.base);
+  btn.disabled=true;
+  $("wmStatus").textContent="Đang xoá vùng đã tô — inpainting đang lan truyền màu / texture từ biên vào trong, chờ một chút…";
+  setTimeout(function(){
+    try{
+      var outC=inpaintSync(wm.base,wm.mask);
+      wm.base=outC; wm.cleaned=true; wm.after=null; wm.heatCells=null;
+      wm.mask=mkCanvas(outC.width,outC.height); wm.undoStack=[]; wm.maskHas=false;
+      drawWmStage(); drawMaskView();
+      drawWmCompare();
+      scheduleRender();
+      var reAuto=runWmCheck(true,true);
+      $("wmStatus").textContent="Đã xoá xong và áp dụng vào ảnh chính (các bước sau + file xuất sẽ dùng bản đã xoá này). Kéo thanh so sánh để soi trước / sau. App đã tự kiểm tra lại ngay: "+(reAuto?(reAuto.count===0?"0 ô nghi ngờ — ảnh đã sạch, xuất file ở bước 7 đã tự mở khoá.":"còn "+reAuto.count+" ô nghi ngờ — xem báo cáo ở mục C: mặt nạ đã tự tô lại theo các ô còn nghi, xoá tiếp hoặc tích xác nhận soi tay."):"không chạy được kiểm tra lại tự động — bấm nút kiểm tra lại ở mục C.");
+      updateExportGate();
+    }catch(err){
+      $("wmStatus").textContent="Có lỗi khi xoá — thử tô vùng nhỏ hơn hoặc nạp lại ảnh rồi xoá lại.";
+    }
+    updateInpaintBtn();
+  },40);
+};
+function drawWmCompare(){
+  var blk=$("wmCmpBlock"); if(!blk||!wm.beforeSnap||!wm.base)return;
+  blk.style.display="block";
+  var A=$("wmCmpA"), B=$("wmCmpB"), mw=640;
+  var mh=Math.max(40,Math.round(wm.base.height*(mw/wm.base.width)));
+  [A,B].forEach(function(cv){cv.width=mw; cv.height=mh});
+  A.getContext("2d").drawImage(wm.beforeSnap,0,0,mw,mh);
+  B.getContext("2d").drawImage(wm.base,0,0,mw,mh);
+  applyWmCompare();
+}
+function applyWmCompare(){
+  var v=parseFloat($("wmCmpRange").value);
+  $("wmCmpVal").textContent=v+"%";
+  $("wmCmpB").style.clipPath="inset(0 0 0 "+v+"%)";
+}
+$("wmCmpRange").addEventListener("input",applyWmCompare);
+/* --- khoá / mở xuất file + hồ sơ .txt --- */
+function wmManualChecked(){var el=$("wmManualConfirm"); return !!(el&&el.checked)}
+$("wmManualConfirm").addEventListener("change",updateExportGate);
+function updateExportGate(){
+  var open=false, why="";
+  if(wmManualChecked()){open=true; why="Đã mở khoá bằng xác nhận soi tay của bạn ở bước 3 (mục C)."}
+  else if(wm.after&&wm.after.count===0){open=true; why="Kiểm tra lại sau khi xoá đạt sạch: 0 ô nghi ngờ."}
+  else if(!wm.cleaned&&wm.before&&wm.before.count===0){open=true; why="Kiểm tra watermark ban đầu: chưa thấy dấu hiệu (0 ô nghi ngờ)."}
+  else if(wm.after&&wm.after.count>0){why="Còn "+wm.after.count+" ô nghi ngờ sau khi xoá — xoá tiếp ở bước 3 rồi kiểm tra lại, hoặc tích xác nhận soi tay (mục C)."}
+  else if(wm.cleaned){why="Đã xoá watermark nhưng chưa kiểm tra lại — bấm “Kiểm tra lại” ở bước 3 (mục C)."}
+  else if(wm.before&&wm.before.count>0){why="Ảnh đang nghi có watermark ("+wm.before.count+" ô) — xoá ở bước 3 rồi kiểm tra lại, hoặc tích xác nhận soi tay (mục C)."}
+  else{why="Đang chờ kết quả tự quét watermark ở bước 3 — app quét ngay khi vùng cắt ổn định và sẽ tự mở khoá nếu sạch; nếu chưa có kết quả, bấm “Quét lại watermark ngay” ở bước 3."}
+  var en=!!srcImg&&open;
+  var bp=$("btnExportPng"), bj=$("btnExportJpg");
+  if(bp)bp.disabled=!en;
+  if(bj)bj.disabled=!en;
+  var note=$("exportGateNote");
+  if(note){
+    note.style.display=srcImg?"block":"none";
+    note.className="repbox "+(open?"ok":"warn");
+    note.innerHTML=(open?"✓ <b>Đã mở khoá xuất file.</b> ":"🔒 <b>Xuất file đang khoá.</b> ")+why;
+  }
+}
+function wmTxtLine(label,res){
+  if(!res)return label+": chưa chạy";
+  return label+": "+res.time.toLocaleString("vi-VN")+" — "+res.count+" ô nghi ngờ / 36 — "+(res.count>0?("NGHI CÓ WATERMARK (độ tin cậy trung bình "+res.confidence+"%)"):"Chưa thấy dấu hiệu watermark");
+}
+
 /* ================= EXPORT ================= */
 document.querySelectorAll(".size-card").forEach(function(card){
   card.addEventListener("click",function(){
@@ -970,7 +1596,7 @@ function buildExportCanvas(){
   var eff=effectiveSettings();
   /* process at bounded resolution, then place on exact export size */
   var workMax=3600;
-  var base=getCropCanvas(workMax);
+  var base=getArtCanvas(workMax);
   var processed=processCanvas(base,eff,true);
   var out=mkCanvas(exportSize.w,exportSize.h);
   var x=out.getContext("2d"); x.imageSmoothingEnabled=true; x.imageSmoothingQuality="high";
@@ -997,14 +1623,31 @@ function doExport(format){
           var fixed=format==="png"?setPngDpi(bytes,300):setJpgDpi(bytes,300);
           var outBlob=new Blob([fixed],{type:format==="png"?"image/png":"image/jpeg"});
           downloadBlob(outBlob,baseName+(format==="png"?".png":".jpg"));
-          if(promptText){
-            setTimeout(function(){
-              var txt="PROMPT SỬA ART — Studio POD 2D\r\nFile in: "+baseName+(format==="png"?".png":".jpg")+"\r\nKhổ: "+exportSize.w+"x"+exportSize.h+" px · 300 DPI\r\n\r\nPrompt gốc:\r\n"+promptText+"\r\n\r\nPrompt hoàn chỉnh (dán vào AI tạo sinh nếu muốn vẽ lại hẳn):\r\n"+fullPromptText()+"\r\n";
-              downloadBlob(new Blob([txt],{type:"text/plain;charset=utf-8"}),baseName+"-prompt.txt");
-            },450);
-          }
+          setTimeout(function(){
+            var lines=[];
+            lines.push("STUDIO POD 2D — HỒ SƠ FILE IN");
+            lines.push("File in: "+baseName+(format==="png"?".png":".jpg"));
+            lines.push("Khổ: "+exportSize.w+"x"+exportSize.h+" px · 300 DPI");
+            lines.push("");
+            lines.push("=== KIỂM TRA WATERMARK (bước 3) ===");
+            lines.push(wmTxtLine("Kiểm tra trước",wm.before));
+            lines.push(wmTxtLine("Kiểm tra lại sau khi xoá",wm.after));
+            lines.push("Đã xoá watermark trong app: "+(wm.cleaned?"Có (inpainting trên vùng người dùng đã tô)":"Không"));
+            lines.push("Xác nhận của người dùng về quyền dùng ảnh: "+(($("wmRights")&&$("wmRights").checked)||wmManualChecked()?"Có":"Không ghi nhận"));
+            lines.push("Xác nhận soi tay từng ô: "+(wmManualChecked()?"Có — xác nhận không còn watermark và có quyền dùng ảnh này":"Không"));
+            if(promptText){
+              lines.push("");
+              lines.push("=== PROMPT SỬA ART ===");
+              lines.push("Prompt gốc:");
+              lines.push(promptText);
+              lines.push("");
+              lines.push("Prompt hoàn chỉnh (dán vào AI tạo sinh nếu muốn vẽ lại hẳn):");
+              lines.push(fullPromptText());
+            }
+            downloadBlob(new Blob([lines.join("\r\n")],{type:"text/plain;charset=utf-8"}),baseName+"-ho-so.txt");
+          },450);
           btn.disabled=false; btn.textContent=old;
-          showOk("⬇️ Đã tải file in <b>"+exportSize.w+" × "+exportSize.h+" px · 300 DPI</b> ("+(format==="png"?"PNG":"JPG")+")"+(promptText?" + file <b>.txt</b> ghi prompt kèm theo.":". Chưa có prompt nên không kèm file .txt.")+" Gửi file này cho nhà in là in tràn mặt trước được ngay.");
+          showOk("⬇️ Đã tải file in <b>"+exportSize.w+" × "+exportSize.h+" px · 300 DPI</b> ("+(format==="png"?"PNG":"JPG")+") + file <b>.txt</b> hồ sơ kèm theo (kết quả kiểm tra watermark trước / sau"+(promptText?" + prompt đã dùng":"")+"). Gửi file này cho nhà in là in tràn mặt trước được ngay.");
         });
       },format==="png"?"image/png":"image/jpeg",0.94);
     }catch(err){
@@ -1019,6 +1662,8 @@ $("btnExportJpg").onclick=function(){doExport("jpg")};
 /* ================= INIT ================= */
 drawCrop();
 renderPreview();
+drawWmStage();
+updateExportGate();
 })();
 </script>
 </body>
