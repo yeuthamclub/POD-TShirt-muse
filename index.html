@@ -135,6 +135,70 @@ footer{max-width:1060px;margin:0 auto;padding:0 18px 26px;color:var(--muted);fon
 .tool-card a:hover{color:var(--accent)}
 .tool-card small{display:block;color:var(--muted);font-size:12px;line-height:1.5;margin-top:3px}
 .api-tag{display:inline-block;font-size:10.5px;font-weight:800;background:#eceae3;color:var(--dark);border-radius:999px;padding:2px 8px;margin-left:6px;vertical-align:middle}
+.radar-panel{border:2px solid var(--dark)}
+.radar-top{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:10px}
+.radar-date{font-size:12px;font-weight:800;background:#141412;color:#fff;border-radius:999px;padding:7px 11px}
+.radar-season{font-size:12.5px;line-height:1.55;background:#fff3ec;border:1px solid #ffd2bd;border-radius:10px;padding:10px 12px;margin:10px 0}
+.radar-daily{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-top:8px}
+.radar-daily-card{border:1.5px solid var(--line);background:#faf9f5;border-radius:10px;padding:11px;text-align:left;width:100%}
+.radar-daily-card:hover{border-color:var(--accent);background:#fff3ec}
+.radar-daily-card strong{font-size:13.5px;display:block}
+.radar-daily-card small{font-size:12px;color:var(--muted);line-height:1.5;display:block;margin-top:3px}
+.radar-daily-card em{font-style:normal;font-size:11px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.05em}
+.radar-niches{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}
+.rniche{border:1.5px solid var(--dark);background:#fff;border-radius:999px;padding:8px 12px;font-size:12.5px;font-weight:700}
+.rniche.on{background:var(--dark);color:#fff}
+.rniche:hover{background:#fff3ec}.rniche.on:hover{background:var(--dark)}
+.source-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:10px;margin-top:10px}
+.source-card{border:1.5px solid var(--line);border-radius:12px;padding:13px;background:#faf9f5;display:flex;flex-direction:column;gap:8px}
+.source-card h3{margin:0;font-size:15px;font-weight:900;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.source-badge{font-size:10.5px;font-weight:800;border-radius:999px;padding:4px 8px;white-space:nowrap}
+.badge-amz{background:#ffedd5;color:#7a3a00}.badge-etsy{background:#fde8e0;color:#8a2b00}.badge-shop{background:#e6f4ea;color:#14532d}
+.source-card p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.55}
+.source-card ul{margin:2px 0 0;padding-left:16px;font-size:12px;color:var(--muted);line-height:1.6}
+.source-links{display:grid;gap:7px;margin-top:auto}
+.source-links a{text-decoration:none;text-align:center}
+.radar-cur{font-size:13px;line-height:1.6;background:#e8f8f1;border:1px solid #bfe9d5;border-radius:10px;padding:10px 12px;margin-top:10px}
+.radar-idea-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.radar-idea-row input{flex:1;min-width:200px;padding:11px;border:1px solid var(--line);border-radius:10px;font-size:14px}
+.radar-idea{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-top:8px;background:#fff;display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap}
+.radar-idea p{margin:0;font-size:13px;line-height:1.55;flex:1;min-width:180px;word-break:break-word}
+.radar-idea-btns{display:flex;gap:6px;flex-wrap:wrap}
+.radar-mini{border:1px solid var(--dark);background:#fff;border-radius:8px;padding:6px 10px;font-size:12px;font-weight:700}
+.radar-mini.accent{background:var(--accent);color:#fff;border-color:var(--accent)}
+.libtag{display:inline-block;font-size:10.5px;font-weight:800;background:var(--dark);color:#fff;border-radius:999px;padding:3px 9px;margin-left:6px;vertical-align:middle;text-transform:none;letter-spacing:0}
+.lib-ok{color:#075e3e!important;font-weight:700}
+.lib-err{color:#a3260c!important;font-weight:700}
+.palette-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.pal-item{display:flex;flex-direction:column;align-items:center;gap:6px;border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px;min-width:88px;cursor:pointer}
+.pal-item:hover{border-color:var(--dark)}
+.pal-swatch{width:44px;height:44px;border-radius:8px;border:1px solid rgba(0,0,0,.14);display:block}
+.pal-hex{font-size:12px;font-weight:800;font-variant-numeric:tabular-nums}
+#svgPreview svg{max-width:100%;height:auto}
+.loadbox{margin-top:10px;border:1px solid var(--line);border-radius:10px;padding:11px 12px;background:#faf9f5;max-width:680px}
+.loadbar{height:10px;background:#e9e7e0;border-radius:99px;overflow:hidden}
+.loadfill{height:100%;width:0%;background:var(--accent);border-radius:99px;transition:width .15s ease}
+.loadrow{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:8px}
+.loadrow span{font-size:12.5px;color:var(--muted);line-height:1.5;flex:1}
+.btn-mini-dark{border:1.5px solid var(--dark);background:#fff;color:var(--dark);border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;flex:none}
+.btn-mini-dark:hover{background:#fff3ec}
+.cmp-wrap.alpha-bg{background-color:#fff;background-image:conic-gradient(#ddd9cf 25%,#fff 0 50%,#ddd9cf 0 75%,#fff 0);background-size:18px 18px}
+.ed-stage-outer{display:grid;place-items:center;padding:14px;border:1px solid var(--line);border-radius:12px;background:#e9e7e0;background-image:radial-gradient(#d6d3c8 1px,transparent 1px);background-size:18px 18px;overflow:hidden}
+.ed-stage-wrap{position:relative;line-height:0;background:#fff;box-shadow:0 10px 30px rgba(0,0,0,.18);max-width:100%}
+#edProxy{position:absolute;left:0;top:0;border:2px dashed var(--accent);box-sizing:border-box;display:none;z-index:10;cursor:move;touch-action:none}
+.tgl{border:1.5px solid var(--dark);background:#fff;border-radius:8px;padding:8px 13px;font-weight:800;font-size:13px;min-width:42px}
+.tgl.on{background:var(--dark);color:#fff}
+input[type=color].ed-color{width:52px;height:38px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:3px;cursor:pointer;flex:none}
+.ed-layer-list{display:grid;gap:6px;margin-top:8px}
+.ed-layer-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap;border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;background:#faf9f5}
+.ed-layer-row.on{border-color:var(--accent);background:#fff3ec}
+.ed-layer-row .nm{flex:1;min-width:110px;font-size:13px;font-weight:700;word-break:break-word}
+.ed-layer-row .tp{font-size:10.5px;font-weight:800;background:#eceae3;border-radius:999px;padding:3px 8px;white-space:nowrap}
+.ed-mini{border:1px solid var(--dark);background:#fff;border-radius:8px;padding:5px 9px;font-size:12px;font-weight:700}
+.ed-mini:hover{background:#fff3ec}
+.ed-mini:disabled{opacity:.38;cursor:not-allowed}
+.ed-mini.danger{border-color:#a3260c;color:#a3260c}
+.ed-sel-tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
 </style>
 </head>
 <body>
@@ -143,13 +207,87 @@ footer{max-width:1060px;margin:0 auto;padding:0 18px 26px;color:var(--muted);fon
   <div class="in">
     <div>
       <h1>STUDIO <span>POD 2D</span> — Ảnh khổ lớn tràn mặt trước áo</h1>
-      <p>Một luồng duy nhất: nạp 1 ảnh → cắt 1 vùng lớn tràn mặt trước → <b>kiểm tra &amp; xoá watermark</b> → sửa art bằng prompt + làm đẹp / vẽ lại nét → xem mockup → xuất <b>1 file 2D khổ lớn 300 DPI</b> gửi nhà in.</p>
+      <p>Một luồng duy nhất: nạp 1 ảnh → cắt 1 vùng lớn tràn mặt trước → <b>kiểm tra &amp; xoá watermark</b> → sửa art bằng prompt + làm đẹp / vẽ lại nét → xem mockup → xuất <b>1 file 2D khổ lớn 300 DPI</b> gửi nhà in. Muốn tìm ý tưởng trước khi làm, dùng <b>Radar mẫu bán chạy</b> ngay bên dưới — soi Amazon / Etsy / Shopify mỗi ngày.</p>
     </div>
     <div class="badge">1 ảnh · 1 file in</div>
   </div>
 </header>
 
 <div class="flow">
+
+  <!-- RADAR: MẪU ÁO BÁN CHẠY TRONG NGÀY -->
+  <section class="panel radar-panel" id="radarPanel">
+    <div class="radar-top">
+      <div class="panel-head" style="margin:0"><div class="num hot">◎</div><div><h2>Radar mẫu áo bán chạy — soi mỗi ngày</h2><p>Chọn 1 ngách, app tự dựng link tìm kiếm đúng ngách đó trên <b>Amazon, Etsy và Shopify</b> để bạn xem mẫu đang bán chạy / được đánh giá cao <b>ngay tại nguồn, ngay lúc bạn bấm</b>. Lưu lại ý tưởng hay rồi chuyển thẳng sang Bước 4 để sửa art.</p></div></div>
+      <span class="radar-date" id="radarDate">Hôm nay: …</span>
+    </div>
+    <div class="radar-season" id="radarSeason">Đang tính gợi ý theo mùa…</div>
+
+    <p class="subhead" style="margin-top:4px">3 ngách gợi ý khám phá hôm nay — xoay vòng theo ngày</p>
+    <div class="radar-daily" id="radarDaily"></div>
+    <p class="hint" style="margin-top:6px">Đây là thứ tự gợi ý khám phá xoay vòng mỗi ngày để bạn không bị bí ý tưởng — thứ hạng bán chạy thật luôn nằm ở trang nguồn khi bạn bấm vào, không phải số liệu app tự bịa ra.</p>
+
+    <p class="subhead">Chọn ngách đang soi</p>
+    <div class="radar-niches" id="radarNiches"></div>
+    <div class="radar-cur" id="radarCur">Đang soi: <b>—</b></div>
+
+    <p class="subhead">Lọc theo nguồn</p>
+    <div class="seg" role="group" aria-label="Lọc nguồn radar" style="max-width:520px">
+      <button id="rfAll" class="on">Tất cả 3 nguồn</button>
+      <button id="rfAmazon">Amazon</button>
+      <button id="rfEtsy">Etsy</button>
+      <button id="rfShopify">Shopify</button>
+    </div>
+
+    <div class="source-grid" id="radarSources">
+      <article class="source-card" data-source="amazon">
+        <h3>Amazon <span class="source-badge badge-amz">Best Sellers · Review cao</span></h3>
+        <p>Sàn lớn nhất cho POD. Soi trang Best Sellers áo thun và kết quả sắp theo review để thấy mẫu nào đang được mua + khen thật, mẫu nào chỉ quảng cáo.</p>
+        <ul><li>Ưu tiên: badge Best Seller / Amazon's Choice, 4.3★ trở lên, nhiều review gần đây</li><li>Đọc 10 review chê gần nhất — đó là lỗi in / form áo cần tránh</li></ul>
+        <div class="source-links">
+          <a class="btn btn-accent" id="linkAmzSearch" href="https://www.amazon.com/s?k=funny+t+shirt" target="_blank" rel="noopener">Tìm ngách này trên Amazon →</a>
+          <a class="btn btn-light" href="https://www.amazon.com/Best-Sellers-Clothing-Shoes-Jewelry-T-Shirts/zgbs/fashion/1045626" target="_blank" rel="noopener">Trang Best Sellers T-Shirts</a>
+          <a class="btn btn-light" href="https://www.amazon.com/gp/movers-and-shakers/fashion/1045626" target="_blank" rel="noopener">Movers &amp; Shakers — đang tăng nhanh</a>
+        </div>
+      </article>
+      <article class="source-card" data-source="etsy">
+        <h3>Etsy <span class="source-badge badge-etsy">Handmade · Star Seller</span></h3>
+        <p>Nơi ý tưởng chữ / minh hoạ POD lên xu hướng sớm nhất. Mẫu bán chạy ở đây thường là câu chữ ngách rất hẹp, cá nhân hoá cao — học cách chọn ngách, đừng sao chép nguyên art.</p>
+        <ul><li>Ưu tiên: badge Bestseller / Star Seller, shop bán lặp lại nhiều mẫu cùng ngách</li><li>Xem ảnh review thật của khách — chất in và vị trí in thực tế</li></ul>
+        <div class="source-links">
+          <a class="btn btn-accent" id="linkEtsySearch" href="https://www.etsy.com/search?q=funny+t+shirt" target="_blank" rel="noopener">Tìm ngách này trên Etsy →</a>
+          <a class="btn btn-light" href="https://www.etsy.com/search?q=best+selling+t+shirt&amp;explicit=1" target="_blank" rel="noopener">Tìm áo gắn nhãn bán chạy</a>
+          <a class="btn btn-light" href="https://www.etsy.com/search?q=t+shirt&amp;explicit=1&amp;order=most_relevant" target="_blank" rel="noopener">Khám phá áo thun nổi bật</a>
+        </div>
+      </article>
+      <article class="source-card" data-source="shopify">
+        <h3>Shopify <span class="source-badge badge-shop">Store độc lập · Ads</span></h3>
+        <p>Shopify không có 1 trang bán chạy chung — các store độc lập bán qua quảng cáo. App dựng sẵn link Google lọc đúng các store Shopify theo ngách để bạn soi store đang chạy mẫu nào, giá bao nhiêu, landing ra sao.</p>
+        <ul><li>Ưu tiên: store có nhiều mẫu cùng ngách, có review + ảnh khách thật, giá $20–35</li><li>Chú ý cách họ chụp mockup và viết mô tả — học cấu trúc, làm art riêng</li></ul>
+        <div class="source-links">
+          <a class="btn btn-accent" id="linkShopSearch" href="https://www.google.com/search?q=site%3Amyshopify.com+funny+t+shirt" target="_blank" rel="noopener">Tìm store Shopify ngách này →</a>
+          <a class="btn btn-light" id="linkShopSearch2" href="https://www.google.com/search?q=best+selling+funny+t+shirt+shopify+store" target="_blank" rel="noopener">Tìm store bán chạy theo ngách (Google)</a>
+          <a class="btn btn-light" href="https://www.google.com/search?q=best+selling+t-shirts+shopify+store+2026" target="_blank" rel="noopener">Quét store áo bán chạy nói chung</a>
+        </div>
+      </article>
+    </div>
+
+    <div class="row" style="margin-top:12px">
+      <button class="btn btn-dark" id="btnRadarOpenAll">Mở cả 3 nguồn của ngách đang chọn</button>
+      <button class="btn btn-outline" id="btnRadarToPrompt">Đưa ngách này sang Prompt sửa art (Bước 4)</button>
+    </div>
+    <p class="hint" style="margin-top:8px">Nếu trình duyệt chặn mở nhiều tab cùng lúc, hãy bấm từng nút nguồn ở trên — link đã đúng ngách bạn chọn.</p>
+
+    <p class="subhead">Lưu ý tưởng trong phiên — thấy mẫu hay là ghi lại ngay</p>
+    <div class="radar-idea-row">
+      <input type="text" id="radarIdeaInput" placeholder="VD: Chữ vintage ‘Retired Nurse’ — Etsy bán chạy, làm bản riêng tông đỏ ấm">
+      <button class="btn btn-dark" id="btnRadarSaveIdea">Lưu ý tưởng</button>
+    </div>
+    <p class="muse-empty" id="radarIdeaEmpty" style="color:var(--muted)">Chưa lưu ý tưởng nào trong phiên này. Ý tưởng lưu tại đây chỉ giữ khi app đang mở — hãy chuyển sang Bước 4 hoặc sao chép ra ngoài trước khi đóng app.</p>
+    <div id="radarIdeaList"></div>
+
+    <div class="notice"><b>Nói rõ cách Radar hoạt động:</b> Amazon, Etsy và Shopify <b>không cho app tĩnh này tự kéo bảng xếp hạng trực tiếp vào trang</b> (chặn nhúng + cần khoá API riêng). Vì vậy Radar làm đúng phần hữu ích nhất mỗi ngày: <b>dựng sẵn link đúng ngách tới đúng trang bán chạy / tìm kiếm tại nguồn</b> — số liệu, thứ hạng và giá bạn thấy khi bấm vào luôn là dữ liệu thật, mới nhất tại nguồn lúc đó. Tuyệt đối không sao chép nguyên artwork có bản quyền của shop khác: chỉ học ngách, bố cục và khoảng giá, rồi làm art riêng của bạn.</div>
+  </section>
 
   <!-- BƯỚC 1: NẠP ẢNH -->
   <section class="panel">
@@ -196,6 +334,14 @@ footer{max-width:1060px;margin:0 auto;padding:0 18px 26px;color:var(--muted);fon
     <label class="checkrow"><input type="checkbox" id="wmHeatToggle" checked><span>Hiện bản đồ nhiệt — ô đỏ là ô bị đánh dấu nghi ngờ, ô vàng là ô sát ngưỡng (bật / tắt lớp phủ này không thay đổi kết quả quét).</span></label>
     <div class="repbox" id="wmReport"></div>
     <div class="notice"><b>Trung thực về độ chính xác:</b> đây là kiểm tra <b>heuristic chạy trên trình duyệt</b> — app chia ảnh thành lưới 6×6, đo mật độ cạnh (Sobel), độ lệch sáng cục bộ, tính lặp chu kỳ (tự tương quan ngang / dọc để bắt hoạ tiết chữ mờ lặp lại) và ưu tiên soi 4 góc + vùng giữa, nơi watermark hay nằm. Đây <b>không phải khẳng định tuyệt đối</b>: vùng art nhiều chi tiết có thể bị đánh dấu nhầm, watermark quá mờ có thể bị sót. Hãy tự soi tay từng ô nghi ngờ bằng chế độ <b>Soi ô</b> bên dưới trước khi quyết định.</div>
+
+    <p class="subhead">A2 · OCR tìm vùng chữ trên art <span class="libtag">thư viện: tesseract.js</span></p>
+    <p class="hint">Watermark dạng chữ (tên shop / trang stock mờ lặp lại) rất khó thấy bằng mắt thường trên art nhiều chi tiết. OCR của <b>tesseract.js</b> đọc thử vùng đã cắt ngay trong trình duyệt, <b>khoanh khung xanh các vùng có chữ</b> lên ảnh bên dưới để bạn soi đúng chỗ và tô mặt nạ đúng vùng đó. OCR chỉ hỗ trợ định vị — không thay đổi kết quả quét heuristic ở mục A.</p>
+    <div class="row">
+      <button class="btn btn-dark" id="btnOcr">Chạy OCR tìm vùng chữ (tesseract.js)</button>
+    </div>
+    <p class="hint" id="ocrStatus">Chưa chạy OCR. Lần đầu bấm, trình duyệt tải tesseract.js + dữ liệu ngôn ngữ từ CDN (vài MB, cần mạng); các lần sau nhanh hơn vì trình duyệt đã lưu đệm.</p>
+    <div class="repbox" id="ocrReport"></div>
     <div style="height:12px"></div>
     <div class="wm-stage">
       <canvas id="wmCanvas" width="760" height="500"></canvas>
@@ -222,6 +368,17 @@ footer{max-width:1060px;margin:0 auto;padding:0 18px 26px;color:var(--muted);fon
       <button class="btn btn-light" id="btnWmClearMask">Xoá hết mặt nạ</button>
       <button class="btn btn-outline" id="btnWmAutoMask">Tự tô theo ô nghi ngờ</button>
     </div>
+    <label class="f">Cách xoá (inpaint) — chạy thử từng cách, so sánh ở khung trước / sau bên dưới rồi giữ bản đẹp hơn</label>
+    <div class="seg small" role="group" aria-label="Chọn cách xoá watermark" style="max-width:560px">
+      <button id="inpMethodDiff" class="on">Inpaint hiện tại (diffusion)</button>
+      <button id="inpMethodCv">OpenCV — Telea</button>
+    </div>
+    <p class="hint" style="margin-top:8px"><b>Inpaint hiện tại:</b> diffusion đa tỉ lệ viết ngay trong app, không cần tải gì thêm. <b>OpenCV — Telea:</b> thuật toán inpaint Telea của thư viện <b>OpenCV.js</b> — lần đầu bấm xoá, trình duyệt tải OpenCV.js (~8 MB) từ trang chính thức của OpenCV, có thanh tiến độ và nút huỷ; tải hoặc chạy không được thì app báo rõ và bạn vẫn dùng được cách hiện tại.</p>
+    <div class="loadbox" id="cvLoadBox" style="display:none">
+      <div class="loadbar"><div class="loadfill" id="cvLoadFill"></div></div>
+      <div class="loadrow"><span id="cvLoadText">Đang tải OpenCV.js…</span><button class="btn-mini-dark" id="cvCancel" type="button">Huỷ tải</button></div>
+    </div>
+    <p class="hint" id="cvStatus"></p>
     <div style="height:10px"></div>
     <button class="btn btn-accent btn-block" id="btnWmInpaint" disabled>Xoá vùng đã tô (inpainting)</button>
     <p class="hint" id="wmStatus" style="margin-top:8px">Cách xoá hoạt động: inpainting diffusion đa tỉ lệ — lan truyền màu / texture từ biên vùng tô vào trong qua nhiều vòng lặp, cộng lấy mẫu texture lân cận và hạt nhiễu mịn để vùng lấp trông tự nhiên. Vùng tô càng sát watermark, kết quả càng sạch. Sau khi xoá, app tự kiểm tra lại ngay — không cần bấm tay.</p>
@@ -233,6 +390,7 @@ footer{max-width:1060px;margin:0 auto;padding:0 18px 26px;color:var(--muted);fon
       <div class="cmp-labels"><span>TRƯỚC XOÁ</span><span>SAU XOÁ</span></div>
       <label class="f" style="max-width:680px;margin-left:auto;margin-right:auto">Kéo để so sánh trước / sau xoá <span id="wmCmpVal">50%</span></label>
       <input type="range" id="wmCmpRange" min="0" max="100" value="50" style="max-width:680px;display:block;margin:0 auto">
+      <button class="btn btn-light btn-block" id="btnWmRestore" style="max-width:680px;margin:10px auto 0">↩ Quay lại bản trước khi xoá (giữ nguyên mặt nạ — để thử cách xoá khác)</button>
     </div>
 
     <p class="subhead">C · Kiểm tra lại sau khi xoá — bắt buộc trước khi xuất</p>
@@ -283,6 +441,7 @@ footer{max-width:1060px;margin:0 auto;padding:0 18px 26px;color:var(--muted);fon
   <!-- BƯỚC 5: LÀM ĐẸP + VẼ LẠI NÉT -->
   <section class="panel">
     <div class="panel-head"><div class="num">5</div><div><h2>Làm đẹp &amp; vẽ lại nét</h2><p>Chỉnh tay từng thông số, kéo thanh so sánh để xem trước / sau. Các chỉnh tay cộng dồn với hiệu ứng prompt ở bước 4.</p></div></div>
+    <p class="hint" id="artSrcStatus" style="font-weight:600;margin-bottom:10px"></p>
     <div class="cmp-wrap">
       <canvas id="beforeCanvas" width="880" height="660"></canvas>
       <canvas id="afterCanvas" class="top" width="880" height="660"></canvas>
@@ -316,6 +475,89 @@ footer{max-width:1060px;margin:0 auto;padding:0 18px 26px;color:var(--muted);fon
       <div><label class="f">Độ đậm nét / viền <span id="vLine">140</span></label><input type="range" id="sLine" min="40" max="255" value="140"></div>
       <div><label class="f">Số mức màu (posterize) <span id="vLevels">6</span></label><input type="range" id="sLevels" min="4" max="10" value="6"></div>
     </div>
+    <p class="subhead">Upscale AI — phóng ảnh bằng Real-ESRGAN <span class="libtag">thư viện: onnxruntime-web · model: Real-ESRGAN (ONNX công khai)</span></p>
+    <p class="hint">Chạy <b>model AI Real-ESRGAN ngay trong trình duyệt</b> qua <b>onnxruntime-web</b> (WASM) — không API, không máy chủ. Lần đầu bấm chạy, trình duyệt tải thư viện + file model ONNX công khai từ Hugging Face (vài chục MB, cần mạng) với thanh tiến độ và nút huỷ. Ảnh được xử lý <b>theo từng ô (tile)</b>, hiện tiến độ theo tile để tránh hụt bộ nhớ với ảnh lớn. Chạy xong sẽ hiện khung so sánh trước / sau — chỉ khi bạn bấm “Áp dụng” thì kết quả mới thay art hiện tại. Nếu tải hoặc chạy không được, app báo lỗi rõ ràng và <b>không</b> giả vờ đã upscale.</p>
+    <div class="seg small" role="group" aria-label="Hệ số upscale AI" style="max-width:340px">
+      <button id="upScale2">Phóng ×2</button>
+      <button id="upScale4" class="on">Phóng ×4</button>
+    </div>
+    <div class="row" style="margin-top:10px;max-width:520px">
+      <button class="btn btn-dark" id="btnUpscale">Chạy Upscale AI (Real-ESRGAN)</button>
+    </div>
+    <div class="loadbox" id="upLoadBox" style="display:none">
+      <div class="loadbar"><div class="loadfill" id="upLoadFill"></div></div>
+      <div class="loadrow"><span id="upLoadText">…</span><button class="btn-mini-dark" id="upCancel" type="button">Huỷ</button></div>
+    </div>
+    <p class="hint" id="upStatus">Chưa chạy Upscale AI. Model chạy bằng WASM nên máy càng mạnh càng nhanh; ảnh đầu vào quá lớn sẽ được thu về tối đa ~900 px cạnh dài (khi phóng ×4) / ~1200 px (khi phóng ×2) trước khi chạy model để tránh hụt bộ nhớ — kích thước thật sẽ ghi rõ khi chạy.</p>
+    <div id="upCmpBlock" style="display:none;margin-top:12px">
+      <div class="cmp-wrap">
+        <canvas id="upCmpA" width="640" height="480"></canvas>
+        <canvas id="upCmpB" class="top" width="640" height="480"></canvas>
+      </div>
+      <div class="cmp-labels"><span>TRƯỚC UPSCALE</span><span>SAU UPSCALE AI</span></div>
+      <label class="f" style="max-width:680px;margin-left:auto;margin-right:auto">Kéo để so sánh trước / sau upscale <span id="upCmpVal">50%</span></label>
+      <input type="range" id="upCmpRange" min="0" max="100" value="50" style="max-width:680px;display:block;margin:0 auto">
+      <div class="row" style="max-width:680px;margin:10px auto 0">
+        <button class="btn btn-accent" id="btnUpApply">Áp dụng kết quả upscale</button>
+        <button class="btn btn-light" id="btnUpDiscard">Bỏ kết quả này</button>
+      </div>
+    </div>
+
+    <p class="subhead">Tách nền bằng AI (MediaPipe) <span class="libtag">thư viện: MediaPipe Tasks Vision · model: deeplab_v3</span></p>
+    <p class="hint">Dùng <b>Image Segmenter của MediaPipe Tasks Vision</b> chạy ngay trong trình duyệt để tạo mặt nạ đối tượng chính rồi tách nền thành <b>trong suốt</b> — hợp khi art cần nền trong suốt để in. Lần đầu bấm, trình duyệt tải thư viện MediaPipe + model deeplab_v3 từ CDN / Google (phần tải model có thanh tiến độ và nút huỷ). Nếu MediaPipe tải hoặc chạy không được, app báo lỗi rõ ràng và <b>giữ nguyên art hiện tại</b> — không thay đổi gì cả.</p>
+    <div class="row" style="max-width:520px">
+      <button class="btn btn-dark" id="btnSegment">Tách nền bằng AI (MediaPipe)</button>
+    </div>
+    <div class="loadbox" id="segLoadBox" style="display:none">
+      <div class="loadbar"><div class="loadfill" id="segLoadFill"></div></div>
+      <div class="loadrow"><span id="segLoadText">…</span><button class="btn-mini-dark" id="segCancel" type="button">Huỷ</button></div>
+    </div>
+    <p class="hint" id="segStatus">Chưa chạy tách nền AI. Lưu ý thật: model deeplab_v3 nhận diện đối tượng theo các lớp phổ biến (người, thú, xe, đồ vật…) — art phẳng thuần chữ / hoạ tiết có thể không có đối tượng để tách, app sẽ báo rõ nếu không tìm thấy đối tượng nào.</p>
+    <div id="segCmpBlock" style="display:none;margin-top:12px">
+      <div class="cmp-wrap alpha-bg">
+        <canvas id="segPreview" width="640" height="480"></canvas>
+      </div>
+      <div class="cmp-labels"><span></span><span>KẾT QUẢ TÁCH NỀN — PHẦN CARO LÀ TRONG SUỐT</span></div>
+      <div class="row" style="max-width:680px;margin:10px auto 0">
+        <button class="btn btn-accent" id="btnSegApply">Áp dụng nền trong suốt</button>
+        <button class="btn btn-light" id="btnSegDiscard">Bỏ kết quả này</button>
+      </div>
+    </div>
+
+    <p class="subhead">Bảng màu chủ đạo của art <span class="libtag">thư viện: color-thief</span></p>
+    <p class="hint">Trích các màu chiếm tỉ trọng lớn nhất trong art (bản đã xử lý ở trên) — <b>bấm vào 1 mã hex để sao chép</b>, dùng phối màu áo / màu chữ cho khớp thiết kế.</p>
+    <div class="row" style="max-width:420px">
+      <button class="btn btn-dark" id="btnPalette">Trích bảng màu từ art</button>
+    </div>
+    <div class="palette-row" id="paletteRow"></div>
+    <p class="hint" id="paletteStatus">Chưa trích bảng màu. Thư viện color-thief sẽ tự tải từ CDN khi bạn bấm nút; sau khi đã tải, app tự trích lại mỗi khi art thay đổi.</p>
+
+    <p class="subhead">Vector hoá art → SVG tải xuống <span class="libtag">thư viện: imagetracerjs</span></p>
+    <p class="hint">Đổi art raster thành vector SVG ngay trong trình duyệt — phóng lên khổ in không vỡ nét, hợp với art ít màu / nét rõ (line-art, cartoon, chữ). Art nhiều màu và chi tiết sẽ cho file SVG nặng, kém mượt hơn bản raster.</p>
+    <div style="max-width:420px"><label class="f">Số màu vector <span id="traceColorsVal">12</span></label><input type="range" id="traceColors" min="4" max="24" value="12"></div>
+    <div class="row" style="margin-top:10px">
+      <button class="btn btn-dark" id="btnTrace">Vector hoá art</button>
+      <button class="btn btn-accent" id="btnDownloadSvg" disabled>Tải file SVG</button>
+    </div>
+    <p class="hint" id="traceStatus">Chưa vector hoá. Thư viện imagetracerjs sẽ tự tải từ CDN khi bạn bấm “Vector hoá art”.</p>
+    <div id="svgPreviewWrap" style="display:none;margin-top:10px">
+      <div class="stage">
+        <div class="stage-head"><strong>Xem trước SVG</strong><span class="chip">vector — phóng to không vỡ nét</span></div>
+        <div class="canvas-wrap" id="svgPreview"></div>
+      </div>
+    </div>
+
+    <div class="notice"><b>Thư viện chạy ngay trong trình duyệt (không API, không máy chủ)</b> — nạp từ CDN đúng lúc cần dùng; tính năng nào dùng thư viện nào:
+    <br>· <b>OCR tìm vùng chữ hỗ trợ soi watermark (Bước 3)</b> → <b>tesseract.js</b>
+    <br>· <b>Bảng màu chủ đạo (Bước 5)</b> → <b>color-thief</b>
+    <br>· <b>Vector hoá art → SVG (Bước 5)</b> → <b>imagetracerjs</b>
+    <br>· <b>Phóng ảnh lên khổ in (Bước 7)</b> → <b>pica</b> — resize Lanczos chất lượng cao thay resize mặc định của canvas
+    <br>· <b>Upscale AI (Bước 5)</b> → <b>onnxruntime-web</b> chạy model <b>Real-ESRGAN</b> (bản ONNX công khai tải từ Hugging Face) — phóng ×2 / ×4 theo tile
+    <br>· <b>Tách nền bằng AI (Bước 5)</b> → <b>MediaPipe Tasks Vision</b> (Image Segmenter, model <b>deeplab_v3</b> của Google)
+    <br>· <b>Xoá watermark bằng OpenCV (Bước 3, tuỳ chọn)</b> → <b>OpenCV.js</b> — inpaint thuật toán Telea, bên cạnh inpaint diffusion mặc định của app
+    <br>· <b>Editor lớp (panel ngay bên dưới)</b> → <b>Konva</b> (khung vẽ lớp + tay cầm Transformer + kết xuất độ phân giải đầy đủ) + <b>Moveable</b> (khung chọn kéo / resize / xoay / warp)
+    <br>Thư viện nào tải không được (mất mạng / CDN lỗi), app báo rõ ngay tại tính năng đó và tự dùng cách dự phòng nếu có — các bước còn lại không bị ảnh hưởng.</div>
+
     <p class="subhead">Công cụ nâng chất lượng &amp; sáng tạo — tra cứu ngoài</p>
     <p class="hint">App xử lý cơ bản ngay trên trình duyệt; khi cần upscale AI thật, vector hoá hay xoá vật thể bằng AI chuyên sâu, dùng các công cụ dưới đây (mở tab mới). <b>Đây là mục tham khảo — app không tích hợp API của các dịch vụ này.</b></p>
     <div class="tool-grid">
@@ -330,6 +572,82 @@ footer{max-width:1060px;margin:0 auto;padding:0 18px 26px;color:var(--muted);fon
       <div class="tool-card"><a href="https://www.kittl.com" target="_blank" rel="noopener">Kittl</a><span class="api-tag">Web app · Không API</span><small>Thiết kế artwork áo thun: text cong, hiệu ứng chữ (artword), kho template POD lớn.</small></div>
       <div class="tool-card"><a href="https://cleanup.pictures" target="_blank" rel="noopener">Cleanup.pictures</a><span class="api-tag">Có API</span><small>Xoá vật thể / chữ thừa bằng inpainting AI — bản nâng cấp AI của bước xoá ở bước 3 app này.</small></div>
       <div class="tool-card"><a href="https://www.remove.bg" target="_blank" rel="noopener">remove.bg</a><span class="api-tag">Có API</span><small>Tách nền 1 chạm rất chuẩn — khi cần art nền trong suốt thay vì nền đặc.</small></div>
+    </div>
+  </section>
+
+  <!-- EDITOR LỚP (KONVA + MOVEABLE) — LỘ TRÌNH 3 -->
+  <section class="panel" id="edPanel">
+    <div class="panel-head"><div class="num hot">✎</div><div><h2>Editor lớp (Konva) — thêm chữ &amp; ảnh phụ lên art</h2><p>Lấy <b>art hiện tại</b> (đúng bản đang dùng cho bước 5–7) làm <b>lớp nền</b>, rồi xếp thêm <b>lớp chữ</b> và <b>lớp ảnh phụ</b> (logo, sticker…) lên trên. Kéo thả, phóng to / thu nhỏ, xoay trực tiếp trên khung vẽ. Bấm <b>“Áp dụng vào art”</b> thì toàn bộ lớp được kết xuất ở <b>độ phân giải đầy đủ của art</b> — không phải độ phân giải khung xem trước — và trở thành art chính cho làm đẹp, mockup và xuất file.</p></div></div>
+
+    <div class="notice" style="margin-top:0"><b>Editor này dùng Konva / Moveable ở đâu:</b><br>· <b>Konva</b> dựng toàn bộ khung vẽ lớp bên dưới: lớp nền + từng lớp chữ / ảnh là 1 node Konva; tay cầm biến đổi kéo / resize / xoay là <b>Konva Transformer</b>; thứ tự lớp, ẩn / hiện, nhân bản đều thao tác trên node Konva; lúc áp dụng, Konva kết xuất stage ra canvas ở độ phân giải thật của art.<br>· <b>Moveable</b> là khung chọn phụ: bật nút <b>“Khung Moveable”</b> ở mục lớp đang chọn để kéo / resize / xoay / <b>warp</b> lớp đang chọn bằng Moveable thay cho Transformer. Warp của Moveable có thành phần phối cảnh mà canvas 2D không nhận — app quy phần tuyến tính của warp về biến đổi affine (kéo xiên) trên lớp Konva và bỏ qua phần phối cảnh.<br>Cả hai thư viện <b>nạp lười từ CDN (jsDelivr) ngay khi bấm “Mở editor lớp”</b> — chưa mở editor thì không tải thêm gì. Tải không được (mất mạng / CDN lỗi), app báo rõ ngay tại đây, các bước còn lại không bị ảnh hưởng.</div>
+
+    <div class="row" style="margin-top:12px;max-width:660px">
+      <button class="btn btn-dark" id="btnOpenEditor">Mở editor lớp</button>
+      <button class="btn btn-light" id="btnEdReload" disabled>Nạp lại art hiện tại làm nền</button>
+    </div>
+    <p class="hint" id="edLibStatus">Editor chưa mở. Cần có art trước: nạp ảnh ở bước 1, cắt vùng in ở bước 2 (và xử lý watermark ở bước 3 nếu cần) — editor lấy đúng bản art đang hiển thị ở bước 5 làm lớp nền.</p>
+
+    <div id="edUi" style="display:none">
+      <p class="subhead">Khung vẽ lớp <span class="libtag">Konva Stage · xem trước thu nhỏ — áp dụng ở độ phân giải thật</span></p>
+      <div class="ed-stage-outer"><div class="ed-stage-wrap" id="edStageWrap"><div id="edStage"></div><div id="edProxy"></div></div></div>
+      <p class="hint" id="edStageInfo" style="margin-top:8px"></p>
+
+      <p class="subhead">Thêm lớp chữ <span class="libtag">Konva Text</span></p>
+      <p class="hint">Điền nội dung và kiểu chữ rồi bấm “Thêm lớp chữ”. Khi 1 lớp chữ đang được chọn, mọi thay đổi trong khung này áp dụng ngay lên lớp đó.</p>
+      <label class="f" for="edText">Nội dung chữ</label>
+      <textarea id="edText" rows="2">YOUR TEXT</textarea>
+      <div class="grid2">
+        <div><label class="f" for="edFont">Font chữ</label>
+          <select id="edFont">
+            <option value="Be Vietnam Pro" selected>Be Vietnam Pro (font của app)</option>
+            <option value="Archivo Black">Archivo Black (đậm, poster)</option>
+            <option value="Arial">Arial</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Courier New">Courier New (đơn cách)</option>
+            <option value="Impact">Impact (nén, rất đậm)</option>
+          </select></div>
+        <div><label class="f">Cỡ chữ <span id="edSizeVal">64</span></label><input type="range" id="edSize" min="14" max="180" value="64"></div>
+        <div><label class="f">Màu chữ &amp; viền chữ</label>
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+            <input type="color" class="ed-color" id="edColor" value="#171713" aria-label="Màu chữ">
+            <input type="color" class="ed-color" id="edStrokeColor" value="#ffffff" aria-label="Màu viền chữ">
+            <span class="hint" style="margin:0">trái: màu chữ · phải: màu viền</span>
+          </div></div>
+        <div><label class="f">Độ dày viền chữ <span id="edStrokeWVal">0</span></label><input type="range" id="edStrokeW" min="0" max="20" value="0"></div>
+      </div>
+      <div class="ed-sel-tools">
+        <button class="tgl" id="btnEdBold" type="button" aria-label="In đậm">B — Đậm</button>
+        <button class="tgl" id="btnEdItalic" type="button" aria-label="In nghiêng" style="font-style:italic">I — Nghiêng</button>
+        <button class="btn btn-dark" id="btnEdAddText" type="button">Thêm lớp chữ</button>
+      </div>
+
+      <p class="subhead">Thêm lớp ảnh phụ — logo / sticker <span class="libtag">Konva Image</span></p>
+      <p class="hint">Chọn 1 file ảnh riêng (PNG nền trong suốt cho logo / sticker là đẹp nhất). Ảnh phụ vào khung ở kích thước vừa phải, kéo / resize / xoay như lớp chữ.</p>
+      <input type="file" id="edImgFile" accept="image/*" style="display:none">
+      <button class="btn btn-dark" id="btnEdAddImg" type="button">Chọn ảnh phụ (logo / sticker)…</button>
+
+      <p class="subhead">Lớp đang chọn <span class="libtag">Transformer: Konva · Khung phụ: Moveable</span></p>
+      <p class="hint" id="edSelInfo">Chưa chọn lớp nào — bấm vào 1 lớp trên khung vẽ hoặc nút “Chọn” trong danh sách lớp bên dưới.</p>
+      <div style="max-width:420px"><label class="f">Độ mờ lớp (opacity) <span id="edOpacityVal">100%</span></label><input type="range" id="edOpacity" min="10" max="100" value="100"></div>
+      <div class="ed-sel-tools">
+        <button class="btn btn-light" id="btnEdRotL" type="button">Xoay −15°</button>
+        <button class="btn btn-light" id="btnEdRotR" type="button">Xoay +15°</button>
+        <button class="tgl" id="btnEdMv" type="button">Khung Moveable: Đang tắt</button>
+        <button class="btn btn-light" id="btnEdResetTf" type="button">Đặt lại kéo / xoay / cỡ</button>
+      </div>
+      <p class="hint">Khung Moveable bật thì tay cầm Transformer ẩn đi và lớp đang chọn được thao tác bằng khung Moveable (kéo, resize, xoay, warp). Tắt khung Moveable để quay lại Transformer của Konva.</p>
+
+      <p class="subhead">Danh sách lớp</p>
+      <div class="ed-layer-list" id="edLayerList"></div>
+
+      <p class="subhead">Áp dụng vào art chính</p>
+      <div class="row" style="max-width:660px">
+        <button class="btn btn-accent" id="btnEdApply" type="button">Áp dụng vào art</button>
+        <button class="btn btn-light" id="btnEdUndo" type="button" disabled>Hoàn tác áp dụng</button>
+      </div>
+      <p class="hint" id="edStatus">“Áp dụng vào art” gộp toàn bộ lớp thành 1 ảnh ở độ phân giải đầy đủ của art hiện tại rồi đặt làm art chính — bước 5, 6, 7 dùng ngay bản đó. “Hoàn tác áp dụng” đưa art chính về đúng bản trước lần áp dụng gần nhất (các lớp trong editor vẫn giữ nguyên để sửa tiếp).</p>
     </div>
   </section>
 
@@ -359,11 +677,13 @@ footer{max-width:1060px;margin:0 auto;padding:0 18px 26px;color:var(--muted);fon
     </div>
     <div style="margin-top:12px">
       <div class="spec"><span>Kích thước file xuất</span><b id="specPx">4500 × 5400 px · 300 DPI</b></div>
+      <div class="spec"><span>Phóng ảnh lên khổ in</span><b>pica — resize Lanczos chất lượng cao (tự tải từ CDN khi xuất file)</b></div>
       <div class="spec"><span>Nội dung</span><b>Ảnh 2D đã cắt + prompt + làm đẹp / vẽ nét như bản xem trước</b></div>
       <div class="spec"><span>Prompt kèm theo</span><b id="specPrompt">Chưa có prompt</b></div>
     </div>
     <div style="height:12px"></div>
     <div class="repbox warn" id="exportGateNote" style="display:none"></div>
+    <p class="hint" id="picaStatus">Khi xuất file, app tự tải thư viện <b>pica</b> để phóng ảnh lên khổ in bằng resize Lanczos chất lượng cao (nét hơn resize mặc định). Nếu pica tải không được, app tự dùng resize mặc định của trình duyệt và báo rõ tại đây.</p>
     <div class="row">
       <button class="btn btn-accent" id="btnExportPng" disabled>Tải file IN — PNG 300 DPI</button>
       <button class="btn btn-dark" id="btnExportJpg" disabled>Tải file IN — JPG 300 DPI</button>
@@ -393,7 +713,50 @@ var exportSize={w:4500,h:5400};
 var redrawStyle="none";
 var promptFx=null;      // parsed prompt effects object
 var promptText="";      // last applied prompt
+var derivedArt=null;    // Lộ trình 2: art phái sinh (upscale AI / tách nền MediaPipe) — khi có, thay vùng cắt gốc
+var derivedLabel="";
 var renderTimer=null;
+
+/* ================= THƯ VIỆN TRONG TRÌNH DUYỆT — NẠP LƯỜI TỪ CDN =================
+   Lộ trình 1: pica (resize HQ) · imagetracerjs (vector SVG) · color-thief (bảng màu) · tesseract.js (OCR).
+   Mỗi thư viện chỉ tải khi tính năng tương ứng được dùng; tải lỗi thì báo rõ tại chỗ, không phá tính năng khác. */
+var LIBS={
+  pica:{url:"https://cdn.jsdelivr.net/npm/pica@9.0.1/dist/pica.min.js",check:function(){return typeof window.pica!=="undefined"}},
+  imagetracer:{url:"https://cdn.jsdelivr.net/npm/imagetracerjs@1.2.6/imagetracer_v1.2.6.js",check:function(){return typeof window.ImageTracer!=="undefined"}},
+  colorthief:{url:"https://cdn.jsdelivr.net/npm/colorthief@2.4.0/dist/color-thief.umd.js",check:function(){return typeof window.ColorThief!=="undefined"}},
+  tesseract:{url:"https://cdn.jsdelivr.net/npm/tesseract.js@5.0.5/dist/tesseract.min.js",check:function(){return typeof window.Tesseract!=="undefined"}},
+  konva:{url:"https://cdn.jsdelivr.net/npm/konva@9.3.6/konva.min.js",check:function(){return typeof window.Konva!=="undefined"}},
+  moveable:{url:"https://cdn.jsdelivr.net/npm/moveable@0.53.0/dist/moveable.min.js",check:function(){return typeof window.Moveable!=="undefined"}}
+};
+var libState={}, libPromises={};
+function loadLib(key){
+  var lib=LIBS[key]; if(!lib)return Promise.resolve(false);
+  try{if(lib.check()){libState[key]="ready";return Promise.resolve(true)}}catch(e){}
+  if(libPromises[key])return libPromises[key];
+  libState[key]="loading";
+  libPromises[key]=new Promise(function(resolve){
+    var done=false;
+    var to=setTimeout(function(){if(!done){done=true;libState[key]="error";resolve(false)}},60000);
+    var s=document.createElement("script");
+    s.src=lib.url; s.async=true; s.setAttribute("crossorigin","anonymous");
+    s.onload=function(){
+      if(done)return; done=true; clearTimeout(to);
+      var ok=false; try{ok=lib.check()}catch(e){}
+      libState[key]=ok?"ready":"error"; resolve(ok);
+    };
+    s.onerror=function(){if(done)return; done=true; clearTimeout(to); libState[key]="error"; resolve(false)};
+    document.head.appendChild(s);
+  });
+  return libPromises[key];
+}
+function setLibStatus(el,msg,kind){
+  if(!el)return;
+  el.textContent=msg;
+  el.className="hint"+(kind==="ok"?" lib-ok":kind==="err"?" lib-err":"");
+}
+function escapeHtml(s){
+  return String(s==null?"":s).replace(/[&<>"']/g,function(ch){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]});
+}
 
 /* ================= IMAGE LOAD ================= */
 var cropC=$("cropCanvas"), cctx=cropC.getContext("2d");
@@ -537,8 +900,16 @@ function getCropCanvas(maxDim){
   x.drawImage(srcImg,r.x,r.y,r.w,r.h,0,0,c.width,c.height);
   return c;
 }
-/* art source for later steps: the watermark-step working copy (possibly cleaned) wins over the raw crop */
+/* art source for later steps: bản phái sinh lộ trình 2 (upscale / tách nền) thắng, rồi tới bản làm việc của bước watermark (có thể đã xoá), cuối cùng là vùng cắt gốc */
 function getArtCanvas(maxDim){
+  if(derivedArt){
+    var sc2=Math.min(1,maxDim/Math.max(derivedArt.width,derivedArt.height));
+    if(sc2>=0.999)return copyCanvas(derivedArt);
+    var c2=mkCanvas(derivedArt.width*sc2,derivedArt.height*sc2);
+    var x2=c2.getContext("2d"); x2.imageSmoothingEnabled=true; x2.imageSmoothingQuality="high";
+    x2.drawImage(derivedArt,0,0,c2.width,c2.height);
+    return c2;
+  }
   if(wm.base&&!wm.baseDirty){
     var sc=Math.min(1,maxDim/Math.max(wm.base.width,wm.base.height));
     if(sc>=0.999)return copyCanvas(wm.base);
@@ -789,6 +1160,7 @@ function renderPreview(){
   afterC.getContext("2d").drawImage(processed,0,0);
   applyCompare();
   updateMockup(processed);
+  schedulePalette();
 }
 function applyCompare(){
   var v=parseFloat($("cmpRange").value);
@@ -1041,7 +1413,7 @@ renderMuseHistory();
 var wm={
   base:null, baseDirty:true, mask:null,
   before:null, after:null, cleaned:false,
-  beforeSnap:null, heatCells:null, mode:"paint",
+  beforeSnap:null, lastMask:null, lastEngine:"", heatCells:null, mode:"paint",
   painting:false, undoStack:[], maskHas:false,
   fileNameWarn:"", dpiText:"không khai (mặc định web 72)"
 };
@@ -1099,9 +1471,12 @@ function updateWmFileInfo(){
 }
 function resetWmState(){
   wm.base=null; wm.baseDirty=true; wm.mask=null; wm.before=null; wm.after=null;
-  wm.cleaned=false; wm.beforeSnap=null; wm.heatCells=null; wm.undoStack=[]; wm.maskHas=false; wm.painting=false;
+  wm.cleaned=false; wm.beforeSnap=null; wm.lastMask=null; wm.lastEngine=""; wm.heatCells=null; wm.undoStack=[]; wm.maskHas=false; wm.painting=false; wm.ocrBoxes=null;
+  derivedArt=null; derivedLabel=""; resetDerivedUi(); updateArtSrcNote(); edOnArtReset();
   var rep=$("wmReport"); if(rep){rep.style.display="none";rep.innerHTML=""}
   var rep2=$("wmReport2"); if(rep2){rep2.style.display="none";rep2.innerHTML=""}
+  var ocrRep=$("ocrReport"); if(ocrRep){ocrRep.style.display="none";ocrRep.innerHTML=""}
+  var ocrSt=$("ocrStatus"); if(ocrSt){ocrSt.className="hint";ocrSt.textContent="Chưa chạy OCR. Lần đầu bấm, trình duyệt tải tesseract.js + dữ liệu ngôn ngữ từ CDN (vài MB, cần mạng); các lần sau nhanh hơn vì trình duyệt đã lưu đệm."}
   var st=$("wmStatus"); if(st)st.textContent="Cách xoá hoạt động: inpainting diffusion đa tỉ lệ — lan truyền màu / texture từ biên vùng tô vào trong qua nhiều vòng lặp, cộng lấy mẫu texture lân cận và hạt nhiễu mịn để vùng lấp trông tự nhiên. Vùng tô càng sát watermark, kết quả càng sạch. Sau khi xoá, app tự kiểm tra lại ngay — không cần bấm tay.";
   var cmp=$("wmCmpBlock"); if(cmp)cmp.style.display="none";
   var mc=$("wmManualConfirm"); if(mc)mc.checked=false;
@@ -1142,6 +1517,16 @@ function drawWmStage(){
 function drawHeat(){
   var hv=$("wmHeat"); if(!hv||!wm.base)return;
   var x=hv.getContext("2d"); x.clearRect(0,0,hv.width,hv.height);
+  /* khung OCR (tesseract.js): các vùng có chữ — vẽ trước, không phụ thuộc kết quả quét heuristic */
+  if(wm.ocrBoxes&&wm.ocrBoxes.length){
+    x.lineWidth=Math.max(2,hv.width/380);
+    wm.ocrBoxes.forEach(function(b){
+      x.strokeStyle="#0b7ea4";
+      x.strokeRect(b.x0,b.y0,Math.max(2,b.x1-b.x0),Math.max(2,b.y1-b.y0));
+      x.fillStyle="#0b7ea4"; x.font="800 11px 'Be Vietnam Pro'"; x.textAlign="left";
+      x.fillText("CHỮ",b.x0+2,Math.max(11,b.y0-3));
+    });
+  }
   if(!wm.heatCells)return;
   var S=6, cw=hv.width/S, ch=hv.height/S;
   var show=$("wmHeatToggle")&&$("wmHeatToggle").checked;
@@ -1284,6 +1669,45 @@ $("btnWmRecheck").onclick=function(){
   }
   runWmCheck(true);
 };
+/* --- OCR tìm vùng chữ (tesseract.js) — hỗ trợ định vị watermark dạng chữ --- */
+function runOcr(){
+  var st=$("ocrStatus"), rep=$("ocrReport");
+  if(!srcImg){setLibStatus(st,"Chưa có ảnh — nạp ảnh ở bước 1 và cắt ở bước 2 trước.","err");return}
+  var base=ensureWorkBase(); if(!base)return;
+  var btn=$("btnOcr"); btn.disabled=true;
+  setLibStatus(st,"Đang tải tesseract.js + dữ liệu ngôn ngữ OCR từ CDN (lần đầu vài MB, cần mạng)…","");
+  loadLib("tesseract").then(function(ok){
+    if(!ok){
+      setLibStatus(st,"✗ Không tải được tesseract.js từ CDN — kiểm tra kết nối mạng rồi bấm lại. Phần quét heuristic ở mục A vẫn hoạt động bình thường.","err");
+      btn.disabled=false; return;
+    }
+    setLibStatus(st,"Đang chạy OCR trên vùng đã cắt… 0%","");
+    window.Tesseract.recognize(base,"eng",{logger:function(m){
+      if(m&&m.status==="recognizing text")setLibStatus(st,"Đang chạy OCR trên vùng đã cắt… "+Math.round((m.progress||0)*100)+"%","");
+    }}).then(function(result){
+      btn.disabled=false;
+      var words=(result&&result.data&&result.data.words)||[];
+      var kept=words.filter(function(w){return w&&w.bbox&&w.confidence>=35&&(w.text||"").trim().length>=2});
+      wm.ocrBoxes=kept.map(function(w){return{x0:w.bbox.x0,y0:w.bbox.y0,x1:w.bbox.x1,y1:w.bbox.y1,text:w.text,conf:Math.round(w.confidence)}});
+      drawHeat();
+      rep.style.display="block";
+      if(!wm.ocrBoxes.length){
+        rep.className="repbox ok";
+        rep.innerHTML="<b>OCR (tesseract.js): không tìm thấy vùng chữ rõ ràng</b> trên vùng đã cắt. Nếu watermark là chữ mờ rất nhạt, OCR có thể không đọc ra được — vẫn soi tay bằng chế độ Soi ô bên dưới.";
+        setLibStatus(st,"✓ OCR xong — không thấy vùng chữ rõ ràng trên vùng đã cắt.","ok");
+      }else{
+        rep.className="repbox warn";
+        var list=wm.ocrBoxes.slice(0,24).map(function(b){return "“"+escapeHtml(b.text)+"” ("+b.conf+"%)"}).join(" · ");
+        rep.innerHTML="<b>OCR (tesseract.js) tìm thấy "+wm.ocrBoxes.length+" vùng chữ</b> — đã khoanh <b style=\"color:#0b6e8c\">khung xanh + nhãn CHỮ</b> trên ảnh bên dưới. Chữ đọc được: "+list+(wm.ocrBoxes.length>24?" …":"")+"<br><span>Nếu các vùng chữ này mờ, lặp lại đều ở nhiều vị trí bất thường, đó có thể là watermark dạng chữ — tô mặt nạ phủ đúng các khung đó rồi xoá ở mục B. Chữ thuộc art thật (slogan, typography) thì bỏ qua.</span>";
+        setLibStatus(st,"✓ OCR xong — "+wm.ocrBoxes.length+" vùng chữ đã được khoanh trên ảnh bên dưới.","ok");
+      }
+    }).catch(function(){
+      btn.disabled=false;
+      setLibStatus(st,"OCR chạy lỗi — thường do mất mạng khi tải dữ liệu ngôn ngữ. Thử lại khi mạng ổn định; các tính năng khác không bị ảnh hưởng.","err");
+    });
+  });
+}
+$("btnOcr").onclick=runOcr;
 /* --- soi ô (zoom) --- */
 function drawZoomCell(r,c){
   var base=wm.base; if(!base)return;
@@ -1479,31 +1903,213 @@ function inpaintSync(work,mask){
   x.putImageData(img,0,0);
   return out;
 }
+/* --- chọn cách xoá: diffusion mặc định / OpenCV Telea --- */
+var wmInpaintMethod="diff";
+$("inpMethodDiff").onclick=function(){wmInpaintMethod="diff";$("inpMethodDiff").classList.add("on");$("inpMethodCv").classList.remove("on")};
+$("inpMethodCv").onclick=function(){
+  wmInpaintMethod="cv";$("inpMethodCv").classList.add("on");$("inpMethodDiff").classList.remove("on");
+  if(!cvState.ready)setLibStatus($("cvStatus"),"Đã chọn OpenCV — Telea. OpenCV.js sẽ tự tải (có thanh tiến độ + nút huỷ ở trên) ngay khi bạn bấm “Xoá vùng đã tô”.","");
+};
+/* --- hoàn tất sau khi xoá (dùng chung cho cả 2 cách xoá) --- */
+function finishInpaint(outC,engineLabel){
+  wm.base=outC; wm.cleaned=true; wm.after=null; wm.heatCells=null; wm.lastEngine=engineLabel;
+  wm.mask=mkCanvas(outC.width,outC.height); wm.undoStack=[]; wm.maskHas=false;
+  derivedArt=null; derivedLabel=""; updateArtSrcNote(); edOnArtReset();
+  drawWmStage(); drawMaskView();
+  drawWmCompare();
+  scheduleRender();
+  var reAuto=runWmCheck(true,true);
+  $("wmStatus").textContent="Đã xoá xong bằng "+engineLabel+" và áp dụng vào ảnh chính (các bước sau + file xuất sẽ dùng bản đã xoá này). Kéo thanh so sánh để soi trước / sau, hoặc bấm “Quay lại bản trước khi xoá” trong khung so sánh để thử cách xoá còn lại trên cùng mặt nạ. App đã tự kiểm tra lại ngay: "+(reAuto?(reAuto.count===0?"0 ô nghi ngờ — ảnh đã sạch, xuất file ở bước 7 đã tự mở khoá.":"còn "+reAuto.count+" ô nghi ngờ — xem báo cáo ở mục C: mặt nạ đã tự tô lại theo các ô còn nghi, xoá tiếp hoặc tích xác nhận soi tay."):"không chạy được kiểm tra lại tự động — bấm nút kiểm tra lại ở mục C.");
+  updateExportGate();
+}
+$("btnWmRestore").onclick=function(){
+  if(!wm.beforeSnap)return;
+  wm.base=copyCanvas(wm.beforeSnap);
+  wm.cleaned=false; wm.after=null; wm.heatCells=null; wm.lastEngine="";
+  if(wm.lastMask){wm.mask=copyCanvas(wm.lastMask); wm.maskHas=maskAny()}
+  $("wmCmpBlock").style.display="none";
+  drawWmStage(); drawMaskView(); updateInpaintBtn(); scheduleRender();
+  runWmCheck(false,true);
+  $("wmStatus").textContent="Đã quay lại bản trước khi xoá — mặt nạ cũ vẫn giữ nguyên. Chọn cách xoá khác ở mục B rồi bấm “Xoá vùng đã tô” để so sánh kết quả hai cách.";
+};
 $("btnWmInpaint").onclick=function(){
   if(!srcImg)return;
   ensureWorkBase(); if(!wm.mask||!wm.maskHas)return;
   if(!($("wmRights")&&$("wmRights").checked))return;
   var btn=$("btnWmInpaint");
   wm.beforeSnap=copyCanvas(wm.base);
+  wm.lastMask=copyCanvas(wm.mask);
+  if(wmInpaintMethod==="cv"){
+    btn.disabled=true;
+    $("wmStatus").textContent="Đang chuẩn bị OpenCV.js để xoá bằng thuật toán Telea…";
+    runInpaintOpenCv().then(function(outC){
+      if(outC)finishInpaint(outC,"OpenCV — inpaint Telea (OpenCV.js)");
+      updateInpaintBtn();
+    },function(){
+      updateInpaintBtn();
+    });
+    return;
+  }
   btn.disabled=true;
   $("wmStatus").textContent="Đang xoá vùng đã tô — inpainting đang lan truyền màu / texture từ biên vào trong, chờ một chút…";
   setTimeout(function(){
     try{
       var outC=inpaintSync(wm.base,wm.mask);
-      wm.base=outC; wm.cleaned=true; wm.after=null; wm.heatCells=null;
-      wm.mask=mkCanvas(outC.width,outC.height); wm.undoStack=[]; wm.maskHas=false;
-      drawWmStage(); drawMaskView();
-      drawWmCompare();
-      scheduleRender();
-      var reAuto=runWmCheck(true,true);
-      $("wmStatus").textContent="Đã xoá xong và áp dụng vào ảnh chính (các bước sau + file xuất sẽ dùng bản đã xoá này). Kéo thanh so sánh để soi trước / sau. App đã tự kiểm tra lại ngay: "+(reAuto?(reAuto.count===0?"0 ô nghi ngờ — ảnh đã sạch, xuất file ở bước 7 đã tự mở khoá.":"còn "+reAuto.count+" ô nghi ngờ — xem báo cáo ở mục C: mặt nạ đã tự tô lại theo các ô còn nghi, xoá tiếp hoặc tích xác nhận soi tay."):"không chạy được kiểm tra lại tự động — bấm nút kiểm tra lại ở mục C.");
-      updateExportGate();
+      finishInpaint(outC,"inpainting diffusion (cách mặc định của app)");
     }catch(err){
       $("wmStatus").textContent="Có lỗi khi xoá — thử tô vùng nhỏ hơn hoặc nạp lại ảnh rồi xoá lại.";
     }
     updateInpaintBtn();
   },40);
 };
+/* ================= LỘ TRÌNH 2 · TẢI LƯỜI CÓ TIẾN ĐỘ + HUỶ =================
+   Mọi thư viện / model nặng chỉ tải khi người dùng bấm dùng: tải bằng fetch có đo tiến độ,
+   có nút huỷ (AbortController), lỗi thì báo tiếng Việt rõ ràng tại chỗ. */
+function fetchWithProgress(url,onp,signal){
+  return fetch(url,{signal:signal}).then(function(res){
+    if(!res.ok)throw new Error("HTTP "+res.status);
+    var total=parseInt(res.headers.get("Content-Length")||"0",10)||0;
+    if(!res.body||!res.body.getReader)return res.arrayBuffer().then(function(ab){return ab});
+    var reader=res.body.getReader(); var chunks=[]; var got=0;
+    function step(){
+      return reader.read().then(function(r){
+        if(r.done){
+          var buf=new Uint8Array(got); var off=0;
+          chunks.forEach(function(ch){buf.set(ch,off);off+=ch.length});
+          return buf.buffer;
+        }
+        chunks.push(r.value); got+=r.value.length;
+        if(onp)onp(total?got/total:-1,got,total);
+        return step();
+      });
+    }
+    return step();
+  });
+}
+function injectScriptBuf(buf){
+  return new Promise(function(resolve,reject){
+    var url=URL.createObjectURL(new Blob([buf],{type:"text/javascript"}));
+    var s=document.createElement("script"); s.src=url; s.async=true;
+    s.onload=function(){resolve(true)};
+    s.onerror=function(){reject(new Error("không chạy được file thư viện vừa tải"))};
+    document.head.appendChild(s);
+  });
+}
+function injectScriptUrl(url){
+  return new Promise(function(resolve,reject){
+    var s=document.createElement("script"); s.src=url; s.async=true; s.setAttribute("crossorigin","anonymous");
+    s.onload=function(){resolve(true)};
+    s.onerror=function(){reject(new Error("không nạp được "+url))};
+    document.head.appendChild(s);
+  });
+}
+function setLoad(boxId,fillId,textId,show,pct,text){
+  var box=$(boxId); if(!box)return;
+  box.style.display=show?"block":"none";
+  if(pct!=null)$(fillId).style.width=clamp(pct,0,100)+"%";
+  if(text!=null)$(textId).textContent=text;
+}
+function fmtMB(n){return (Math.round(n/104857.6)/10)+" MB"}
+/* --- OpenCV.js: tải lười + chờ WASM khởi tạo xong mới coi là sẵn sàng --- */
+var CV_URLS=["https://docs.opencv.org/4.8.0/opencv.js","https://docs.opencv.org/4.10.0/opencv.js"];
+var cvState={ready:false,promise:null,cancelled:false,abort:null};
+function setCvLoad(pct,text){setLoad("cvLoadBox","cvLoadFill","cvLoadText",true,pct,text)}
+function waitCvReady(timeoutMs){
+  return new Promise(function(resolve){
+    var t0=Date.now();
+    (function poll(){
+      if(cvState.cancelled){resolve(false);return}
+      var cv=window.cv;
+      if(cv&&typeof cv.then==="function"){cv.then(function(real){window.cv=real;resolve(!!(real&&real.Mat))},function(){resolve(false)});return}
+      if(cv&&cv.Mat){resolve(true);return}
+      if(Date.now()-t0>timeoutMs){resolve(false);return}
+      setTimeout(poll,250);
+    })();
+  });
+}
+function loadOpenCv(){
+  if(cvState.ready)return Promise.resolve(true);
+  if(cvState.promise)return cvState.promise;
+  cvState.cancelled=false;
+  cvState.abort=("AbortController" in window)?new AbortController():null;
+  $("cvLoadBox").style.display="block";
+  cvState.promise=(async function(){
+    var lastErr="";
+    for(var u=0;u<CV_URLS.length;u++){
+      if(cvState.cancelled)break;
+      try{
+        setCvLoad(2,"Đang tải OpenCV.js từ "+(u===0?"docs.opencv.org (trang chính thức của OpenCV)":"nguồn OpenCV dự phòng")+"…");
+        try{
+          var buf=await fetchWithProgress(CV_URLS[u],function(p,got,total){
+            if(p>=0)setCvLoad(Math.round(2+p*86),"Đang tải OpenCV.js… "+Math.round(p*100)+"% ("+fmtMB(got)+(total?" / "+fmtMB(total):"")+")");
+            else setCvLoad(45,"Đang tải OpenCV.js… đã nhận "+fmtMB(got));
+          },cvState.abort?cvState.abort.signal:undefined);
+          await injectScriptBuf(buf);
+        }catch(fe){
+          if(cvState.cancelled)throw fe;
+          setCvLoad(50,"Không tải đo tiến độ được (CORS) — đang nạp OpenCV.js bằng cách thường…");
+          await injectScriptUrl(CV_URLS[u]);
+        }
+        setCvLoad(92,"Đã tải xong — đang khởi tạo OpenCV (biên dịch WASM, chờ một chút)…");
+        var ready=await waitCvReady(90000);
+        if(ready){
+          cvState.ready=true;
+          setCvLoad(100,"✓ OpenCV.js đã sẵn sàng.");
+          setTimeout(function(){$("cvLoadBox").style.display="none"},1200);
+          setLibStatus($("cvStatus"),"✓ OpenCV.js đã tải và khởi tạo xong — các lần xoá bằng Telea sau sẽ chạy ngay, không tải lại.","ok");
+          return true;
+        }
+        lastErr="quá thời gian khởi tạo WASM";
+      }catch(e){
+        lastErr=(e&&e.name==="AbortError")?"đã huỷ":((e&&e.message)||"lỗi tải");
+        if(cvState.cancelled)break;
+      }
+    }
+    $("cvLoadBox").style.display="none";
+    cvState.promise=null;
+    if(cvState.cancelled){
+      setLibStatus($("cvStatus"),"Đã huỷ tải OpenCV.js — khi muốn dùng Telea, cứ bấm xoá lại; hoặc chuyển sang “Inpaint hiện tại (diffusion)”.","err");
+    }else{
+      setLibStatus($("cvStatus"),"✗ Không tải / khởi tạo được OpenCV.js ("+lastErr+") — kiểm tra kết nối mạng rồi thử lại. Cách inpaint hiện tại vẫn dùng bình thường, ảnh không bị thay đổi.","err");
+    }
+    return false;
+  })();
+  return cvState.promise;
+}
+$("cvCancel").onclick=function(){
+  cvState.cancelled=true;
+  if(cvState.abort)try{cvState.abort.abort()}catch(e){}
+};
+function runInpaintOpenCv(){
+  return loadOpenCv().then(function(ok){
+    if(!ok){
+      if(!cvState.cancelled)$("wmStatus").textContent="Chưa xoá được bằng OpenCV vì thư viện chưa sẵn sàng — xem dòng trạng thái OpenCV ở trên, hoặc chuyển sang cách inpaint hiện tại.";
+      else $("wmStatus").textContent="Đã huỷ tải OpenCV — ảnh chưa thay đổi.";
+      return null;
+    }
+    try{
+      var cv=window.cv;
+      var w=wm.base.width, h=wm.base.height;
+      var srcMat=cv.imread(wm.base);
+      var rgb=new cv.Mat();
+      cv.cvtColor(srcMat,rgb,cv.COLOR_RGBA2RGB); srcMat.delete();
+      var md=wm.mask.getContext("2d").getImageData(0,0,w,h).data;
+      var mdata=new Uint8Array(w*h);
+      for(var i=0;i<w*h;i++)mdata[i]=md[i*4+3]>8?255:0;
+      var maskMat=new cv.Mat(h,w,cv.CV_8UC1); maskMat.data.set(mdata);
+      var dst=new cv.Mat();
+      cv.inpaint(rgb,maskMat,dst,3,cv.INPAINT_TELEA);
+      var outC=mkCanvas(w,h);
+      cv.imshow(outC,dst);
+      rgb.delete(); maskMat.delete(); dst.delete();
+      return outC;
+    }catch(e){
+      setLibStatus($("cvStatus"),"OpenCV.js chạy inpaint Telea lỗi ("+((e&&e.message)||"không rõ nguyên nhân")+") — ảnh chưa thay đổi. Thử tô vùng nhỏ hơn, hoặc dùng cách inpaint hiện tại.","err");
+      $("wmStatus").textContent="OpenCV inpaint lỗi — ảnh chưa thay đổi. Chuyển sang “Inpaint hiện tại (diffusion)” rồi bấm xoá lại để so sánh.";
+      return null;
+    }
+  });
+}
 function drawWmCompare(){
   var blk=$("wmCmpBlock"); if(!blk||!wm.beforeSnap||!wm.base)return;
   blk.style.display="block";
@@ -1547,6 +2153,408 @@ function wmTxtLine(label,res){
   if(!res)return label+": chưa chạy";
   return label+": "+res.time.toLocaleString("vi-VN")+" — "+res.count+" ô nghi ngờ / 36 — "+(res.count>0?("NGHI CÓ WATERMARK (độ tin cậy trung bình "+res.confidence+"%)"):"Chưa thấy dấu hiệu watermark");
 }
+
+/* ================= BẢNG MÀU (color-thief) + VECTOR HOÁ SVG (imagetracerjs) ================= */
+function rgbToHex(r,g,b){
+  function h(v){var s=clamp(Math.round(v),0,255).toString(16);return s.length<2?"0"+s:s}
+  return "#"+h(r)+h(g)+h(b);
+}
+var paletteTimer=null;
+function schedulePalette(){
+  if(libState.colorthief!=="ready"||!srcImg)return;
+  clearTimeout(paletteTimer);
+  paletteTimer=setTimeout(function(){extractPalette(true)},600);
+}
+function extractPalette(auto){
+  var st=$("paletteStatus");
+  if(!srcImg){if(!auto)setLibStatus(st,"Chưa có ảnh — nạp ảnh ở bước 1 trước.","err");return}
+  if(!auto)setLibStatus(st,"Đang tải thư viện color-thief từ CDN…","");
+  loadLib("colorthief").then(function(ok){
+    if(!ok){if(!auto)setLibStatus(st,"✗ Không tải được color-thief từ CDN — kiểm tra kết nối mạng rồi bấm lại. Các tính năng khác không bị ảnh hưởng.","err");return}
+    var art=lastProcessed||getArtCanvas(500);
+    var url;
+    try{url=art.toDataURL("image/png")}catch(e){if(!auto)setLibStatus(st,"Không đọc được ảnh để trích màu.","err");return}
+    var im=new Image();
+    im.onload=function(){
+      try{
+        var pal=new window.ColorThief().getPalette(im,8);
+        if(!pal||!pal.length)throw new Error("empty");
+        renderPalette(pal);
+        setLibStatus(st,"✓ Đã trích "+pal.length+" màu chủ đạo bằng color-thief — bấm vào mã hex để sao chép, dùng phối màu áo / chữ cho khớp art.","ok");
+      }catch(e){if(!auto)setLibStatus(st,"color-thief chạy lỗi trên ảnh này — thử lại sau khi đổi vùng cắt.","err")}
+    };
+    im.onerror=function(){if(!auto)setLibStatus(st,"Không đọc được ảnh để trích màu.","err")};
+    im.src=url;
+  });
+}
+function renderPalette(pal){
+  var wrap=$("paletteRow"); if(!wrap)return;
+  wrap.innerHTML="";
+  pal.forEach(function(rgb){
+    var hex=rgbToHex(rgb[0],rgb[1],rgb[2]);
+    var b=document.createElement("button"); b.type="button"; b.className="pal-item"; b.title="Bấm để sao chép "+hex;
+    var sw=document.createElement("span"); sw.className="pal-swatch"; sw.style.background=hex;
+    var tx=document.createElement("span"); tx.className="pal-hex"; tx.textContent=hex;
+    b.appendChild(sw); b.appendChild(tx);
+    b.onclick=function(){
+      copyTextGeneric(hex,function(){tx.textContent="Đã chép ✓";setTimeout(function(){tx.textContent=hex},1400)},function(){tx.textContent="Chép tay: "+hex});
+    };
+    wrap.appendChild(b);
+  });
+}
+$("btnPalette").onclick=function(){extractPalette(false)};
+/* --- vector hoá --- */
+var tracedSvgStr=null;
+$("traceColors").addEventListener("input",function(){$("traceColorsVal").textContent=$("traceColors").value});
+$("btnTrace").onclick=function(){
+  var st=$("traceStatus");
+  if(!srcImg){setLibStatus(st,"Chưa có ảnh — nạp ảnh ở bước 1 trước.","err");return}
+  var btn=$("btnTrace"); btn.disabled=true;
+  setLibStatus(st,"Đang tải thư viện imagetracerjs từ CDN…","");
+  loadLib("imagetracer").then(function(ok){
+    if(!ok){setLibStatus(st,"✗ Không tải được imagetracerjs từ CDN — kiểm tra kết nối mạng rồi bấm lại. Các tính năng khác không bị ảnh hưởng.","err");btn.disabled=false;return}
+    setLibStatus(st,"Đang vector hoá art…","");
+    setTimeout(function(){
+      try{
+        var eff=effectiveSettings();
+        var art=processCanvas(getArtCanvas(640),eff,false);
+        var imgd=art.getContext("2d").getImageData(0,0,art.width,art.height);
+        var colors=parseInt($("traceColors").value,10)||12;
+        var svg=window.ImageTracer.imagedataToSVG(imgd,{ltres:0.7,qtres:0.7,pathomit:6,colorsampling:2,numberofcolors:colors,mincolorratio:0.02,colorquantcycles:3,scale:1,roundcoords:2,desc:false});
+        if(!svg||svg.indexOf("<svg")<0)throw new Error("bad svg");
+        tracedSvgStr=svg;
+        $("svgPreview").innerHTML=svg;
+        $("svgPreviewWrap").style.display="block";
+        $("btnDownloadSvg").disabled=false;
+        var kb=Math.round(svg.length/102.4)/10;
+        setLibStatus(st,"✓ Đã vector hoá bằng imagetracerjs ("+colors+" màu, file SVG ≈ "+kb+" KB) — xem trước bên dưới rồi bấm “Tải file SVG”. SVG phóng khổ in không vỡ nét.","ok");
+      }catch(e){
+        setLibStatus(st,"imagetracerjs chạy lỗi trên ảnh này — thử giảm số màu hoặc đổi vùng cắt rồi thử lại.","err");
+      }
+      btn.disabled=false;
+    },30);
+  });
+};
+$("btnDownloadSvg").onclick=function(){
+  if(!tracedSvgStr)return;
+  downloadBlob(new Blob([tracedSvgStr],{type:"image/svg+xml;charset=utf-8"}),"vector-"+srcName+".svg");
+  showOk("⬇️ Đã tải file <b>vector-"+escapeHtml(srcName)+".svg</b> — mở bằng Illustrator / Inkscape / trình duyệt đều được, phóng khổ in không vỡ nét.");
+};
+
+/* ================= LỘ TRÌNH 2 · NGUỒN ART PHÁI SINH ================= */
+function updateArtSrcNote(){
+  var el=$("artSrcStatus"); if(!el)return;
+  el.textContent=derivedArt
+    ?("Nguồn art hiện tại: "+derivedLabel+" — "+derivedArt.width+" × "+derivedArt.height+" px. Bản này đang thay vùng cắt gốc cho phần làm đẹp bên dưới, mockup và file xuất.")
+    :("Nguồn art hiện tại: vùng đã cắt ở bước 2"+(wm.cleaned?" (đã xoá watermark ở bước 3 bằng "+(wm.lastEngine||"inpainting")+")":"")+" — chưa áp dụng upscale AI / tách nền nào.");
+}
+function resetDerivedUi(){
+  var ub=$("upCmpBlock"); if(ub)ub.style.display="none";
+  var sb=$("segCmpBlock"); if(sb)sb.style.display="none";
+  var us=$("upStatus"); if(us){us.className="hint";us.textContent="Chưa chạy Upscale AI. Model chạy bằng WASM nên máy càng mạnh càng nhanh; ảnh đầu vào quá lớn sẽ được thu về tối đa ~900 px cạnh dài (khi phóng ×4) / ~1200 px (khi phóng ×2) trước khi chạy model để tránh hụt bộ nhớ — kích thước thật sẽ ghi rõ khi chạy."}
+  var ss=$("segStatus"); if(ss){ss.className="hint";ss.textContent="Chưa chạy tách nền AI. Lưu ý thật: model deeplab_v3 nhận diện đối tượng theo các lớp phổ biến (người, thú, xe, đồ vật…) — art phẳng thuần chữ / hoạ tiết có thể không có đối tượng để tách, app sẽ báo rõ nếu không tìm thấy đối tượng nào."}
+}
+
+/* ================= LỘ TRÌNH 2 · UPSCALE AI (onnxruntime-web + Real-ESRGAN ONNX) ================= */
+var ORT_BASE="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.20.1/dist/";
+var ESRGAN_CANDIDATES=[
+  {label:"Real-ESRGAN realesr-general-x4v3 (Hugging Face)",url:"https://huggingface.co/Kizi-Art/real-esrgan-v3/resolve/main/realesr-general-x4v3.onnx"},
+  {label:"Real-ESRGAN x4plus — Qualcomm AI Hub (Hugging Face)",url:"https://huggingface.co/qualcomm/Real-ESRGAN-x4plus/resolve/main/Real-ESRGAN-x4plus.onnx"}
+];
+var up={session:null,sessionPromise:null,ortPromise:null,modelLabel:"",running:false,cancelled:false,abort:null,scale:4,candidate:null};
+$("upScale2").onclick=function(){up.scale=2;$("upScale2").classList.add("on");$("upScale4").classList.remove("on")};
+$("upScale4").onclick=function(){up.scale=4;$("upScale4").classList.add("on");$("upScale2").classList.remove("on")};
+function setUpLoad(show,pct,text){setLoad("upLoadBox","upLoadFill","upLoadText",show,pct,text)}
+function loadOrt(){
+  if(window.ort&&window.ort.InferenceSession)return Promise.resolve(true);
+  if(up.ortPromise)return up.ortPromise;
+  up.ortPromise=(async function(){
+    try{
+      var buf=await fetchWithProgress(ORT_BASE+"ort.min.js",function(p){
+        if(p>=0)setUpLoad(true,Math.round(p*8),"Đang tải onnxruntime-web… "+Math.round(p*100)+"%");
+      },up.abort?up.abort.signal:undefined);
+      await injectScriptBuf(buf);
+    }catch(e){
+      if(up.cancelled)throw e;
+      await injectScriptUrl(ORT_BASE+"ort.min.js");
+    }
+    if(!(window.ort&&window.ort.InferenceSession))throw new Error("tải xong nhưng không thấy onnxruntime-web");
+    try{
+      window.ort.env.wasm.wasmPaths=ORT_BASE;
+      window.ort.env.wasm.numThreads=1;
+    }catch(e){}
+    return true;
+  })();
+  return up.ortPromise;
+}
+function ensureUpSession(){
+  if(up.session)return Promise.resolve(up.session);
+  if(up.sessionPromise)return up.sessionPromise;
+  up.sessionPromise=(async function(){
+    await loadOrt();
+    var errors=[];
+    for(var i=0;i<ESRGAN_CANDIDATES.length;i++){
+      if(up.cancelled)throw new Error("__cancel__");
+      var cand=ESRGAN_CANDIDATES[i];
+      try{
+        setUpLoad(true,10,"Đang tải model "+cand.label+"…");
+        var buf=await fetchWithProgress(cand.url,function(p,got,total){
+          if(p>=0)setUpLoad(true,10+Math.round(p*55),"Đang tải model "+cand.label+" — "+Math.round(p*100)+"% ("+fmtMB(got)+(total?" / "+fmtMB(total):"")+")");
+          else setUpLoad(true,40,"Đang tải model "+cand.label+" — đã nhận "+fmtMB(got));
+        },up.abort?up.abort.signal:undefined);
+        if(up.cancelled)throw new Error("__cancel__");
+        setUpLoad(true,68,"Đã tải model xong — đang khởi tạo phiên chạy (WASM)…");
+        var sess=await window.ort.InferenceSession.create(buf,{executionProviders:["wasm"],graphOptimizationLevel:"all"});
+        up.session=sess; up.modelLabel=cand.label;
+        return sess;
+      }catch(e){
+        if(up.cancelled)throw e;
+        errors.push(cand.label+" → "+((e&&e.message)||"lỗi"));
+      }
+    }
+    throw new Error("không tải / chạy được model từ các nguồn công khai đã thử — "+errors.join(" · "));
+  })();
+  return up.sessionPromise;
+}
+function canvasToTensor(c){
+  var w=c.width,h=c.height;
+  var d=c.getContext("2d").getImageData(0,0,w,h).data;
+  var f=new Float32Array(w*h*3), n=w*h, i;
+  for(i=0;i<n;i++){f[i]=d[i*4]/255; f[i+n]=d[i*4+1]/255; f[i+2*n]=d[i*4+2]/255}
+  return new window.ort.Tensor("float32",f,[1,3,h,w]);
+}
+function tensorToCanvas(t){
+  var dims=t.dims, h=dims[2], w=dims[3], data=t.data, n=w*h;
+  var c=mkCanvas(w,h), x=c.getContext("2d"), img=x.createImageData(w,h), dd=img.data, i;
+  for(i=0;i<n;i++){
+    dd[i*4]=clamp(Math.round(data[i]*255),0,255);
+    dd[i*4+1]=clamp(Math.round(data[i+n]*255),0,255);
+    dd[i*4+2]=clamp(Math.round(data[i+2*n]*255),0,255);
+    dd[i*4+3]=255;
+  }
+  x.putImageData(img,0,0);
+  return c;
+}
+function extendPad(src,pad){
+  var c=mkCanvas(src.width+2*pad,src.height+2*pad), x=c.getContext("2d"), w=src.width, h=src.height;
+  x.drawImage(src,pad,pad);
+  x.drawImage(src,0,0,w,1,pad,0,w,pad);
+  x.drawImage(src,0,h-1,w,1,pad,pad+h,w,pad);
+  x.drawImage(src,0,0,1,h,0,pad,pad,h);
+  x.drawImage(src,w-1,0,1,h,pad+w,pad,pad,h);
+  x.drawImage(src,0,0,1,1,0,0,pad,pad);
+  x.drawImage(src,w-1,0,1,1,pad+w,0,pad,pad);
+  x.drawImage(src,0,h-1,1,1,0,pad+h,pad,pad);
+  x.drawImage(src,w-1,h-1,1,1,pad+w,pad+h,pad,pad);
+  return c;
+}
+function tileOrigins(len,tile){
+  var arr=[], v, o;
+  if(len<=tile){arr.push(0);return arr}
+  for(v=0;v<len;v+=tile){o=Math.min(v,len-tile); if(arr.indexOf(o)<0)arr.push(o)}
+  if(arr[arr.length-1]!==len-tile)arr.push(len-tile);
+  return arr;
+}
+function showUpCompare(before,after){
+  var A=$("upCmpA"), B=$("upCmpB");
+  [A,B].forEach(function(cv){cv.width=after.width; cv.height=after.height});
+  A.getContext("2d").drawImage(before,0,0,after.width,after.height);
+  B.getContext("2d").drawImage(after,0,0);
+  $("upCmpBlock").style.display="block";
+  applyUpCompare();
+}
+function applyUpCompare(){
+  var v=parseFloat($("upCmpRange").value);
+  $("upCmpVal").textContent=v+"%";
+  $("upCmpB").style.clipPath="inset(0 0 0 "+v+"%)";
+}
+$("upCmpRange").addEventListener("input",applyUpCompare);
+async function runUpscale(){
+  if(up.running)return;
+  if(!srcImg){setLibStatus($("upStatus"),"Chưa có ảnh — nạp ảnh ở bước 1 và cắt ở bước 2 trước.","err");return}
+  up.running=true; up.cancelled=false;
+  up.abort=("AbortController" in window)?new AbortController():null;
+  $("btnUpscale").disabled=true;
+  $("upCmpBlock").style.display="none";
+  var target=up.scale;
+  try{
+    var cap=(target===4)?900:1200;
+    var input=getArtCanvas(cap);
+    setLibStatus($("upStatus"),"Đang chuẩn bị upscale: art đầu vào "+input.width+"×"+input.height+" px"+(Math.max(input.width,input.height)>=cap?" (đã thu về cạnh dài tối đa "+cap+" px trước khi chạy model để tránh hụt bộ nhớ)":"")+" — mục tiêu phóng ×"+target+". Đang nạp thư viện + model…","");
+    var session=await ensureUpSession();
+    if(up.cancelled)throw new Error("__cancel__");
+    var meta=(session.inputMetadata&&session.inputMetadata[0])||null;
+    var dims=meta?(meta.shape||meta.dims):null;
+    var tileH=(dims&&typeof dims[2]==="number"&&dims[2]>0)?dims[2]:128;
+    var tileW=(dims&&typeof dims[3]==="number"&&dims[3]>0)?dims[3]:128;
+    var pad=Math.max(4,Math.min(16,Math.floor(Math.min(tileW,tileH)/4)));
+    var ext=extendPad(input,pad);
+    var originsX=tileOrigins(ext.width,tileW), originsY=tileOrigins(ext.height,tileH);
+    var total=originsX.length*originsY.length, done=0, S=0, outExt=null, octx=null;
+    var inName=session.inputNames[0], outName=session.outputNames[0];
+    setUpLoad(true,72,"Bắt đầu chạy model "+up.modelLabel+" — tổng "+total+" tile ("+tileW+"×"+tileH+" px/tile)…");
+    for(var yi=0;yi<originsY.length;yi++){
+      for(var xi=0;xi<originsX.length;xi++){
+        if(up.cancelled)throw new Error("__cancel__");
+        var ox=originsX[xi], oy=originsY[yi];
+        var tile=mkCanvas(tileW,tileH);
+        tile.getContext("2d").drawImage(ext,ox,oy,tileW,tileH,0,0,tileW,tileH);
+        var feeds={}; feeds[inName]=canvasToTensor(tile);
+        var res=await session.run(feeds);
+        var outTile=tensorToCanvas(res[outName]);
+        if(!S){
+          S=outTile.width/tileW;
+          outExt=mkCanvas(Math.round(ext.width*S),Math.round(ext.height*S));
+          octx=outExt.getContext("2d");
+        }
+        var vw=Math.min(tileW,ext.width-ox), vh=Math.min(tileH,ext.height-oy);
+        octx.drawImage(outTile,0,0,Math.round(vw*S),Math.round(vh*S),Math.round(ox*S),Math.round(oy*S),Math.round(vw*S),Math.round(vh*S));
+        done++;
+        setUpLoad(true,72+Math.round((done/total)*26),"Đang chạy model — tile "+done+" / "+total+" ("+Math.round(done/total*100)+"%)");
+        await new Promise(function(r){setTimeout(r,0)});
+      }
+    }
+    var finalC=mkCanvas(Math.round(input.width*S),Math.round(input.height*S));
+    finalC.getContext("2d").drawImage(outExt,Math.round(pad*S),Math.round(pad*S),finalC.width,finalC.height,0,0,finalC.width,finalC.height);
+    if(S!==target){
+      var scaled=mkCanvas(input.width*target,input.height*target);
+      var sx2=scaled.getContext("2d"); sx2.imageSmoothingEnabled=true; sx2.imageSmoothingQuality="high";
+      sx2.drawImage(finalC,0,0,scaled.width,scaled.height);
+      finalC=scaled;
+    }
+    up.candidate=finalC;
+    showUpCompare(input,finalC);
+    setUpLoad(true,100,"✓ Chạy model xong — "+total+" tile.");
+    setTimeout(function(){setUpLoad(false)},1000);
+    setLibStatus($("upStatus"),"✓ Model "+up.modelLabel+" đã chạy thật xong: "+input.width+"×"+input.height+" → "+finalC.width+"×"+finalC.height+" px (×"+target+", qua "+total+" tile). So sánh ở khung trên, bấm “Áp dụng kết quả upscale” để dùng bản này cho các bước sau + file xuất, hoặc bỏ nếu không ưng.","ok");
+  }catch(err){
+    setUpLoad(false);
+    if(up.cancelled||(err&&err.message==="__cancel__")){
+      setLibStatus($("upStatus"),"Đã huỷ upscale — art hiện tại không thay đổi gì.","err");
+    }else{
+      up.sessionPromise=null; up.ortPromise=null;
+      setLibStatus($("upStatus"),"✗ Upscale AI không chạy được: "+((err&&err.message)||"lỗi không rõ")+". Kiểm tra kết nối mạng (lần đầu phải tải thư viện + model vài chục MB từ CDN / Hugging Face) rồi bấm chạy lại. Art hiện tại không thay đổi — app không giả vờ đã upscale khi model chưa chạy thật.","err");
+    }
+  }
+  up.running=false; $("btnUpscale").disabled=false;
+}
+$("btnUpscale").onclick=function(){runUpscale()};
+$("upCancel").onclick=function(){
+  up.cancelled=true;
+  if(up.abort)try{up.abort.abort()}catch(e){}
+};
+$("btnUpApply").onclick=function(){
+  if(!up.candidate)return;
+  derivedArt=up.candidate;
+  derivedLabel="bản Upscale AI (Real-ESRGAN ×"+up.scale+", onnxruntime-web)";
+  edOnArtReset();
+  up.candidate=null;
+  $("upCmpBlock").style.display="none";
+  updateArtSrcNote(); scheduleRender();
+  setLibStatus($("upStatus"),"✓ Đã áp dụng kết quả upscale — phần làm đẹp bên dưới, mockup và file xuất giờ dùng bản "+derivedArt.width+"×"+derivedArt.height+" px này.","ok");
+};
+$("btnUpDiscard").onclick=function(){
+  up.candidate=null;
+  $("upCmpBlock").style.display="none";
+  setLibStatus($("upStatus"),"Đã bỏ kết quả upscale — art hiện tại giữ nguyên.","");
+};
+
+/* ================= LỘ TRÌNH 2 · TÁCH NỀN AI (MediaPipe Tasks Vision — Image Segmenter) ================= */
+var MP_BUNDLE="https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/vision_bundle.mjs";
+var MP_WASM="https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm";
+var MP_MODEL="https://storage.googleapis.com/mediapipe-models/image_segmenter/deeplab_v3/float32/1/deeplab_v3.tflite";
+var sg={running:false,cancelled:false,abort:null,candidate:null};
+function setSegLoad(show,pct,text){setLoad("segLoadBox","segLoadFill","segLoadText",show,pct,text)}
+async function runSegment(){
+  if(sg.running)return;
+  if(!srcImg){setLibStatus($("segStatus"),"Chưa có ảnh — nạp ảnh ở bước 1 và cắt ở bước 2 trước.","err");return}
+  sg.running=true; sg.cancelled=false;
+  sg.abort=("AbortController" in window)?new AbortController():null;
+  $("btnSegment").disabled=true;
+  $("segCmpBlock").style.display="none";
+  try{
+    var input=getArtCanvas(1024);
+    setSegLoad(true,4,"Đang tải MediaPipe Tasks Vision từ CDN…");
+    var vision=await import(MP_BUNDLE);
+    if(sg.cancelled)throw new Error("__cancel__");
+    setSegLoad(true,14,"Đang tải bộ WASM của MediaPipe…");
+    var fileset=await vision.FilesetResolver.forVisionTasks(MP_WASM);
+    if(sg.cancelled)throw new Error("__cancel__");
+    setSegLoad(true,22,"Đang tải model deeplab_v3…");
+    var buf=await fetchWithProgress(MP_MODEL,function(p,got,total){
+      if(p>=0)setSegLoad(true,22+Math.round(p*38),"Đang tải model deeplab_v3 — "+Math.round(p*100)+"% ("+fmtMB(got)+(total?" / "+fmtMB(total):"")+")");
+      else setSegLoad(true,40,"Đang tải model deeplab_v3 — đã nhận "+fmtMB(got));
+    },sg.abort?sg.abort.signal:undefined);
+    if(sg.cancelled)throw new Error("__cancel__");
+    setSegLoad(true,64,"Đang khởi tạo Image Segmenter…");
+    var segmenter=await vision.ImageSegmenter.createFromOptions(fileset,{
+      baseOptions:{modelAssetBuffer:new Uint8Array(buf),delegate:"CPU"},
+      runningMode:"IMAGE",outputCategoryMask:true,outputConfidenceMasks:false
+    });
+    setSegLoad(true,78,"Đang chạy phân đoạn trên art "+input.width+"×"+input.height+" px…");
+    var result=segmenter.segment(input);
+    try{segmenter.close()}catch(e){}
+    var mask=result&&result.categoryMask;
+    if(!mask)throw new Error("MediaPipe chạy xong nhưng không trả về mặt nạ");
+    var mw=mask.width, mh=mask.height, arr=mask.getAsUint8Array();
+    var fg=0, i;
+    for(i=0;i<arr.length;i++)if(arr[i]!==0)fg++;
+    var ratio=arr.length?fg/arr.length:0;
+    if(ratio<0.005||ratio>0.995){
+      setSegLoad(false);
+      setLibStatus($("segStatus"),"MediaPipe đã chạy thật nhưng không tách được đối tượng rõ trên art này (mặt nạ phủ "+Math.round(ratio*100)+"% diện tích — gần như toàn nền hoặc toàn ảnh). deeplab_v3 chỉ nhận diện được các lớp đối tượng phổ biến; art phẳng / chữ thuần thường không tách được bằng model này. Art hiện tại giữ nguyên.","err");
+      sg.running=false; $("btnSegment").disabled=false;
+      return;
+    }
+    var alphaC=mkCanvas(mw,mh), ax=alphaC.getContext("2d"), aimg=ax.createImageData(mw,mh), j;
+    for(j=0;j<arr.length;j++){
+      aimg.data[j*4]=255; aimg.data[j*4+1]=255; aimg.data[j*4+2]=255;
+      aimg.data[j*4+3]=arr[j]!==0?255:0;
+    }
+    ax.putImageData(aimg,0,0);
+    var out=copyCanvas(input), ox2=out.getContext("2d");
+    ox2.globalCompositeOperation="destination-in";
+    try{ox2.filter="blur(1px)"}catch(e){}
+    ox2.drawImage(alphaC,0,0,out.width,out.height);
+    try{ox2.filter="none"}catch(e){}
+    ox2.globalCompositeOperation="source-over";
+    sg.candidate=out;
+    var pv=$("segPreview"); pv.width=out.width; pv.height=out.height;
+    pv.getContext("2d").drawImage(out,0,0);
+    $("segCmpBlock").style.display="block";
+    setSegLoad(true,100,"✓ Tách nền xong.");
+    setTimeout(function(){setSegLoad(false)},1000);
+    setLibStatus($("segStatus"),"✓ MediaPipe (Image Segmenter, model deeplab_v3) đã chạy thật: đối tượng chính chiếm khoảng "+Math.round(ratio*100)+"% diện tích art, nền đã chuyển trong suốt — xem trước ở khung caro bên trên. Bấm “Áp dụng nền trong suốt” để dùng cho các bước sau + xuất PNG trong suốt, hoặc bỏ nếu mặt nạ chưa đúng.","ok");
+  }catch(err){
+    setSegLoad(false);
+    if(sg.cancelled||(err&&err.message==="__cancel__")){
+      setLibStatus($("segStatus"),"Đã huỷ tách nền — art hiện tại không thay đổi gì.","err");
+    }else{
+      setLibStatus($("segStatus"),"✗ Tách nền bằng MediaPipe không chạy được: "+((err&&err.message)||"lỗi không rõ")+". Kiểm tra kết nối mạng (lần đầu phải tải thư viện + model từ CDN / Google) rồi bấm chạy lại. Art hiện tại giữ nguyên — không có gì bị thay đổi.","err");
+    }
+  }
+  sg.running=false; $("btnSegment").disabled=false;
+}
+$("btnSegment").onclick=function(){runSegment()};
+$("segCancel").onclick=function(){
+  sg.cancelled=true;
+  if(sg.abort)try{sg.abort.abort()}catch(e){}
+};
+$("btnSegApply").onclick=function(){
+  if(!sg.candidate)return;
+  derivedArt=sg.candidate;
+  derivedLabel="bản tách nền AI (MediaPipe Image Segmenter — nền trong suốt)";
+  edOnArtReset();
+  sg.candidate=null;
+  $("segCmpBlock").style.display="none";
+  updateArtSrcNote(); scheduleRender();
+  setLibStatus($("segStatus"),"✓ Đã áp dụng nền trong suốt — phần làm đẹp bên dưới, mockup và file xuất (PNG) giờ dùng bản nền trong suốt "+derivedArt.width+"×"+derivedArt.height+" px này. Lưu ý: xuất JPG sẽ lấp nền trắng vì JPG không có kênh trong suốt.","ok");
+};
+$("btnSegDiscard").onclick=function(){
+  sg.candidate=null;
+  $("segCmpBlock").style.display="none";
+  setLibStatus($("segStatus"),"Đã bỏ kết quả tách nền — art hiện tại giữ nguyên.","");
+};
 
 /* ================= EXPORT ================= */
 document.querySelectorAll(".size-card").forEach(function(card){
@@ -1592,28 +2600,73 @@ function downloadBlob(blob,filename){
   document.body.appendChild(a); a.click();
   setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},800);
 }
-function buildExportCanvas(){
+/* pica: resize Lanczos chất lượng cao khi phóng ảnh lên khổ in — tải lười lúc xuất, lỗi thì dự phòng resize canvas mặc định */
+var lastResizeMethod="resize mặc định của trình duyệt";
+function picaInstance(){
+  var P=window.pica; if(!P)return null;
+  try{var a=(typeof P==="function")?P():P; if(a&&a.resize)return a}catch(e){}
+  try{var b=new P(); if(b&&b.resize)return b}catch(e2){}
+  return (P&&P.resize)?P:null;
+}
+function resizeHQ(from,to){
+  function fallback(){
+    lastResizeMethod="resize mặc định của trình duyệt (pica không dùng được)";
+    var cx=to.getContext("2d"); cx.imageSmoothingEnabled=true; cx.imageSmoothingQuality="high";
+    cx.drawImage(from,0,0,to.width,to.height);
+    return Promise.resolve(to);
+  }
+  setLibStatus($("picaStatus"),"Đang tải thư viện pica để phóng ảnh lên khổ in chất lượng cao…","");
+  return loadLib("pica").then(function(ok){
+    var inst=ok?picaInstance():null;
+    if(!inst){
+      setLibStatus($("picaStatus"),"⚠ Không tải được pica từ CDN — lần xuất này dùng resize mặc định của trình duyệt (vẫn xuất được file, nét phóng có thể mềm hơn). Kiểm tra mạng rồi xuất lại nếu muốn dùng pica.","err");
+      return fallback();
+    }
+    return inst.resize(from,to,{quality:3,alpha:true,unsharpAmount:70,unsharpRadius:0.6,unsharpThreshold:2}).then(function(){
+      lastResizeMethod="pica — resize Lanczos chất lượng cao (quality 3) + unsharp nhẹ";
+      setLibStatus($("picaStatus"),"✓ pica đã sẵn sàng — ảnh được phóng lên khổ in bằng resize Lanczos chất lượng cao.","ok");
+      return to;
+    },function(){
+      setLibStatus($("picaStatus"),"⚠ pica chạy lỗi trên ảnh này — đã tự chuyển sang resize mặc định của trình duyệt cho lần xuất này.","err");
+      return fallback();
+    });
+  });
+}
+function canvasHasAlpha(c){
+  try{
+    var t=mkCanvas(48,48), tx=t.getContext("2d");
+    tx.drawImage(c,0,0,48,48);
+    var d=tx.getImageData(0,0,48,48).data;
+    for(var i=3;i<d.length;i+=4)if(d[i]<245)return true;
+  }catch(e){}
+  return false;
+}
+function buildExportCanvas(format){
   var eff=effectiveSettings();
   /* process at bounded resolution, then place on exact export size */
   var workMax=3600;
   var base=getArtCanvas(workMax);
   var processed=processCanvas(base,eff,true);
   var out=mkCanvas(exportSize.w,exportSize.h);
-  var x=out.getContext("2d"); x.imageSmoothingEnabled=true; x.imageSmoothingQuality="high";
-  /* cover-fit processed art into the export frame */
+  var x=out.getContext("2d");
+  /* PNG + art đã tách nền (MediaPipe) → giữ nền trong suốt; còn lại lấp trắng như trước */
+  var keepAlpha=(format==="png")&&canvasHasAlpha(processed);
+  if(!keepAlpha){x.fillStyle="#ffffff"; x.fillRect(0,0,out.width,out.height)}
+  /* cover-fit processed art into the export frame — bước phóng dùng pica */
   var s=Math.max(exportSize.w/processed.width,exportSize.h/processed.height);
-  var dw=processed.width*s, dh=processed.height*s;
-  x.fillStyle="#ffffff"; x.fillRect(0,0,out.width,out.height);
-  x.drawImage(processed,(exportSize.w-dw)/2,(exportSize.h-dh)/2,dw,dh);
-  return out;
+  var dw=Math.max(1,Math.round(processed.width*s)), dh=Math.max(1,Math.round(processed.height*s));
+  var target=mkCanvas(dw,dh);
+  return resizeHQ(processed,target).then(function(){
+    x.drawImage(target,(exportSize.w-dw)/2,(exportSize.h-dh)/2);
+    return out;
+  });
 }
 function doExport(format){
   if(!srcImg)return;
   var btn=format==="png"?$("btnExportPng"):$("btnExportJpg");
   var old=btn.textContent; btn.disabled=true; btn.textContent="Đang dựng file khổ lớn…";
   setTimeout(function(){
-    try{
-      var canvas=buildExportCanvas();
+    buildExportCanvas(format).then(function(canvas){
       var slug=promptText?slugify(promptText):"";
       var baseName="front-2d-"+srcName+"-"+exportSize.w+"x"+exportSize.h+"-300dpi"+(slug?"-"+slug:"");
       canvas.toBlob(function(blob){
@@ -1628,11 +2681,13 @@ function doExport(format){
             lines.push("STUDIO POD 2D — HỒ SƠ FILE IN");
             lines.push("File in: "+baseName+(format==="png"?".png":".jpg"));
             lines.push("Khổ: "+exportSize.w+"x"+exportSize.h+" px · 300 DPI");
+            lines.push("Phóng ảnh lên khổ in: "+lastResizeMethod);
+            lines.push("Nguồn art: "+(derivedArt?derivedLabel+" ("+derivedArt.width+"x"+derivedArt.height+" px)":"vùng cắt gốc ở bước 2"+(wm.cleaned?" + đã xoá watermark ở bước 3":"")));
             lines.push("");
             lines.push("=== KIỂM TRA WATERMARK (bước 3) ===");
             lines.push(wmTxtLine("Kiểm tra trước",wm.before));
             lines.push(wmTxtLine("Kiểm tra lại sau khi xoá",wm.after));
-            lines.push("Đã xoá watermark trong app: "+(wm.cleaned?"Có (inpainting trên vùng người dùng đã tô)":"Không"));
+            lines.push("Đã xoá watermark trong app: "+(wm.cleaned?("Có — cách xoá đã dùng: "+(wm.lastEngine||"inpainting")):"Không"));
             lines.push("Xác nhận của người dùng về quyền dùng ảnh: "+(($("wmRights")&&$("wmRights").checked)||wmManualChecked()?"Có":"Không ghi nhận"));
             lines.push("Xác nhận soi tay từng ô: "+(wmManualChecked()?"Có — xác nhận không còn watermark và có quyền dùng ảnh này":"Không"));
             if(promptText){
@@ -1650,19 +2705,500 @@ function doExport(format){
           showOk("⬇️ Đã tải file in <b>"+exportSize.w+" × "+exportSize.h+" px · 300 DPI</b> ("+(format==="png"?"PNG":"JPG")+") + file <b>.txt</b> hồ sơ kèm theo (kết quả kiểm tra watermark trước / sau"+(promptText?" + prompt đã dùng":"")+"). Gửi file này cho nhà in là in tràn mặt trước được ngay.");
         });
       },format==="png"?"image/png":"image/jpeg",0.94);
-    }catch(err){
+    }).catch(function(err){
       btn.disabled=false; btn.textContent=old;
       showOk("Có lỗi khi dựng file khổ lớn — thử giảm hiệu ứng hoặc chọn khổ 4500×5400 rồi xuất lại.");
-    }
+    });
   },60);
 }
 $("btnExportPng").onclick=function(){doExport("png")};
 $("btnExportJpg").onclick=function(){doExport("jpg")};
 
+/* ================= RADAR MẪU BÁN CHẠY ================= */
+var RADAR_NICHES=[
+  {id:"funny",vi:"Hài hước / Chữ vui",en:"funny t shirt",prompt:"typography hài hước, chữ đậm dễ đọc từ xa, bố cục gọn ở giữa ngực"},
+  {id:"cat",vi:"Mèo & thú cưng",en:"funny cat t shirt",prompt:"minh hoạ mèo dễ thương, nét rõ, biểu cảm hài, màu rực"},
+  {id:"dog",vi:"Chó / Dog Mom & Dad",en:"dog mom t shirt",prompt:"minh hoạ chó thân thiện, chữ Dog Mom/Dad cong vintage"},
+  {id:"anime",vi:"Anime",en:"anime t shirt",prompt:"phong cách anime, màu phẳng, nét đậm, nhân vật trung tâm lớn"},
+  {id:"vintage",vi:"Vintage / Retro hoàng hôn",en:"vintage retro sunset t shirt",prompt:"phong cách vintage retro, vệt hoàng hôn, chữ cong kiểu thập niên 70-80, màu phai nhẹ"},
+  {id:"family",vi:"Gia đình — Bố / Mẹ / Sinh nhật",en:"funny dad mom family t shirt",prompt:"chữ gia đình vui, dễ cá nhân hoá tên/năm, bố cục sạch"},
+  {id:"job",vi:"Nghề nghiệp — Y tá / Giáo viên / Tài xế",en:"funny nurse teacher t shirt",prompt:"chữ nghề nghiệp tự hào + hài hước, biểu tượng nghề nhỏ gọn, dễ đọc"},
+  {id:"season",vi:"Mùa lễ — Halloween / Giáng sinh",en:"funny halloween christmas t shirt",prompt:"hoạ tiết mùa lễ vui nhộn, màu lễ hội nổi bật, nhân vật/chữ ở trung tâm"},
+  {id:"outdoor",vi:"Câu cá / Camping / Ngoài trời",en:"funny fishing camping t shirt",prompt:"minh hoạ ngoài trời, cá/núi/lửa trại, chữ retro, tông đất ấm"},
+  {id:"gamer",vi:"Game thủ / Công nghệ",en:"funny gamer t shirt",prompt:"phong cách game thủ, pixel/controller, chữ vui cho người chơi game"}
+];
+var radarCurrent=RADAR_NICHES[0];
+var radarIdeas=[];
+function radarUrls(n){
+  var q=encodeURIComponent(n.en);
+  return{
+    amz:"https://www.amazon.com/s?k="+q+"&s=review-rank",
+    etsy:"https://www.etsy.com/search?q="+q+"&explicit=1&order=most_relevant",
+    shop:"https://www.google.com/search?q="+encodeURIComponent('site:myshopify.com "'+n.en+'"'),
+    shop2:"https://www.google.com/search?q="+encodeURIComponent("best selling "+n.en+" shopify store")
+  };
+}
+function radarSelectNiche(n,scroll){
+  radarCurrent=n;
+  document.querySelectorAll(".rniche").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-id")===n.id)});
+  var u=radarUrls(n);
+  $("linkAmzSearch").href=u.amz; $("linkAmzSearch").textContent="Tìm “"+n.vi+"” trên Amazon →";
+  $("linkEtsySearch").href=u.etsy; $("linkEtsySearch").textContent="Tìm “"+n.vi+"” trên Etsy →";
+  $("linkShopSearch").href=u.shop; $("linkShopSearch").textContent="Tìm store Shopify “"+n.vi+"” →";
+  $("linkShopSearch2").href=u.shop2;
+  $("radarCur").innerHTML="Đang soi ngách: <b>"+n.vi+"</b> — từ khoá tại nguồn: <b>“"+n.en+"”</b>. Gợi ý làm art riêng: "+n.prompt+". Bấm 1 nguồn bên dưới để xem mẫu thật đang bán tại nguồn ngay bây giờ.";
+  if(scroll){var el=$("radarSources"); if(el&&el.scrollIntoView)el.scrollIntoView({behavior:"smooth",block:"start"})}
+}
+(function initRadar(){
+  /* ngày hôm nay theo giờ Việt Nam */
+  try{
+    var now=new Date();
+    var vn=new Date(now.toLocaleString("en-US",{timeZone:"Asia/Ho_Chi_Minh"}));
+    $("radarDate").textContent="Hôm nay: "+vn.toLocaleDateString("vi-VN",{weekday:"long",day:"2-digit",month:"2-digit",year:"numeric"});
+    var m=vn.getMonth()+1;
+    var season="";
+    if(m>=9&&m<=10)season="📅 <b>Giai đoạn hiện tại (tháng "+m+"):</b> cao điểm <b>Halloween</b> và mở màn sớm cho <b>Giáng sinh</b> — ưu tiên soi ngách Mùa lễ + Hài hước, đồng thời chuẩn bị art Giáng sinh từ bây giờ vì store chạy ads thường lên mẫu trước 4–6 tuần.";
+    else if(m>=11&&m<=12)season="📅 <b>Giai đoạn hiện tại (tháng "+m+"):</b> cao điểm <b>Giáng sinh + Black Friday</b> — ưu tiên soi ngách Mùa lễ, Gia đình và Quà tặng; mẫu chữ cá nhân hoá thường bán mạnh nhất giai đoạn này.";
+    else if(m===1||m===2)season="📅 <b>Giai đoạn hiện tại (tháng "+m+"):</b> mùa <b>Tết / Valentine</b> — ưu tiên soi ngách Gia đình, Thú cưng và Chữ vui làm quà.";
+    else season="📅 <b>Giai đoạn hiện tại (tháng "+m+"):</b> ngoài mùa lễ lớn — các ngách evergreen (Hài hước, Thú cưng, Nghề nghiệp, Vintage) bán đều quanh năm, hợp để xây shop bền.";
+    $("radarSeason").innerHTML=season;
+    /* 3 ngách gợi ý hôm nay: xoay vòng xác định theo ngày trong năm */
+    var startOfYear=new Date(vn.getFullYear(),0,0);
+    var dayNum=Math.floor((vn-startOfYear)/86400000);
+    var dailyWrap=$("radarDaily"); dailyWrap.innerHTML="";
+    for(var k=0;k<3;k++){
+      var n=RADAR_NICHES[(dayNum+k)%RADAR_NICHES.length];
+      (function(niche,idx){
+        var b=document.createElement("button"); b.className="radar-daily-card"; b.type="button";
+        b.innerHTML="<em>Gợi ý "+(idx+1)+" hôm nay</em><strong></strong><small></small>";
+        b.querySelector("strong").textContent=niche.vi;
+        b.querySelector("small").textContent="Từ khoá nguồn: “"+niche.en+"” — bấm để soi ngách này trên cả 3 nguồn.";
+        b.onclick=function(){radarSelectNiche(niche,true)};
+        dailyWrap.appendChild(b);
+      })(n,k);
+    }
+  }catch(e){ $("radarDate").textContent="Hôm nay: "+new Date().toLocaleDateString("vi-VN"); }
+  var nicheWrap=$("radarNiches");
+  RADAR_NICHES.forEach(function(n){
+    var b=document.createElement("button"); b.className="rniche"+(n.id===radarCurrent.id?" on":""); b.type="button"; b.textContent=n.vi; b.setAttribute("data-id",n.id);
+    b.onclick=function(){radarSelectNiche(n,false)};
+    nicheWrap.appendChild(b);
+  });
+  radarSelectNiche(radarCurrent,false);
+  /* lọc nguồn */
+  function setFilter(f){
+    [["rfAll","all"],["rfAmazon","amazon"],["rfEtsy","etsy"],["rfShopify","shopify"]].forEach(function(pair){$(pair[0]).classList.toggle("on",pair[1]===f)});
+    document.querySelectorAll("#radarSources .source-card").forEach(function(card){card.style.display=(f==="all"||card.getAttribute("data-source")===f)?"":"none"});
+  }
+  $("rfAll").onclick=function(){setFilter("all")};
+  $("rfAmazon").onclick=function(){setFilter("amazon")};
+  $("rfEtsy").onclick=function(){setFilter("etsy")};
+  $("rfShopify").onclick=function(){setFilter("shopify")};
+  $("btnRadarOpenAll").onclick=function(){
+    var u=radarUrls(radarCurrent);
+    window.open(u.amz,"_blank"); window.open(u.etsy,"_blank"); window.open(u.shop,"_blank");
+  };
+  $("btnRadarToPrompt").onclick=function(){
+    var txt="Ngách đang hot trên Radar: "+radarCurrent.vi+" — "+radarCurrent.prompt;
+    $("promptInput").value=txt;
+    $("btnApplyPrompt").click();
+    var p=$("radarPanel").nextElementSibling; var target=document.querySelector(".prompt-panel");
+    if(target&&target.scrollIntoView)target.scrollIntoView({behavior:"smooth",block:"start"});
+  };
+  function renderRadarIdeas(){
+    var list=$("radarIdeaList"); list.innerHTML="";
+    $("radarIdeaEmpty").style.display=radarIdeas.length?"none":"block";
+    radarIdeas.forEach(function(text,idx){
+      var row=document.createElement("div"); row.className="radar-idea";
+      var p=document.createElement("p"); p.textContent=text; row.appendChild(p);
+      var btns=document.createElement("div"); btns.className="radar-idea-btns";
+      var toP=document.createElement("button"); toP.className="radar-mini accent"; toP.type="button"; toP.textContent="→ Sang Bước 4";
+      toP.onclick=function(){$("promptInput").value=text; $("btnApplyPrompt").click(); var t=document.querySelector(".prompt-panel"); if(t&&t.scrollIntoView)t.scrollIntoView({behavior:"smooth",block:"start"})};
+      var cp=document.createElement("button"); cp.className="radar-mini"; cp.type="button"; cp.textContent="Sao chép";
+      cp.onclick=function(){copyTextGeneric(text,function(){cp.textContent="Đã chép ✓";setTimeout(function(){cp.textContent="Sao chép"},1500)},function(){})};
+      var del=document.createElement("button"); del.className="radar-mini"; del.type="button"; del.textContent="Xoá";
+      del.onclick=function(){radarIdeas.splice(idx,1);renderRadarIdeas()};
+      btns.appendChild(toP); btns.appendChild(cp); btns.appendChild(del);
+      row.appendChild(btns); list.appendChild(row);
+    });
+  }
+  $("btnRadarSaveIdea").onclick=function(){
+    var v=$("radarIdeaInput").value.trim();
+    if(!v){$("radarIdeaInput").focus();return}
+    radarIdeas.unshift(v); $("radarIdeaInput").value=""; renderRadarIdeas();
+  };
+  $("radarIdeaInput").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();$("btnRadarSaveIdea").click()}});
+  renderRadarIdeas();
+})();
+
+/* ================= LỘ TRÌNH 3 · EDITOR LỚP (Konva + Moveable) =================
+   Konva: khung vẽ lớp (Stage/Layer/Node) + Transformer (kéo/resize/xoay) + kết xuất full-res khi áp dụng.
+   Moveable: khung chọn phụ trên proxy DOM của lớp đang chọn (kéo/resize/xoay/warp) — biến đổi đọc từ transform thật của proxy rồi quy về thuộc tính node Konva.
+   Cả hai nạp lười từ CDN qua loadLib() khi bấm “Mở editor lớp”. Áp dụng = set derivedArt (cùng cơ chế upscale / tách nền) nên bước 5, 6, 7 dùng ngay. */
+var ed={open:false,stage:null,layer:null,tr:null,baseNode:null,fullW:0,fullH:0,stageW:0,stageH:0,scale:1,layers:[],selId:null,seq:0,mv:null,mvOn:false,moveableOk:false,undoArt:null,undoLabel:"",hasUndo:false,filling:false,skewUnit:null};
+function edSetStatus(msg,kind){setLibStatus($("edStatus"),msg,kind)}
+function edSetLibStatus(msg,kind){setLibStatus($("edLibStatus"),msg,kind)}
+function edGetRec(id){if(!id)return null;for(var i=0;i<ed.layers.length;i++)if(ed.layers[i].id===id)return ed.layers[i];return null}
+function edOnArtReset(){
+  /* art chính bị thay ở bước khác (nạp ảnh mới / cắt lại / xoá watermark / upscale / tách nền) -> điểm hoàn tác của editor không còn khớp, phải huỷ để tránh khôi phục nhầm bản cũ */
+  try{
+    ed.hasUndo=false; ed.undoArt=null; ed.undoLabel="";
+    var b=$("btnEdUndo"); if(b)b.disabled=true;
+    if(ed.open)edSetStatus("Art chính vừa thay đổi ở các bước trước — nếu editor đang giữ nền cũ, bấm “Nạp lại art hiện tại làm nền” để editor dùng đúng bản art mới nhất trước khi áp dụng tiếp.","");
+  }catch(e){}
+}
+/* --- hiệu chuẩn đơn vị skew của Konva bằng node dò (attr skew có thể là tang / độ / radian tuỳ bản) --- */
+function edSkewUnit(){
+  if(ed.skewUnit)return ed.skewUnit;
+  var unit="tan";
+  try{
+    var probe=new Konva.Rect({x:0,y:0,width:10,height:10,skewX:1});
+    var c=probe.getTransform().getMatrix()[2];
+    if(Math.abs(c-1)<0.01)unit="tan";
+    else if(Math.abs(c-Math.tan(Math.PI/180))<0.005)unit="deg";
+    else unit="rad";
+    probe.destroy();
+  }catch(e){}
+  ed.skewUnit=unit; return unit;
+}
+function edTanToSkewAttr(tanv){
+  var u=edSkewUnit(); if(u==="tan")return tanv;
+  var ang=Math.atan(tanv);
+  return u==="deg"?ang*180/Math.PI:ang;
+}
+/* phân rã ma trận affine [a,b,c,d,e,f] về thuộc tính node — theo đúng thứ tự nhân ma trận của Konva: tịnh tiến · xoay · skew · scale (đã kiểm chứng vòng kín bằng chính thư viện Konva: node -> ma trận -> phân rã -> node cho lại ma trận trùng khớp) */
+function edDecompose(m){
+  var a=m[0],b=m[1],c=m[2],d=m[3];
+  var th=Math.atan2(b,a), cos=Math.cos(th), sin=Math.sin(th);
+  var sx=a*cos+b*sin, sy=-c*sin+d*cos;
+  if(!isFinite(sx)||Math.abs(sx)<1e-9)sx=1e-9;
+  if(!isFinite(sy)||Math.abs(sy)<1e-9)sy=1e-9;
+  var k=(c*cos+d*sin)/sy;
+  if(!isFinite(k))k=0;
+  return{x:m[4],y:m[5],rotation:th*180/Math.PI,scaleX:sx,scaleY:sy,skewTan:k};
+}
+function edBuildStage(){
+  var art=getArtCanvas(1000000000); /* bản sao độ phân giải đầy đủ của art hiện tại */
+  if(!art||!art.width){edSetLibStatus("✗ Chưa lấy được art hiện tại — nạp ảnh ở bước 1 và cắt vùng in ở bước 2 trước đã.","err");return false}
+  ed.fullW=art.width; ed.fullH=art.height;
+  var outer=$("edStageWrap").parentElement;
+  var avail=Math.min(920,(outer&&outer.clientWidth?outer.clientWidth-30:920)); if(avail<260)avail=260;
+  ed.scale=Math.min(1,avail/art.width);
+  ed.stageW=Math.max(60,Math.round(art.width*ed.scale));
+  ed.stageH=Math.max(60,Math.round(art.height*ed.scale));
+  if(ed.stage){try{ed.stage.destroy()}catch(e){}}
+  if(ed.mvOn)edSetMv(false);
+  if(ed.mv){try{ed.mv.target=null}catch(e){}}
+  $("edProxy").style.display="none";
+  var wrap=$("edStageWrap"); wrap.style.width=ed.stageW+"px"; wrap.style.height=ed.stageH+"px";
+  ed.stage=new Konva.Stage({container:"edStage",width:ed.stageW,height:ed.stageH});
+  ed.layer=new Konva.Layer(); ed.stage.add(ed.layer);
+  ed.baseNode=new Konva.Image({image:art,x:0,y:0,width:ed.stageW,height:ed.stageH,name:"edbase"});
+  ed.layer.add(ed.baseNode);
+  ed.layers=[]; ed.selId=null; ed.seq=0;
+  ed.tr=new Konva.Transformer({rotateEnabled:true,flipEnabled:false,anchorSize:9,anchorCornerRadius:2,borderStroke:"#ff4d0d",anchorStroke:"#ff4d0d",anchorFill:"#ffffff",padding:2,boundBoxFunc:function(oldB,newB){if(Math.abs(newB.width)<12||Math.abs(newB.height)<12)return oldB;return newB}});
+  ed.layer.add(ed.tr);
+  ed.baseNode.on("click tap",function(){edSelect(null)});
+  ed.stage.on("click tap",function(e){if(e.target===ed.stage)edSelect(null)});
+  ed.layer.draw();
+  $("edStageInfo").textContent="Lớp nền = art hiện tại "+art.width+" × "+art.height+" px (độ phân giải đầy đủ). Khung vẽ hiển thị "+ed.stageW+" × "+ed.stageH+" px để thao tác — khi bấm “Áp dụng vào art”, Konva kết xuất lại toàn bộ lớp ở đúng "+art.width+" × "+art.height+" px.";
+  edRenderList(); edRefreshSelUi();
+  return true;
+}
+function edSelect(id){
+  ed.selId=id;
+  var rec=edGetRec(id);
+  ed.layers.forEach(function(r){r.node.draggable(!ed.mvOn)});
+  if(ed.mvOn){edSyncProxy()}
+  else if(ed.tr){ed.tr.nodes(rec?[rec.node]:[]); if(rec)ed.tr.moveToTop(); ed.layer.draw()}
+  if(rec&&rec.kind==="text")edFillTextForm(rec.node);
+  edRenderList(); edRefreshSelUi();
+}
+function edRefreshSelUi(){
+  var rec=edGetRec(ed.selId);
+  var info=$("edSelInfo");
+  if(!rec){info.textContent="Chưa chọn lớp nào — bấm vào 1 lớp trên khung vẽ hoặc nút “Chọn” trong danh sách lớp bên dưới.";return}
+  info.innerHTML="Đang chọn: <b>"+escapeHtml(rec.name)+"</b> ("+(rec.kind==="text"?"lớp chữ":"lớp ảnh phụ")+"). Kéo thả / resize / xoay ngay trên khung vẽ"+(ed.mvOn?" bằng khung Moveable.":" bằng tay cầm Transformer của Konva.");
+  var op=Math.round((rec.node.opacity()||1)*100);
+  $("edOpacity").value=op; $("edOpacityVal").textContent=op+"%";
+}
+function edRenderList(){
+  var list=$("edLayerList"); if(!list)return;
+  list.innerHTML="";
+  var sorted=ed.layers.slice().sort(function(a,b){return b.node.getZIndex()-a.node.getZIndex()});
+  var childCount=ed.layer?ed.layer.children.length:0;
+  sorted.forEach(function(rec){
+    var node=rec.node;
+    var row=document.createElement("div"); row.className="ed-layer-row"+(rec.id===ed.selId?" on":"");
+    var tp=document.createElement("span"); tp.className="tp"; tp.textContent=rec.kind==="text"?"CHỮ":"ẢNH"; row.appendChild(tp);
+    var nm=document.createElement("span"); nm.className="nm"; nm.textContent=rec.name+(node.visible()?"":" (đang ẩn)"); row.appendChild(nm);
+    function mkBtn(label,fn,disabled,danger){
+      var b=document.createElement("button"); b.type="button"; b.className="ed-mini"+(danger?" danger":""); b.textContent=label; b.disabled=!!disabled;
+      b.onclick=function(ev){ev.stopPropagation();fn()}; row.appendChild(b); return b;
+    }
+    mkBtn("Chọn",function(){edSelect(rec.id)},rec.id===ed.selId);
+    mkBtn(node.visible()?"Ẩn":"Hiện",function(){node.visible(!node.visible()); ed.layer.draw(); edRenderList(); if(ed.mvOn)edSyncProxy()});
+    mkBtn("↑ Lên",function(){if(node.getZIndex()<childCount-2){node.moveUp(); ed.tr.moveToTop(); ed.layer.draw(); edRenderList(); if(ed.mvOn)edSyncProxy()}},node.getZIndex()>=childCount-2);
+    mkBtn("↓ Xuống",function(){if(node.getZIndex()>1){node.moveDown(); ed.layer.draw(); edRenderList(); if(ed.mvOn)edSyncProxy()}},node.getZIndex()<=1);
+    mkBtn("Nhân bản",function(){edDuplicate(rec)});
+    mkBtn("Xoá",function(){edDelete(rec)},false,true);
+    row.onclick=function(){edSelect(rec.id)};
+    list.appendChild(row);
+  });
+  var base=document.createElement("div"); base.className="ed-layer-row";
+  var btp=document.createElement("span"); btp.className="tp"; btp.textContent="NỀN"; base.appendChild(btp);
+  var bnm=document.createElement("span"); bnm.className="nm"; bnm.textContent="Lớp nền — art hiện tại "+ed.fullW+" × "+ed.fullH+" px (cố định dưới cùng, không xoá / không di chuyển được)"; base.appendChild(bnm);
+  list.appendChild(base);
+}
+/* ---------- lớp chữ ---------- */
+function edFontStyleStr(){
+  var b=$("btnEdBold").classList.contains("on"), i=$("btnEdItalic").classList.contains("on");
+  var s=((i?"italic ":"")+(b?"bold":"")).trim();
+  return s||"normal";
+}
+function edTextName(t){
+  var s=String(t||"").replace(/\s+/g," ").trim();
+  return "Chữ: "+(s.length>22?s.slice(0,22)+"…":(s||"(trống)"));
+}
+function edFillTextForm(node){
+  ed.filling=true;
+  $("edText").value=node.text();
+  $("edFont").value=node.fontFamily();
+  var fs=Math.round(node.fontSize()||64); $("edSize").value=fs; $("edSizeVal").textContent=fs;
+  var fill=node.fill(); if(typeof fill==="string"&&fill.charAt(0)==="#")$("edColor").value=fill;
+  var st=node.stroke(); if(typeof st==="string"&&st.charAt(0)==="#")$("edStrokeColor").value=st;
+  var sw=Math.round(node.strokeWidth()||0); $("edStrokeW").value=sw; $("edStrokeWVal").textContent=sw;
+  var fst=String(node.fontStyle()||"normal");
+  $("btnEdBold").classList.toggle("on",fst.indexOf("bold")>=0);
+  $("btnEdItalic").classList.toggle("on",fst.indexOf("italic")>=0);
+  ed.filling=false;
+}
+function edSyncTextFromForm(){
+  if(ed.filling)return;
+  var rec=edGetRec(ed.selId); if(!rec||rec.kind!=="text")return;
+  var node=rec.node;
+  node.text($("edText").value);
+  node.fontFamily($("edFont").value);
+  var fs=parseFloat($("edSize").value); if(fs>0)node.fontSize(fs);
+  node.fill($("edColor").value);
+  node.stroke($("edStrokeColor").value);
+  node.strokeWidth(parseFloat($("edStrokeW").value)||0);
+  node.fontStyle(edFontStyleStr());
+  rec.name=edTextName(node.text());
+  ed.layer.draw(); edRenderList();
+}
+function edAddText(){
+  if(!ed.stage){edSetStatus("Mở editor trước rồi mới thêm lớp được.","err");return}
+  var txt=$("edText").value; if(!txt.trim())txt="Chữ mới";
+  var w=Math.round(ed.stageW*0.72);
+  var node=new Konva.Text({text:txt,x:Math.round((ed.stageW-w)/2),y:Math.round(ed.stageH*0.38),width:w,fontFamily:$("edFont").value,fontSize:parseFloat($("edSize").value)||64,fill:$("edColor").value,stroke:$("edStrokeColor").value,strokeWidth:parseFloat($("edStrokeW").value)||0,fontStyle:edFontStyleStr(),lineHeight:1.15,draggable:true,name:"ednode"});
+  ed.layer.add(node); ed.tr.moveToTop(); ed.layer.draw();
+  var rec={id:"ed"+(++ed.seq),kind:"text",name:edTextName(txt),node:node};
+  ed.layers.push(rec); edAttachNode(rec); edSelect(rec.id);
+  edSetStatus("Đã thêm lớp chữ “"+rec.name.replace(/^Chữ: /,"")+"” — kéo thả / resize / xoay ngay trên khung vẽ, hoặc bật khung Moveable ở mục lớp đang chọn.","");
+}
+function edAttachNode(rec){
+  rec.node.on("click tap",function(){edSelect(rec.id)});
+  rec.node.on("dragend transformend",function(){if(ed.mvOn)edSyncProxy()});
+}
+/* ---------- lớp ảnh phụ ---------- */
+function edAddImageFromFile(file){
+  if(!ed.stage){edSetLibStatus("Mở editor trước rồi mới thêm ảnh phụ được.","err");return}
+  if(!file||!/^image\//.test(file.type||"")){edSetStatus("File chọn không phải ảnh — hãy chọn file PNG / JPG (logo, sticker).","err");return}
+  var url=URL.createObjectURL(file);
+  var img=new Image();
+  img.onload=function(){
+    try{URL.revokeObjectURL(url)}catch(e){}
+    var s=Math.min(1,(ed.stageW*0.45)/img.width,(ed.stageH*0.45)/img.height); if(!(s>0))s=1;
+    var w=Math.max(24,Math.round(img.width*s)), h=Math.max(24,Math.round(img.height*s));
+    var node=new Konva.Image({image:img,x:Math.round((ed.stageW-w)/2),y:Math.round((ed.stageH-h)/2),width:w,height:h,draggable:true,name:"ednode"});
+    ed.layer.add(node); ed.tr.moveToTop(); ed.layer.draw();
+    var rec={id:"ed"+(++ed.seq),kind:"image",name:"Ảnh: "+(file.name||"ảnh phụ"),node:node};
+    ed.layers.push(rec); edAttachNode(rec); edSelect(rec.id);
+    edSetStatus("Đã thêm lớp ảnh phụ “"+(file.name||"ảnh phụ")+"” ("+img.width+"×"+img.height+" px gốc) — kéo thả / resize / xoay trên khung vẽ.","");
+  };
+  img.onerror=function(){try{URL.revokeObjectURL(url)}catch(e){} edSetStatus("Không đọc được file ảnh này — thử file PNG / JPG khác.","err")};
+  img.src=url;
+}
+/* ---------- thao tác lớp ---------- */
+function edDuplicate(rec){
+  var clone=rec.node.clone();
+  clone.position({x:Math.min(ed.stageW-20,clone.x()+16),y:Math.min(ed.stageH-20,clone.y()+16)});
+  clone.draggable(!ed.mvOn);
+  ed.layer.add(clone); clone.setZIndex(Math.min(ed.layer.children.length-2,rec.node.getZIndex()+1)); ed.tr.moveToTop(); ed.layer.draw();
+  var nr={id:"ed"+(++ed.seq),kind:rec.kind,name:rec.name+" (sao)",node:clone};
+  ed.layers.push(nr); edAttachNode(nr); edSelect(nr.id);
+  edSetStatus("Đã nhân bản lớp “"+rec.name+"”.","");
+}
+function edDelete(rec){
+  if(ed.selId===rec.id)edSelect(null);
+  try{rec.node.destroy()}catch(e){}
+  ed.layers=ed.layers.filter(function(r){return r.id!==rec.id});
+  ed.layer.draw(); edRenderList(); edRefreshSelUi();
+  edSetStatus("Đã xoá lớp “"+rec.name+"” khỏi editor (art chính chưa thay đổi cho tới khi bấm “Áp dụng vào art”).","");
+}
+/* ---------- Moveable: khung chọn phụ trên proxy DOM ---------- */
+function edSyncProxy(){
+  var px=$("edProxy"); var rec=edGetRec(ed.selId);
+  if(!ed.mvOn||!rec){px.style.display="none"; if(ed.mv){try{ed.mv.target=null}catch(e){}} return}
+  var node=rec.node;
+  var r=node.getClientRect({skipTransform:true});
+  px.style.width=Math.max(8,r.width)+"px"; px.style.height=Math.max(8,r.height)+"px";
+  var m=node.getAbsoluteTransform().getMatrix();
+  px.style.transformOrigin="0 0";
+  px.style.transform="matrix("+m[0]+","+m[1]+","+m[2]+","+m[3]+","+m[4]+","+m[5]+")";
+  px.style.display="block";
+  if(ed.mv){try{ed.mv.target=px; if(ed.mv.updateRect)ed.mv.updateRect()}catch(e){}}
+}
+function edMvApplyFrame(){
+  /* đọc transform thật của proxy sau mỗi thao tác Moveable (kéo / resize / xoay / warp) rồi quy về node Konva;
+     resize làm đổi kích thước hộp proxy -> gấp tỉ lệ đổi cỡ vào scale theo khung toạ độ riêng của lớp */
+  var rec=edGetRec(ed.selId); if(!rec)return;
+  var px=$("edProxy");
+  try{
+    var t=window.getComputedStyle(px).transform;
+    if(!t||t==="none")return;
+    var vals=(t.match(/-?\d+\.?\d*(?:e[-+]?\d+)?/gi)||[]).map(function(v){return parseFloat(v)});
+    var m=null;
+    if(t.indexOf("matrix3d")===0&&vals.length>=16)m=[vals[0],vals[1],vals[4],vals[5],vals[12],vals[13]];
+    else if(t.indexOf("matrix")===0&&vals.length>=6)m=vals.slice(0,6);
+    if(!m)return;
+    var r0=rec.node.getClientRect({skipTransform:true});
+    var rx=(px.offsetWidth||r0.width)/Math.max(1,r0.width), ry=(px.offsetHeight||r0.height)/Math.max(1,r0.height);
+    var dec=edDecompose([m[0]*rx,m[1]*rx,m[2]*ry,m[3]*ry,m[4],m[5]]);
+    rec.node.position({x:dec.x,y:dec.y});
+    rec.node.rotation(dec.rotation);
+    rec.node.scale({x:dec.scaleX,y:dec.scaleY});
+    rec.node.skewX(edTanToSkewAttr(dec.skewTan));
+    rec.node.skewY(0);
+    ed.layer.draw();
+    var op=Math.round((rec.node.opacity()||1)*100); $("edOpacity").value=op; $("edOpacityVal").textContent=op+"%";
+  }catch(e){}
+}
+function edSetMv(on){
+  var rec=edGetRec(ed.selId);
+  if(on){
+    if(!ed.moveableOk){edSetStatus("Moveable chưa tải được (xem thông báo tải thư viện ở đầu panel) — đang dùng tay cầm Transformer của Konva thay thế, vẫn kéo / resize / xoay được bình thường.","err");return}
+    if(!rec){edSetStatus("Chọn 1 lớp chữ / ảnh phụ trước rồi mới bật khung Moveable được.","err");return}
+  }
+  ed.mvOn=!!on;
+  var btn=$("btnEdMv"); btn.classList.toggle("on",ed.mvOn); btn.textContent="Khung Moveable: "+(ed.mvOn?"Đang bật":"Đang tắt");
+  if(ed.mvOn){
+    if(ed.tr)ed.tr.nodes([]);
+    ed.layers.forEach(function(r){r.node.draggable(false)});
+    if(!ed.mv){
+      try{
+        ed.mv=new Moveable($("edStageWrap"),{target:$("edProxy"),draggable:true,resizable:true,rotatable:true,warpable:true,origin:false,keepRatio:false,throttleDrag:0,throttleResize:0,throttleRotate:0});
+        ed.mv.on("drag",function(){edMvApplyFrame()});
+        ed.mv.on("resize",function(){edMvApplyFrame()});
+        ed.mv.on("rotate",function(){edMvApplyFrame()});
+        ed.mv.on("warp",function(){edMvApplyFrame()});
+        ed.mv.on("dragEnd",function(){edMvApplyFrame()});
+        ed.mv.on("resizeEnd",function(){edMvApplyFrame()});
+        ed.mv.on("rotateEnd",function(){edMvApplyFrame()});
+        ed.mv.on("warpEnd",function(){edMvApplyFrame()});
+      }catch(err){
+        ed.mv=null; ed.mvOn=false; btn.classList.remove("on"); btn.textContent="Khung Moveable: Đang tắt";
+        ed.layers.forEach(function(r){r.node.draggable(true)});
+        if(ed.tr&&rec)ed.tr.nodes([rec.node]);
+        edSetStatus("✗ Khởi tạo Moveable không thành công ("+((err&&err.message)||"lỗi không rõ")+") — tiếp tục dùng tay cầm Transformer của Konva.","err");
+        return;
+      }
+    }
+    edSyncProxy(); ed.layer.draw();
+    edSetStatus("Đang thao tác lớp “"+rec.name+"” bằng khung Moveable: kéo trong khung để di chuyển, kéo tay cầm để resize, kéo tay cầm tròn để xoay, kéo các điểm warp để bẻ cong (phần phối cảnh được quy về kéo xiên affine trên lớp Konva).","");
+  }else{
+    $("edProxy").style.display="none";
+    if(ed.mv){try{ed.mv.target=null}catch(e){}}
+    ed.layers.forEach(function(r){r.node.draggable(true)});
+    if(ed.tr&&rec)ed.tr.nodes([rec.node]);
+    if(ed.layer)ed.layer.draw();
+  }
+  edRefreshSelUi();
+}
+/* ---------- mở editor / nạp lại nền ---------- */
+$("btnOpenEditor").onclick=function(){
+  if(ed.open){var p=$("edPanel"); if(p&&p.scrollIntoView)p.scrollIntoView({behavior:"smooth",block:"start"}); return}
+  if(!srcImg){edSetLibStatus("✗ Chưa có art để làm nền — nạp ảnh ở bước 1 và cắt vùng in ở bước 2 trước, rồi mở editor.","err");return}
+  edSetLibStatus("Đang tải thư viện Konva + Moveable từ CDN (jsDelivr)…","");
+  if(libState.konva==="error"){delete libPromises.konva; delete libState.konva}
+  if(libState.moveable==="error"){delete libPromises.moveable; delete libState.moveable}
+  Promise.all([loadLib("konva"),loadLib("moveable")]).then(function(res){
+    if(!res[0]){
+      edSetLibStatus("✗ Không tải được thư viện Konva từ CDN (jsDelivr) — editor lớp không mở được. Kiểm tra kết nối mạng rồi bấm “Mở editor lớp” lại; các bước khác của app (radar, cắt, watermark, prompt, làm đẹp, mockup, xuất file) vẫn chạy bình thường.","err");
+      return;
+    }
+    ed.moveableOk=!!res[1];
+    if(edBuildStage()){
+      ed.open=true;
+      $("edUi").style.display="block"; $("btnEdReload").disabled=false;
+      $("btnOpenEditor").textContent="Editor lớp đang mở";
+      if(ed.moveableOk)edSetLibStatus("✓ Đã tải xong Konva + Moveable từ CDN. Lớp nền = art hiện tại ở độ phân giải đầy đủ; khung vẽ chỉ là bản xem trước thu nhỏ.","ok");
+      else edSetLibStatus("⚠ Đã tải được Konva nên editor mở bình thường, nhưng không tải được Moveable từ CDN — nút “Khung Moveable” (kéo / resize / xoay / warp) tạm không dùng được; tay cầm Transformer của Konva vẫn dùng được. Kiểm tra mạng rồi nạp lại trang để thử tải lại Moveable.","");
+    }
+  });
+};
+$("btnEdReload").onclick=function(){
+  if(!srcImg){edSetStatus("Chưa có ảnh nào được nạp.","err");return}
+  if(edBuildStage())edSetStatus("Đã nạp lại art hiện tại làm lớp nền mới ("+ed.fullW+" × "+ed.fullH+" px). Các lớp chữ / ảnh phụ cũ đã được dọn sạch để tránh lệch nền.","");
+};
+/* ---------- gắn sự kiện form chữ / công cụ lớp ---------- */
+["edText","edFont","edColor","edStrokeColor"].forEach(function(id){$(id).addEventListener("input",edSyncTextFromForm); $(id).addEventListener("change",edSyncTextFromForm)});
+$("edSize").addEventListener("input",function(){$("edSizeVal").textContent=$("edSize").value; edSyncTextFromForm()});
+$("edStrokeW").addEventListener("input",function(){$("edStrokeWVal").textContent=$("edStrokeW").value; edSyncTextFromForm()});
+$("btnEdBold").onclick=function(){$("btnEdBold").classList.toggle("on"); edSyncTextFromForm()};
+$("btnEdItalic").onclick=function(){$("btnEdItalic").classList.toggle("on"); edSyncTextFromForm()};
+$("btnEdAddText").onclick=edAddText;
+$("btnEdAddImg").onclick=function(){$("edImgFile").click()};
+$("edImgFile").addEventListener("change",function(){var f=$("edImgFile").files&&$("edImgFile").files[0]; if(f)edAddImageFromFile(f); $("edImgFile").value=""});
+$("edOpacity").addEventListener("input",function(){
+  var rec=edGetRec(ed.selId); var v=parseFloat($("edOpacity").value)||100;
+  $("edOpacityVal").textContent=v+"%";
+  if(rec){rec.node.opacity(v/100); ed.layer.draw()}
+});
+$("btnEdRotL").onclick=function(){var rec=edGetRec(ed.selId); if(rec){rec.node.rotation(rec.node.rotation()-15); ed.layer.draw(); if(ed.mvOn)edSyncProxy()}};
+$("btnEdRotR").onclick=function(){var rec=edGetRec(ed.selId); if(rec){rec.node.rotation(rec.node.rotation()+15); ed.layer.draw(); if(ed.mvOn)edSyncProxy()}};
+$("btnEdResetTf").onclick=function(){
+  var rec=edGetRec(ed.selId); if(!rec)return;
+  rec.node.rotation(0); rec.node.scale({x:1,y:1}); rec.node.skewX(0); rec.node.skewY(0);
+  rec.node.position({x:Math.round((ed.stageW-rec.node.width())/2),y:Math.round((ed.stageH-rec.node.height())/2)});
+  ed.layer.draw(); if(ed.mvOn)edSyncProxy();
+  edSetStatus("Đã đặt lại lớp “"+rec.name+"”: xoay 0°, tỉ lệ 1:1, đưa về giữa khung.","");
+};
+$("btnEdMv").onclick=function(){edSetMv(!ed.mvOn)};
+/* ---------- áp dụng / hoàn tác ---------- */
+$("btnEdApply").onclick=function(){
+  if(!ed.stage||!ed.baseNode){edSetStatus("Editor chưa có khung vẽ — bấm “Mở editor lớp” trước.","err");return}
+  if(ed.mvOn)edSetMv(false);
+  edSelect(null);
+  try{
+    var pr=ed.fullW/ed.stageW;
+    var rendered=ed.stage.toCanvas({pixelRatio:pr});
+    var out=mkCanvas(ed.fullW,ed.fullH);
+    var x=out.getContext("2d"); x.imageSmoothingEnabled=true; x.imageSmoothingQuality="high";
+    x.drawImage(rendered,0,0,out.width,out.height);
+    ed.undoArt=derivedArt; ed.undoLabel=derivedLabel; ed.hasUndo=true; $("btnEdUndo").disabled=false;
+    derivedArt=out;
+    derivedLabel="bản Editor lớp (Konva + Moveable) — "+ed.layers.length+" lớp phụ gộp trên art "+ed.fullW+"×"+ed.fullH+" px";
+    updateArtSrcNote(); scheduleRender();
+    edSetStatus("✓ Đã áp dụng: toàn bộ "+ed.layers.length+" lớp phụ + nền đã kết xuất ở độ phân giải đầy đủ "+out.width+" × "+out.height+" px và trở thành art chính — bước 5 (làm đẹp / vẽ nét), bước 6 (mockup) và bước 7 (xuất file) giờ dùng bản này. Cổng xuất file ở bước 7 vẫn theo kết quả kiểm tra watermark như cũ.","ok");
+  }catch(err){
+    edSetStatus("✗ Áp dụng không thành công: "+((err&&err.message)||"lỗi không rõ")+" — art chính giữ nguyên, các lớp trong editor vẫn còn để thử lại.","err");
+  }
+};
+$("btnEdUndo").onclick=function(){
+  if(!ed.hasUndo)return;
+  derivedArt=ed.undoArt; derivedLabel=ed.undoLabel;
+  ed.undoArt=null; ed.undoLabel=""; ed.hasUndo=false; $("btnEdUndo").disabled=true;
+  updateArtSrcNote(); scheduleRender();
+  edSetStatus("Đã hoàn tác áp dụng — art chính quay lại đúng bản trước lần áp dụng gần nhất. Các lớp trong editor vẫn giữ nguyên, sửa tiếp rồi áp dụng lại được.","ok");
+};
+
 /* ================= INIT ================= */
 drawCrop();
 renderPreview();
 drawWmStage();
+updateArtSrcNote();
 updateExportGate();
 })();
 </script>
