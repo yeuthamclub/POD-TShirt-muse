@@ -251,6 +251,24 @@ input[type=text].txtin,input[type=url].txtin{width:100%;padding:11px;border:1px 
 .v3-mockrow{display:grid;grid-template-columns:1fr 1fr;gap:6px}
 .v3-gate{border:2px solid #e8b400;background:#fff8e6;border-radius:12px;padding:14px;margin-top:12px}
 .v3-gate h3{margin:0 0 4px;font-size:15px;font-weight:800}
+/* ===== FLOW V3.1 — preflight cuối flow, palette, cọ alpha, xoá watermark trên ảnh nguồn ===== */
+.v31-pre{border:2px solid var(--dark);border-radius:12px;padding:14px;margin-top:14px;background:#faf9f5}
+.v31-pre h3{margin:0 0 4px;font-size:15.5px;font-weight:800}
+.v31-pal-grid{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.v31-pal{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px;display:flex;flex-direction:column;gap:6px;width:118px}
+.v31-pal .sw{height:40px;border-radius:7px;border:1px solid rgba(0,0,0,.16)}
+.v31-pal .hx{font-size:12px;font-weight:800;font-variant-numeric:tabular-nums;text-align:center}
+.v31-pal .ct{font-size:11px;color:var(--muted);text-align:center}
+.v31-pal input[type=color]{width:100%;height:32px;border:1px solid var(--line);border-radius:8px;background:#fff;padding:2px;cursor:pointer}
+.v31-stage{position:relative;max-width:560px;margin:10px auto 0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background-color:#fff;background-image:conic-gradient(#ddd9cf 25%,#fff 0 50%,#ddd9cf 0 75%,#fff 0);background-size:16px 16px;line-height:0}
+.v31-stage canvas{display:block;width:100%;height:auto}
+.v31-stage canvas.abs{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:crosshair}
+.v31-heatwrap{max-width:560px;margin:10px auto 0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#e9e7e0;line-height:0}
+.v31-heatwrap canvas{display:block;width:100%;height:auto}
+.v31-pvrow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.v31-pvrow figure{margin:0}
+.v31-pvrow canvas{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:10px;background:#fff}
+.v31-pvrow figcaption{font-size:11px;font-weight:800;text-align:center;margin-top:5px;color:var(--muted)}
 #advWrap{border:2px solid var(--dark);border-radius:var(--radius);background:#eceae3}
 #advWrap>summary{cursor:pointer;list-style:none;padding:16px 18px;font-weight:900;font-size:16px;display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
 #advWrap>summary::-webkit-details-marker{display:none}
@@ -265,7 +283,7 @@ input[type=text].txtin,input[type=url].txtin{width:100%;padding:11px;border:1px 
   <div class="in">
     <div>
       <h1>STUDIO <span>POD 2D</span> — Tách design khỏi ảnh áo mẫu</h1>
-      <p><b>Flow V3 (mặc định):</b> nạp 1 ảnh chụp người mẫu mặc áo in hình → kéo 4 góc khít vùng in → app tự gỡ nghiêng, tách nền vải thành trong suốt, san phẳng màu, nâng phân giải → xuất <b>design phẳng PNG trong suốt 4500×5400 · 300 DPI</b> gửi nhà in. Toàn bộ công cụ cắt / sửa tay trước đây nằm trong khu <b>Chỉnh tay nâng cao</b> ở dưới.</p>
+      <p><b>Flow V3.1 (mặc định):</b> nạp 1 ảnh chụp người mẫu mặc áo in hình → kéo 4 góc khít vùng in → app tự gỡ nghiêng, <b>upscale AI trước</b>, tách nền vải 2 vòng theo trường sáng, snap màu palette Lab (có chốt an toàn cho design gradient), hỗ trợ <b>chế độ áo tối</b> + xuất <b>vector SVG</b> → xuất <b>design phẳng PNG trong suốt 4500×5400 · 300 DPI</b> gửi nhà in. Kiểm tra watermark nằm ở <b>cuối flow</b> dạng gợi ý soi lại, không chặn giữa chừng. Toàn bộ công cụ cắt / sửa tay trước đây nằm trong khu <b>Chỉnh tay nâng cao</b> ở dưới.</p>
     </div>
     <div class="badge">1 ảnh · 1 file in</div>
   </div>
@@ -275,7 +293,7 @@ input[type=text].txtin,input[type=url].txtin{width:100%;padding:11px;border:1px 
 
   <!-- FLOW V3: TÁCH DESIGN KHỎI ẢNH ÁO MẪU -->
   <section class="panel v3-panel" id="v3Panel">
-    <div class="panel-head"><div class="num hot">⚡</div><div><h2>Tách design khỏi áo — Flow V3</h2><p>Nạp <b>ảnh chụp áo mẫu</b> (người mẫu mặc áo in hình), kéo <b>4 góc</b> cho khít vùng in, bấm 1 nút — app tự gỡ nghiêng phối cảnh, khoá nền vải thành trong suốt, san phẳng màu về artwork phẳng, nâng phân giải và đóng gói file in <b>4500×5400 px · 300 DPI</b>.</p></div></div>
+    <div class="panel-head"><div class="num hot">⚡</div><div><h2>Tách design khỏi áo — Flow V3.1</h2><p>Nạp <b>ảnh chụp áo mẫu</b> (người mẫu mặc áo in hình), kéo <b>4 góc</b> cho khít vùng in, bấm 1 nút — app tự gỡ nghiêng phối cảnh → <b>upscale AI (Real-ESRGAN) trước</b> lên ~2× (chặn cạnh dài 3000 px) → <b>tách 2 vòng theo trường sáng</b> (vòng 1 tách thô để ước lượng trường sáng từ vùng vải, vòng 2 chuẩn hoá lại rồi flood-fill alpha) → lọc bảo toàn cạnh → <b>snap màu palette k-means Lab</b> → đóng gói file in <b>4500×5400 px · 300 DPI</b>, kèm đường xuất <b>vector SVG</b> cho art phẳng.</p></div></div>
 
     <div class="drop" id="v3Drop">
       <strong>Thả ảnh áo mẫu vào đây</strong>
@@ -303,31 +321,21 @@ input[type=text].txtin,input[type=url].txtin{width:100%;padding:11px;border:1px 
     </div>
     <p class="hint" style="margin-top:6px">Khung ban đầu do app <b>tự đoán</b> (quét cụm màu khác màu vải lớn nhất ở giữa ảnh) — đó chỉ là đoán ban đầu, hãy kéo 4 góc cho khít đúng design trước khi tách.</p>
 
-    <label class="f">San phẳng màu về artwork phẳng</label>
-    <div class="seg small" role="group" aria-label="Mức san phẳng màu" style="max-width:560px">
-      <button id="v3Flat0" type="button">Giữ nguyên</button>
-      <button id="v3Flat1" type="button" class="on">Vừa (mặc định)</button>
-      <button id="v3Flat2" type="button">Phẳng mạnh</button>
+    <label class="f">Snap màu palette (k-means trong không gian Lab)</label>
+    <div class="seg small" role="group" aria-label="Mức snap màu palette" style="max-width:560px">
+      <button id="v3Flat0" type="button">Giữ nguyên màu ảnh</button>
+      <button id="v3Flat1" type="button" class="on">Snap vừa · k≈14 (mặc định)</button>
+      <button id="v3Flat2" type="button">Snap mạnh · k≈10</button>
     </div>
-    <label class="checkrow"><input type="checkbox" id="v3UseAI" checked><span>Tự nâng phân giải bằng <b>Upscale AI (Real-ESRGAN)</b> khi design tách ra nhỏ hơn khổ in — lỗi / không có mạng thì app tự lùi về resize chất lượng cao (pica) và ghi rõ trong hồ sơ.</span></label>
+    <p class="hint" style="margin-top:6px"><b>Chốt an toàn gradient:</b> app đo sai số khớp palette sau khi snap thử — nếu design thuộc dạng ảnh chụp / gradient (sai số cao) thì app <b>tự bỏ snap</b>, giữ màu ảnh đã chuẩn hoá sáng và ghi rõ trong dòng số đo + hồ sơ, bất kể mức bạn chọn ở trên.</p>
+    <label class="checkrow"><input type="checkbox" id="v3UseAI" checked><span><b>Upscale AI (Real-ESRGAN) TRƯỚC khi tách</b>: nâng bản đã gỡ nghiêng lên ~2× độ phân giải làm việc (chặn cạnh dài ~3000 px) để viền tách mượt hơn — lỗi model / không có mạng thì app tự lùi về resize chất lượng cao (pica) và ghi rõ cách đã dùng trong hồ sơ.</span></label>
 
     <div class="loadbox" id="v3ProgBox" style="display:none;max-width:none">
       <div class="loadbar"><div class="loadfill" id="v3ProgFill"></div></div>
       <div class="loadrow"><span id="v3ProgText">Sẵn sàng.</span></div>
     </div>
     <button class="btn btn-accent btn-block v3-run" id="v3Run" type="button" disabled>⚡ TÁCH DESIGN &amp; TẠO FILE IN</button>
-    <div class="notice"><b>Giới hạn nói thẳng:</b> tách tốt nhất với <b>áo sáng màu + design phẳng</b> như ảnh mẫu. <b>Áo tối màu, nếp gấp nặng, hoặc phần design bị tay / người che khuất</b> thì chất lượng tách bị giới hạn — phần bị che không có trong ảnh nên app <b>không tự bịa ra</b>; hãy soi kỹ 3 ô đối chiếu bên dưới trước khi gửi nhà in.</div>
-
-    <div class="v3-gate" id="v3Gate" style="display:none">
-      <h3>⛔ Dừng kiểm tra watermark — design vừa tách đang bị nghi ngờ</h3>
-      <p class="hint" id="v3GateInfo" style="margin:0;color:var(--ink)"></p>
-      <label class="checkrow"><input type="checkbox" id="v3Rights"><span><b>Tôi xác nhận ảnh áo mẫu này là của tôi hoặc tôi có quyền sử dụng / chỉnh sửa design trong ảnh.</b> Chỉ xoá watermark trên ảnh bạn có quyền.</span></label>
-      <div class="row" style="margin-top:10px">
-        <button class="btn btn-accent" id="v3GateClean" type="button">Xoá tự động &amp; kiểm lại</button>
-        <button class="btn btn-outline" id="v3GateManual" type="button">Đã soi tay — không có watermark, mở khoá xuất</button>
-      </div>
-      <p class="hint" id="v3GateStatus" style="margin-top:8px">“Xoá tự động” dùng đúng cơ chế inpaint + quét lại của Bước 3 trên vùng nghi ngờ của design đã tách. “Đã soi tay” tương đương ô xác nhận soi tay ở Bước 3 (mục C) — cùng mở khoá cổng xuất file của cả app.</p>
-    </div>
+    <div class="notice"><b>Giới hạn nói thẳng (V3.1):</b> áo <b>sáng màu cho kết quả tốt nhất</b>. <b>Áo tối</b> sẽ tự bật <b>chế độ áo tối</b> (thu hồi dải viền tối, xử lý lỗ chữ kín, cọ sửa alpha tay) — sau khi snap hãy dùng <b>bảng palette chọn lại màu</b> để đặt đúng màu in thật, vì màu mực trên vải tối bị bóng vải kéo xỉn đi và trích xuất không khôi phục tuyệt đối được. <b>Phần design bị tay / người che khuất không khôi phục được</b> — app không tự bịa phần không có trong ảnh. <b>Design dạng gradient / ảnh chụp</b> sẽ <b>giữ màu ảnh</b> thay vì snap phẳng (app tự quyết bằng sai số palette và ghi rõ). Hãy soi kỹ 3 ô đối chiếu bên dưới trước khi gửi nhà in.</div>
 
     <div id="v3Result" style="display:none">
       <p class="subhead">Đối chiếu: ảnh gốc ↔ design đã tách ↔ mockup mới</p>
@@ -338,10 +346,72 @@ input[type=text].txtin,input[type=url].txtin{width:100%;padding:11px;border:1px 
       </div>
       <p class="hint" id="v3Metrics" style="margin-top:8px"></p>
       <div class="row" style="margin-top:8px">
-        <button class="btn btn-accent" id="v3BtnZip" type="button" disabled>Tải ZIP (PNG in + .txt hồ sơ)</button>
+        <button class="btn btn-accent" id="v3BtnZip" type="button" disabled>Tải ZIP (PNG in + .txt + mockup)</button>
         <button class="btn btn-dark" id="v3BtnPng" type="button" disabled>Tải PNG in 300 DPI</button>
       </div>
-      <p class="hint" id="v3DlStatus" style="margin-top:8px">Chạy tách xong và qua cổng watermark, app <b>tự tải ZIP 1 lần</b> — 2 nút này để tải lại khi cần. Design đã tách cũng được đưa vào <b>art chính dùng chung</b>: mở khu Chỉnh tay nâng cao bên dưới để sửa tiếp bằng toàn bộ công cụ cũ (prompt, editor lớp, xưởng sáng tạo…) rồi xuất ở Bước 7.</p>
+      <div class="row" style="margin-top:8px">
+        <button class="btn btn-outline" id="v3BtnSvg" type="button" disabled>Tải SVG (vector)</button>
+        <button class="btn btn-outline" id="v3BtnVecPng" type="button" disabled>PNG in từ vector</button>
+      </div>
+      <p class="hint" id="v3VecStatus" style="margin-top:6px">Xuất vector chỉ mở khi art đã <b>snap palette</b> (art phẳng). App ưu tiên <b>vtracer WASM</b> (@visioncortex/vtracer trên jsDelivr); nạp / chạy không được thì tự lùi về <b>imagetracerjs</b> sẵn có và ghi rõ tracer đã dùng ở đây + trong hồ sơ.</p>
+      <p class="hint" id="v3DlStatus" style="margin-top:8px">Các nút tải mở sau bước <b>Kiểm tra cuối (preflight)</b> ngay bên dưới — quét gợi ý sạch thì app <b>tự tải ZIP 1 lần</b>, 2 nút này để tải lại khi cần. Design đã tách cũng được đưa vào <b>art chính dùng chung</b>: mở khu Chỉnh tay nâng cao bên dưới để sửa tiếp bằng toàn bộ công cụ cũ (prompt, editor lớp, xưởng sáng tạo…) rồi xuất ở Bước 7 — cổng xuất ở Bước 7 dùng <b>chung trạng thái preflight</b> này.</p>
+
+      <div id="v3PalWrap" style="display:none">
+        <p class="subhead">Bảng palette sau snap — chọn lại màu in thật</p>
+        <p class="hint" style="margin:0">Mỗi ô là 1 màu tâm palette đang có trong design. Bấm ô chọn màu dưới mỗi ô để <b>đặt lại màu in thật</b> (đặc biệt cần với áo tối: màu tách ra bị bóng vải kéo xỉn) — mọi pixel đang mang màu cũ sẽ đổi sang màu mới ngay trên kết quả.</p>
+        <div class="v31-pal-grid" id="v3PalGrid"></div>
+      </div>
+
+      <div id="v3BrushWrap" style="display:none">
+        <p class="subhead">Cọ sửa alpha thủ công (chế độ áo tối)</p>
+        <p class="hint" style="margin:0">Các vùng kín (lỗ chữ, chi tiết đen bị bao kín) đôi khi còn sai sau khi tách tự động. Chọn <b>Giữ</b> để tô lại phần bị mất, <b>Xoá</b> để làm trong suốt phần bị thừa — cọ vẽ trực tiếp lên design bên dưới và áp dụng ngay lên bản tách.</p>
+        <div class="row" style="margin-top:8px;max-width:560px">
+          <div class="seg small" role="group" aria-label="Chế độ cọ alpha" style="flex:1">
+            <button id="v3BrushKeep" type="button" class="on">Giữ (tô đặc)</button>
+            <button id="v3BrushErase" type="button">Xoá (trong suốt)</button>
+          </div>
+        </div>
+        <label class="f" style="max-width:420px">Cỡ cọ <span id="v3BrushVal">26 px</span></label>
+        <input type="range" id="v3BrushSize" min="6" max="90" value="26" style="max-width:420px">
+        <div class="v31-stage"><canvas id="v3BrushCanvas" width="560" height="560"></canvas></div>
+        <p class="hint" id="v3BrushStatus" style="margin-top:6px">Chưa sửa nét cọ nào trong lần tách này.</p>
+      </div>
+    </div>
+
+    <div class="v31-pre" id="v3Pre" style="display:none">
+      <h3>Kiểm tra cuối (preflight) — watermark</h3>
+      <p class="hint" style="margin:0">Bước này nằm ở <b>cuối flow</b> và chỉ ở mức <b>gợi ý soi lại</b>: bộ quét chạy trên <b>vùng design của ảnh nguồn</b> (bản đã gỡ nghiêng, trước khi tách) — vì kiểm chứng cho thấy quét trên art đã tách không phân biệt được watermark lát gạch (chính pipeline chuẩn hoá sáng + snap màu đã tẩy lớp phủ mờ). Kết quả <b>không phải kết luận chắc chắn</b>: hãy soi các ô được đánh dấu trên heatmap và đối chiếu 3 ô ở trên. Nút tải của flow này mở khi quét không thấy ô nghi ngờ, hoặc khi bạn tích xác nhận soi tay + quyền ở dưới — trạng thái này cũng là cổng xuất chung của Bước 7 ở khu nâng cao.</p>
+      <div class="v31-heatwrap"><canvas id="v3PreHeat" width="560" height="560"></canvas></div>
+      <p class="hint" id="v3PreInfo" style="margin-top:8px">Chưa quét preflight.</p>
+      <div class="row" style="max-width:520px">
+        <button class="btn btn-dark" id="v3PreScan" type="button">Quét lại preflight</button>
+      </div>
+      <label class="checkrow"><input type="checkbox" id="v3PreConfirm"><span><b>Đã soi tay các ô được gợi ý, xác nhận không còn watermark và ảnh áo mẫu này là của tôi hoặc tôi có quyền sử dụng / chỉnh sửa design trong ảnh.</b> Tích ô này sẽ mở khoá tải của flow V3.1 và cổng xuất Bước 7 (dùng chung 1 trạng thái).</span></label>
+
+      <p class="subhead">Xoá watermark theo yêu cầu của bạn (chỉ khi bạn chủ động)</p>
+      <p class="hint" style="margin:0">App <b>không bao giờ tự xoá</b>. Nếu bạn chắc chắn có watermark thật: dùng cọ vẽ <b>mặt nạ khít đúng chỗ watermark</b> (không tô cả ô lưới), xem trước / sau, rồi bấm áp dụng — phần xoá thực hiện trên <b>ảnh nguồn (vùng design đã gỡ nghiêng)</b> bằng inpainting, sau đó app <b>chạy lại toàn bộ pipeline tách</b> từ ảnh nguồn đã xoá để giữ màu phẳng + alpha sạch.</p>
+      <div class="row" style="margin-top:8px;max-width:560px">
+        <div class="seg small" role="group" aria-label="Chế độ cọ mặt nạ watermark" style="flex:1">
+          <button id="v3WmPaint" type="button" class="on">Tô mặt nạ</button>
+          <button id="v3WmErase" type="button">Xoá mặt nạ</button>
+        </div>
+        <button class="btn btn-light" id="v3WmClear" type="button">Xoá hết mặt nạ</button>
+      </div>
+      <label class="f" style="max-width:420px">Cỡ cọ mặt nạ <span id="v3WmBrushVal">22 px</span></label>
+      <input type="range" id="v3WmBrushSize" min="4" max="80" value="22" style="max-width:420px">
+      <div class="v31-stage">
+        <canvas id="v3WmSrc" width="560" height="560"></canvas>
+        <canvas id="v3WmMask" class="abs" width="560" height="560"></canvas>
+      </div>
+      <div class="v31-pvrow">
+        <figure><canvas id="v3WmBefore" width="360" height="360"></canvas><figcaption>TRƯỚC XOÁ (ẢNH NGUỒN)</figcaption></figure>
+        <figure><canvas id="v3WmAfter" width="360" height="360"></canvas><figcaption>SAU XOÁ (XEM TRƯỚC)</figcaption></figure>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <button class="btn btn-outline" id="v3WmPreview" type="button">Xem trước xoá</button>
+        <button class="btn btn-accent" id="v3WmApply" type="button">Xoá trên ảnh nguồn &amp; chạy lại pipeline tách</button>
+      </div>
+      <p class="hint" id="v3WmStatus" style="margin-top:8px">Chưa vẽ mặt nạ nào. “Xem trước” chỉ hiển thị thử, không thay đổi gì; chỉ nút “Xoá trên ảnh nguồn & chạy lại” mới áp dụng thật.</p>
     </div>
   </section>
 
@@ -4333,7 +4403,8 @@ var ORT_BASE="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.20.1/dist/";
 var ESRGAN_CANDIDATES=[
   {label:"Real-ESRGAN realesr-general-x4v3 (tamnvcc — Hugging Face)",url:"https://huggingface.co/tamnvcc/Real-ESRGAN-General-x4v3_float/resolve/main/onnx/model.onnx",tile:128},
   {label:"Real-ESRGAN x4plus (Meeperomi — Hugging Face)",url:"https://huggingface.co/Meeperomi/RealESRGAN_x4-onnx/resolve/main/RealESRGAN_x4.onnx"},
-  {label:"Real-ESRGAN x4plus (imgdesignart — Hugging Face)",url:"https://huggingface.co/imgdesignart/realesrgan-x4-onnx/resolve/main/onnx/model.onnx",tile:64}
+  {label:"Real-ESRGAN x4plus (imgdesignart — Hugging Face)",url:"https://huggingface.co/imgdesignart/realesrgan-x4-onnx/resolve/main/onnx/model.onnx",tile:64},
+  {label:"Real-ESRGAN AnimeVideo v3 — nhẹ/nhanh, hợp art phẳng nét line (skillsafe-ai — Hugging Face)",url:"https://huggingface.co/skillsafe-ai/realesr-animevideov3/resolve/main/model.onnx"}
 ];
 /* SwinIR (đợt 4 lộ trình gộp): bản ONNX SwinIR-M realSR ×4 GAN của rocca/swin-ir-onnx — chính là file
    model mà demo super-resolution-js (josephrocca) chạy thật trong trình duyệt bằng onnxruntime-web/WASM.
@@ -7265,18 +7336,31 @@ loadLib("localforage").then(function(ok){
   projSetStatus("✓ Kho dự án sẵn sàng — dữ liệu chỉ lưu trong IndexedDB của trình duyệt này. Tự lưu nháp đang bật: art thay đổi là app tự lưu nháp (chờ ~3 giây sau thay đổi cuối).","");
 });
 
-/* ================= FLOW V3 — TÁCH DESIGN KHỎI ẢNH ÁO MẪU =================
-   Trục chính mới của app: ảnh chụp áo mẫu -> tứ giác vùng in (4 góc kéo tay) -> gỡ nghiêng
-   phối cảnh (homography WebGL, dự phòng warp lưới tam giác canvas 2D) -> chuẩn hoá sáng
-   (divide illumination) + khoá nền vải theo flood-fill từ biên (vùng vải-màu bị design bao
-   kín vẫn giữ đặc) + despill -> san phẳng màu (median-cut) -> Upscale AI Real-ESRGAN sẵn có
-   (ensureUpSession / runUpscale, lỗi thì pica) -> đặt contain-fit lên canvas in 4500×5400
-   -> quét watermark bằng đúng analyzeWm() của bước 3 + cổng khoá xuất updateExportGate().
-   Design tách xong đặt vào derivedArt dùng chung để khu nâng cao sửa tiếp. */
+/* ================= FLOW V3.1 — TÁCH DESIGN KHỎI ÁNH ÁO MẪU =================
+   Nâng cấp lõi tách theo spec đã kiểm chứng bằng prototype (đo trên 2 cặp mẫu thật):
+   gỡ nghiêng -> UPSCALE AI TRƯỚC (Real-ESRGAN sẵn có, ~2x, chặn cạnh dài 3000; lỗi -> pica)
+   -> VÒNG 1 tách thô (chuẩn hoá sáng chia-cho-ảnh-mờ + flood-fill alpha theo khoảng cách Lab)
+   -> ước lượng TRƯỜNG SÁNG chỉ từ pixel vải (tính ở 1/4 độ phân giải, làm mờ có trọng số mặt nạ
+   + lấp lan dần) -> VÒNG 2 chuẩn hoá lại theo trường sáng -> lọc bảo toàn cạnh (OpenCV nếu đã
+   nạp sẵn có edgePreservingFilter/bilateralFilter, không thì bilateral tự cài / blur trộn)
+   -> flood-fill alpha -> dọn alpha (morphology close/open + bỏ thành phần nhỏ + lấp lỗ nhỏ chỉ
+   ở áo sáng + viền mềm ~1px) -> SNAP MÀU palette k-means Lab k~10-16 (chốt an toàn: sai số
+   khớp palette cao = design gradient/ảnh chụp thì giữ màu ảnh, không snap).
+   CHẾ ĐỘ ÁO TỐI (L vải Lab < 60): thu hồi dải viền tối <=8px, loại "đảo vải" kín, TẮT lấp lỗ
+   nhỏ, cọ sửa alpha tay, bảng palette chọn lại màu sau snap.
+   XUẤT VECTOR cho art đã snap: vtracer WASM (@visioncortex/vtracer@1.0.0-alpha.4 trên jsDelivr —
+   bản pkg là target Node/CommonJS nên app tải text JS, cắt đúng phần Node ở cuối — cùng kỹ thuật
+   đã dùng cho SVGO — rồi nạp bằng Blob script với bytes wasm đã fetch; lỗi -> imagetracerjs).
+   WATERMARK Ở CUỐI FLOW: preflight gợi ý trên vùng design của ẢNH NGUỒN, dùng CHUNG trạng thái
+   wm với cổng xuất Bước 7; xoá chỉ khi người dùng chủ động vẽ mặt nạ khít lên ảnh nguồn rồi
+   chạy lại pipeline. Design tách xong đặt vào derivedArt dùng chung cho khu nâng cao. */
 var V3W=900, V3H=640;
 var v3={quad:null,view:{scale:1,ox:0,oy:0,W:0,H:0},flat:1,running:false,final:null,extract:null,
-  fabric:null,upscaleNote:"chưa cần nâng phân giải",metrics:null,gateOpen:false,autoZipDone:false,
-  scan:null,flatName:"Vừa",drag:-1,lastZipBlob:null,lastPngName:""};
+  fabric:null,metrics:null,autoZipDone:false,scan:null,flatName:"Snap vừa · k≈14",drag:-1,
+  report:null,palette:null,snapped:false,darkMode:false,svgStr:null,svgTracer:"",
+  regionCanvas:null,srcWarp:null,wmMaskFull:null,wmPainting:false,wmEraseMode:false,wmLastPt:null,
+  preRes:null,preOpen:false,brushMode:"keep",brushPainting:false,brushLast:null,brushTouched:0,
+  vtPromise:null,upscaleNote:"chưa chạy",srcWarpQuad:null,ijMod:null,ijPromise:null,floodEngine:"",alphaEngine:"",snapEngine:""};
 function v3SetProg(pct,text){
   var box=$("v3ProgBox"); if(box)box.style.display="block";
   var f=$("v3ProgFill"); if(f)f.style.width=clamp(pct,0,100)+"%";
@@ -7290,9 +7374,12 @@ function v3OnImage(){
   v.scale=Math.min(V3W/srcImg.width,V3H/srcImg.height);
   v.W=Math.round(srcImg.width*v.scale); v.H=Math.round(srcImg.height*v.scale);
   v.ox=(V3W-v.W)/2; v.oy=(V3H-v.H)/2;
-  v3.final=null; v3.extract=null; v3.gateOpen=false; v3.autoZipDone=false; v3.scan=null;
+  v3.final=null; v3.extract=null; v3.autoZipDone=false; v3.scan=null; v3.report=null;
+  v3.palette=null; v3.snapped=false; v3.darkMode=false; v3.svgStr=null; v3.svgTracer="";
+  v3.regionCanvas=null; v3.srcWarp=null; v3.srcWarpQuad=null; v3.wmMaskFull=null; v3.preRes=null; v3.preOpen=false;
   $("v3Result").style.display="none";
-  $("v3Gate").style.display="none";
+  $("v3Pre").style.display="none";
+  var pc=$("v3PreConfirm"); if(pc)pc.checked=false;
   $("v3SrcInfo").innerHTML="Đã nạp ảnh áo mẫu: <b>"+srcImg.width+" × "+srcImg.height+" px</b> — kéo 4 góc cam cho khít design rồi bấm nút tách.";
   v3.quad=v3SuggestQuad();
   v3Draw();
@@ -7305,7 +7392,6 @@ function v3BorderFabric(d,w,h){
   function add(px,py){var o=(py*w+px)*4;rs+=d[o];gs+=d[o+1];bs+=d[o+2];n++}
   for(x=0;x<w;x+=3){add(x,0);add(x,h-1)}
   for(y=0;y<h;y+=3){add(0,y);add(w-1,y)}
-  /* vành trong sát biên (tránh viền ảnh) */
   var ix=Math.max(1,Math.round(w*0.02)), iy=Math.max(1,Math.round(h*0.02));
   for(x=ix;x<w-ix;x+=3){add(x,iy);add(x,h-1-iy)}
   for(y=iy;y<h-iy;y+=3){add(ix,y);add(w-1-ix,y)}
@@ -7322,19 +7408,15 @@ function v3SuggestQuad(){
   for(py=0;py<h;py++)for(px=0;px<w;px++){
     i=py*w+px; var o=i*4;
     var dr=d[o]-fab[0], dg=d[o+1]-fab[1], db=d[o+2]-fab[2];
-    /* chỉ xét vùng thân áo ở giữa ảnh (design nằm trên ngực / bụng), tránh đầu người ở trên
-       và tay / quần ở hai bên + dưới — các vùng da / tóc cũng khác màu vải nên phải khoanh vùng trước */
     if(px<w*0.14||px>w*0.86||py<h*0.20||py>h*0.84){mask[i]=0;continue}
     mask[i]=(dr*dr+dg*dg+db*db>55*55)?1:0;
   }
-  /* giãn mask 1 vòng để các mảng màu của cùng 1 design (vệt sơn rời nhau) nối thành 1 cụm */
   var dil=new Uint8Array(mask);
   for(py=1;py<h-1;py++)for(px=1;px<w-1;px++){
     i=py*w+px;
     if(mask[i]&&(!dil[i-1]||!dil[i+1]||!dil[i-w]||!dil[i+w])){dil[i-1]=1;dil[i+1]=1;dil[i-w]=1;dil[i+w]=1}
   }
   mask=dil;
-  /* thành phần liên tục lớn nhất (BFS) */
   var seen=new Uint8Array(w*h), best=null, stack=[];
   for(i=0;i<w*h;i++){
     if(!mask[i]||seen[i])continue;
@@ -7425,7 +7507,8 @@ function v3Draw(){
 $("v3Suggest").onclick=function(){
   if(!srcImg){v3SetProg(0,"Chưa có ảnh áo mẫu — nạp ảnh trước.");return}
   v3.quad=v3SuggestQuad(); v3Draw();
-  v3Status("Đã đề xuất lại khung — kéo 4 góc cho khít design rồi bấm tách.");
+  v3.srcWarp=null;
+  v3Status("Đã đề xuất lại khung — kéo 4 góc cho khít design rồi bấm tách. (Khung mới nên bản ảnh nguồn đã xoá watermark nếu có đã được bỏ.)");
 };
 $("v3Pick").onclick=function(){$("v3File").click()};
 $("v3File").onchange=function(e){loadFile(e.target.files[0]); e.target.value=""};
@@ -7458,7 +7541,7 @@ $("v3DriveBtn").onclick=function(){
   loadDriveImage();
 };
 function v3SetFlat(n){
-  v3.flat=n; v3.flatName=n===0?"Giữ nguyên":(n===1?"Vừa":"Phẳng mạnh");
+  v3.flat=n; v3.flatName=n===0?"Giữ nguyên màu ảnh":(n===1?"Snap vừa · k≈14":"Snap mạnh · k≈10");
   [0,1,2].forEach(function(i){$("v3Flat"+i).classList.toggle("on",i===n)});
 }
 $("v3Flat0").onclick=function(){v3SetFlat(0)};
@@ -7482,7 +7565,7 @@ function v3Solve8(A,b){
   var out=[]; for(i=0;i<n;i++)out.push(A[i][n]/A[i][i]);
   return out;
 }
-function v3Homography(dst){ /* đơn vị: (0,0)(1,0)(1,1)(0,1) -> dst[4] theo toạ độ pixel nguồn */
+function v3Homography(dst){
   var A=[], b=[], i;
   var src=[[0,0],[1,0],[1,1],[0,1]];
   for(i=0;i<4;i++){
@@ -7528,9 +7611,6 @@ function v3DewarpGL(quad,W,H){
   }catch(e){return null}
 }
 function v3DrawTri(x,img,s0,s1,s2,d0,d1,d2){
-  /* Cần transform T của canvas sao cho điểm NGUỒN s_i được vẽ tới đúng điểm ĐÍCH d_i
-     (drawImage vẽ ảnh nguồn qua transform hiện tại) — tức T·s_i = d_i, giải bằng Cramer:
-     x' = A*x + B*y + E ; y' = C*x + Dd*y + F. canvas.transform(A, C, B, Dd, E, F). */
   var den=(s1.x-s0.x)*(s2.y-s0.y)-(s2.x-s0.x)*(s1.y-s0.y);
   if(Math.abs(den)<1e-9)return;
   var A=((d1.x-d0.x)*(s2.y-s0.y)-(d2.x-d0.x)*(s1.y-s0.y))/den;
@@ -7569,10 +7649,6 @@ function v3Dewarp(quad){
   var wSrc=(top+bot)/2, hSrc=(lft+rgt)/2;
   var sc=1800/Math.max(wSrc,hSrc);
   var W=clamp(Math.round(wSrc*sc),80,2400), H=clamp(Math.round(hSrc*sc),80,2400);
-  /* Warp lưới tam giác canvas 2D là đường chính: xác định tuyệt đối (đã kiểm chứng số học
-     T·s_i = d_i) và không phụ thuộc driver WebGL — bản WebGL (homography + shader ở trên)
-     cho ảnh bị lật dọc trên trình duyệt kiểm chứng nên chỉ còn là đường dự phòng khi
-     canvas 2D lỗi hẳn. */
   try{
     var mesh=v3DewarpMesh(quad,W,H);
     if(mesh&&v3WarpSane(mesh))return mesh;
@@ -7581,9 +7657,6 @@ function v3Dewarp(quad){
   if(glOut&&v3WarpSane(glOut))return glOut;
   return v3DewarpMesh(quad,W,H);
 }
-/* kiểm tra sanity của bản gỡ nghiêng WebGL: tứ giác nằm trọn trong ảnh nên viền bản gỡ
-   nghiêng phải đặc (alpha đầy) — nếu quá 30% pixel viền trong suốt / đen ngoài-ảnh thì
-   coi như WebGL cho kết quả sai và rơi về warp lưới tam giác canvas 2D. */
 function v3WarpSane(c){
   try{
     var W=c.width, H=c.height, x=c.getContext("2d");
@@ -7594,49 +7667,82 @@ function v3WarpSane(c){
     return tot>0&&(bad/tot)<=0.3;
   }catch(e){return false}
 }
-/* --- (c) chuẩn hoá sáng + khoá nền vải (flood từ biên) + despill + dọn alpha --- */
-function v3ExtractFabric(warped){
-  var W=warped.width, H=warped.height, n=W*H;
-  /* bản đồ sáng làm mờ mạnh: thu nhỏ -> blur -> phóng lại */
+
+/* --- (c) không gian màu Lab (CIE, D65) --- */
+function v3Rgb2Lab(r,g,b){
+  function f(v){v/=255; return v>0.04045?Math.pow((v+0.055)/1.055,2.4):v/12.92}
+  var R=f(r),G=f(g),B=f(b);
+  var X=(R*0.4124+G*0.3576+B*0.1805)/0.95047, Y=R*0.2126+G*0.7152+B*0.0722, Z=(R*0.0193+G*0.1192+B*0.9505)/1.08883;
+  function gf(t){return t>0.008856?Math.cbrt(t):7.787*t+16/116}
+  var fx=gf(X), fy=gf(Y), fz=gf(Z);
+  return [116*fy-16, 500*(fx-fy), 200*(fy-fz)];
+}
+function v3Lab2Rgb(L,a,b){
+  var fy=(L+16)/116, fx=fy+a/500, fz=fy-b/200;
+  function g(t){var t3=t*t*t; return t3>0.008856?t3:(t-16/116)/7.787}
+  var X=g(fx)*0.95047, Y=(L>7.9996?Math.pow(fy,3):L/903.3), Z=g(fz)*1.08883;
+  var R=X*3.2406-Y*1.5372-Z*0.4986, G=-X*0.9689+Y*1.8758+Z*0.0415, B=X*0.0557-Y*0.2040+Z*1.0570;
+  function f(v){v=v>0.0031308?1.055*Math.pow(v,1/2.4)-0.055:12.92*v; return clamp(Math.round(v*255),0,255)}
+  return [f(R),f(G),f(B)];
+}
+function v3HexOf(rgb){return "#"+rgb.map(function(v){var s=clamp(Math.round(v),0,255).toString(16);return s.length<2?"0"+s:s}).join("")}
+function v3HexToRgb(hex){
+  var n=parseInt(String(hex||"#000000").replace("#",""),16);
+  return [(n>>16)&255,(n>>8)&255,n&255];
+}
+/* màu vải: trung vị vành biên trong của vùng đã gỡ nghiêng */
+function v3FabricMedian(canvas){
+  var W=canvas.width, H=canvas.height;
+  var d=canvas.getContext("2d").getImageData(0,0,W,H).data;
+  var ring=[], xx, yy;
+  function ringAdd(x2,y2){var oo=(y2*W+x2)*4; if(d[oo+3]<10)return; ring.push([d[oo],d[oo+1],d[oo+2]])}
+  for(xx=0;xx<W;xx+=2){ringAdd(xx,1); ringAdd(xx,H-2)}
+  for(yy=0;yy<H;yy+=2){ringAdd(1,yy); ringAdd(W-2,yy)}
+  if(!ring.length)return [255,255,255];
+  ring.sort(function(a,b){return (a[0]+a[1]+a[2])-(b[0]+b[1]+b[2])});
+  var med=ring[Math.floor(ring.length/2)];
+  return [med[0],med[1],med[2]];
+}
+/* chuẩn hoá sáng kiểu chia-cho-ảnh-mờ (dùng cho vòng 1 tách thô) */
+function v3DivideIllum(src,fab){
+  var W=src.width, H=src.height;
   var sw=220, sh=Math.max(8,Math.round(220*H/W));
   var small=mkCanvas(sw,sh), sx=small.getContext("2d");
-  sx.drawImage(warped,0,0,sw,sh);
+  sx.drawImage(src,0,0,sw,sh);
   var blurred=blurCopy(small,Math.max(6,Math.round(sw/9)));
   var illum=mkCanvas(W,H), ix=illum.getContext("2d");
   ix.imageSmoothingEnabled=true; ix.imageSmoothingQuality="high";
   ix.drawImage(blurred,0,0,W,H);
-  var wx=warped.getContext("2d"), id=wx.getImageData(0,0,W,H), d=id.data;
+  var out=copyCanvas(src), ox=out.getContext("2d");
+  var id=ox.getImageData(0,0,W,H), d=id.data;
   var il=ix.getImageData(0,0,W,H).data;
-  /* màu vải: trung vị vành biên trong của vùng đã gỡ nghiêng */
-  var ring=[], xx, yy, o;
-  function ringAdd(x2,y2){var oo=(y2*W+x2)*4; if(d[oo+3]<10)return; ring.push([d[oo],d[oo+1],d[oo+2]])}
-  for(xx=0;xx<W;xx+=2){ringAdd(xx,1); ringAdd(xx,H-2)}
-  for(yy=0;yy<H;yy+=2){ringAdd(1,yy); ringAdd(W-2,yy)}
-  ring.sort(function(a,b){return (a[0]+a[1]+a[2])-(b[0]+b[1]+b[2])});
-  var med=ring[Math.floor(ring.length/2)]||[255,255,255];
-  var fab=[med[0],med[1],med[2]];
-  /* divide illumination: đưa sáng về mức màu vải, tỉ lệ kẹp 0.55–1.8 để không cháy màu */
-  var i2;
-  for(i2=0;i2<n;i2++){
-    o=i2*4;
+  for(var i=0;i<W*H;i++){
+    var o=i*4;
     for(var ch=0;ch<3;ch++){
       var iv=il[o+ch]; if(iv<8)iv=8;
-      var ratio=clamp(fab[ch]/iv,0.55,1.8);
-      d[o+ch]=clamp(d[o+ch]*ratio,0,255);
+      d[o+ch]=clamp(d[o+ch]*clamp(fab[ch]/iv,0.55,1.8),0,255);
     }
+    d[o+3]=255;
   }
-  /* khoảng cách màu tới vải */
+  ox.putImageData(id,0,0);
+  return out;
+}
+/* khoảng cách Lab của mọi pixel tới màu vải + flood-fill từ biên */
+function v3DistToFabric(canvas,fabLab){
+  var W=canvas.width, H=canvas.height, n=W*H;
+  var d=canvas.getContext("2d").getImageData(0,0,W,H).data;
   var dist=new Float32Array(n);
-  for(i2=0;i2<n;i2++){
-    o=i2*4;
-    var dr=d[o]-fab[0], dg=d[o+1]-fab[1], db=d[o+2]-fab[2];
-    dist[i2]=Math.sqrt(dr*dr+dg*dg+db*db);
+  for(var i=0;i<n;i++){
+    var o=i*4, lab=v3Rgb2Lab(d[o],d[o+1],d[o+2]);
+    var dL=lab[0]-fabLab[0], da=lab[1]-fabLab[1], db=lab[2]-fabLab[2];
+    dist[i]=Math.sqrt(dL*dL+da*da+db*db);
   }
-  /* flood-fill từ 4 biên qua vùng giống vải (dist < 64): chỉ vùng nối với biên mới là nền.
-     Vùng giống vải bị design bao kín (mắt trắng, răng, khoảng trống trong chữ) không nối
-     được với biên nên vẫn giữ đặc — đúng bản chất design phẳng. */
-  var T_HARD=64, isBg=new Uint8Array(n), stack=[];
-  function seed(idx){if(dist[idx]<T_HARD&&!isBg[idx]){isBg[idx]=1;stack.push(idx)}}
+  return dist;
+}
+function v3FloodBg(dist,W,H,thresh){
+  var n=W*H, isBg=new Uint8Array(n), stack=[];
+  function seed(idx){if(dist[idx]<thresh&&!isBg[idx]){isBg[idx]=1;stack.push(idx)}}
+  var xx, yy;
   for(xx=0;xx<W;xx++){seed(xx); seed((H-1)*W+xx)}
   for(yy=0;yy<H;yy++){seed(yy*W); seed(yy*W+W-1)}
   while(stack.length){
@@ -7646,108 +7752,453 @@ function v3ExtractFabric(warped){
     if(cy>0)seed(cur-W);
     if(cy<H-1)seed(cur+W);
   }
-  var T0=16, T1=64;
-  for(i2=0;i2<n;i2++){
-    o=i2*4;
-    var a;
-    if(!isBg[i2])a=255;
-    else a=clamp((dist[i2]-T0)/(T1-T0),0,1)*255;
-    d[o+3]=a;
-    /* despill: gỡ ám màu vải khỏi pixel bán trong suốt (unblend theo alpha) */
-    if(a>6&&a<250){
-      var a01=a/255;
-      for(var ch2=0;ch2<3;ch2++){
-        d[o+ch2]=clamp((d[o+ch2]-fab[ch2]*(1-a01))/Math.max(a01,0.18),0,255);
+  return isBg;
+}
+/* trường sáng: chỉ từ pixel vải, tính ở 1/4 độ phân giải — trung bình có trọng số mặt nạ
+   theo ô, lấp ô trống bằng lan truyền lặp, làm mờ nhẹ, rồi phóng lên khổ làm việc */
+function v3IllumField(work,isBg){
+  var W=work.width, H=work.height;
+  var sw=Math.max(8,Math.round(W/4)), sh=Math.max(8,Math.round(H/4)), sn=sw*sh;
+  var d=work.getContext("2d").getImageData(0,0,W,H).data;
+  var sR=new Float64Array(sn), sG=new Float64Array(sn), sB=new Float64Array(sn), sCnt=new Float64Array(sn);
+  var cellW=W/sw, cellH=H/sh, x, y, i;
+  for(y=0;y<H;y++){
+    var cy=Math.min(sh-1,Math.floor(y/cellH));
+    for(x=0;x<W;x++){
+      i=y*W+x;
+      if(!isBg[i])continue;
+      var cx=Math.min(sw-1,Math.floor(x/cellW)), ci=cy*sw+cx, o=i*4;
+      sR[ci]+=d[o]; sG[ci]+=d[o+1]; sB[ci]+=d[o+2]; sCnt[ci]++;
+    }
+  }
+  var fR=new Float32Array(sn), fG=new Float32Array(sn), fB=new Float32Array(sn), known=new Uint8Array(sn);
+  var gR=0,gG=0,gB=0,gN=0;
+  for(i=0;i<sn;i++){
+    if(sCnt[i]>0){fR[i]=sR[i]/sCnt[i]; fG[i]=sG[i]/sCnt[i]; fB[i]=sB[i]/sCnt[i]; known[i]=1; gR+=fR[i]; gG+=fG[i]; gB+=fB[i]; gN++}
+  }
+  if(!gN)return null;
+  gR/=gN; gG/=gN; gB/=gN;
+  for(i=0;i<sn;i++){if(!known[i]){fR[i]=gR; fG[i]=gG; fB[i]=gB}}
+  var tR=new Float32Array(sn), tG=new Float32Array(sn), tB=new Float32Array(sn), it, xx, yy;
+  for(it=0;it<110;it++){
+    tR.set(fR); tG.set(fG); tB.set(fB);
+    for(yy=0;yy<sh;yy++)for(xx=0;xx<sw;xx++){
+      var ci2=yy*sw+xx, aR=0,aG=0,aB=0,ac=0;
+      if(xx>0){aR+=fR[ci2-1];aG+=fG[ci2-1];aB+=fB[ci2-1];ac++}
+      if(xx<sw-1){aR+=fR[ci2+1];aG+=fG[ci2+1];aB+=fB[ci2+1];ac++}
+      if(yy>0){aR+=fR[ci2-sw];aG+=fG[ci2-sw];aB+=fB[ci2-sw];ac++}
+      if(yy<sh-1){aR+=fR[ci2+sw];aG+=fG[ci2+sw];aB+=fB[ci2+sw];ac++}
+      if(!ac)continue;
+      if(known[ci2]){tR[ci2]=fR[ci2]*0.82+(aR/ac)*0.18; tG[ci2]=fG[ci2]*0.82+(aG/ac)*0.18; tB[ci2]=fB[ci2]*0.82+(aB/ac)*0.18}
+      else{tR[ci2]=(aR/ac); tG[ci2]=(aG/ac); tB[ci2]=(aB/ac)}
+    }
+    fR.set(tR); fG.set(tG); fB.set(tB);
+  }
+  var small=mkCanvas(sw,sh), sx=small.getContext("2d"), sid=sx.createImageData(sw,sh);
+  for(i=0;i<sn;i++){sid.data[i*4]=clamp(fR[i],0,255); sid.data[i*4+1]=clamp(fG[i],0,255); sid.data[i*4+2]=clamp(fB[i],0,255); sid.data[i*4+3]=255}
+  sx.putImageData(sid,0,0);
+  var smooth=blurCopy(small,2);
+  var full=mkCanvas(W,H), fx=full.getContext("2d");
+  fx.imageSmoothingEnabled=true; fx.imageSmoothingQuality="high";
+  fx.drawImage(smooth,0,0,W,H);
+  return full;
+}
+/* chuẩn hoá lại theo trường sáng: out = pixel * màu vải chuẩn / trường sáng tại chỗ */
+function v3NormalizeByField(work,field,fab){
+  var W=work.width, H=work.height, n=W*H;
+  var out=copyCanvas(work), ox=out.getContext("2d");
+  var id=ox.getImageData(0,0,W,H), d=id.data;
+  var fd=field.getContext("2d").getImageData(0,0,W,H).data;
+  for(var i=0;i<n;i++){
+    var o=i*4;
+    for(var ch=0;ch<3;ch++){
+      var fv=fd[o+ch]; if(fv<8)fv=8;
+      d[o+ch]=clamp(d[o+ch]*clamp(fab[ch]/fv,0.55,1.8),0,255);
+    }
+    d[o+3]=255;
+  }
+  ox.putImageData(id,0,0);
+  return out;
+}
+/* --- (d) lọc làm phẳng bảo toàn cạnh --- */
+function v3EdgeFlatten(canvas){
+  var W=canvas.width, H=canvas.height, n=W*H;
+  /* ưu tiên OpenCV.js nếu ĐÃ nạp sẵn trong phiên (không tự tải 8MB chỉ để lọc) */
+  try{
+    var cv=window.cv;
+    if(cv&&cv.Mat&&typeof cvState!=="undefined"&&cvState.ready){
+      var srcMat=cv.imread(canvas), dst=new cv.Mat();
+      var used="";
+      if(typeof cv.edgePreservingFilter==="function"){cv.edgePreservingFilter(srcMat,dst,1,0.42,0.28); used="OpenCV.js edgePreservingFilter"}
+      else if(typeof cv.bilateralFilter==="function"){cv.bilateralFilter(srcMat,dst,7,52,52); used="OpenCV.js bilateralFilter"}
+      if(used){
+        var outC=mkCanvas(W,H); cv.imshow(outC,dst);
+        srcMat.delete(); dst.delete();
+        return{canvas:outC,note:used+" (bản OpenCV.js app đã nạp sẵn)"};
+      }
+      srcMat.delete(); dst.delete();
+    }
+  }catch(e){}
+  if(n>5500000){
+    var bl=blurCopy(canvas,2), bx=canvas.getContext("2d");
+    bx.globalAlpha=0.5; bx.drawImage(bl,0,0); bx.globalAlpha=1;
+    return{canvas:canvas,note:"blur trộn 50% kiểu stackblur (ảnh làm việc lớn "+W+"×"+H+" — lùi từ bilateral cho nhẹ máy)"};
+  }
+  /* bilateral tự cài: bán kính 2, LUT trọng số theo khoảng cách màu */
+  var x=canvas.getContext("2d"), id=x.getImageData(0,0,W,H), d=id.data;
+  var out=new Uint8ClampedArray(d);
+  var sW=[0.42,0.28,0.08], lut=new Float32Array(442), di;
+  for(di=0;di<442;di++){var q=di/44; lut[di]=Math.exp(-q*q)}
+  function lutAt(dist){return lut[clamp(Math.round(dist),0,441)]}
+  var xx, yy, dx, dy;
+  for(yy=0;yy<H;yy++)for(xx=0;xx<W;xx++){
+    var i=yy*W+xx, o=i*4, cr=d[o], cg=d[o+1], cb=d[o+2];
+    var aR=0,aG=0,aB=0,aW=0;
+    for(dy=-2;dy<=2;dy++){
+      var ny=yy+dy; if(ny<0||ny>=H)continue;
+      for(dx=-2;dx<=2;dx++){
+        var nx=xx+dx; if(nx<0||nx>=W)continue;
+        var no=(ny*W+nx)*4;
+        var ddx=d[no]-cr, ddy=d[no+1]-cg, ddz=d[no+2]-cb;
+        var wgt=sW[Math.max(Math.abs(dx),Math.abs(dy))]*lutAt(Math.sqrt(ddx*ddx+ddy*ddy+ddz*ddz));
+        aR+=d[no]*wgt; aG+=d[no+1]*wgt; aB+=d[no+2]*wgt; aW+=wgt;
       }
     }
+    if(aW>0){out[o]=aR/aW; out[o+1]=aG/aW; out[o+2]=aB/aW}
+    out[o+3]=255;
   }
-  /* dọn alpha: pixel đặc đơn độc (đốm lẻ) -> bỏ */
-  var alpha=new Uint8Array(n);
-  for(i2=0;i2<n;i2++)alpha[i2]=d[i2*4+3];
-  for(yy=1;yy<H-1;yy++)for(xx=1;xx<W-1;xx++){
-    i2=yy*W+xx;
-    if(alpha[i2]>=128&&alpha[i2-1]<128&&alpha[i2+1]<128&&alpha[i2-W]<128&&alpha[i2+W]<128)d[i2*4+3]=0;
-  }
-  wx.putImageData(id,0,0);
-  return{canvas:warped,fabric:fab};
+  id.data.set(out); x.putImageData(id,0,0);
+  return{canvas:canvas,note:"bilateral tự cài (bán kính 2, giữ cạnh theo khoảng cách màu)"};
 }
-/* --- (d) san phẳng màu: bảng màu median-cut trên mẫu, áp cho mọi pixel đặc --- */
-function v3MedianCutPalette(samples,maxColors){
-  var boxes=[samples.slice()];
-  function rangeOf(box){
-    var mn=[255,255,255], mx=[0,0,0], i, p;
-    for(i=0;i<box.length;i++){p=box[i]; for(var ch=0;ch<3;ch++){if(p[ch]<mn[ch])mn[ch]=p[ch]; if(p[ch]>mx[ch])mx[ch]=p[ch]}}
-    var r0=mx[0]-mn[0], r1=mx[1]-mn[1], r2=mx[2]-mn[2];
-    var ch2=r0>=r1&&r0>=r2?0:(r1>=r2?1:2);
-    return{ch:ch2,range:Math.max(r0,r1,r2)};
-  }
-  while(boxes.length<maxColors){
-    var bi=-1, br=-1, bch=0, i2;
-    for(i2=0;i2<boxes.length;i2++){
-      if(boxes[i2].length<2)continue;
-      var rg=rangeOf(boxes[i2]);
-      if(rg.range>br){br=rg.range; bi=i2; bch=rg.ch}
+/* --- (e) dọn alpha: morphology + thành phần liên thông + chế độ áo tối --- */
+function v3Morph(bin,W,H,erode){
+  var out=new Uint8Array(bin.length), x, y;
+  for(y=0;y<H;y++)for(x=0;x<W;x++){
+    var i=y*W+x, res=erode?1:0, dx, dy;
+    for(dy=-1;dy<=1;dy++)for(dx=-1;dx<=1;dx++){
+      var nx=x+dx, ny=y+dy;
+      var v=(nx<0||ny<0||nx>=W||ny>=H)?0:bin[ny*W+nx];
+      if(erode){if(!v)res=0}
+      else{if(v)res=1}
     }
-    if(bi<0||br<10)break;
-    var box=boxes.splice(bi,1)[0];
-    box.sort(function(a,b){return a[bch]-b[bch]});
-    var mid=Math.floor(box.length/2);
-    boxes.push(box.slice(0,mid),box.slice(mid));
+    out[i]=res;
   }
-  return boxes.map(function(box){
-    var s=[0,0,0], i, p;
-    for(i=0;i<box.length;i++){p=box[i]; s[0]+=p[0]; s[1]+=p[1]; s[2]+=p[2]}
-    return[Math.round(s[0]/box.length),Math.round(s[1]/box.length),Math.round(s[2]/box.length)];
+  return out;
+}
+function v3LabelComps(bin,W,H){
+  var n=W*H, lab=new Int32Array(n), comps=[], stack=[], i;
+  lab.fill(-1);
+  for(i=0;i<n;i++){
+    if(!bin[i]||lab[i]>=0)continue;
+    var idc=comps.length, cnt=0, touch=false, stack2=stack;
+    stack2.length=0; stack2.push(i); lab[i]=idc;
+    while(stack2.length){
+      var cur=stack2.pop(), cx=cur%W, cy=(cur-cx)/W;
+      cnt++;
+      if(cx===0||cy===0||cx===W-1||cy===H-1)touch=true;
+      if(cx>0&&bin[cur-1]&&lab[cur-1]<0){lab[cur-1]=idc;stack2.push(cur-1)}
+      if(cx<W-1&&bin[cur+1]&&lab[cur+1]<0){lab[cur+1]=idc;stack2.push(cur+1)}
+      if(cy>0&&bin[cur-W]&&lab[cur-W]<0){lab[cur-W]=idc;stack2.push(cur-W)}
+      if(cy<H-1&&bin[cur+W]&&lab[cur+W]<0){lab[cur+W]=idc;stack2.push(cur+W)}
+    }
+    comps.push({size:cnt,touch:touch,meanDist:0});
+  }
+  return{lab:lab,comps:comps};
+}
+async function v3CleanAlpha(dist,isBg,W,H,dark,fieldLum,pixLum){
+  var n=W*H, i;
+  var bin=new Uint8Array(n);
+  for(i=0;i<n;i++)bin[i]=isBg[i]?0:1;
+  var stats={recovered:0,islands:0,removed:0,filled:0};
+  if(dark){
+    /* (a) thu hồi dải viền tối: lan mực vào vùng bị flood loại mà tối hơn trường sáng vải tại chỗ, tối đa ~8px */
+    var iter, frontier;
+    for(iter=0;iter<8;iter++){
+      frontier=[];
+      for(i=0;i<n;i++){
+        if(bin[i])continue;
+        if(pixLum[i]>=fieldLum[i]-12)continue;
+        var x=i%W, y=(i-x)/W, adj=false;
+        if(x>0&&bin[i-1])adj=true;
+        else if(x<W-1&&bin[i+1])adj=true;
+        else if(y>0&&bin[i-W])adj=true;
+        else if(y<H-1&&bin[i+W])adj=true;
+        if(adj)frontier.push(i);
+      }
+      if(!frontier.length)break;
+      for(i=0;i<frontier.length;i++){bin[frontier[i]]=1; stats.recovered++}
+    }
+  }
+  /* morphology close rồi open (3x3): ưu tiên image-js Mask, lỗi/chậm -> tự cài */
+  var ijBin=await v3MorphImageJs(bin,W,H);
+  if(ijBin){bin=ijBin; v3.alphaEngine="image-js Mask (close/open) — nạp lười ESM từ jsDelivr"}
+  else{
+    bin=v3Morph(bin,W,H,false); bin=v3Morph(bin,W,H,true);
+    bin=v3Morph(bin,W,H,true); bin=v3Morph(bin,W,H,false);
+    v3.alphaEngine="morphology tự cài (image-js không dùng được / quá chậm)";
+  }
+  /* thành phần liên thông của vùng mực: bỏ đốm nhỏ; áo tối: bỏ "đảo vải" kín giống vải */
+  var lc=v3LabelComps(bin,W,H);
+  var distSum=new Float64Array(lc.comps.length);
+  for(i=0;i<n;i++)if(bin[i])distSum[lc.lab[i]]+=dist[i];
+  lc.comps.forEach(function(c,ci){c.meanDist=c.size?distSum[ci]/c.size:0});
+  var smallThresh=Math.max(30,Math.round(n*0.00015));
+  for(i=0;i<n;i++){
+    if(!bin[i])continue;
+    var c2=lc.comps[lc.lab[i]];
+    if(c2.size<smallThresh){bin[i]=0; stats.removed++}
+    else if(dark&&!c2.touch&&c2.meanDist<26){bin[i]=0; stats.islands++}
+  }
+  if(!dark){
+    /* lấp lỗ nhỏ: vùng nền kín không chạm biên, diện tích nhỏ -> mực (chỉ áo sáng) */
+    var inv=new Uint8Array(n);
+    for(i=0;i<n;i++)inv[i]=bin[i]?0:1;
+    var lc2=v3LabelComps(inv,W,H);
+    var holeThresh=Math.max(64,Math.round(n*0.0004));
+    for(i=0;i<n;i++){
+      if(bin[i])continue;
+      var c3=lc2.comps[lc2.lab[i]];
+      if(c3&&!c3.touch&&c3.size<=holeThresh){bin[i]=1; stats.filled++}
+    }
+  }
+  /* viền alpha mềm ~1px: làm mờ 3x3 bản đồ đặc */
+  var alpha=new Uint8Array(n), x2, y2;
+  for(y2=0;y2<H;y2++)for(x2=0;x2<W;x2++){
+    var ii=y2*W+x2;
+    if(!bin[ii]){
+      var near=false, dx2, dy2;
+      for(dy2=-1;dy2<=1&&!near;dy2++)for(dx2=-1;dx2<=1;dx2++){
+        var nx=x2+dx2, ny=y2+dy2;
+        if(nx>=0&&ny>=0&&nx<W&&ny<H&&bin[ny*W+nx]){near=true;break}
+      }
+      alpha[ii]=near?110:0;
+    }else{
+      var edge=false, dx3, dy3;
+      for(dy3=-1;dy3<=1&&!edge;dy3++)for(dx3=-1;dx3<=1;dx3++){
+        var mx=x2+dx3, my=y2+dy3;
+        if(mx<0||my<0||mx>=W||my>=H||!bin[my*W+mx]){edge=true;break}
+      }
+      alpha[ii]=edge?225:255;
+    }
+  }
+  return{alpha:alpha,stats:stats};
+}
+/* --- (f) snap màu: k-means Lab + chốt an toàn gradient --- */
+async function v3SnapPalette(canvas,kTarget){
+  var W=canvas.width, H=canvas.height, n=W*H;
+  var x=canvas.getContext("2d"), id=x.getImageData(0,0,W,H), d=id.data;
+  var step=Math.max(1,Math.floor(n/24000)), samples=[], i, o;
+  for(i=0;i<n;i+=step){o=i*4; if(d[o+3]>=200)samples.push(v3Rgb2Lab(d[o],d[o+1],d[o+2]))}
+  if(samples.length<60)return{snapped:false,canvas:canvas,reason:"quá ít pixel đặc để dựng palette ("+samples.length+" mẫu)"};
+  var k=Math.min(kTarget,samples.length);
+  /* khởi tạo tâm kiểu farthest-point (xác định, không ngẫu nhiên) */
+  var centers=[samples[0]], minD=new Float32Array(samples.length);
+  minD.fill(Infinity);
+  while(centers.length<k){
+    var far=-1, farD=-1;
+    for(i=0;i<samples.length;i++){
+      var c=centers[centers.length-1], dL=samples[i][0]-c[0], da=samples[i][1]-c[1], db=samples[i][2]-c[2];
+      var dd=dL*dL+da*da+db*db;
+      if(dd<minD[i])minD[i]=dd;
+      if(minD[i]>farD){farD=minD[i]; far=i}
+    }
+    if(far<0||farD<4)break;
+    centers.push(samples[far]);
+  }
+  var assign=new Int32Array(samples.length), it, ci, si;
+  for(it=0;it<14;it++){
+    for(si=0;si<samples.length;si++){
+      var bd=Infinity, bc=0;
+      for(ci=0;ci<centers.length;ci++){
+        var eL=samples[si][0]-centers[ci][0], ea=samples[si][1]-centers[ci][1], eb=samples[si][2]-centers[ci][2];
+        var ed=eL*eL+ea*ea+eb*eb;
+        if(ed<bd){bd=ed; bc=ci}
+      }
+      assign[si]=bc;
+    }
+    var sum=centers.map(function(){return[0,0,0,0]});
+    for(si=0;si<samples.length;si++){var s2=sum[assign[si]]; s2[0]+=samples[si][0]; s2[1]+=samples[si][1]; s2[2]+=samples[si][2]; s2[3]++}
+    var moved=false;
+    for(ci=0;ci<centers.length;ci++){
+      if(!sum[ci][3])continue;
+      var nc=[sum[ci][0]/sum[ci][3],sum[ci][1]/sum[ci][3],sum[ci][2]/sum[ci][3]];
+      if(Math.abs(nc[0]-centers[ci][0])+Math.abs(nc[1]-centers[ci][1])+Math.abs(nc[2]-centers[ci][2])>0.4)moved=true;
+      centers[ci]=nc;
+    }
+    if(!moved)break;
+  }
+  /* ưu tiên ml-kmeans (GitHub mljs/kmeans, MIT): kmeans++ + seed cố định + khoảng cách Lab.
+     Nạp/lạy lỗi -> giữ tâm của k-means tự cài ở trên. */
+  var libC=await v3KMeansLib(samples,centers.length);
+  if(libC&&libC.length>=2){
+    centers=libC;
+    for(si=0;si<samples.length;si++){
+      var bd3=Infinity, bc3=0;
+      for(ci=0;ci<centers.length;ci++){
+        var gL=samples[si][0]-centers[ci][0], ga=samples[si][1]-centers[ci][1], gb=samples[si][2]-centers[ci][2];
+        var gd=gL*gL+ga*ga+gb*gb;
+        if(gd<bd3){bd3=gd; bc3=ci}
+      }
+      assign[si]=bc3;
+    }
+    v3.snapEngine="ml-kmeans@7.0.1 (kmeans++, seed 42, distanceFunction Lab) — nạp lười ESM từ jsDelivr";
+  }else{
+    v3.snapEngine="k-means tự cài (ml-kmeans không dùng được / quá chậm)";
+  }
+  /* gộp tâm gần trùng (ΔE < 5) theo trọng số số mẫu */
+  var cntC=centers.map(function(){return 0});
+  for(si=0;si<samples.length;si++)cntC[assign[si]]++;
+  var merged=[];
+  centers.forEach(function(c,idx){
+    for(var j=0;j<merged.length;j++){
+      var m=merged[j], dL=c[0]-m.lab[0], da=c[1]-m.lab[1], db=c[2]-m.lab[2];
+      if(Math.sqrt(dL*dL+da*da+db*db)<5){
+        var tot=m.count+cntC[idx];
+        m.lab=[(m.lab[0]*m.count+c[0]*cntC[idx])/tot,(m.lab[1]*m.count+c[1]*cntC[idx])/tot,(m.lab[2]*m.count+c[2]*cntC[idx])/tot];
+        m.count=tot; return;
+      }
+    }
+    merged.push({lab:c.slice(),count:cntC[idx]});
   });
-}
-function v3Flatten(src,level){
-  if(level===0)return src;
-  var work=src;
-  if(level>=1){
-    var bl=blurCopy(src,1);
-    var bx=work.getContext("2d");
-    bx.globalAlpha=0.45; bx.drawImage(bl,0,0); bx.globalAlpha=1;
-  }
-  var W=work.width, H=work.height, x=work.getContext("2d");
-  var id=x.getImageData(0,0,W,H), d=id.data, n=W*H;
-  var samples=[], step=Math.max(1,Math.floor(n/60000)), i, o;
-  for(i=0;i<n;i+=step){o=i*4; if(d[o+3]>=200)samples.push([d[o],d[o+1],d[o+2]])}
-  if(samples.length<8)return src;
-  var maxColors=level===1?24:10;
-  var pal=v3MedianCutPalette(samples,maxColors);
-  var cache={};
-  function nearest(r,g,b){
-    var key=((r>>3)<<10)|((g>>3)<<5)|(b>>3);
-    var hit=cache[key]; if(hit)return hit;
-    var best=pal[0], bd=Infinity;
-    for(var j=0;j<pal.length;j++){
-      var dr=r-pal[j][0], dg=g-pal[j][1], db=b-pal[j][2], dd=dr*dr+dg*dg+db*db;
-      if(dd<bd){bd=dd; best=pal[j]}
+  centers=merged.map(function(m){return m.lab});
+  /* sai số khớp palette trên mẫu: chốt an toàn gradient */
+  var errSum=0;
+  for(si=0;si<samples.length;si++){
+    var bd2=Infinity;
+    for(ci=0;ci<centers.length;ci++){
+      var fL=samples[si][0]-centers[ci][0], fa=samples[si][1]-centers[ci][1], fb=samples[si][2]-centers[ci][2];
+      var fd=fL*fL+fa*fa+fb*fb;
+      if(fd<bd2)bd2=fd;
     }
-    cache[key]=best; return best;
+    errSum+=Math.sqrt(bd2);
   }
+  var meanErr=errSum/samples.length;
+  if(meanErr>9){
+    return{snapped:false,canvas:canvas,err:Math.round(meanErr*10)/10,reason:"sai số khớp palette cao (ΔE trung bình "+(Math.round(meanErr*10)/10)+") — design dạng ảnh chụp / gradient"};
+  }
+  /* áp tâm cho mọi pixel đặc, cache theo RGB lượng tử */
+  var centerRgb=centers.map(function(l){return v3Lab2Rgb(l[0],l[1],l[2])});
+  var cache={}, counts=centers.map(function(){return 0});
+  function nearestIdx(r,g,b){
+    var key=((r>>3)<<10)|((g>>3)<<5)|(b>>3);
+    var hit=cache[key]; if(hit!==undefined)return hit;
+    var lab=v3Rgb2Lab(r,g,b), bd=Infinity, bc=0;
+    for(var j=0;j<centers.length;j++){
+      var eL=lab[0]-centers[j][0], ea=lab[1]-centers[j][1], eb=lab[2]-centers[j][2];
+      var ed=eL*eL+ea*ea+eb*eb;
+      if(ed<bd){bd=ed; bc=j}
+    }
+    cache[key]=bc; return bc;
+  }
+  var totalOpaque=0;
   for(i=0;i<n;i++){
     o=i*4;
     if(d[o+3]>=160){
-      var c=nearest(d[o],d[o+1],d[o+2]);
-      d[o]=c[0]; d[o+1]=c[1]; d[o+2]=c[2];
+      var idx=nearestIdx(d[o],d[o+1],d[o+2]);
+      var rgb=centerRgb[idx];
+      d[o]=rgb[0]; d[o+1]=rgb[1]; d[o+2]=rgb[2];
+      counts[idx]++; totalOpaque++;
     }
   }
   x.putImageData(id,0,0);
-  return work;
+  var palette=centers.map(function(l,j){return{lab:l,rgb:centerRgb[j],hex:v3HexOf(centerRgb[j]),count:counts[j]}});
+  palette.sort(function(a,b){return b.count-a.count});
+  return{snapped:true,canvas:canvas,palette:palette,err:Math.round(meanErr*10)/10,totalOpaque:totalOpaque};
 }
 function v3Measure(c){
   var W=c.width, H=c.height, d=c.getContext("2d").getImageData(0,0,W,H).data, n=W*H;
-  var trans=0, i;
+  var trans=0, semi=0, i;
   var step=Math.max(1,Math.floor(n/120000)), set={}, sampled=0;
   for(i=0;i<n;i++){
-    if(d[i*4+3]<128)trans++;
-    if(i%step===0&&d[i*4+3]>=160){set[((d[i*4]>>3)<<10)|((d[i*4+1]>>3)<<5)|(d[i*4+2]>>3)]=1; sampled++}
+    var a=d[i*4+3];
+    if(a<128)trans++;
+    if(a>0&&a<255)semi++;
+    if(i%step===0&&a>=160){set[((d[i*4]>>3)<<10)|((d[i*4+1]>>3)<<5)|(d[i*4+2]>>3)]=1; sampled++}
   }
-  return{transPct:Math.round(trans/n*1000)/10, colors:Object.keys(set).length, w:W, h:H};
+  return{transPct:Math.round(trans/n*1000)/10, semiPct:Math.round(semi/n*1000)/10, colors:Object.keys(set).length, w:W, h:H};
 }
 
-/* --- mockup V3: dùng đúng path áo của mockup Bước 6 (mockSvg) --- */
+/* --- (g) UPSCALE TRƯỚC khi tách: Real-ESRGAN sẵn có ~2x, chặn cạnh dài 3000; lỗi -> pica --- */
+function v3ResizeTo(canvas,tw,th){
+  var t=mkCanvas(tw,th);
+  return resizeHQ(canvas,t).then(function(){return t});
+}
+function v3RunESRGAN(input){
+  return (async function(){
+    var session=await ensureUpSession("esrgan");
+    var kind="esrgan";
+    var label="Real-ESRGAN — "+(up.modelLabels[kind]||"Real-ESRGAN");
+    var candTile=up.modelTiles[kind]||0;
+    var tile=candTile>0?candTile:128;
+    var pad=Math.max(4,Math.min(16,Math.floor(tile/4)));
+    var ext=extendPad(input,pad);
+    var originsX=tileOrigins(ext.width,tile), originsY=tileOrigins(ext.height,tile);
+    var total=originsX.length*originsY.length, done=0, S=0, outExt=null, octx=null;
+    var inName=session.inputNames[0], outName=session.outputNames[0];
+    for(var yi=0;yi<originsY.length;yi++){
+      for(var xi=0;xi<originsX.length;xi++){
+        if(up.cancelled)throw new Error("__cancel__");
+        var ox=originsX[xi], oy=originsY[yi];
+        var tc=mkCanvas(tile,tile);
+        tc.getContext("2d").drawImage(ext,ox,oy,tile,tile,0,0,tile,tile);
+        var feeds={}; feeds[inName]=canvasToTensor(tc);
+        var res=await session.run(feeds);
+        var outTile=tensorToCanvas(res[outName]);
+        if(!S){S=outTile.width/tile; outExt=mkCanvas(Math.round(ext.width*S),Math.round(ext.height*S)); octx=outExt.getContext("2d")}
+        var vw=Math.min(tile,ext.width-ox), vh=Math.min(tile,ext.height-oy);
+        octx.drawImage(outTile,0,0,Math.round(vw*S),Math.round(vh*S),Math.round(ox*S),Math.round(oy*S),Math.round(vw*S),Math.round(vh*S));
+        done++;
+        v3Status("Upscale AI trước khi tách — đang chạy Real-ESRGAN: tile "+done+" / "+total+"…");
+        await v3Frame();
+      }
+    }
+    var out=mkCanvas(Math.round(input.width*S),Math.round(input.height*S));
+    out.getContext("2d").drawImage(outExt,Math.round(pad*S),Math.round(pad*S),out.width,out.height,0,0,out.width,out.height);
+    return{canvas:out,label:label,scale:S};
+  })();
+}
+function v3UpscaleBefore(warped){
+  var W=warped.width, H=warped.height, long0=Math.max(W,H);
+  var targetLong=Math.min(3000,long0*2);
+  function picaFallback(why){
+    if(targetLong<=long0*1.05)return Promise.resolve({canvas:warped,note:"không upscale thêm (bản gỡ nghiêng "+W+"×"+H+" đã ở khổ làm việc) — "+why});
+    var s=targetLong/long0, tw=Math.round(W*s), th=Math.round(H*s);
+    return v3ResizeTo(warped,tw,th).then(function(c){
+      return{canvas:c,note:"resize chất lượng cao pica lên "+tw+"×"+th+" px (~2×, chặn 3000) — "+why};
+    });
+  }
+  if(!$("v3UseAI").checked)return picaFallback("đã tắt Upscale AI theo lựa chọn của bạn");
+  if(targetLong<=long0*1.05)return Promise.resolve({canvas:warped,note:"bản gỡ nghiêng đã đủ lớn ("+W+"×"+H+") — không cần upscale trước"});
+  /* model chạy trên bản thu cạnh dài <=1000 để số tile vừa phải, rồi thu về khổ làm việc đích */
+  up.cancelled=false;
+  up.abort=("AbortController" in window)?new AbortController():null;
+  var inScale=Math.min(1,1000/long0);
+  var inC=warped;
+  function doRun(){
+    return v3RunESRGAN(inC).then(function(r){
+      var s2=targetLong/Math.max(r.canvas.width,r.canvas.height);
+      var tw=Math.round(r.canvas.width*s2), th=Math.round(r.canvas.height*s2);
+      return v3ResizeTo(r.canvas,tw,th).then(function(c){
+        return{canvas:c,note:"Upscale AI "+r.label+" ×"+r.scale+" (chạy trên bản thu ≤1000 px) rồi thu về khổ làm việc "+tw+"×"+th+" px (~2× bản gỡ nghiêng, chặn cạnh dài 3000)"};
+      });
+    });
+  }
+  var runP;
+  if(inScale<1){
+    var tw0=Math.round(W*inScale), th0=Math.round(H*inScale);
+    runP=v3ResizeTo(warped,tw0,th0).then(function(c){inC=c; return doRun()});
+  }else runP=doRun();
+  var timeoutP=new Promise(function(_,rej){setTimeout(function(){rej(new Error("__timeout75__"))},75000)});
+  return Promise.race([runP,timeoutP]).catch(function(err){
+    up.cancelled=true;
+    if(up.abort)try{up.abort.abort()}catch(e){}
+    delete up.sessionPromises.esrgan;
+    var why=(err&&err.message==="__timeout75__")?"Upscale AI quá 75 giây chưa xong — đã huỷ để không treo flow":"Upscale AI không chạy được ("+shortErr(err)+")";
+    return picaFallback(why+" — đã lùi về pica");
+  });
+}
+
+/* --- mockup V3.1: dùng đúng path áo của mockup Bước 6 --- */
 var V3_SHIRT_PATH="M92 28 L58 40 L22 84 L52 104 L66 88 L66 232 Q66 242 76 242 L184 242 Q194 242 194 232 L194 88 L208 104 L238 84 L202 40 L168 28 Q156 52 130 52 Q104 52 92 28 Z";
 function v3DrawMock(cv,shirtColor,art){
   var W=cv.width, H=cv.height, x=cv.getContext("2d"), s=W/260;
@@ -7756,7 +8207,6 @@ function v3DrawMock(cv,shirtColor,art){
   x.save(); x.scale(s,H/260);
   x.fillStyle=shirtColor; x.fill(path);
   x.clip(path);
-  /* vùng in: x 67..193, y 56..242 như mockImg của Bước 6 — contain-fit design vào đó */
   var iw=126, ih=186, sc=Math.min(iw/art.width,ih/art.height);
   var dw=art.width*sc, dh=art.height*sc;
   x.drawImage(art,67+(iw-dw)/2,56+(ih-dh)/2,dw,dh);
@@ -7766,6 +8216,11 @@ function v3DrawMock(cv,shirtColor,art){
   x.save(); x.scale(s,H/260);
   x.strokeStyle="#c9c6ba"; x.lineWidth=2/s*1.4; x.stroke(path);
   x.restore();
+}
+function v3ReportLine(){
+  var r=v3.report, m=v3.metrics;
+  if(!r||!m)return "";
+  return "Số đo thật của bản tách (V3.1): <b>"+m.w+" × "+m.h+" px</b> · nền trong suốt <b>"+m.transPct+"%</b> · pixel bán trong suốt (lem viền) <b>"+m.semiPct+"%</b> · upscale trước: <b>"+escapeHtml(r.upscale)+"</b> · tách <b>"+(r.rounds===2?"2 vòng (có trường sáng)":"1 vòng (lùi — không ước lượng được trường sáng tin cậy)")+"</b> · lọc cạnh: <b>"+escapeHtml(r.filter)+"</b> · chế độ áo tối: <b>"+(r.dark?"BẬT (L vải "+r.fabricL+")":"tắt (L vải "+r.fabricL+")")+"</b> · màu: <b>"+(r.snapped?("đã SNAP palette — "+r.colorCount+" màu phẳng tuyệt đối (sai số khớp ΔE "+r.snapErr+")"):("GIỮ màu ảnh đã chuẩn hoá — "+escapeHtml(r.snapWhy||"")))+"</b> · số màu cuối ≈ <b>"+r.colorCount+"</b> · màu vải ước lượng: <b>rgb("+(v3.fabric?v3.fabric.map(Math.round).join(", "):"?")+")</b>. File xuất đặt design lên canvas in <b>4500 × 5400 px · 300 DPI</b>.";
 }
 function v3ShowResult(){
   $("v3Result").style.display="block";
@@ -7779,84 +8234,227 @@ function v3ShowResult(){
   ax.drawImage(v3.final,(ac.width-v3.final.width*sc2)/2,(ac.height-v3.final.height*sc2)/2,v3.final.width*sc2,v3.final.height*sc2);
   v3DrawMock($("v3MockW"),"#ffffff",v3.final);
   v3DrawMock($("v3MockB"),"#1b1b1b",v3.final);
-  var m=v3.metrics;
-  $("v3Metrics").innerHTML="Số đo thật của bản tách: <b>"+m.w+" × "+m.h+" px</b> · nền trong suốt <b>"+m.transPct+"%</b> · số màu sau làm phẳng ≈ <b>"+m.colors+"</b> (đếm trên mẫu pixel, mức phẳng: "+v3.flatName+") · màu vải ước lượng: <b>rgb("+(v3.fabric?v3.fabric.map(Math.round).join(", "):"?")+")</b> · nâng phân giải: <b>"+escapeHtml(v3.upscaleNote)+"</b>. File xuất đặt design lên canvas in <b>4500 × 5400 px · 300 DPI</b> (pHYs/EXIF qua đúng pipeline codec Bước 7).";
+  $("v3Metrics").innerHTML=v3ReportLine();
+  v3RenderPalette();
+  v3DrawBrush();
+  v3RefreshGate();
 }
-/* --- cổng watermark V3: dùng analyzeWm + updateExportGate sẵn có --- */
-function v3GateOpenNow(why){
-  v3.gateOpen=true;
-  $("v3Gate").style.display="none";
-  $("v3BtnZip").disabled=false;
-  $("v3BtnPng").disabled=false;
-  v3Status("✓ Đã qua cổng watermark ("+why+") — nút tải đã mở, app tự tải ZIP 1 lần ngay bây giờ.");
-  v3MaybeAutoZip();
+/* --- bảng palette chọn lại màu (sau snap) --- */
+function v3RenderPalette(){
+  var wrap=$("v3PalWrap"), grid=$("v3PalGrid");
+  grid.innerHTML="";
+  if(!v3.snapped||!v3.palette||!v3.palette.length){wrap.style.display="none"; return}
+  wrap.style.display="block";
+  var total=v3.report?v3.report.opaquePx||0:0;
+  v3.palette.forEach(function(p,idx){
+    var cell=document.createElement("div"); cell.className="v31-pal";
+    var sw=document.createElement("div"); sw.className="sw"; sw.style.background=p.hex;
+    var hx=document.createElement("div"); hx.className="hx"; hx.textContent=p.hex.toUpperCase();
+    var ct=document.createElement("div"); ct.className="ct"; ct.textContent=total?("≈ "+(Math.round(p.count/total*1000)/10)+"% vùng đặc"):("≈ "+p.count+" px mẫu");
+    var inp=document.createElement("input"); inp.type="color"; inp.value=p.hex; inp.title="Đặt lại màu in thật cho ô màu này";
+    inp.addEventListener("input",function(){v3Recolor(idx,inp.value,sw,hx)});
+    cell.appendChild(sw); cell.appendChild(hx); cell.appendChild(ct); cell.appendChild(inp);
+    grid.appendChild(cell);
+  });
 }
-function v3RunScan(canvas){
-  var res=analyzeWm(canvas);
-  v3.scan=res;
-  /* đồng bộ sang cổng xuất chung của Bước 7: sạch -> updateExportGate mở khoá theo wm.before */
-  wm.before=res; wm.after=null; wm.heatCells=res.cells;
-  updateExportGate();
-  return res;
+function v3Recolor(idx,hex,swEl,hxEl){
+  if(!v3.final||!v3.palette||!v3.palette[idx])return;
+  var entry=v3.palette[idx], old=entry.rgb, nw=v3HexToRgb(hex);
+  if(old[0]===nw[0]&&old[1]===nw[1]&&old[2]===nw[2])return;
+  var c=v3.final, x=c.getContext("2d"), idd=x.getImageData(0,0,c.width,c.height), d=idd.data;
+  for(var i=0;i<c.width*c.height;i++){
+    var o=i*4;
+    if(d[o+3]>=160&&d[o]===old[0]&&d[o+1]===old[1]&&d[o+2]===old[2]){d[o]=nw[0]; d[o+1]=nw[1]; d[o+2]=nw[2]}
+  }
+  x.putImageData(idd,0,0);
+  entry.rgb=nw; entry.hex=v3HexOf(nw);
+  if(swEl)swEl.style.background=entry.hex;
+  if(hxEl)hxEl.textContent=entry.hex.toUpperCase();
+  v3.svgStr=null;
+  derivedArt=v3.final; derivedLabel="Flow V3.1 — design tách khỏi ảnh áo mẫu (đã chọn lại màu palette)";
+  updateArtSrcNote(); scheduleRender();
+  dot4Note("Flow V3.1 — chọn lại màu palette: "+v3HexOf(old).toUpperCase()+" → "+entry.hex.toUpperCase());
+  v3ShowResult();
+  $("v3VecStatus").textContent="Đã đổi 1 màu palette — SVG trước đó (nếu có) đã bị huỷ, bấm “Tải SVG” để trace lại theo màu mới.";
 }
-function v3ShowGate(res){
-  v3.gateOpen=false;
-  $("v3BtnZip").disabled=true;
-  $("v3BtnPng").disabled=true;
-  var list=res.suspects.map(function(s){return cellPos(s)+" — mức nghi "+Math.round(s.score*100)+"%"}).join("<br>");
-  $("v3GateInfo").innerHTML="Quét tự động trên <b>design đã tách</b>: <b>"+res.count+" ô nghi ngờ / 36</b> (độ tin cậy trung bình "+res.confidence+"%). Vị trí nghi ngờ:<br>"+list+"<br>Xuất file đang <b>khoá</b> cho tới khi xoá sạch &amp; kiểm lại đạt, hoặc bạn xác nhận đã soi tay.";
-  $("v3Gate").style.display="block";
-  $("v3GateStatus").textContent="Hãy soi kỹ các ô trên trong ô “Design đã tách” ở dưới, rồi chọn 1 trong 2 cách mở khoá.";
+/* --- cọ sửa alpha thủ công (chế độ áo tối) --- */
+function v3DrawBrush(){
+  var wrap=$("v3BrushWrap"), cv=$("v3BrushCanvas");
+  if(!v3.final||!v3.darkMode){wrap.style.display="none"; return}
+  wrap.style.display="block";
+  var sc=Math.min(560/v3.final.width,560/v3.final.height);
+  cv.width=Math.max(80,Math.round(v3.final.width*sc)); cv.height=Math.max(80,Math.round(v3.final.height*sc));
+  var x=cv.getContext("2d");
+  x.clearRect(0,0,cv.width,cv.height);
+  x.drawImage(v3.final,0,0,cv.width,cv.height);
 }
-$("v3GateClean").onclick=function(){
-  if(!v3.final)return;
-  if(!$("v3Rights").checked){$("v3GateStatus").textContent="⚠ Hãy tích ô xác nhận quyền sử dụng ảnh trước — app chỉ xoá watermark trên ảnh bạn có quyền.";return}
-  var st=$("v3GateStatus");
-  st.textContent="Đang xoá tự động vùng nghi ngờ bằng inpainting (cơ chế Bước 3) rồi quét lại…";
-  setTimeout(function(){
+function v3BrushPos(e){
+  var cv=$("v3BrushCanvas"), r=cv.getBoundingClientRect();
+  return{x:(e.clientX-r.left)*(v3.final.width/r.width), y:(e.clientY-r.top)*(v3.final.height/r.height)};
+}
+function v3BrushDot(p,idd){
+  var c=v3.final, W=c.width, r=parseFloat($("v3BrushSize").value)||26;
+  var rad=Math.max(2,Math.round(r*W/560));
+  var d=idd.data, x0=Math.max(0,Math.floor(p.x-rad)), x1=Math.min(W-1,Math.ceil(p.x+rad));
+  var y0=Math.max(0,Math.floor(p.y-rad)), y1=Math.min(c.height-1,Math.ceil(p.y+rad));
+  for(var y=y0;y<=y1;y++)for(var xx=x0;xx<=x1;xx++){
+    if(Math.hypot(xx-p.x,y-p.y)>rad)continue;
+    var o=(y*W+xx)*4;
+    d[o+3]=(v3.brushMode==="keep")?255:0;
+    v3.brushTouched++;
+  }
+}
+(function(){
+  var cv=$("v3BrushCanvas");
+  var idd=null;
+  function start(e){
+    if(!v3.final||!v3.darkMode)return;
+    idd=v3.final.getContext("2d").getImageData(0,0,v3.final.width,v3.final.height);
+    v3.brushPainting=true; v3.brushTouched=0;
+    v3BrushDot(v3BrushPos(e),idd);
+    try{cv.setPointerCapture(e.pointerId)}catch(err){}
+  }
+  function move(e){
+    if(!v3.brushPainting||!idd)return;
+    v3BrushDot(v3BrushPos(e),idd);
+  }
+  function end(){
+    if(!v3.brushPainting||!idd)return;
+    v3.brushPainting=false;
+    v3.final.getContext("2d").putImageData(idd,0,0);
+    idd=null;
+    v3.metrics=v3Measure(v3.final);
+    if(v3.report)v3.report.colorCount=(v3.snapped&&v3.palette)?v3.palette.length:v3.metrics.colors;
+    v3.svgStr=null;
+    derivedArt=v3.final; derivedLabel="Flow V3.1 — design tách khỏi ảnh áo mẫu (đã sửa alpha bằng cọ tay)";
+    updateArtSrcNote(); scheduleRender();
+    v3ShowResult();
+    $("v3BrushStatus").textContent="Đã áp dụng nét cọ vừa vẽ (≈ "+v3.brushTouched+" điểm ảnh được chạm). Số đo ở trên đã cập nhật; SVG trước đó (nếu có) đã bị huỷ — trace lại nếu cần.";
+  }
+  cv.addEventListener("pointerdown",start);
+  cv.addEventListener("pointermove",move);
+  cv.addEventListener("pointerup",end);
+  cv.addEventListener("pointercancel",end);
+})();
+$("v3BrushKeep").onclick=function(){v3.brushMode="keep"; $("v3BrushKeep").classList.add("on"); $("v3BrushErase").classList.remove("on")};
+$("v3BrushErase").onclick=function(){v3.brushMode="erase"; $("v3BrushErase").classList.add("on"); $("v3BrushKeep").classList.remove("on")};
+$("v3BrushSize").addEventListener("input",function(){$("v3BrushVal").textContent=$("v3BrushSize").value+" px"});
+
+/* --- (h) XUẤT VECTOR: vtracer WASM (nạp lười, cắt phần Node như cách SVGO) -> dự phòng imagetracerjs --- */
+var V3_VT_JS="https://cdn.jsdelivr.net/npm/@visioncortex/vtracer@1.0.0-alpha.4/pkg/vtracer_wasm.js";
+var V3_VT_WASM="https://cdn.jsdelivr.net/npm/@visioncortex/vtracer@1.0.0-alpha.4/pkg/vtracer_wasm_bg.wasm";
+function v3LoadVtracer(){
+  if(window.__v3Vtracer&&typeof window.__v3Vtracer.vectorize_rgba==="function")return Promise.resolve(true);
+  if(v3.vtPromise)return v3.vtPromise;
+  v3.vtPromise=(async function(){
+    var wres=await fetch(V3_VT_WASM);
+    if(!wres.ok)throw new Error("tải wasm vtracer HTTP "+wres.status);
+    var wbuf=await wres.arrayBuffer();
+    var jres=await fetch(V3_VT_JS);
+    if(!jres.ok)throw new Error("tải JS vtracer HTTP "+jres.status);
+    var txt=await jres.text();
+    var cut=txt.indexOf("const wasmPath");
+    if(cut<200)throw new Error("không nhận dạng được định dạng bản vtracer trên jsDelivr");
+    var head=txt.slice(0,cut);
+    /* bản pkg là target Node (require('fs') + __dirname ở phần cuối) — cắt phần đó, thay bằng
+       khởi tạo WebAssembly ngay trong trình duyệt với bytes wasm vừa tải; exports giữ nguyên. */
+    var code="var exports={};\n"+head
+      +"\n;var __vtMod=new WebAssembly.Module(window.__v3VtWasmBytes);"
+      +"\nvar __vtInst=new WebAssembly.Instance(__vtMod,__wbg_get_imports());"
+      +"\nvar wasm=__vtInst.exports;"
+      +"\nif(wasm.__wbindgen_start)wasm.__wbindgen_start();"
+      +"\nwindow.__v3Vtracer=exports;";
+    window.__v3VtWasmBytes=new Uint8Array(wbuf);
+    var url=URL.createObjectURL(new Blob([code],{type:"text/javascript"}));
     try{
-      var art=v3.final, W=art.width, H=art.height;
-      var mask=mkCanvas(W,H), mx=mask.getContext("2d");
-      mx.fillStyle="#ffffff";
-      var S=6, cw=W/S, ch=H/S;
-      v3.scan.suspects.forEach(function(cell){mx.fillRect(cell.c*cw,cell.r*ch, cw,ch)});
-      var cleaned=inpaintSync(copyCanvas(art),mask);
-      /* inpaint không biết kênh alpha: giữ nguyên alpha gốc, chỉ lấy RGB đã lấp ở vùng mặt nạ */
-      var cx2=cleaned.getContext("2d"), cd=cx2.getImageData(0,0,W,H);
-      var ax2=art.getContext("2d"), ad=ax2.getImageData(0,0,W,H);
-      var md=mask.getContext("2d").getImageData(0,0,W,H).data;
-      for(var i=0;i<W*H;i++){
-        if(md[i*4+3]>8){cd.data[i*4+3]=ad.data[i*4+3]}
-        else{cd.data[i*4]=ad.data[i*4]; cd.data[i*4+1]=ad.data[i*4+1]; cd.data[i*4+2]=ad.data[i*4+2]; cd.data[i*4+3]=ad.data[i*4+3]}
-      }
-      cx2.putImageData(cd,0,0);
-      v3.final=cleaned;
-      derivedArt=cleaned; derivedLabel="Flow V3 — design tách khỏi ảnh áo mẫu (đã xoá watermark tự động trong khu V3)";
-      updateArtSrcNote(); scheduleRender();
-      v3.metrics=v3Measure(cleaned);
-      v3ShowResult();
-      var res=v3RunScan(cleaned);
-      wm.cleaned=true; wm.lastEngine="Flow V3 — inpainting diffusion trên vùng nghi ngờ của design đã tách";
-      wm.after=res; updateExportGate();
-      if(res.count===0){v3GateOpenNow("đã xoá tự động & kiểm lại sạch: 0 ô nghi ngờ")}
-      else{
-        v3ShowGate(res);
-        $("v3GateStatus").textContent="Đã xoá 1 lượt nhưng vẫn còn "+res.count+" ô nghi ngờ — bấm xoá tiếp 1 lượt nữa, hoặc tích “Đã soi tay” nếu chắc chắn đó là chi tiết thật của design.";
-      }
-    }catch(err){
-      st.textContent="✗ Xoá tự động lỗi ("+shortErr(err)+") — design giữ nguyên. Bạn vẫn có thể mở khu nâng cao, dùng Bước 3 để xoá tay, hoặc xác nhận soi tay tại đây.";
-    }
-  },40);
+      await new Promise(function(resolve,reject){
+        var s=document.createElement("script");
+        s.src=url; s.async=true;
+        s.onload=function(){resolve()};
+        s.onerror=function(){reject(new Error("không chạy được JS vtracer đã tải"))};
+        document.head.appendChild(s);
+      });
+    }finally{setTimeout(function(){try{URL.revokeObjectURL(url)}catch(e){}},500)}
+    if(!(window.__v3Vtracer&&typeof window.__v3Vtracer.vectorize_rgba==="function"))throw new Error("vtracer nạp xong nhưng không thấy hàm vectorize_rgba");
+    return true;
+  })();
+  v3.vtPromise.catch(function(){v3.vtPromise=null});
+  return v3.vtPromise;
+}
+function v3Trace(){
+  if(v3.svgStr)return Promise.resolve(v3.svgStr);
+  var st=$("v3VecStatus");
+  if(!v3.final)throw new Error("chưa có design đã tách");
+  if(!v3.snapped)throw new Error("art chưa snap palette — vector chỉ dành cho art phẳng đã snap");
+  st.textContent="Đang nạp vtracer WASM từ jsDelivr (@visioncortex/vtracer@1.0.0-alpha.4)…";
+  return v3LoadVtracer().then(function(){
+    st.textContent="Đang trace bằng vtracer WASM…";
+    var c=v3.final, idd=c.getContext("2d").getImageData(0,0,c.width,c.height);
+    var data=new Uint8Array(idd.data.buffer.slice(0));
+    var cfg={color_mode:"color",hierarchical:"stacked",filter_speckle:4,color_precision:6,layer_difference:16,corner_threshold:60,length_threshold:4.0,max_iterations:10,splice_threshold:45,path_precision:2};
+    var svg=window.__v3Vtracer.vectorize_rgba(data,c.width,c.height,cfg);
+    if(!svg||String(svg).indexOf("<svg")<0)throw new Error("vtracer trả về SVG không hợp lệ");
+    v3.svgStr=String(svg); v3.svgTracer="vtracer WASM (@visioncortex/vtracer@1.0.0-alpha.4, jsDelivr)";
+    if(v3.report)v3.report.tracer=v3.svgTracer;
+    st.textContent="✓ Đã tạo SVG bằng "+v3.svgTracer+" (file ≈ "+fmtKB(v3.svgStr.length)+").";
+    return v3.svgStr;
+  }).catch(function(err){
+    var why=shortErr(err);
+    st.textContent="vtracer không chạy được ("+why+") — đang lùi về imagetracerjs sẵn có của app…";
+    return loadLib("imagetracer").then(function(ok){
+      if(!ok)throw new Error("cả vtracer ("+why+") lẫn imagetracerjs đều không tải được — kiểm tra mạng rồi bấm lại");
+      var c=v3.final, idd=c.getContext("2d").getImageData(0,0,c.width,c.height);
+      var colors=(v3.palette?v3.palette.length:12);
+      var svg=window.ImageTracer.imagedataToSVG(idd,{ltres:0.7,qtres:0.7,pathomit:6,colorsampling:2,numberofcolors:Math.max(2,colors),mincolorratio:0.02,colorquantcycles:3,scale:1,roundcoords:2,desc:false});
+      if(!svg||svg.indexOf("<svg")<0)throw new Error("imagetracerjs chạy lỗi trên ảnh này");
+      v3.svgStr=svg; v3.svgTracer="imagetracerjs (tracer DỰ PHÒNG — vtracer lỗi: "+why+")";
+      if(v3.report)v3.report.tracer=v3.svgTracer;
+      st.textContent="✓ Đã tạo SVG bằng tracer dự phòng imagetracerjs (file ≈ "+fmtKB(svg.length)+"). Lý do không dùng được vtracer: "+why+" — đã ghi vào hồ sơ.";
+      dot4Note("Flow V3.1 — vector hoá: "+v3.svgTracer);
+      return svg;
+    });
+  });
+}
+$("v3BtnSvg").onclick=function(){
+  var st=$("v3VecStatus"), btn=$("v3BtnSvg"); btn.disabled=true;
+  v3Trace().then(function(svg){
+    downloadBlob(new Blob([svg],{type:"image/svg+xml;charset=utf-8"}),"v3-design-tach-"+srcName+"-vector.svg");
+    st.textContent="✓ Đã tải file SVG ("+escapeHtml(v3.svgTracer)+"). Mở bằng Illustrator / Inkscape đều được, phóng khổ in không vỡ nét.";
+  }).catch(function(err){
+    st.textContent="✗ Tạo SVG lỗi: "+((err&&err.message)||"lỗi không rõ");
+  }).then(function(){v3RefreshGate()});
 };
-$("v3GateManual").onclick=function(){
-  if(!v3.final)return;
-  if(!$("v3Rights").checked){$("v3GateStatus").textContent="⚠ Hãy tích ô xác nhận quyền sử dụng ảnh trước khi mở khoá bằng soi tay.";return}
-  var mc=$("wmManualConfirm");
-  if(mc){mc.checked=true}
-  updateExportGate();
-  v3GateOpenNow("xác nhận soi tay của bạn tại khu V3 — tương đương mục C Bước 3");
+$("v3BtnVecPng").onclick=function(){
+  var st=$("v3VecStatus"), btn=$("v3BtnVecPng"); btn.disabled=true;
+  v3Trace().then(function(svg){
+    st.textContent="Đang render PNG in 4500×5400 từ vector…";
+    return new Promise(function(resolve,reject){
+      var url=URL.createObjectURL(new Blob([svg],{type:"image/svg+xml;charset=utf-8"}));
+      var img=new Image();
+      img.onload=function(){
+        try{
+          var out=mkCanvas(exportSize.w,exportSize.h), x=out.getContext("2d");
+          var iw=img.width||v3.final.width, ih=img.height||v3.final.height;
+          var s=Math.min(exportSize.w/iw,exportSize.h/ih);
+          x.drawImage(img,(exportSize.w-iw*s)/2,(exportSize.h-ih*s)/2,iw*s,ih*s);
+          URL.revokeObjectURL(url);
+          resolve(out);
+        }catch(e){reject(e)}
+      };
+      img.onerror=function(){URL.revokeObjectURL(url); reject(new Error("trình duyệt không render được SVG này"))};
+      img.src=url;
+    });
+  }).then(function(canvas){
+    return encodeExportFile(canvas,"png");
+  }).then(function(res){
+    var name="v3-design-tach-"+srcName+"-4500x5400-300dpi-tu-vector.png";
+    downloadBlob(new Blob([res.bytes],{type:"image/png"}),name);
+    st.textContent="✓ Đã tải "+name+" — render từ vector ("+escapeHtml(v3.svgTracer)+"), codec: "+escapeHtml(res.info.codec)+".";
+  }).catch(function(err){
+    st.textContent="✗ PNG từ vector lỗi: "+((err&&err.message)||"lỗi không rõ");
+  }).then(function(){v3RefreshGate()});
 };
-/* --- xuất V3: contain-fit lên 4500×5400 -> encodeExportFile (codec Bước 7) -> JSZip --- */
+/* --- xuất raster V3.1: contain-fit lên 4500×5400 -> encodeExportFile (codec Bước 7) -> JSZip --- */
 function v3BuildPrintCanvas(){
   var out=mkCanvas(exportSize.w,exportSize.h), x=out.getContext("2d");
   var art=v3.final;
@@ -7871,51 +8469,75 @@ function v3BuildPrintCanvas(){
 function v3ProfileExtra(){
   var q=v3.quad||[];
   var qs=q.map(function(p,i){return "góc "+(i+1)+" ("+Math.round(p.x)+", "+Math.round(p.y)+")"}).join("; ");
-  return [
+  var r=v3.report||{};
+  var lines=[
     "",
-    "=== FLOW V3 — TÁCH DESIGN KHỎI ÁO ===",
-    "Flow V3 tách design: Có — design được tách khỏi ảnh áo mẫu trong khu V3 (trục chính của app)",
+    "=== FLOW V3.1 — TÁCH DESIGN KHỎI ÁO ===",
+    "Flow V3.1 tách design: Có — pipeline: gỡ nghiêng -> upscale TRƯỚC -> tách 2 vòng theo trường sáng -> lọc bảo toàn cạnh -> flood-fill alpha + dọn -> snap palette Lab (có chốt gradient)",
     "Toạ độ 4 góc vùng in trên ảnh gốc ("+(srcImg?srcImg.width:0)+"x"+(srcImg?srcImg.height:0)+" px): "+qs,
-    "Màu vải ước lượng từ vành biên vùng in: "+(v3.fabric?("rgb("+v3.fabric.map(Math.round).join(", ")+")"):"không đo được"),
-    "Khoá nền vải: flood-fill từ biên theo khoảng cách màu (ngưỡng cứng 64, feather mềm 16–64) + chuẩn hoá sáng divide-illumination + despill ở viền",
-    "Mức san phẳng màu: "+v3.flatName+" (bảng màu median-cut: Giữ nguyên = không lượng tử hoá, Vừa = tối đa 24 màu, Phẳng mạnh = tối đa 10 màu)",
-    "Nâng phân giải: "+v3.upscaleNote,
-    "Số đo bản tách: "+(v3.metrics?(v3.metrics.w+"x"+v3.metrics.h+" px · trong suốt "+v3.metrics.transPct+"% · ≈ "+v3.metrics.colors+" màu sau làm phẳng"):"không đo được"),
+    "Màu vải ước lượng từ vành biên vùng in: "+(v3.fabric?("rgb("+v3.fabric.map(Math.round).join(", ")+") · độ sáng Lab L = "+(r.fabricL!=null?r.fabricL:"?")):"không đo được"),
+    "Cách upscale đã dùng: "+(r.upscale||v3.upscaleNote||"không ghi nhận"),
+    "Số vòng tách đã chạy: "+(r.rounds===2?"2 vòng (vòng 1 tách thô -> trường sáng từ pixel vải -> vòng 2 chuẩn hoá lại)":(r.rounds===1?"1 vòng (lùi — trường sáng không tin cậy, dùng chuẩn hoá chia-cho-ảnh-mờ)":"không ghi nhận")),
+    "Lọc làm phẳng bảo toàn cạnh: "+(r.filter||"không ghi nhận"),
+    "Động cơ flood-fill alpha: "+(r.floodEngine||"không ghi nhận"),
+    "Động cơ dọn alpha (morphology): "+(r.alphaEngine||"không ghi nhận"),
+    "Động cơ snap palette: "+(r.snapEngine||"không ghi nhận"),
+    "Chế độ áo tối: "+(r.dark?("BẬT — thu hồi viền tối "+(r.cleanStats?r.cleanStats.recovered:0)+" px, loại đảo vải "+(r.cleanStats?r.cleanStats.islands:0)+" px, TẮT lấp lỗ nhỏ"):("TẮT"+(r.cleanStats?(" — lấp lỗ nhỏ "+r.cleanStats.filled+" px, bỏ đốm nhỏ "+r.cleanStats.removed+" px"):""))),
+    "Màu: "+(r.snapped?("ĐÃ SNAP palette k-means Lab — "+(r.colorCount||"?")+" màu phẳng tuyệt đối, sai số khớp ΔE trung bình "+r.snapErr):("GIỮ màu ảnh đã chuẩn hoá — "+(r.snapWhy||"người dùng chọn giữ nguyên"))),
+    "Số màu cuối: "+(r.colorCount!=null?r.colorCount:(v3.metrics?v3.metrics.colors:"?")),
+    "Số đo bản tách: "+(v3.metrics?(v3.metrics.w+"x"+v3.metrics.h+" px · trong suốt "+v3.metrics.transPct+"% · pixel bán trong suốt "+v3.metrics.semiPct+"%"):"không đo được"),
+    "Vector: "+(v3.svgStr?("đã tạo SVG bằng "+v3.svgTracer+" (đính kèm trong ZIP nếu xuất ZIP sau khi tạo)"):"chưa tạo SVG trong phiên này"),
     "Đặt lên canvas in: contain-fit (giữ trọn design, không cắt mép) vào "+exportSize.w+"x"+exportSize.h+" px · 300 DPI"
   ];
+  if(v3.preRes){
+    lines.push("Preflight cuối flow (quét gợi ý trên vùng design của ảnh nguồn): "+v3.preRes.count+" ô nghi ngờ / 36 — "+(v3.preRes.count===0?"không thấy ô nghi ngờ":("các ô nên soi lại: "+v3.preRes.suspects.map(function(s2){return cellPos(s2)}).join("; "))));
+    lines.push("Xác nhận soi tay + quyền tại preflight V3.1: "+(($("v3PreConfirm")&&$("v3PreConfirm").checked)?"Có":"Không"));
+  }
+  return lines;
 }
 function v3ExportPngBytes(){
   return v3BuildPrintCanvas().then(function(c){return encodeExportFile(c,"png")});
 }
 $("v3BtnPng").onclick=function(){
-  if(!v3.final||!v3.gateOpen)return;
+  if(!v3.final||!v3.preOpen)return;
   var btn=$("v3BtnPng"); btn.disabled=true;
   $("v3DlStatus").textContent="Đang dựng PNG in 4500×5400 · 300 DPI bằng đúng pipeline codec Bước 7…";
   v3ExportPngBytes().then(function(res){
     var name="v3-design-tach-"+srcName+"-4500x5400-300dpi.png";
     downloadBlob(new Blob([res.bytes],{type:"image/png"}),name);
     $("v3DlStatus").innerHTML="✓ Đã tải <b>"+escapeHtml(name)+"</b> — codec: "+escapeHtml(res.info.codec)+". DPI 300 nằm ở chunk pHYs như cơ chế Bước 7.";
-    btn.disabled=false;
   }).catch(function(err){
     $("v3DlStatus").textContent="✗ Xuất PNG lỗi ("+shortErr(err)+") — thử lại, hoặc mở khu nâng cao xuất ở Bước 7.";
-    btn.disabled=false;
-  });
+  }).then(function(){v3RefreshGate()});
 };
+function v3MockupBlob(){
+  return new Promise(function(resolve){
+    try{
+      var cv=mkCanvas(520,650);
+      v3DrawMock(cv,"#ffffff",v3.final);
+      if(cv.toBlob)cv.toBlob(function(b){resolve(b||null)},"image/png");
+      else resolve(null);
+    }catch(e){resolve(null)}
+  });
+}
 function v3DoZip(auto){
-  if(!v3.final||!v3.gateOpen)return Promise.resolve(false);
-  $("v3DlStatus").textContent=(auto?"Tách xong — đang tự đóng gói & tải ZIP 1 lần":"Đang đóng gói ZIP")+" (PNG in + .txt hồ sơ)…";
+  if(!v3.final||!v3.preOpen)return Promise.resolve(false);
+  $("v3DlStatus").textContent=(auto?"Tách xong & preflight mở — đang tự đóng gói & tải ZIP 1 lần":"Đang đóng gói ZIP")+" (PNG in + .txt hồ sơ + mockup"+(v3.svgStr?" + SVG":"")+")…";
   return loadLib("jszip").then(function(ok){
     if(!ok)throw new Error("không tải được JSZip từ CDN jsDelivr");
-    return v3ExportPngBytes().then(function(pngRes){
+    return Promise.all([v3ExportPngBytes(),v3MockupBlob()]).then(function(pair){
+      var pngRes=pair[0], mockBlob=pair[1];
       var base="v3-design-tach-"+srcName+"-4500x5400-300dpi";
       var pngName=base+".png", txtName=base+"-ho-so.txt";
-      var lines=buildProfileLines(pngName+" (trong bộ ZIP "+base+".zip — Flow V3)",pngRes.info.codec,exifTxtFor("png",pngRes.info),v3ProfileExtra());
+      var lines=buildProfileLines(pngName+" (trong bộ ZIP "+base+".zip — Flow V3.1)",pngRes.info.codec,exifTxtFor("png",pngRes.info),v3ProfileExtra());
       var zip=new window.JSZip();
       zip.file(pngName,pngRes.bytes);
       zip.file(txtName,lines.join("\r\n"));
+      if(mockBlob)zip.file(base+"-mockup-ao-trang.png",mockBlob);
+      if(v3.svgStr)zip.file(base+"-vector.svg",v3.svgStr);
       return zip.generateAsync({type:"blob",compression:"DEFLATE",compressionOptions:{level:6}}).then(function(blob){
         downloadBlob(blob,base+".zip");
-        $("v3DlStatus").innerHTML="✓ Đã tải <b>"+escapeHtml(base)+".zip</b> ("+fmtKB(blob.size)+") — gồm PNG in 300 DPI + file .txt hồ sơ (có đủ mục Flow V3: 4 góc, khoá nền, làm phẳng, upscale).";
+        $("v3DlStatus").innerHTML="✓ Đã tải <b>"+escapeHtml(base)+".zip</b> ("+fmtKB(blob.size)+") — gồm PNG in 300 DPI + mockup áo trắng + file .txt hồ sơ V3.1"+(v3.svgStr?" + file SVG vector":"")+".";
         return true;
       });
     });
@@ -7926,92 +8548,404 @@ function v3DoZip(auto){
 }
 $("v3BtnZip").onclick=function(){v3DoZip(false)};
 function v3MaybeAutoZip(){
-  if(v3.autoZipDone||!v3.gateOpen||!v3.final)return;
+  if(v3.autoZipDone||!v3.preOpen||!v3.final)return;
   v3.autoZipDone=true;
   v3DoZip(true);
 }
-/* --- chạy upscale AI sẵn có trên derivedArt tạm thời, chờ kết quả rồi áp dụng --- */
-function v3TryUpscale(){
-  return new Promise(function(resolve){
-    if(!$("v3UseAI").checked){v3.upscaleNote="đã tắt Upscale AI theo lựa chọn — dùng resize pica khi đặt lên khổ in"; resolve(false); return}
-    var need=Math.max(v3.final.width,v3.final.height)<Math.max(exportSize.w,exportSize.h);
-    if(!need){v3.upscaleNote="design đã tách đủ lớn so với khổ in — không cần Upscale AI"; resolve(false); return}
-    v3Status("Đang nâng phân giải bằng Upscale AI (Real-ESRGAN) — lần đầu phải tải model từ Hugging Face…");
-    var before=derivedArt;
-    runUpscale();
-    var t0=Date.now();
-    var timer=setInterval(function(){
-      if(up.running)return;
-      clearInterval(timer);
-      if(up.candidate){
-        var lbl=up.runLabel||"Real-ESRGAN";
-        $("btnUpApply").click();
-        derivedLabel="Flow V3 — design tách khỏi ảnh áo mẫu + Upscale AI ("+lbl+")";
-        v3.final=derivedArt;
-        v3.upscaleNote="Upscale AI "+lbl+" ×"+(up.runScale||4)+" (onnxruntime-web, cỡ tile theo model) — bản tách "+v3.final.width+"x"+v3.final.height+" px";
-        updateArtSrcNote();
-        resolve(true);
-      }else{
-        derivedArt=v3.final; derivedLabel="Flow V3 — design tách khỏi ảnh áo mẫu";
-        v3.upscaleNote="Upscale AI không chạy được (lỗi tải / chạy model — xem chi tiết ở mục Upscale AI trong khu nâng cao) — đã lùi về resize chất lượng cao pica khi đặt lên khổ in";
-        resolve(false);
-      }
-    },700);
-    setTimeout(function(){
-      if(up.running){up.cancelled=true; if(up.abort)try{up.abort.abort()}catch(e){}}
-    },240000);
-    void before;
+
+/* --- (i) THƯ VIỆN GITHUB BỔ SUNG (nạp lười ESM từ jsDelivr, lỗi/chậm -> tự cài) ---
+   image-js (MIT, github.com/image-js/image-js): Mask.clearBorder cho flood từ biên +
+   Mask morphology (close/open) cho dọn alpha. ml-kmeans (MIT, github.com/mljs/kmeans):
+   k-means++ với seed cố định + distanceFunction trên điểm Lab cho snap palette.
+   Cả hai đều có đường dự phòng tự cài trong app — engine đã dùng được ghi vào hồ sơ. */
+function v3WithTimeout(p,ms){
+  return Promise.race([p,new Promise(function(_,rej){setTimeout(function(){rej(new Error("timeout"))},ms)})]);
+}
+var V3_IMAGEJS_URL="https://cdn.jsdelivr.net/npm/image-js@0.35.6/+esm";
+var V3_MLKMEANS_URL="https://cdn.jsdelivr.net/npm/ml-kmeans@7.0.1/+esm";
+function v3LoadImageJs(){
+  if(v3.ijMod)return Promise.resolve(v3.ijMod);
+  if(v3.ijFailed)return Promise.resolve(null);
+  if(v3.ijPromise)return v3.ijPromise;
+  v3.ijPromise=v3WithTimeout(import(V3_IMAGEJS_URL),20000).then(function(mod){
+    v3.ijMod=mod; return mod;
+  },function(){v3.ijFailed=true; return null;});
+  return v3.ijPromise;
+}
+function v3IjMakeMask(IJ,W,H,bin){
+  var Img=IJ.Image||(IJ.default&&IJ.default.Image);
+  if(!Img)throw new Error("image-js không có Image");
+  var grey=new Uint8Array(W*H), i;
+  for(i=0;i<W*H;i++)grey[i]=bin[i]?255:0;
+  var img=new Img(W,H,grey,{kind:"GREY"});
+  if(typeof img.threshold!=="function")throw new Error("image-js Image không có threshold");
+  return img.threshold();
+}
+function v3IjMaskToBin(mask,W,H){
+  var data=mask&&(mask.data||(typeof mask.getData==="function"?mask.getData():null));
+  if(!data)throw new Error("không đọc được dữ liệu Mask");
+  var n=W*H, out=new Uint8Array(n), i;
+  if(data.length===n){for(i=0;i<n;i++)out[i]=data[i]>0?1:0; return out}
+  if(data.length===Math.ceil(n/8)){
+    for(i=0;i<n;i++)out[i]=(data[i>>3]>>(7-(i&7)))&1;
+    return out;
+  }
+  throw new Error("kích thước dữ liệu Mask lạ ("+data.length+")");
+}
+function v3FloodBgViaImageJs(dist,W,H,thresh){
+  return v3LoadImageJs().then(function(IJ){
+    var n=W*H, fabric=new Uint8Array(n), i;
+    for(i=0;i<n;i++)fabric[i]=dist[i]<thresh?1:0;
+    var mask=v3IjMakeMask(IJ,W,H,fabric);
+    if(typeof mask.clearBorder!=="function")throw new Error("Mask không có clearBorder");
+    var cleared=mask.clearBorder()||mask;
+    var islands=v3IjMaskToBin(cleared,W,H);
+    var bg=new Uint8Array(n), bgCnt=0, fabCnt=0;
+    for(i=0;i<n;i++){bg[i]=(fabric[i]&&!islands[i])?1:0; if(bg[i])bgCnt++; if(fabric[i])fabCnt++}
+    /* kiểm tra sanity: pixel góc (0,0) giống vải thì phải thuộc nền; nền không vượt quá vùng giống vải */
+    if(fabric[0]&&!bg[0])throw new Error("clearBorder cho kết quả không khớp flood từ biên");
+    if(bgCnt>fabCnt)throw new Error("clearBorder cho nền lớn hơn vùng giống vải");
+    return bg;
+  }).catch(function(){return null});
+}
+function v3FloodBgSmart(dist,W,H,thresh){
+  return v3FloodBgViaImageJs(dist,W,H,thresh).then(function(bg){
+    if(bg){v3.floodEngine="image-js Mask.clearBorder (flood từ biên)"; return bg}
+    v3.floodEngine="flood-fill tự cài (image-js không dùng được / quá chậm)";
+    return v3FloodBg(dist,W,H,thresh);
   });
 }
-/* --- nút chạy chính --- */
-$("v3Run").onclick=function(){
+function v3MorphImageJs(bin,W,H){
+  return v3LoadImageJs().then(function(IJ){
+    var mask=v3IjMakeMask(IJ,W,H,bin), m=mask;
+    if(typeof m.close==="function")m=m.close()||m;
+    if(typeof m.open==="function")m=m.open()||m;
+    if(m===mask)throw new Error("Mask không có close/open");
+    return v3IjMaskToBin(m,W,H);
+  }).catch(function(){return null});
+}
+function v3KMeansLib(samples,k){
+  return v3WithTimeout(import(V3_MLKMEANS_URL),20000).then(function(mod){
+    var fn=mod.kmeans||(mod.default&&mod.default.kmeans)||(mod.default&&mod.default.default&&mod.default.default.kmeans);
+    if(typeof fn!=="function")throw new Error("ml-kmeans không có hàm kmeans");
+    var res=fn(samples,k,{initialization:"kmeans++",seed:42,maxIterations:100,distanceFunction:function(a,b){
+      var d0=a[0]-b[0], d1=a[1]-b[1], d2=a[2]-b[2];
+      return Math.sqrt(d0*d0+d1*d1+d2*d2);
+    }});
+    var cents=res&&(res.centroids||res.centers);
+    if(!cents||cents.length<2)throw new Error("ml-kmeans trả tâm không hợp lệ");
+    return cents.map(function(c){
+      if(!c||c.length<3||!isFinite(c[0])||!isFinite(c[1])||!isFinite(c[2]))throw new Error("tâm ml-kmeans chứa giá trị lạ");
+      return [c[0],c[1],c[2]];
+    });
+  }).catch(function(){return null});
+}
+
+/* --- (j) PREFLIGHT CUỐI FLOW + cổng tải dùng chung với Bước 7 --- */
+function v3DrawPreHeat(res){
+  var cv=$("v3PreHeat"), region=v3.regionCanvas;
+  if(!region)return;
+  cv.width=560; cv.height=Math.max(80,Math.round(560*region.height/region.width));
+  var x=cv.getContext("2d");
+  x.drawImage(region,0,0,cv.width,cv.height);
+  if(!res)return;
+  var S=6, cw=cv.width/S, ch=cv.height/S;
+  res.cells.forEach(function(cell){
+    x.strokeStyle="rgba(20,20,18,.30)"; x.lineWidth=1;
+    x.strokeRect(cell.c*cw+0.5,cell.r*ch+0.5,cw-1,ch-1);
+    if(cell.suspect){
+      x.fillStyle="rgba(255,45,0,"+(0.18+0.42*cell.score).toFixed(2)+")";
+      x.fillRect(cell.c*cw,cell.r*ch,cw,ch);
+      x.fillStyle="#fff"; x.font="800 13px 'Be Vietnam Pro'"; x.textAlign="center";
+      x.fillText(Math.round(cell.score*100)+"%",(cell.c+0.5)*cw,(cell.r+0.5)*ch+5);
+    }else if(cell.score>=0.42){
+      x.fillStyle="rgba(255,170,0,0.30)";
+      x.fillRect(cell.c*cw,cell.r*ch,cw,ch);
+    }
+  });
+}
+function v3RefreshGate(){
+  var confirmEl=$("v3PreConfirm");
+  var confirmed=!!(confirmEl&&confirmEl.checked);
+  v3.preOpen=!!(v3.final&&v3.preRes&&(v3.preRes.count===0||confirmed));
+  $("v3BtnZip").disabled=!v3.preOpen;
+  $("v3BtnPng").disabled=!v3.preOpen;
+  var vecOk=v3.preOpen&&v3.snapped;
+  $("v3BtnSvg").disabled=!vecOk;
+  $("v3BtnVecPng").disabled=!vecOk;
+  if(v3.final&&v3.preRes&&!v3.preOpen){
+    $("v3DlStatus").textContent="Đang chờ preflight ở cuối flow: tích ô xác nhận soi tay + quyền trong mục “Kiểm tra cuối (preflight)” bên dưới để mở khoá tải (cổng này dùng chung trạng thái với cổng xuất Bước 7).";
+  }
+  if(v3.preOpen)v3MaybeAutoZip();
+}
+function v3RunPreflight(isAfterErase){
+  if(!v3.regionCanvas)return null;
+  var res=analyzeWm(v3.regionCanvas);
+  v3.preRes=res; v3.scan=res;
+  /* dùng CHUNG trạng thái wm với cổng xuất Bước 7 — không có 2 cổng riêng */
+  if(isAfterErase){wm.after=res}
+  else{wm.before=res; wm.after=null}
+  wm.heatCells=res.cells;
+  updateExportGate();
+  v3DrawPreHeat(res);
+  var info=$("v3PreInfo");
+  if(res.count===0){
+    info.innerHTML="Quét preflight trên <b>vùng design của ảnh nguồn</b>: <b>0 ô nghi ngờ / 36</b> — không có vùng nào cần soi lại theo heuristic này (đây là gợi ý, không phải khẳng định tuyệt đối). Nút tải đã mở.";
+  }else{
+    var list=res.suspects.map(function(s){return cellPos(s)+" — mức nghi "+Math.round(s.score*100)+"%"}).join("<br>");
+    info.innerHTML="Quét preflight trên <b>vùng design của ảnh nguồn</b>: <b>"+res.count+" ô nên soi lại / 36</b> (mức nghi trung bình "+res.confidence+"%). Vị trí:<br>"+list+"<br>Đây chỉ là <b>gợi ý soi lại</b>, không phải kết luận — chi tiết art thật (chữ, hoạ tiết lặp đều) cũng hay bị đánh dấu. Soi các ô trên heatmap + 3 ô đối chiếu ở trên, rồi tích xác nhận bên dưới để mở khoá tải; hoặc dùng cọ xoá ở mục dưới nếu chắc chắn đó là watermark.";
+  }
+  $("v3Pre").style.display="block";
+  v3RefreshGate();
+  return res;
+}
+$("v3PreConfirm").addEventListener("change",function(){
+  var mc=$("wmManualConfirm");
+  if(mc)mc.checked=$("v3PreConfirm").checked;
+  updateExportGate();
+  v3RefreshGate();
+});
+$("v3PreScan").onclick=function(){
+  if(!v3.regionCanvas){$("v3PreInfo").textContent="Chưa có vùng design nào — chạy tách design trước rồi mới quét preflight được.";return}
+  v3RunPreflight(!!wm.cleaned);
+};
+/* --- (k) XOÁ WATERMARK THEO YÊU CẦU: cọ mặt nạ khít trên ẢNH NGUỒN -> inpaint -> chạy lại pipeline --- */
+function v3SetupWmStage(){
+  var region=v3.regionCanvas;
+  if(!region)return;
+  var sc=$("v3WmSrc");
+  sc.width=560; sc.height=Math.max(80,Math.round(560*region.height/region.width));
+  sc.getContext("2d").drawImage(region,0,0,sc.width,sc.height);
+  var mc=$("v3WmMask"); mc.width=sc.width; mc.height=sc.height;
+  v3.wmMaskFull=mkCanvas(region.width,region.height);
+  v3DrawWmOverlay();
+  var bc=$("v3WmBefore"), bx=bc.getContext("2d");
+  bc.width=360; bc.height=Math.max(80,Math.round(360*region.height/region.width));
+  bx.drawImage(region,0,0,bc.width,bc.height);
+  var ac=$("v3WmAfter"), ax=ac.getContext("2d");
+  ac.width=bc.width; ac.height=bc.height;
+  ax.fillStyle="#e9e7e0"; ax.fillRect(0,0,ac.width,ac.height);
+  ax.fillStyle="#8a887e"; ax.font="600 13px 'Be Vietnam Pro'"; ax.textAlign="center";
+  ax.fillText("Bấm “Xem trước xoá” để thấy kết quả thử",ac.width/2,ac.height/2);
+  $("v3WmStatus").textContent="Chưa vẽ mặt nạ nào. “Xem trước” chỉ hiển thị thử, không thay đổi gì; chỉ nút “Xoá trên ảnh nguồn & chạy lại” mới áp dụng thật.";
+}
+function v3DrawWmOverlay(){
+  var mv=$("v3WmMask"); if(!mv||!v3.wmMaskFull)return;
+  var x=mv.getContext("2d");
+  x.clearRect(0,0,mv.width,mv.height);
+  x.globalCompositeOperation="source-over";
+  x.drawImage(v3.wmMaskFull,0,0,mv.width,mv.height);
+  x.globalCompositeOperation="source-in";
+  x.fillStyle="rgba(255,45,0,0.5)"; x.fillRect(0,0,mv.width,mv.height);
+  x.globalCompositeOperation="source-over";
+}
+function v3WmMaskAny(){
+  if(!v3.wmMaskFull)return false;
+  var t=mkCanvas(48,48), tx=t.getContext("2d");
+  tx.drawImage(v3.wmMaskFull,0,0,48,48);
+  var d=tx.getImageData(0,0,48,48).data;
+  for(var i=3;i<d.length;i+=16)if(d[i]>8)return true;
+  return false;
+}
+$("v3WmPaint").onclick=function(){v3.wmEraseMode=false; $("v3WmPaint").classList.add("on"); $("v3WmErase").classList.remove("on")};
+$("v3WmErase").onclick=function(){v3.wmEraseMode=true; $("v3WmErase").classList.add("on"); $("v3WmPaint").classList.remove("on")};
+$("v3WmBrushSize").addEventListener("input",function(){$("v3WmBrushVal").textContent=$("v3WmBrushSize").value+" px"});
+$("v3WmClear").onclick=function(){
+  if(!v3.regionCanvas)return;
+  v3.wmMaskFull=mkCanvas(v3.regionCanvas.width,v3.regionCanvas.height);
+  v3DrawWmOverlay();
+  $("v3WmStatus").textContent="Đã xoá hết mặt nạ — chưa có thay đổi nào được áp dụng.";
+};
+(function(){
+  var mv=$("v3WmMask");
+  function pos(e){
+    var r=mv.getBoundingClientRect(), region=v3.regionCanvas;
+    return{x:(e.clientX-r.left)*(region.width/r.width), y:(e.clientY-r.top)*(region.height/r.height)};
+  }
+  function dot(p){
+    if(!v3.wmMaskFull)return;
+    var x=v3.wmMaskFull.getContext("2d"), region=v3.regionCanvas;
+    var rad=Math.max(2,(parseFloat($("v3WmBrushSize").value)||22)*region.width/560);
+    x.globalCompositeOperation=v3.wmEraseMode?"destination-out":"source-over";
+    x.fillStyle="#ffffff";
+    function d1(cx,cy){x.beginPath(); x.arc(cx,cy,rad,0,7); x.fill()}
+    if(v3.wmLastPt){
+      var dx=p.x-v3.wmLastPt.x, dy=p.y-v3.wmLastPt.y, dist=Math.sqrt(dx*dx+dy*dy), steps=Math.max(1,Math.floor(dist/Math.max(2,rad*0.5)));
+      for(var i=1;i<=steps;i++)d1(v3.wmLastPt.x+dx*i/steps,v3.wmLastPt.y+dy*i/steps);
+    }else d1(p.x,p.y);
+    v3.wmLastPt=p;
+    v3DrawWmOverlay();
+  }
+  mv.addEventListener("pointerdown",function(e){
+    if(!v3.regionCanvas||!v3.wmMaskFull)return;
+    v3.wmPainting=true; v3.wmLastPt=null;
+    dot(pos(e));
+    try{mv.setPointerCapture(e.pointerId)}catch(err){}
+  });
+  mv.addEventListener("pointermove",function(e){if(v3.wmPainting)dot(pos(e))});
+  function end(){v3.wmPainting=false; v3.wmLastPt=null}
+  mv.addEventListener("pointerup",end); mv.addEventListener("pointercancel",end);
+})();
+$("v3WmPreview").onclick=function(){
+  if(!v3.regionCanvas){$("v3WmStatus").textContent="Chưa có ảnh nguồn vùng design — chạy tách trước.";return}
+  if(!v3WmMaskAny()){$("v3WmStatus").textContent="Hãy vẽ mặt nạ khít lên đúng chỗ watermark trên ảnh ở trên trước.";return}
+  $("v3WmStatus").textContent="Đang xem trước xoá bằng inpainting trên ảnh nguồn…";
+  setTimeout(function(){
+    try{
+      var cleaned=inpaintSync(copyCanvas(v3.regionCanvas),v3.wmMaskFull);
+      var ac=$("v3WmAfter"), ax=ac.getContext("2d");
+      ax.clearRect(0,0,ac.width,ac.height);
+      ax.drawImage(cleaned,0,0,ac.width,ac.height);
+      $("v3WmStatus").textContent="Đã hiện kết quả thử ở ô SAU XOÁ — đây mới là xem trước, ảnh nguồn chưa thay đổi. Ưng thì bấm “Xoá trên ảnh nguồn & chạy lại pipeline tách”.";
+    }catch(err){
+      $("v3WmStatus").textContent="✗ Xem trước lỗi ("+shortErr(err)+") — ảnh nguồn giữ nguyên.";
+    }
+  },40);
+};
+$("v3WmApply").onclick=function(){
+  if(!v3.regionCanvas||!v3.final){$("v3WmStatus").textContent="Chưa có kết quả tách — chạy tách trước.";return}
+  if(!$("v3PreConfirm").checked){$("v3WmStatus").textContent="⚠ Hãy tích ô xác nhận soi tay + quyền ở mục preflight trước — app chỉ xoá watermark trên ảnh bạn có quyền.";return}
+  if(!v3WmMaskAny()){$("v3WmStatus").textContent="Hãy vẽ mặt nạ khít lên đúng chỗ watermark trước.";return}
+  $("v3WmStatus").textContent="Đang xoá trên ảnh nguồn bằng inpainting rồi chạy lại toàn bộ pipeline tách…";
+  setTimeout(function(){
+    try{
+      var cleaned=inpaintSync(copyCanvas(v3.regionCanvas),v3.wmMaskFull);
+      v3.srcWarp=cleaned;
+      v3.srcWarpQuad=JSON.stringify(v3.quad);
+      wm.cleaned=true;
+      wm.lastEngine="Flow V3.1 — inpainting trên ảnh nguồn vùng design (mặt nạ vẽ tay khít, người dùng chủ động)";
+      dot4Note("Flow V3.1 — người dùng chủ động xoá watermark trên ảnh nguồn bằng mặt nạ vẽ tay, chạy lại pipeline tách");
+      v3RunPipeline(true);
+    }catch(err){
+      $("v3WmStatus").textContent="✗ Xoá lỗi ("+shortErr(err)+") — ảnh nguồn giữ nguyên.";
+    }
+  },40);
+};
+
+/* --- (l) PIPELINE CHÍNH V3.1 --- */
+function v3RunPipeline(fromErase){
   if(!srcImg||!v3.quad||v3.running)return;
   v3.running=true;
   $("v3Run").disabled=true;
-  $("v3Gate").style.display="none";
   $("v3Result").style.display="none";
-  v3.gateOpen=false; v3.autoZipDone=false;
+  $("v3Pre").style.display="none";
+  if(!fromErase)v3.autoZipDone=false;
+  v3.final=null; v3.svgStr=null; v3.svgTracer=""; v3.palette=null; v3.snapped=false;
+  v3.preRes=null; v3.preOpen=false;
   (async function(){
     try{
-      v3SetProg(6,"Đang gỡ nghiêng phối cảnh vùng in (homography)…");
+      var useSrc=!!(v3.srcWarp&&v3.srcWarpQuad===JSON.stringify(v3.quad));
+      v3SetProg(5,useSrc?"Đang dùng ảnh nguồn vùng design đã xoá watermark (bạn chủ động xoá ở preflight)…":"Đang gỡ nghiêng phối cảnh vùng in…");
       await v3Frame();
-      var warped=v3Dewarp(v3.quad);
-      v3SetProg(26,"Đã gỡ nghiêng → "+warped.width+"×"+warped.height+" px. Đang chuẩn hoá sáng & khoá nền vải…");
+      var region=useSrc?copyCanvas(v3.srcWarp):v3Dewarp(v3.quad);
+      v3.regionCanvas=region;
+      v3SetProg(12,"Đã có vùng design "+region.width+"×"+region.height+" px. Đang upscale TRƯỚC khi tách (~2×, chặn cạnh dài 3000)…");
       await v3Frame();
-      var ext=v3ExtractFabric(warped);
-      v3.fabric=ext.fabric; v3.extract=ext.canvas;
-      v3SetProg(46,"Đã khoá nền vải (màu vải ≈ rgb("+ext.fabric.map(Math.round).join(", ")+")). Đang san phẳng màu — mức "+v3.flatName+"…");
+      var up1=await v3UpscaleBefore(region);
+      var work=up1.canvas;
+      v3.upscaleNote=up1.note;
+      var W=work.width, H=work.height, n=W*H;
+      v3SetProg(30,"Khổ làm việc "+W+"×"+H+" px. Vòng 1: chuẩn hoá sáng chia-cho-ảnh-mờ + flood-fill alpha theo khoảng cách Lab…");
       await v3Frame();
-      v3.final=v3Flatten(copyCanvas(ext.canvas),v3.flat);
+      var fabric=v3FabricMedian(work);
+      v3.fabric=fabric;
+      var fabLab=v3Rgb2Lab(fabric[0],fabric[1],fabric[2]);
+      var fabricL=Math.round(fabLab[0]*10)/10;
+      var dark=fabLab[0]<60;
+      v3.darkMode=dark;
+      var norm1=v3DivideIllum(work,fabric);
+      var dist1=v3DistToFabric(norm1,fabLab);
+      var isBg1=await v3FloodBgSmart(dist1,W,H,26);
+      var bgCnt=0, i;
+      for(i=0;i<n;i++)if(isBg1[i])bgCnt++;
+      var fabricFrac=bgCnt/n;
+      var rounds=2, field=null;
+      if(fabricFrac>0.02&&fabricFrac<0.995)field=v3IllumField(work,isBg1);
+      if(!field)rounds=1;
+      v3SetProg(46,(rounds===2?"Vòng 1 xong — đã ước lượng trường sáng từ "+Math.round(fabricFrac*100)+"% pixel vải. Vòng 2: chuẩn hoá lại theo trường sáng":"Vòng 1 xong — trường sáng không tin cậy (vải chiếm "+Math.round(fabricFrac*100)+"% khung), lùi 1 vòng bằng bản chia-cho-ảnh-mờ")+" → lọc bảo toàn cạnh…");
+      await v3Frame();
+      var base=rounds===2?v3NormalizeByField(work,field,fabric):norm1;
+      var fl=v3EdgeFlatten(copyCanvas(base));
+      base=fl.canvas;
+      v3SetProg(60,"Đã lọc cạnh ("+fl.note+"). Đang flood-fill alpha vòng cuối + dọn alpha"+(dark?" (CHẾ ĐỘ ÁO TỐI đang bật — L vải "+fabricL+")":"")+"…");
+      await v3Frame();
+      var dist2=v3DistToFabric(base,fabLab);
+      var isBg2=await v3FloodBgSmart(dist2,W,H,26);
+      /* độ sáng cục bộ: trường sáng (hoặc bản mờ của ảnh gốc) + độ sáng pixel — cho thu hồi viền tối */
+      var lumSrc=field||blurCopy(work,Math.max(8,Math.round(W/60)));
+      var lumD=lumSrc.getContext("2d").getImageData(0,0,W,H).data;
+      var baseD=base.getContext("2d").getImageData(0,0,W,H).data;
+      var fieldLum=new Float32Array(n), pixLum=new Float32Array(n);
+      for(i=0;i<n;i++){
+        fieldLum[i]=0.299*lumD[i*4]+0.587*lumD[i*4+1]+0.114*lumD[i*4+2];
+        pixLum[i]=0.299*baseD[i*4]+0.587*baseD[i*4+1]+0.114*baseD[i*4+2];
+      }
+      var clean=await v3CleanAlpha(dist2,isBg2,W,H,dark,fieldLum,pixLum);
+      /* compose: RGB của bản đã chuẩn hoá + lọc, alpha đã dọn, despill viền bán trong suốt */
+      var outC=mkCanvas(W,H), ox=outC.getContext("2d");
+      var oid=ox.createImageData(W,H), od=oid.data;
+      for(i=0;i<n;i++){
+        var o=i*4, a=clean.alpha[i];
+        od[o]=baseD[o]; od[o+1]=baseD[o+1]; od[o+2]=baseD[o+2]; od[o+3]=a;
+        if(a>6&&a<250){
+          var a01=a/255;
+          for(var ch=0;ch<3;ch++)od[o+ch]=clamp((od[o+ch]-fabric[ch]*(1-a01))/Math.max(a01,0.18),0,255);
+        }
+      }
+      ox.putImageData(oid,0,0);
+      v3.extract=outC;
+      v3SetProg(76,"Đã tách alpha xong (dọn: "+(dark?("thu hồi viền tối "+clean.stats.recovered+" px · loại đảo vải "+clean.stats.islands+" px"):("lấp lỗ nhỏ "+clean.stats.filled+" px · bỏ đốm "+clean.stats.removed+" px"))+"). Đang xử lý màu — "+v3.flatName+"…");
+      await v3Frame();
+      var snapped=false, palette=null, snapErr=null, snapWhy="", opaquePx=0;
+      if(v3.flat===0){
+        snapWhy="người dùng chọn “Giữ nguyên màu ảnh” — không snap";
+        v3.final=outC;
+      }else{
+        var snapRes=await v3SnapPalette(copyCanvas(outC),v3.flat===1?14:10);
+        if(snapRes.snapped){
+          snapped=true; palette=snapRes.palette; snapErr=snapRes.err; opaquePx=snapRes.totalOpaque;
+          v3.final=snapRes.canvas;
+        }else{
+          snapWhy=snapRes.reason||"không snap được";
+          snapErr=(snapRes.err!=null)?snapRes.err:null;
+          v3.final=outC;
+        }
+      }
+      if(!opaquePx){
+        var fd=v3.final.getContext("2d").getImageData(0,0,W,H).data;
+        for(i=0;i<n;i++)if(fd[i*4+3]>=160)opaquePx++;
+      }
+      v3.snapped=snapped; v3.palette=palette;
       v3.metrics=v3Measure(v3.final);
+      v3.report={
+        upscale:up1.note, rounds:rounds, filter:fl.note, dark:dark, fabricL:fabricL,
+        snapped:snapped, snapErr:snapErr, snapWhy:snapWhy,
+        colorCount:snapped&&palette?palette.length:v3.metrics.colors,
+        opaquePx:opaquePx, cleanStats:clean.stats,
+        floodEngine:v3.floodEngine||"", alphaEngine:v3.alphaEngine||"", snapEngine:v3.snapEngine||"",
+        tracer:""
+      };
       derivedArt=v3.final;
-      derivedLabel="Flow V3 — design tách khỏi ảnh áo mẫu (chưa gồm upscale)";
+      derivedLabel="Flow V3.1 — design tách khỏi ảnh áo mẫu ("+(snapped?"đã snap palette":"giữ màu ảnh")+(dark?", chế độ áo tối":"")+")";
       updateArtSrcNote(); scheduleRender();
-      dot4Note("Flow V3 tách design khỏi ảnh áo mẫu: 4 góc vùng in "+v3.quad.map(function(p){return "("+Math.round(p.x)+","+Math.round(p.y)+")"}).join(" ")+" · khoá nền vải rgb("+ext.fabric.map(Math.round).join(", ")+") · làm phẳng màu mức "+v3.flatName+" · trong suốt "+v3.metrics.transPct+"%");
-      v3SetProg(58,"Đã tách xong bản "+v3.metrics.w+"×"+v3.metrics.h+" px — trong suốt "+v3.metrics.transPct+"%. Đang xét nâng phân giải…");
-      await v3Frame();
-      await v3TryUpscale();
-      v3.metrics=v3Measure(v3.final);
-      dot4Note("Flow V3 — nâng phân giải: "+v3.upscaleNote);
-      v3SetProg(82,"Đang dựng canvas in 4500×5400 · 300 DPI & quét watermark trên design đã tách…");
+      dot4Note("Flow V3.1 tách design: "+W+"x"+H+" px · upscale: "+up1.note+" · "+rounds+" vòng · áo tối: "+(dark?"BẬT":"tắt")+" · màu: "+(snapped?("snap "+palette.length+" màu, ΔE "+snapErr):("giữ màu ảnh — "+snapWhy))+" · trong suốt "+v3.metrics.transPct+"%");
+      v3SetProg(90,"Đã tách xong "+W+"×"+H+" px — trong suốt "+v3.metrics.transPct+"%. Đang dựng đối chiếu + quét preflight cuối flow trên ảnh nguồn…");
       await v3Frame();
       v3ShowResult();
       $("v3Result").style.display="block";
-      var res=v3RunScan(v3.final);
-      if(res.count===0){
-        v3SetProg(100,"✓ Tách design xong — quét watermark sạch (0 ô nghi ngờ). Đang tự tải ZIP…");
-        v3GateOpenNow("quét tự động trên design đã tách: 0 ô nghi ngờ");
-      }else{
-        v3SetProg(100,"⚠ Tách design xong nhưng quét watermark thấy "+res.count+" ô nghi ngờ — hãy xử lý ở thẻ dừng ngay dưới ô đối chiếu.");
-        v3ShowGate(res);
-      }
+      v3SetupWmStage();
+      var pres=v3RunPreflight(!!fromErase);
+      var preTxt=pres?(pres.count===0?"preflight gợi ý: 0 ô nghi ngờ — nút tải đã mở, đang tự tải ZIP":"preflight gợi ý "+pres.count+" ô nên soi lại — hãy xem mục Kiểm tra cuối ở cuối flow và tích xác nhận để mở khoá tải"):"";
+      v3SetProg(100,"✓ Tách design xong (V3.1) — "+W+"×"+H+" px · trong suốt "+v3.metrics.transPct+"% · "+(snapped?("snap "+v3.report.colorCount+" màu phẳng"):("giữ màu ảnh"))+" · "+preTxt+".");
+      if(fromErase)$("v3WmStatus").textContent="✓ Đã xoá trên ảnh nguồn và chạy lại pipeline — kết quả tách ở trên là bản mới từ ảnh nguồn đã xoá. Preflight đã quét lại trên ảnh nguồn mới.";
     }catch(err){
-      v3SetProg(100,"✗ Flow V3 lỗi: "+((err&&err.message)||"lỗi không rõ")+" — ảnh gốc giữ nguyên, thử kéo lại 4 góc rồi chạy lại.");
+      v3SetProg(100,"✗ Flow V3.1 lỗi: "+((err&&err.message)||"lỗi không rõ")+" — ảnh gốc giữ nguyên, thử kéo lại 4 góc rồi chạy lại.");
     }
     v3.running=false;
     $("v3Run").disabled=false;
   })();
-};
+}
+$("v3Run").onclick=function(){v3RunPipeline(false)};
 
 /* ================= INIT ================= */
 v3Draw();
