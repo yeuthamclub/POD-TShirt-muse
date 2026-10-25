@@ -174,6 +174,19 @@ footer{max-width:1060px;margin:0 auto;padding:0 18px 26px;color:var(--muted);fon
 .pal-item:hover{border-color:var(--dark)}
 .pal-swatch{width:44px;height:44px;border-radius:8px;border:1px solid rgba(0,0,0,.14);display:block}
 .pal-hex{font-size:12px;font-weight:800;font-variant-numeric:tabular-nums}
+.pal-card{display:flex;flex-direction:column;gap:5px;width:138px}
+.pal-card .pal-item{width:100%}
+.pal-mini{font-size:11px;font-weight:700;text-align:left;background:#faf9f5;border:1px solid var(--line);border-radius:8px;padding:5px 7px;cursor:pointer;line-height:1.5;color:var(--ink);font-variant-numeric:tabular-nums}
+.pal-mini:hover{border-color:var(--dark)}
+.pal-mini:disabled{cursor:default;opacity:.7}
+.pf-row{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-top:8px;background:#fff;font-size:13px;line-height:1.55}
+.pf-badge{flex:none;font-size:11px;font-weight:800;border-radius:999px;padding:3px 10px;margin-top:1px;white-space:nowrap}
+.pf-badge.ok{background:#e8f8f1;color:#075e3e;border:1px solid #bfe9d5}
+.pf-badge.warn{background:#fff8e6;color:#7a5b00;border:1px solid #f0d98a}
+.pf-badge.bad{background:#fdeceb;color:#7a1408;border:1px solid #f3c1b8}
+.sim-fig{flex:1;min-width:220px;margin:0}
+.sim-fig canvas{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:10px;background:#fff}
+.sim-fig figcaption{font-size:11px;font-weight:800;letter-spacing:.04em;text-align:center;margin-top:6px;color:var(--muted);line-height:1.5}
 #svgPreview svg,#poPreview svg{max-width:100%;height:auto}
 .loadbox{margin-top:10px;border:1px solid var(--line);border-radius:10px;padding:11px 12px;background:#faf9f5;max-width:680px}
 .loadbar{height:10px;background:#e9e7e0;border-radius:99px;overflow:hidden}
@@ -199,6 +212,15 @@ input[type=color].ed-color{width:52px;height:38px;border:1px solid var(--line);b
 .ed-mini:disabled{opacity:.38;cursor:not-allowed}
 .ed-mini.danger{border-color:#a3260c;color:#a3260c}
 .ed-sel-tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
+/* Đợt 6: lớp QR / mã vạch, tách màu in lụa, mockup nếp vải */
+.sep-list{display:grid;gap:6px;margin-top:8px}
+.sep-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;background:#faf9f5}
+.sep-row .sw{width:26px;height:26px;border-radius:6px;border:1px solid rgba(0,0,0,.18);flex:none}
+.sep-row .hx{font-size:13px;font-weight:800;font-variant-numeric:tabular-nums}
+.sep-row .pt{font-size:11.5px;font-weight:700;color:var(--muted)}
+.sep-row .cv{font-size:11.5px;color:var(--muted);margin-left:auto}
+#pixiWrap{display:grid;place-items:center;padding:14px;border:1px solid var(--line);border-radius:12px;background:#e9e7e0;background-image:radial-gradient(#d6d3c8 1px,transparent 1px);background-size:18px 18px;overflow:hidden}
+#pixiWrap canvas{max-width:100%;height:auto;display:block;border-radius:6px;box-shadow:0 10px 30px rgba(0,0,0,.18)}
 /* Xưởng sáng tạo art + Google Drive */
 .cs-stage{position:relative;max-width:760px;margin:0 auto;border:1px solid var(--line);border-radius:12px;overflow:hidden;background-color:#fff;background-image:conic-gradient(#e6e3d8 25%,#fff 0 50%,#e6e3d8 0 75%,#fff 0);background-size:18px 18px;line-height:0}
 .cs-stage canvas{display:block;width:100%;height:auto}
@@ -305,6 +327,40 @@ input[type=text].txtin,input[type=url].txtin{width:100%;padding:11px;border:1px 
     <div id="radarIdeaList"></div>
 
     <div class="notice"><b>Nói rõ cách Radar hoạt động:</b> Amazon, Etsy và Shopify <b>không cho app tĩnh này tự kéo bảng xếp hạng trực tiếp vào trang</b> (chặn nhúng + cần khoá API riêng). Vì vậy Radar làm đúng phần hữu ích nhất mỗi ngày: <b>dựng sẵn link đúng ngách tới đúng trang bán chạy / tìm kiếm tại nguồn</b> — số liệu, thứ hạng và giá bạn thấy khi bấm vào luôn là dữ liệu thật, mới nhất tại nguồn lúc đó. Tuyệt đối không sao chép nguyên artwork có bản quyền của shop khác: chỉ học ngách, bố cục và khoảng giá, rồi làm art riêng của bạn.</div>
+  </section>
+
+  <!-- DỰ ÁN THIẾT KẾ: LƯU / MỞ / TỰ LƯU NHÁP (localForage + IndexedDB) -->
+  <section class="panel" id="projPanel">
+    <div class="panel-head"><div class="num">▣</div><div><h2>Dự án thiết kế — lưu lại để mở ra làm tiếp</h2><p>Lưu toàn bộ phiên làm việc hiện tại thành 1 dự án: ảnh gốc, art hiện tại, khung cắt, trạng thái bước watermark, khổ in, prompt và nhật ký thao tác của file .txt hồ sơ. Dự án được lưu bằng <b>localForage vào IndexedDB của chính trình duyệt này</b> — <b>chỉ nằm trong trình duyệt này, không tự đồng bộ lên Google Drive</b>; đổi máy / đổi trình duyệt sẽ không thấy, muốn mang theo hãy dùng <b>Xuất file dự án (.json)</b> rồi <b>Nhập file dự án</b> ở nơi khác. App cũng <b>tự lưu nháp</b> mỗi khi art thay đổi — mở lại app mà còn nháp của phiên trước, app sẽ hỏi ngay tại đây.</p></div></div>
+
+    <div class="repbox warn" id="projDraftBar" style="display:none">
+      <b>Có bản nháp tự lưu của phiên trước.</b> <span id="projDraftInfo"></span>
+      <div class="row" style="margin-top:8px;max-width:520px">
+        <button class="btn btn-dark" id="btnProjDraftRestore" type="button">Khôi phục nháp</button>
+        <button class="btn btn-outline" id="btnProjDraftDismiss" type="button">Bỏ qua</button>
+      </div>
+    </div>
+
+    <p class="subhead">Lưu phiên làm việc hiện tại thành dự án</p>
+    <div class="radar-idea-row">
+      <input type="text" id="projName" placeholder="Tên dự án — VD: Hoodie anime tông đỏ ấm, đơn khách A">
+      <button class="btn btn-dark" id="btnProjSave" type="button">Lưu dự án</button>
+    </div>
+    <p class="hint" id="projStatus">Đang kiểm tra kho lưu dự án (IndexedDB)…</p>
+
+    <p class="subhead">Dự án đã lưu trong trình duyệt này</p>
+    <p class="muse-empty" id="projListEmpty" style="color:var(--muted)">Chưa có dự án nào được lưu.</p>
+    <div id="projList"></div>
+
+    <p class="subhead">Mang dự án theo người bằng file .json</p>
+    <div class="row" style="max-width:640px">
+      <button class="btn btn-outline" id="btnProjExportFile" type="button">Xuất file dự án (.json)</button>
+      <button class="btn btn-outline" id="btnProjImportFile" type="button">Nhập file dự án (.json)</button>
+      <input type="file" id="projFileInput" accept=".json,application/json" hidden>
+    </div>
+    <p class="hint">“Xuất file dự án” ghi lại <b>trạng thái đang hiển thị trên màn hình</b> thành 1 file .json tải xuống. “Nhập file dự án” sẽ <b>thay toàn bộ trạng thái app</b> bằng nội dung trong file — việc đang làm chưa lưu sẽ mất, hãy bấm “Lưu dự án” trước khi nhập.</p>
+
+    <div class="notice"><b>Phần được lưu &amp; khôi phục:</b> ảnh gốc đã nạp · art hiện tại (gồm bản đã upscale / tách nền AI, và bản đã bấm “Áp dụng vào art” từ Editor lớp / Xưởng sáng tạo) · bản làm việc ở bước 3 sau khi đã xoá watermark · khung cắt + tỉ lệ + bleed · kết quả quét watermark trước / sau, trạng thái đã xoá, tick xác nhận soi tay &amp; xác nhận quyền dùng ảnh (cổng khoá xuất file mở lại đúng như lúc lưu) · khổ in + định dạng xuất gần nhất · nội dung ô prompt + hiệu ứng prompt · các thanh trượt làm đẹp ở bước 5 · toàn bộ nhật ký thao tác đang ghi vào file .txt hồ sơ.<br><b>Phần KHÔNG lưu (nói rõ để khỏi hiểu lầm):</b> các lớp đang dựng dở trong <b>Editor lớp</b> (Konva) và các thao tác chưa áp dụng trong <b>Xưởng sáng tạo</b> — chỉ bản đã áp dụng vào art mới được lưu, vì lúc đó nó đã nằm trong art hiện tại; mặt nạ đang tô dở ở bước 3 cũng không lưu (chỉ lưu kết quả sau khi đã xoá xong).<br><b>An toàn dữ liệu:</b> dự án lớn hơn <b>~50 MB</b> sẽ bị từ chối lưu kèm lý do rõ ràng; nếu IndexedDB lỗi hoặc hết dung lượng, app báo đỏ ngay tại panel này và <b>không đụng vào việc đang hiển thị trên màn hình</b>.</div>
   </section>
 
   <!-- BƯỚC 1: NẠP ẢNH -->
@@ -432,16 +488,22 @@ input[type=text].txtin,input[type=url].txtin{width:100%;padding:11px;border:1px 
       <button class="btn btn-outline" id="btnWmAutoMask">Tự tô theo ô nghi ngờ</button>
     </div>
     <label class="f">Cách xoá (inpaint) — chạy thử từng cách, so sánh ở khung trước / sau bên dưới rồi giữ bản đẹp hơn</label>
-    <div class="seg small" role="group" aria-label="Chọn cách xoá watermark" style="max-width:560px">
+    <div class="seg small" role="group" aria-label="Chọn cách xoá watermark" style="max-width:820px">
       <button id="inpMethodDiff" class="on">Inpaint hiện tại (diffusion)</button>
       <button id="inpMethodCv">OpenCV — Telea</button>
+      <button id="inpMethodLama">LaMa (AI) — chất lượng cao nhất</button>
     </div>
-    <p class="hint" style="margin-top:8px"><b>Inpaint hiện tại:</b> diffusion đa tỉ lệ viết ngay trong app, không cần tải gì thêm. <b>OpenCV — Telea:</b> thuật toán inpaint Telea của thư viện <b>OpenCV.js</b> — lần đầu bấm xoá, trình duyệt tải OpenCV.js (~8 MB) từ trang chính thức của OpenCV, có thanh tiến độ và nút huỷ; tải hoặc chạy không được thì app báo rõ và bạn vẫn dùng được cách hiện tại.</p>
+    <p class="hint" style="margin-top:8px"><b>Inpaint hiện tại:</b> diffusion đa tỉ lệ viết ngay trong app, không cần tải gì thêm. <b>OpenCV — Telea:</b> thuật toán inpaint Telea của thư viện <b>OpenCV.js</b> — lần đầu bấm xoá, trình duyệt tải OpenCV.js (~8 MB) từ trang chính thức của OpenCV, có thanh tiến độ và nút huỷ; tải hoặc chạy không được thì app báo rõ và bạn vẫn dùng được cách hiện tại. <b>LaMa (AI) — chất lượng cao nhất:</b> model AI inpainting <b>LaMa</b> bản ONNX chạy bằng <b>onnxruntime-web</b> ngay trong trình duyệt — lần đầu bấm xoá, trình duyệt tải model (~198 MB) từ Hugging Face, có thanh tiến độ theo % + MB và nút huỷ; app cắt vùng vuông quanh mặt nạ (có đệm lề làm ngữ cảnh, không bóp méo tỉ lệ), đưa về 512×512 cho model rồi ghép kết quả lại đúng vùng mặt nạ trên ảnh gốc ở độ phân giải đầy đủ, làm mềm biên mặt nạ ~2 px. Tải hoặc chạy không được thì app báo đỏ rõ lý do, gợi ý dùng 2 cách cũ và <b>giữ nguyên ảnh</b> — không giả vờ đã xoá.</p>
     <div class="loadbox" id="cvLoadBox" style="display:none">
       <div class="loadbar"><div class="loadfill" id="cvLoadFill"></div></div>
       <div class="loadrow"><span id="cvLoadText">Đang tải OpenCV.js…</span><button class="btn-mini-dark" id="cvCancel" type="button">Huỷ tải</button></div>
     </div>
     <p class="hint" id="cvStatus"></p>
+    <div class="loadbox" id="lamaLoadBox" style="display:none">
+      <div class="loadbar"><div class="loadfill" id="lamaLoadFill"></div></div>
+      <div class="loadrow"><span id="lamaLoadText">Đang tải model LaMa…</span><button class="btn-mini-dark" id="lamaCancel" type="button">Huỷ</button></div>
+    </div>
+    <p class="hint" id="lamaStatus"></p>
     <div style="height:10px"></div>
     <button class="btn btn-accent btn-block" id="btnWmInpaint" disabled>Xoá vùng đã tô (inpainting)</button>
     <div class="loadbox" id="wmWorkBox" style="display:none">
@@ -449,7 +511,7 @@ input[type=text].txtin,input[type=url].txtin{width:100%;padding:11px;border:1px 
       <div class="loadrow"><span id="wmWorkText">Đang khởi động Web Worker…</span><button class="btn-mini-dark" id="wmWorkCancel" type="button">Huỷ xoá</button></div>
     </div>
     <p class="hint" id="wmStatus" style="margin-top:8px">Cách xoá hoạt động: inpainting diffusion đa tỉ lệ — lan truyền màu / texture từ biên vùng tô vào trong qua nhiều vòng lặp, cộng lấy mẫu texture lân cận và hạt nhiễu mịn để vùng lấp trông tự nhiên. Vùng tô càng sát watermark, kết quả càng sạch. Sau khi xoá, app tự kiểm tra lại ngay — không cần bấm tay.</p>
-    <p class="hint" id="wmThreadNote" style="margin-top:2px">Luồng xử lý: inpaint diffusion ưu tiên chạy trong <b>Web Worker (Comlink)</b> để giao diện không đơ trong lúc xoá — worker lỗi / CDN không tải được thì app tự chạy ở <b>luồng chính</b> như trước và ghi rõ tại đây. OpenCV — Telea vẫn chạy ở luồng chính.</p>
+    <p class="hint" id="wmThreadNote" style="margin-top:2px">Luồng xử lý: inpaint diffusion ưu tiên chạy trong <b>Web Worker (Comlink)</b> để giao diện không đơ trong lúc xoá — worker lỗi / CDN không tải được thì app tự chạy ở <b>luồng chính</b> như trước và ghi rõ tại đây. OpenCV — Telea và LaMa (AI) chạy ở luồng chính.</p>
     <div id="wmCmpBlock" style="display:none;margin-top:12px">
       <div class="cmp-wrap">
         <canvas id="wmCmpA" width="640" height="480"></canvas>
@@ -543,8 +605,13 @@ input[type=text].txtin,input[type=url].txtin{width:100%;padding:11px;border:1px 
       <div><label class="f">Độ đậm nét / viền <span id="vLine">140</span></label><input type="range" id="sLine" min="40" max="255" value="140"></div>
       <div><label class="f">Số mức màu (posterize) <span id="vLevels">6</span></label><input type="range" id="sLevels" min="4" max="10" value="6"></div>
     </div>
-    <p class="subhead">Upscale AI — phóng ảnh bằng Real-ESRGAN <span class="libtag">thư viện: onnxruntime-web · model: Real-ESRGAN (ONNX công khai)</span></p>
-    <p class="hint">Chạy <b>model AI Real-ESRGAN ngay trong trình duyệt</b> qua <b>onnxruntime-web</b> (WASM) — không API, không máy chủ. Lần đầu bấm chạy, trình duyệt tải thư viện + file model ONNX công khai từ Hugging Face (vài chục MB, cần mạng) với thanh tiến độ và nút huỷ. Ảnh được xử lý <b>theo từng ô (tile)</b>, hiện tiến độ theo tile để tránh hụt bộ nhớ với ảnh lớn. Chạy xong sẽ hiện khung so sánh trước / sau — chỉ khi bạn bấm “Áp dụng” thì kết quả mới thay art hiện tại. Nếu tải hoặc chạy không được, app báo lỗi rõ ràng và <b>không</b> giả vờ đã upscale.</p>
+    <p class="subhead">Upscale AI — phóng ảnh bằng Real-ESRGAN / SwinIR <span class="libtag">thư viện: onnxruntime-web · model: Real-ESRGAN / SwinIR (ONNX công khai)</span></p>
+    <p class="hint">Chạy <b>model AI ngay trong trình duyệt</b> qua <b>onnxruntime-web</b> (WASM) — không API, không máy chủ. Có <b>2 model để chọn</b>: <b>Real-ESRGAN</b> (mặc định) — phục hồi ảnh thật đa dụng; <b>SwinIR — phục hồi nét</b> — model SwinIR-M realSR ×4 (bản ONNX của rocca/swin-ir-onnx, chính là bản demo super-resolution-js chạy trong trình duyệt bằng WASM) mạnh về khôi phục nét mảnh / texture, hợp art nét mảnh và anime. Lần đầu bấm chạy, trình duyệt tải thư viện + file model ONNX công khai từ Hugging Face (vài chục MB, cần mạng) với thanh tiến độ và nút huỷ. Ảnh được xử lý <b>theo từng ô (tile)</b>, hiện tiến độ theo tile để tránh hụt bộ nhớ với ảnh lớn. Chạy xong sẽ hiện khung so sánh trước / sau — chỉ khi bạn bấm “Áp dụng” thì kết quả mới thay art hiện tại. Nếu tải hoặc chạy không được, app báo lỗi rõ ràng và <b>không</b> giả vờ đã upscale.</p>
+    <div class="seg small" role="group" aria-label="Chọn model upscale AI" style="max-width:520px">
+      <button id="upModelEsrgan" class="on">Real-ESRGAN — đa dụng</button>
+      <button id="upModelSwin">SwinIR — phục hồi nét</button>
+    </div>
+    <p class="hint" id="upModelHint" style="margin-top:8px">Đang chọn: <b>Real-ESRGAN — đa dụng</b> (mặc định). Cần khôi phục nét mảnh / texture (art anime, line mảnh) thì chuyển sang SwinIR — model SwinIR nặng ~61 MB, chạy theo tile 128 px và có thể chậm hơn Real-ESRGAN trên máy yếu.</p>
     <div class="seg small" role="group" aria-label="Hệ số upscale AI" style="max-width:340px">
       <button id="upScale2">Phóng ×2</button>
       <button id="upScale4" class="on">Phóng ×4</button>
@@ -557,7 +624,7 @@ input[type=text].txtin,input[type=url].txtin{width:100%;padding:11px;border:1px 
       <div class="loadrow"><span id="upLoadText">…</span><button class="btn-mini-dark" id="upCancel" type="button">Huỷ</button></div>
     </div>
     <p class="hint" id="upStatus">Chưa chạy Upscale AI. Model chạy bằng WASM nên máy càng mạnh càng nhanh; ảnh đầu vào quá lớn sẽ được thu về tối đa ~900 px cạnh dài (khi phóng ×4) / ~1200 px (khi phóng ×2) trước khi chạy model để tránh hụt bộ nhớ — kích thước thật sẽ ghi rõ khi chạy.</p>
-    <p class="hint" id="upThreadNote" style="margin-top:2px">Luồng xử lý: Upscale AI (onnxruntime-web + Real-ESRGAN) hiện chạy ở <b>luồng chính</b> của app — đợt Web Worker (Comlink) chưa chuyển tác vụ ONNX này vào worker để không phá luồng tải model / chia tile hiện tại.</p>
+    <p class="hint" id="upThreadNote" style="margin-top:2px">Luồng xử lý: Upscale AI (onnxruntime-web + Real-ESRGAN / SwinIR) hiện chạy ở <b>luồng chính</b> của app — đợt Web Worker (Comlink) chưa chuyển tác vụ ONNX này vào worker để không phá luồng tải model / chia tile hiện tại.</p>
     <div id="upCmpBlock" style="display:none;margin-top:12px">
       <div class="cmp-wrap">
         <canvas id="upCmpA" width="640" height="480"></canvas>
@@ -572,10 +639,11 @@ input[type=text].txtin,input[type=url].txtin{width:100%;padding:11px;border:1px 
       </div>
     </div>
 
-    <p class="subhead">Tách nền bằng AI <span class="libtag">model: BiRefNet (onnxruntime-web) · MediaPipe deeplab_v3</span></p>
-    <p class="hint">Tạo mặt nạ đối tượng chính rồi tách nền thành <b>trong suốt</b> — hợp khi art cần nền trong suốt để in. Có <b>2 model để chọn</b>, cả hai chạy ngay trong trình duyệt và đều chỉ <b>tải lười khi bạn bấm chạy</b>, có thanh tiến độ tải theo % + MB và nút huỷ: <b>BiRefNet — chất lượng cao</b> (mặc định) là model phân đoạn độ phân giải cao chạy bằng <b>onnxruntime-web</b> — ảnh được resize về 1024×1024, chuẩn hoá ImageNet trước khi suy luận, viền mask được làm mềm nhẹ để không răng cưa, tách tóc / chi tiết mịn tốt hơn hẳn; <b>MediaPipe — nhẹ, nhanh</b> là Image Segmenter (model deeplab_v3) tải nhẹ, chạy nhanh nhưng chỉ nhận diện các lớp đối tượng phổ biến. Kết quả hiện ở khung xem trước bên dưới và <b>chỉ thay art khi bạn bấm “Áp dụng”</b>. Model nào tải hoặc chạy không được, app báo đỏ rõ lý do, gợi ý chuyển sang model còn lại và <b>giữ nguyên art hiện tại</b> — không giả vờ đã tách nền.</p>
-    <div class="seg small" role="group" aria-label="Chọn model tách nền" style="max-width:520px">
+    <p class="subhead">Tách nền bằng AI <span class="libtag">model: BiRefNet · BEN2 (onnxruntime-web) · MediaPipe deeplab_v3</span></p>
+    <p class="hint">Tạo mặt nạ đối tượng chính rồi tách nền thành <b>trong suốt</b> — hợp khi art cần nền trong suốt để in. Có <b>3 model để chọn</b>, cả ba chạy ngay trong trình duyệt và đều chỉ <b>tải lười khi bạn bấm chạy</b>, có thanh tiến độ tải theo % + MB và nút huỷ: <b>BiRefNet — chất lượng cao</b> (mặc định) là model phân đoạn độ phân giải cao chạy bằng <b>onnxruntime-web</b> — ảnh được resize về 1024×1024, chuẩn hoá ImageNet trước khi suy luận, viền mask được làm mềm nhẹ để không răng cưa, tách tóc / chi tiết mịn tốt hơn hẳn; <b>BEN2 — mới nhất</b> là model Background Erase Network 2 của <b>PramaLLC</b> (bản ONNX chính thức BEN2_Base, có nguồn dự phòng onnx-community) — cũng resize về 1024×1024 theo đúng tài liệu của model, hậu xử lý chuẩn hoá min–max như mã nguồn chính thức rồi làm mềm viền như BiRefNet, thế hệ mới hơn chuyên trị tóc / mép mảnh; <b>MediaPipe — nhẹ, nhanh</b> là Image Segmenter (model deeplab_v3) tải nhẹ, chạy nhanh nhưng chỉ nhận diện các lớp đối tượng phổ biến. Kết quả hiện ở khung xem trước bên dưới và <b>chỉ thay art khi bạn bấm “Áp dụng”</b>. Model nào tải hoặc chạy không được, app báo đỏ rõ lý do, gợi ý chuyển sang model còn lại và <b>giữ nguyên art hiện tại</b> — không giả vờ đã tách nền.</p>
+    <div class="seg small" role="group" aria-label="Chọn model tách nền" style="max-width:720px">
       <button id="segModelBiref" class="on">BiRefNet — chất lượng cao</button>
+      <button id="segModelBen2">BEN2 — mới nhất</button>
       <button id="segModelMp">MediaPipe — nhẹ, nhanh</button>
     </div>
     <p class="hint" id="segModelHint" style="margin-top:8px">Đang chọn: <b>BiRefNet — chất lượng cao</b> (mặc định). Model BiRefNet bản ONNX công khai (Hugging Face: onnx-community/BiRefNet-ONNX, có 2 nguồn dự phòng) khá nặng — lần đầu tải có thể lên tới vài trăm MB và chạy chậm hơn trên máy yếu, bù lại viền tách mịn và sạch hơn rõ rệt. Máy yếu hoặc cần nhanh thì chuyển sang MediaPipe.</p>
@@ -586,8 +654,8 @@ input[type=text].txtin,input[type=url].txtin{width:100%;padding:11px;border:1px 
       <div class="loadbar"><div class="loadfill" id="segLoadFill"></div></div>
       <div class="loadrow"><span id="segLoadText">…</span><button class="btn-mini-dark" id="segCancel" type="button">Huỷ</button></div>
     </div>
-    <p class="hint" id="segStatus">Chưa chạy tách nền AI. BiRefNet (mặc định) tách viền tóc / chi tiết mịn tốt hơn hẳn deeplab_v3 nhưng model nặng và chạy chậm hơn trên máy yếu; MediaPipe deeplab_v3 nhẹ, nhanh nhưng chỉ nhận diện các lớp đối tượng phổ biến (người, thú, xe, đồ vật…) — art phẳng thuần chữ / hoạ tiết có thể không tách được bằng MediaPipe, app sẽ báo rõ nếu không tìm thấy đối tượng nào.</p>
-    <p class="hint" id="segThreadNote" style="margin-top:2px">Luồng xử lý: Tách nền AI (BiRefNet qua onnxruntime-web / MediaPipe deeplab_v3) hiện chạy ở <b>luồng chính</b> của app — đợt Web Worker (Comlink) chưa chuyển các tác vụ ONNX / MediaPipe này vào worker để không phá luồng hiện tại.</p>
+    <p class="hint" id="segStatus">Chưa chạy tách nền AI. BiRefNet (mặc định) và BEN2 (mới nhất, của PramaLLC) tách viền tóc / chi tiết mịn tốt hơn hẳn deeplab_v3 nhưng model nặng (~220 MB) và chạy chậm hơn trên máy yếu; MediaPipe deeplab_v3 nhẹ, nhanh nhưng chỉ nhận diện các lớp đối tượng phổ biến (người, thú, xe, đồ vật…) — art phẳng thuần chữ / hoạ tiết có thể không tách được bằng MediaPipe, app sẽ báo rõ nếu không tìm thấy đối tượng nào.</p>
+    <p class="hint" id="segThreadNote" style="margin-top:2px">Luồng xử lý: Tách nền AI (BiRefNet / BEN2 qua onnxruntime-web / MediaPipe deeplab_v3) hiện chạy ở <b>luồng chính</b> của app — đợt Web Worker (Comlink) chưa chuyển các tác vụ ONNX / MediaPipe này vào worker để không phá luồng hiện tại.</p>
     <div id="segCmpBlock" style="display:none;margin-top:12px">
       <div class="cmp-wrap alpha-bg">
         <canvas id="segPreview" width="640" height="480"></canvas>
@@ -600,12 +668,14 @@ input[type=text].txtin,input[type=url].txtin{width:100%;padding:11px;border:1px 
     </div>
 
     <p class="subhead">Bảng màu chủ đạo của art <span class="libtag">thư viện: color-thief</span></p>
-    <p class="hint">Trích các màu chiếm tỉ trọng lớn nhất trong art (bản đã xử lý ở trên) — <b>bấm vào 1 mã hex để sao chép</b>, dùng phối màu áo / màu chữ cho khớp thiết kế.</p>
+    <p class="hint">Trích các màu chiếm tỉ trọng lớn nhất trong art (bản đã xử lý ở trên) — <b>bấm vào mã hex, dòng CMYK hoặc dòng Pantone để sao chép từng giá trị</b>, dùng phối màu áo / màu chữ cho khớp thiết kế và gửi mã màu cho xưởng in.</p>
     <div class="row" style="max-width:420px">
       <button class="btn btn-dark" id="btnPalette">Trích bảng màu từ art</button>
     </div>
     <div class="palette-row" id="paletteRow"></div>
     <p class="hint" id="paletteStatus">Chưa trích bảng màu. Thư viện color-thief sẽ tự tải từ CDN khi bạn bấm nút; sau khi đã tải, app tự trích lại mỗi khi art thay đổi.</p>
+    <p class="hint" id="pantoneNote">Mỗi màu ở trên còn kèm <b>mã CMYK</b> (C / M / Y / K theo %, tính từ RGB bằng công thức chuyển đổi chuẩn — bấm vào dòng CMYK để sao chép) và <b>màu Pantone gần nhất</b>. Pantone gần nhất do app tự khớp bằng <b>thuật toán hiệu số màu CIEDE2000 trong không gian Lab</b> trên bộ dữ liệu cộng đồng của <b>nearest-pantone</b> (2.268 màu, nạp lười từ CDN khi trích bảng màu). <b>Đây là Pantone gần nhất tính theo thuật toán từ dữ liệu cộng đồng, KHÔNG phải tra cứu Pantone chính hãng</b> — trước khi in số lượng lớn, hãy đối chiếu thẻ màu Pantone thật tại xưởng in.</p>
+    <p class="hint" id="pantoneStatus">Dữ liệu Pantone sẽ tải khi bạn trích bảng màu.</p>
 
     <div id="chromaBlock" style="display:none;margin-top:14px">
       <p class="subhead">Gợi ý phối màu hài hoà <span class="libtag">thư viện: chroma.js</span></p>
@@ -620,6 +690,19 @@ input[type=text].txtin,input[type=url].txtin{width:100%;padding:11px;border:1px 
       </div>
       <div id="crPreview" style="max-width:560px;margin-top:10px;border:1px solid var(--line);border-radius:10px;padding:14px;text-align:center;font-weight:800;font-size:20px">Chữ mẫu Aa — STUDIO POD</div>
       <p class="hint" id="contrastStatus" style="margin-top:8px">Chưa chọn cặp màu nào.</p>
+    </div>
+
+    <p class="subhead">Xem trước màu khi in <span class="libtag">mô phỏng CMYK cơ bản</span></p>
+    <p class="hint">Màu RGB trên màn hình thường rực hơn màu in thật. Nút này mô phỏng art sau vòng chuyển <b>RGB → CMYK → RGB</b> (chuyển đổi CMYK cơ bản, kèm mô hình tăng điểm mực dot gain và giới hạn tổng mực 300% như xưởng in thường áp) để bạn thấy trước màu sẽ xỉn đi ra sao, đặt cạnh bản gốc để so sánh. <b>Chỉ là xem trước — art không thay đổi.</b> Đây là mô phỏng tham khảo bằng chuyển đổi cơ bản: màu in thật còn phụ thuộc xưởng in, loại mực, chất liệu vải và màu áo.</p>
+    <div class="row" style="max-width:420px">
+      <button class="btn btn-dark" id="btnPrintSim" type="button">Xem trước màu khi in</button>
+    </div>
+    <p class="hint" id="printSimStatus">Chưa mô phỏng màu in trong phiên này.</p>
+    <div id="printSimBlock" style="display:none;margin-top:12px">
+      <div style="display:flex;gap:14px;flex-wrap:wrap;max-width:700px">
+        <figure class="sim-fig"><canvas id="simOrig" width="320" height="320"></canvas><figcaption>GỐC — RGB TRÊN MÀN HÌNH</figcaption></figure>
+        <figure class="sim-fig"><canvas id="simCmyk" width="320" height="320"></canvas><figcaption>MÔ PHỎNG KHI IN — SAU VÒNG RGB→CMYK→RGB (NỀN TRẮNG = VẢI TRẮNG)</figcaption></figure>
+      </div>
     </div>
 
     <p class="subhead">Giới hạn số màu cho in <span class="libtag">thư viện: image-q</span></p>
@@ -648,6 +731,15 @@ input[type=text].txtin,input[type=url].txtin{width:100%;padding:11px;border:1px 
         <button class="btn btn-light" id="btnQDiscard" type="button">Bỏ kết quả này</button>
       </div>
     </div>
+
+    <p class="subhead">Tách màu in lụa <span class="libtag">thư viện: image-q + JSZip</span></p>
+    <p class="hint">Tách art thành <b>mỗi màu 1 file PNG đen / trắng riêng ở độ phân giải đầy đủ của art</b> — vùng thuộc màu đó vẽ <b>đen</b> trên nền <b>trắng</b>, đúng định dạng xưởng in lụa dùng để làm khuôn / bản phim cho từng màu mực. Bảng màu lấy từ bản lượng tử hoá của art: nếu art đang có <b>nhiều hơn 12 màu</b>, app <b>tự chạy lượng tử hoá về tối đa 12 màu trước</b> (bằng image-q, trên bản làm việc tối đa 1024 px) rồi mới tách — và báo rõ đã tự giới hạn; art đã có sẵn ≤ 12 màu thì tách theo đúng các màu đó. Vùng <b>trong suốt</b> của art được tính là nền (trắng trên mọi bản tách). Danh sách bản tách kèm ô màu + mã hex (và <b>Pantone gần nhất</b> nếu dữ liệu Pantone của mục bảng màu ở trên đã tải xong), tải từng file riêng hoặc <b>tải cả bộ .zip</b> bằng JSZip. Thao tác tách màu được ghi vào file .txt hồ sơ khi xuất ở bước 7. <b>Art chính không thay đổi</b> — đây là bản tách để gửi xưởng, không phải bản thay art.</p>
+    <div class="row" style="max-width:560px">
+      <button class="btn btn-dark" id="btnScreenSep" type="button">Tách màu in lụa</button>
+      <button class="btn btn-accent" id="btnSepZip" type="button" disabled>Tải cả bộ (.zip)</button>
+    </div>
+    <p class="hint" id="sepStatus">Chưa tách màu in lụa trong phiên này. Art lớn (vài nghìn px mỗi chiều) sẽ mất ít giây để tách từng màu ở độ phân giải đầy đủ — app hiện tiến độ theo từng màu.</p>
+    <div class="sep-list" id="sepList"></div>
 
     <p class="subhead">Vector hoá art → SVG tải xuống <span class="libtag">thư viện: imagetracerjs</span></p>
     <p class="hint">Đổi art raster thành vector SVG ngay trong trình duyệt — phóng lên khổ in không vỡ nét, hợp với art ít màu / nét rõ (line-art, cartoon, chữ). Art nhiều màu và chi tiết sẽ cho file SVG nặng, kém mượt hơn bản raster.</p>
@@ -690,15 +782,22 @@ input[type=text].txtin,input[type=url].txtin{width:100%;padding:11px;border:1px 
     <br>· <b>Vector hoá art → SVG (Bước 5)</b> → <b>imagetracerjs</b>
     <br>· <b>Phóng ảnh lên khổ in (Bước 7)</b> → <b>pica</b> — resize Lanczos chất lượng cao thay resize mặc định của canvas
     <br>· <b>Mã hoá file in (Bước 7)</b> → <b>jSquash</b> — MozJPEG (@jsquash/jpeg) cho JPG, OxiPNG (@jsquash/oxipng) tối ưu lossless cho PNG; <b>piexifjs</b> chèn EXIF DPI 300 vào JPG — cả hai nạp lười từ CDN khi bấm xuất, lỗi thì tự dự phòng codec canvas mặc định
-    <br>· <b>Upscale AI (Bước 5)</b> → <b>onnxruntime-web</b> chạy model <b>Real-ESRGAN</b> (bản ONNX công khai tải từ Hugging Face) — phóng ×2 / ×4 theo tile
-    <br>· <b>Tách nền bằng AI (Bước 5)</b> → <b>onnxruntime-web</b> chạy model <b>BiRefNet</b> (bản ONNX công khai từ Hugging Face — lựa chọn mặc định “chất lượng cao”) hoặc <b>MediaPipe Tasks Vision</b> (Image Segmenter, model <b>deeplab_v3</b> của Google — lựa chọn “nhẹ, nhanh”)
+    <br>· <b>Đóng gói cả bộ + xuất PDF (Bước 7)</b> → <b>JSZip</b> — đóng gói PNG + JPG + file .txt hồ sơ (+ SVG nếu đã vector hoá) vào 1 file .zip duy nhất; <b>pdf-lib</b> — tạo PDF 1 trang đúng kích thước in thật (point = inch × 72) với ảnh phủ đầy trang — cả hai nạp lười từ CDN jsDelivr khi bấm nút tương ứng, lỗi thì báo rõ và không ảnh hưởng xuất lẻ PNG / JPG
+    <br>· <b>Upscale AI (Bước 5)</b> → <b>onnxruntime-web</b> chạy model <b>Real-ESRGAN</b> (mặc định) hoặc <b>SwinIR</b> — phục hồi nét (bản ONNX công khai tải từ Hugging Face) — phóng ×2 / ×4 theo tile
+    <br>· <b>Tách nền bằng AI (Bước 5)</b> → <b>onnxruntime-web</b> chạy model <b>BiRefNet</b> (bản ONNX công khai từ Hugging Face — lựa chọn mặc định “chất lượng cao”) hoặc <b>BEN2</b> của PramaLLC (bản ONNX chính thức trên Hugging Face, có nguồn dự phòng onnx-community — lựa chọn “mới nhất”), hoặc <b>MediaPipe Tasks Vision</b> (Image Segmenter, model <b>deeplab_v3</b> của Google — lựa chọn “nhẹ, nhanh”)
     <br>· <b>Xoá watermark bằng OpenCV (Bước 3, tuỳ chọn)</b> → <b>OpenCV.js</b> — inpaint thuật toán Telea, bên cạnh inpaint diffusion mặc định của app
+    <br>· <b>Xoá watermark bằng LaMa (Bước 3, tuỳ chọn — chất lượng cao nhất)</b> → <b>onnxruntime-web</b> chạy model <b>LaMa</b> bản ONNX FP32 công khai (Hugging Face: Carve/LaMa-ONNX, có nguồn gương dự phòng hash trùng hệt) — cắt vùng vuông quanh mặt nạ + đệm lề về 512×512 cho model, ghép kết quả lại đúng vùng mặt nạ ở độ phân giải đầy đủ với biên làm mềm
     <br>· <b>Editor lớp (panel ngay bên dưới)</b> → <b>Konva</b> (khung vẽ lớp + tay cầm Transformer + kết xuất độ phân giải đầy đủ) + <b>Moveable</b> (khung chọn kéo / resize / xoay / warp)
+    <br>· <b>Lớp QR + lớp mã vạch (Editor lớp)</b> → <b>qrcode-generator</b> (vẽ QR theo nội dung / link, chọn màu + mức sửa lỗi) + <b>JsBarcode</b> (mã vạch CODE128) — cả hai kết xuất thành lớp ảnh Konva thường; <b>xuất PSD theo lớp</b> → <b>ag-psd</b> (PSD gồm lớp nền art + từng lớp thành lớp raster riêng ở độ phân giải đầy đủ) — tất cả nạp lười từ CDN khi bấm nút
+    <br>· <b>Tách màu in lụa (Bước 5)</b> → <b>image-q</b> (bảng màu lượng tử hoá, tối đa 12 màu) + tự dựng bước tách từng màu thành PNG đen / trắng ở độ phân giải đầy đủ, đóng gói cả bộ bằng <b>JSZip</b>
+    <br>· <b>Mockup nếp vải thử nghiệm (Bước 6)</b> → <b>PixiJS</b> — DisplacementFilter uốn art theo bản xám của ảnh áo thật + lớp shading nhân multiply trích từ độ sáng ảnh áo; nạp lười từ CDN khi chuyển chế độ, lỗi thì mockup phẳng vẫn dùng bình thường
     <br>· <b>Xử lý nặng không đơ giao diện</b> → <b>Comlink</b> + <b>Web Worker</b> (worker tạo từ Blob URL ngay trong trang, tự nạp Comlink từ CDN jsDelivr): inpaint diffusion ở bước 3 và các hiệu ứng pattern / kaleidoscope / halftone / duotone / thay màu khi áp dụng ở độ phân giải đầy đủ trong Xưởng sáng tạo chạy trong worker; worker lỗi thì tự dự phòng chạy ở luồng chính. Upscale AI / tách nền AI (ONNX) và OCR vẫn chạy như trước — luồng của từng tính năng ghi rõ ngay tại tính năng đó
     <br>· <b>Phối màu hài hoà + kiểm tra tương phản (Bước 5)</b> → <b>chroma.js</b> — gợi ý phối màu tương đồng / bổ sung / tam giác từ màu chủ đạo và tính tỉ lệ tương phản 2 màu theo WCAG
     <br>· <b>Giới hạn số màu cho in (Bước 5)</b> → <b>image-q</b> — lượng tử hoá art về tối đa 4 / 6 / 8 / 12 / 16 màu (RGBQuant + NearestColor), có so sánh trước / sau, chỉ thay art khi bấm Áp dụng
     <br>· <b>Tối ưu SVG (Bước 5)</b> → <b>SVGO</b> (bản browser chính thức trên jsDelivr — file gốc dạng module ES, app nạp về và tự gỡ đúng dòng <i>export</i> cuối file để chạy dạng script thường trong trang) — lỗi thì vẫn tải được SVG gốc
     <br>· <b>Trace đen trắng nét sạch (Bước 5)</b> → <b>potrace</b> (bản port JavaScript của kilobtye trên jsDelivr) — SVG 1 màu kiểu logo / line-art
+    <br>· <b>Mã CMYK + Pantone gần nhất (Bước 5)</b> → CMYK tính bằng công thức chuẩn ngay trong app; dữ liệu màu là bộ dữ liệu cộng đồng của <b>nearest-pantone</b> (nạp lười từ CDN jsDelivr — app tải file dữ liệu của gói và tự trích xuất mảng màu) và khớp màu gần nhất bằng thuật toán <b>CIEDE2000</b> trong không gian Lab tự cài — đây là khớp thuật toán từ dữ liệu cộng đồng, không phải tra cứu Pantone chính hãng
+    <br>· <b>Xem trước màu khi in (Bước 5) + kiểm tra trước in (Bước 7)</b> → tự dựng ngay trong app: mô phỏng RGB→CMYK→RGB cơ bản (kèm dot gain + giới hạn tổng mực 300%) và preflight đo DPI hiệu dụng / pixel thừa gần trong suốt / vùng gần trắng / dung lượng PNG ước lượng trên chính art hiện tại
     <br>· <b>Chuyển chữ thành đường nét (Xưởng sáng tạo, khi áp dụng)</b> → <b>opentype.js</b> + file font WOFF của đúng font Google Fonts đang chọn (qua gói @fontsource trên jsDelivr) — chữ thành hình vẽ, in không phụ thuộc font máy xưởng; lỗi thì áp dụng chữ dạng text thường
     <br>Thư viện nào tải không được (mất mạng / CDN lỗi), app báo rõ ngay tại tính năng đó và tự dùng cách dự phòng nếu có — các bước còn lại không bị ảnh hưởng.</div>
 
@@ -994,6 +1093,37 @@ input[type=text].txtin,input[type=url].txtin{width:100%;padding:11px;border:1px 
       <input type="file" id="edImgFile" accept="image/*" style="display:none">
       <button class="btn btn-dark" id="btnEdAddImg" type="button">Chọn ảnh phụ (logo / sticker)…</button>
 
+      <p class="subhead">Thêm lớp QR <span class="libtag">thư viện: qrcode-generator</span></p>
+      <p class="hint">Nhập nội dung / link (link shop, Instagram, trang sản phẩm…), chọn màu QR và mức sửa lỗi rồi bấm “Thêm lớp QR” — QR được vẽ nét ở độ phân giải cao rồi vào khung như <b>1 lớp ảnh bình thường</b>: kéo / resize / xoay / ẩn hiện / nhân bản / áp dụng vào art ở độ phân giải đầy đủ như mọi lớp ảnh khác. Mức sửa lỗi càng cao, QR càng chịu được che khuất / bẩn khi in nhưng ô càng dày.</p>
+      <label class="f" for="edQrText">Nội dung / link của QR</label>
+      <input type="text" class="txtin" id="edQrText" placeholder="VD: https://www.instagram.com/shop-cua-ban">
+      <div class="grid2">
+        <div><label class="f">Màu QR &amp; nền</label>
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+            <input type="color" class="ed-color" id="edQrColor" value="#171713" aria-label="Màu ô QR">
+            <span class="hint" style="margin:0">màu ô QR — nền QR luôn trắng để máy quét đọc được</span>
+          </div></div>
+        <div><label class="f" for="edQrEc">Mức sửa lỗi</label>
+          <select id="edQrEc">
+            <option value="L">L — nhẹ (~7%)</option>
+            <option value="M" selected>M — vừa (~15%)</option>
+            <option value="Q">Q — cao (~25%)</option>
+            <option value="H">H — cao nhất (~30%)</option>
+          </select></div>
+      </div>
+      <div class="ed-sel-tools">
+        <button class="btn btn-dark" id="btnEdAddQr" type="button">Thêm lớp QR</button>
+      </div>
+
+      <p class="subhead">Thêm lớp mã vạch <span class="libtag">thư viện: JsBarcode · chuẩn CODE128</span></p>
+      <p class="hint">Nhập chuỗi cần in mã vạch (mã sản phẩm, SKU, số đơn…) — app vẽ mã vạch <b>CODE128</b> bằng JsBarcode, kèm dòng chữ của chuỗi ngay dưới vạch. Lớp mã vạch vào khung như 1 lớp ảnh bình thường, thao tác như lớp QR ở trên. CODE128 nhận chữ / số / ký tự ASCII thông dụng; chuỗi quá dài sẽ làm vạch rất rộng.</p>
+      <label class="f" for="edBarcodeText">Chuỗi mã vạch (CODE128)</label>
+      <input type="text" class="txtin" id="edBarcodeText" placeholder="VD: POD-2026-0001">
+      <div class="ed-sel-tools">
+        <button class="btn btn-dark" id="btnEdAddBarcode" type="button">Thêm lớp mã vạch</button>
+      </div>
+      <p class="hint" id="edCodeStatus">Lớp QR / mã vạch dùng thư viện qrcode-generator và JsBarcode — cả hai <b>nạp lười từ CDN (jsDelivr) ngay khi bấm nút thêm lớp</b>; tải không được, app báo đỏ tại đây và editor vẫn dùng bình thường.</p>
+
       <p class="subhead">Lớp đang chọn <span class="libtag">Transformer: Konva · Khung phụ: Moveable</span></p>
       <p class="hint" id="edSelInfo">Chưa chọn lớp nào — bấm vào 1 lớp trên khung vẽ hoặc nút “Chọn” trong danh sách lớp bên dưới.</p>
       <div style="max-width:420px"><label class="f">Độ mờ lớp (opacity) <span id="edOpacityVal">100%</span></label><input type="range" id="edOpacity" min="10" max="100" value="100"></div>
@@ -1015,12 +1145,24 @@ input[type=text].txtin,input[type=url].txtin{width:100%;padding:11px;border:1px 
       </div>
       <p class="hint" id="edStatus">“Áp dụng vào art” gộp toàn bộ lớp thành 1 ảnh ở độ phân giải đầy đủ của art hiện tại rồi đặt làm art chính — bước 5, 6, 7 dùng ngay bản đó. “Hoàn tác áp dụng” đưa art chính về đúng bản trước lần áp dụng gần nhất (các lớp trong editor vẫn giữ nguyên để sửa tiếp).</p>
     </div>
+
+    <p class="subhead">Xuất PSD theo lớp <span class="libtag">thư viện: ag-psd</span></p>
+    <p class="hint">Tạo file <b>.psd</b> gồm <b>lớp nền là art hiện tại</b> cộng <b>mỗi lớp chữ / ảnh phụ / QR / mã vạch trong editor thành 1 lớp riêng</b> (đúng tên lớp như trong danh sách lớp ở trên), để gửi xưởng in mở bằng Photoshop chỉnh tiếp. Chưa mở editor hoặc chưa có lớp nào thì vẫn xuất được PSD chỉ gồm 1 lớp art. <b>Ghi rõ: PSD xuất ra gồm các lớp RASTER (ảnh đã kết xuất ở độ phân giải đầy đủ của art) — không phải chữ sống / text layer chỉnh sửa được như khi gõ chữ trực tiếp trong Photoshop</b>; muốn sửa nội dung chữ, hãy sửa trong editor này rồi xuất lại PSD. Art càng lớn, file PSD càng nặng và càng mất thời gian dựng.</p>
+    <div class="row" style="max-width:520px">
+      <button class="btn btn-dark" id="btnEdPsd" type="button">Xuất PSD theo lớp</button>
+    </div>
+    <p class="hint" id="edPsdStatus">Chưa xuất PSD trong phiên này. Thư viện ag-psd nạp lười từ CDN (jsDelivr) khi bấm nút; tải không được, app báo đỏ tại đây và mọi tính năng khác không bị ảnh hưởng.</p>
   </section>
 
   <!-- BƯỚC 6: MOCKUP -->
   <section class="panel">
     <div class="panel-head"><div class="num">6</div><div><h2>Mockup xem trước trên áo trơn</h2><p>Chỉ để hình dung vị trí và độ phủ của ảnh trên mặt trước áo — file in vẫn là ảnh 2D ở bước 7.</p></div></div>
-    <div class="swatches"><span class="hint" style="font-weight:700;color:var(--ink)">Màu áo:</span><span id="shirtSwatches"></span></div>
+    <div class="seg small" role="group" aria-label="Chế độ mockup" style="max-width:560px">
+      <button id="mkModeFlat" class="on">Mockup phẳng (áo trơn vẽ sẵn)</button>
+      <button id="mkModeFabric">Mockup nếp vải (thử nghiệm)</button>
+    </div>
+    <div id="mockFlat">
+    <div class="swatches" style="margin-top:12px"><span class="hint" style="font-weight:700;color:var(--ink)">Màu áo:</span><span id="shirtSwatches"></span></div>
     <div class="mock-wrap">
       <svg id="mockSvg" width="300" height="300" viewBox="0 0 260 260" role="img" aria-label="Mockup áo thun mặt trước">
         <defs><clipPath id="frontClip"><path d="M92 28 L58 40 L22 84 L52 104 L66 88 L66 232 Q66 242 76 242 L184 242 Q194 242 194 232 L194 88 L208 104 L238 84 L202 40 L168 28 Q156 52 130 52 Q104 52 92 28 Z"/></clipPath></defs>
@@ -1030,12 +1172,37 @@ input[type=text].txtin,input[type=url].txtin{width:100%;padding:11px;border:1px 
       </svg>
     </div>
     <p class="hint" style="text-align:center">Ảnh được phủ tràn từ dưới cổ xuống gần lai áo, đúng tinh thần in tràn mặt trước.</p>
+    </div>
+    <div id="mockFabric" style="display:none">
+      <p class="subhead">Mockup nếp vải (thử nghiệm) <span class="libtag">thư viện: PixiJS · DisplacementFilter</span></p>
+      <p class="hint">Nạp <b>1 ảnh áo thật</b> (ảnh chụp áo trơn có nếp gấp / bóng vải tự nhiên). App lấy <b>bản xám của chính ảnh áo</b> làm bản đồ displacement cho <b>DisplacementFilter của PixiJS</b> để uốn art theo nếp vải, đồng thời <b>nhân (multiply) lớp shading trích từ độ sáng của ảnh áo</b> lên trên art để art ăn theo nếp gấp và bóng vải. <b>Đây là chế độ thử nghiệm</b> — kết quả phụ thuộc rất nhiều vào ảnh áo đầu vào: áo càng phẳng, sáng đều, chụp thẳng mặt trước thì mockup càng đẹp; ảnh áo nghiêng / tối / nếp gấp mạnh sẽ cho kết quả kém trung thực hơn. Mockup này chỉ để xem trước, file in vẫn là ảnh 2D ở bước 7.</p>
+      <input type="file" id="fabricFile" accept="image/*" style="display:none">
+      <div class="row" style="max-width:520px">
+        <button class="btn btn-dark" id="btnFabricPick" type="button">Nạp ảnh áo thật…</button>
+        <button class="btn btn-light" id="btnFabricRebuild" type="button" disabled>Làm mới mockup nếp vải</button>
+      </div>
+      <div class="grid2" style="margin-top:4px">
+        <div><label class="f">Cường độ uốn theo nếp vải <span id="fabricDispVal">22</span></label><input type="range" id="fabricDisp" min="0" max="60" value="22"></div>
+        <div><label class="f">Cỡ art trên áo <span id="fabricSizeVal">62%</span></label><input type="range" id="fabricSize" min="25" max="95" value="62"></div>
+        <div><label class="f">Độ đậm shading (bóng vải) <span id="fabricShadeVal">55%</span></label><input type="range" id="fabricShade" min="0" max="100" value="55"></div>
+      </div>
+      <div id="pixiWrap" style="margin-top:10px"><p class="hint" style="margin:0">Chưa nạp ảnh áo thật — bấm “Nạp ảnh áo thật…” ở trên. PixiJS sẽ tự tải từ CDN (jsDelivr) khi bạn chuyển sang chế độ này; tải không được, app báo rõ tại đây và mockup phẳng ở trên vẫn dùng bình thường.</p></div>
+      <p class="hint" id="fabricStatus">Chế độ nếp vải chưa chạy. Art đặt ở vùng ngực áo (giữa chiều ngang, từ khoảng 1/6 chiều cao ảnh trở xuống) — ảnh áo chụp thẳng, art nằm giữa thân áo là khớp nhất.</p>
+    </div>
   </section>
 
   <!-- BƯỚC 7: XUẤT FILE -->
   <section class="panel">
     <div class="panel-head"><div class="num">7</div><div><h2>Xuất 1 file in 2D khổ lớn</h2><p>Một file duy nhất, 300 DPI thật (đã nhúng thông số DPI vào file), kèm file .txt hồ sơ ghi kết quả kiểm tra watermark + prompt đã dùng.</p></div></div>
-    <p class="subhead" style="margin-top:0">Khổ xuất</p>
+    <p class="subhead" style="margin-top:0">Kiểm tra trước in (preflight)</p>
+    <p class="hint">Bấm nút để app đo trên <b>art hiện tại</b> + <b>khổ in đã chọn</b> ở dưới: DPI hiệu dụng, pixel thừa gần trong suốt quanh art, tỉ lệ vùng gần trắng (dễ mất chi tiết trên áo trắng) và dung lượng file PNG ước lượng. Kết quả hiện dạng danh sách <b>Đạt / Cảnh báo / Lỗi kèm con số đo thật</b>. Preflight <b>chỉ cảnh báo, không khoá xuất file</b> — và kết quả kiểm tra gần nhất sẽ được ghi vào file .txt hồ sơ khi bạn xuất file.</p>
+    <div class="row" style="max-width:420px">
+      <button class="btn btn-dark" id="btnPreflight" type="button">Kiểm tra trước in</button>
+    </div>
+    <p class="hint" id="preflightStatus">Chưa chạy kiểm tra trước in trong phiên này.</p>
+    <div id="preflightList" style="max-width:760px"></div>
+    <div style="height:10px"></div>
+    <p class="subhead">Khổ xuất</p>
     <div class="size-grid" id="sizeGrid">
       <button class="size-card on" data-w="4500" data-h="5400"><strong>4500 × 5400 px</strong><small>38,1 × 45,7 cm @ 300 DPI — khổ chuẩn tràn mặt trước</small></button>
       <button class="size-card" data-w="5000" data-h="5400"><strong>5000 × 5400 px</strong><small>42,3 × 45,7 cm @ 300 DPI — áo oversize / khổ rộng</small></button>
@@ -1048,6 +1215,9 @@ input[type=text].txtin,input[type=url].txtin{width:100%;padding:11px;border:1px 
       <div class="spec"><span>Prompt kèm theo</span><b id="specPrompt">Chưa có prompt</b></div>
       <div class="spec"><span>Codec mã hoá file</span><b>jSquash — MozJPEG cho JPG · OxiPNG tối ưu lossless cho PNG (nạp lười từ CDN jsDelivr khi bấm xuất; lỗi thì tự dự phòng codec canvas mặc định)</b></div>
       <div class="spec"><span>EXIF DPI (chỉ JPG)</span><b>piexifjs — chèn EXIF XResolution / YResolution = 300, ResolutionUnit = inch (PNG giữ DPI 300 bằng chunk pHYs như trước)</b></div>
+      <div class="spec"><span>Đóng gói cả bộ (.zip)</span><b>JSZip — 1 file ZIP gồm PNG + JPG + file .txt hồ sơ ở khổ in đã chọn, kèm file SVG (và bản SVG đã tối ưu nếu đã tạo) khi đã vector hoá ở bước 5 (nạp lười từ CDN jsDelivr khi bấm nút ZIP)</b></div>
+      <div class="spec"><span>Xuất PDF in ấn</span><b>pdf-lib — PDF 1 trang, kích thước trang đúng bằng kích thước in thật của khổ đã chọn (px ở 300 DPI đổi sang point: point = inch × 72), ảnh art phủ đầy trang (nạp lười từ CDN jsDelivr khi bấm nút PDF)</b></div>
+      <div class="spec"><span>Kiểm tra trước in</span><b>Preflight tự dựng ngay trong app — DPI hiệu dụng, pixel thừa gần trong suốt, vùng gần trắng, dung lượng PNG ước lượng; chỉ cảnh báo, không khoá xuất, kết quả gần nhất ghi vào file .txt hồ sơ</b></div>
     </div>
     <div style="height:12px"></div>
     <div class="repbox warn" id="exportGateNote" style="display:none"></div>
@@ -1056,6 +1226,16 @@ input[type=text].txtin,input[type=url].txtin{width:100%;padding:11px;border:1px 
       <button class="btn btn-accent" id="btnExportPng" disabled>Tải file IN — PNG 300 DPI</button>
       <button class="btn btn-dark" id="btnExportJpg" disabled>Tải file IN — JPG 300 DPI</button>
     </div>
+    <div class="row">
+      <button class="btn btn-dark" id="btnExportZip" disabled>Xuất cả bộ (.zip) — JSZip</button>
+      <button class="btn btn-outline" id="btnExportPdf" disabled>Tải file IN — PDF 300 DPI (pdf-lib)</button>
+    </div>
+    <div class="loadbox" id="zipLoadBox" style="display:none">
+      <div class="loadbar"><div class="loadfill" id="zipLoadFill"></div></div>
+      <div class="loadrow"><span id="zipLoadTxt">Đang chuẩn bị…</span></div>
+    </div>
+    <p class="hint" id="zipStatus" style="margin-top:10px">Bộ ZIP dùng <b>JSZip</b> (nạp lười từ CDN jsDelivr khi bấm “Xuất cả bộ”): đóng gói PNG + JPG + file .txt hồ sơ ở khổ in đã chọn vào 1 file .zip duy nhất, kèm file SVG (và bản SVG đã tối ưu nếu đã tạo ở bước 5) khi đã có vector hoá. Nút ZIP bị khoá bởi cổng watermark giống các nút xuất khác — chỉ bấm được khi bước watermark đã sạch hoặc đã xác nhận soi tay.</p>
+    <p class="hint" id="pdfStatus" style="margin-top:10px">File PDF dùng <b>pdf-lib</b> (nạp lười từ CDN jsDelivr khi bấm nút PDF): PDF 1 trang với kích thước trang đúng bằng kích thước in thật của khổ đã chọn, ảnh art (bản JPG đã mã hoá ở bước này) phủ đầy trang — hợp gửi thẳng cho xưởng in chuộng PDF. Lần xuất PDF sẽ được ghi vào file .txt hồ sơ tải kèm, kèm kích thước trang.</p>
     <div class="success" id="okMsg"></div>
     <p class="hint" id="exportCodecStatus" style="margin-top:10px">Codec lần xuất gần nhất: chưa xuất file trong phiên này. Mỗi lần bấm xuất, app nạp lười <b>jSquash</b> (MozJPEG cho JPG / OxiPNG cho PNG) và <b>piexifjs</b> (EXIF DPI cho JPG) từ CDN jsDelivr — dòng này sẽ ghi rõ lần xuất đó dùng codec nào, có chèn EXIF DPI hay không; CDN / WASM lỗi thì app tự dùng codec canvas mặc định và vẫn xuất file bình thường.</p>
     <p class="hint" style="margin-top:10px">Tên file in mang theo khổ + prompt rút gọn; một file <b>.txt</b> hồ sơ cùng tên sẽ tải kèm, ghi kết quả kiểm tra watermark trước / sau (kèm thời gian), codec đã dùng + trạng thái EXIF, và nguyên văn prompt để lưu hồ sơ hoặc dùng lại. Ảnh gốc nhỏ phóng lên khổ lớn sẽ mềm hơn ảnh gốc lớn — đó là giới hạn vật lý của ảnh nguồn, app không tạo thêm chi tiết không có thật.</p>
@@ -1103,7 +1283,14 @@ var LIBS={
   chroma:{url:"https://cdn.jsdelivr.net/npm/chroma-js@2.4.2/chroma.min.js",check:function(){return typeof window.chroma!=="undefined"}},
   imageq:{url:"https://cdn.jsdelivr.net/npm/image-q@1.1.1/dist/iq.js",check:function(){return typeof window.iq!=="undefined"&&!!(window.iq.utils&&window.iq.palette&&window.iq.image)}},
   opentype:{url:"https://cdn.jsdelivr.net/npm/opentype.js@1.3.4/dist/opentype.min.js",check:function(){return typeof window.opentype!=="undefined"&&typeof window.opentype.parse==="function"}},
-  potrace:{url:"https://cdn.jsdelivr.net/gh/kilobtye/potrace@master/potrace.js",check:function(){return typeof window.Potrace!=="undefined"&&typeof window.Potrace.process==="function"}}
+  potrace:{url:"https://cdn.jsdelivr.net/gh/kilobtye/potrace@master/potrace.js",check:function(){return typeof window.Potrace!=="undefined"&&typeof window.Potrace.process==="function"}},
+  localforage:{url:"https://cdn.jsdelivr.net/npm/localforage@1.10.0/dist/localforage.min.js",check:function(){return typeof window.localforage!=="undefined"&&typeof window.localforage.createInstance==="function"}},
+  jszip:{url:"https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js",check:function(){return typeof window.JSZip!=="undefined"&&typeof window.JSZip==="function"}},
+  pdflib:{url:"https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js",check:function(){return typeof window.PDFLib!=="undefined"&&typeof window.PDFLib.PDFDocument!=="undefined"}},
+  qrcodegen:{url:"https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js",check:function(){return typeof window.qrcode==="function"}},
+  jsbarcode:{url:"https://cdn.jsdelivr.net/npm/jsbarcode@3.12.3/dist/JsBarcode.all.min.js",check:function(){return typeof window.JsBarcode==="function"}},
+  agpsd:{url:"https://cdn.jsdelivr.net/npm/ag-psd@33.0.0/dist/bundle.js",check:function(){return typeof window.agPsd!=="undefined"&&typeof window.agPsd.writePsdBuffer==="function"}},
+  pixi:{url:"https://cdn.jsdelivr.net/npm/pixi.js@7.4.3/dist/pixi.min.js",check:function(){return typeof window.PIXI!=="undefined"&&!!((window.PIXI.filters&&window.PIXI.filters.DisplacementFilter)||window.PIXI.DisplacementFilter)}}
 };
 var libState={}, libPromises={};
 function loadLib(key){
@@ -1783,6 +1970,7 @@ function scheduleRender(){clearTimeout(renderTimer);renderTimer=setTimeout(rende
 function updateMockup(processed){
   var img=$("mockImg");
   try{img.setAttribute("href",processed.toDataURL("image/png"));img.style.display=""}catch(e){}
+  try{fabricOnArt(processed)}catch(e){}
 }
 /* shirt colours */
 var SHIRTS=[{n:"Trắng",c:"#ffffff"},{n:"Đen",c:"#1b1b1b"},{n:"Xám",c:"#9a9a97"},{n:"Xanh navy",c:"#26324d"},{n:"Be",c:"#e6dcc8"}];
@@ -1795,6 +1983,162 @@ SHIRTS.forEach(function(s,i){
   };
   swWrap.appendChild(b);
 });
+
+/* ================= ĐỢT 6 · MOCKUP NẾP VẢI (PixiJS — THỬ NGHIỆM) =================
+   Người dùng nạp 1 ảnh áo thật: app lấy BẢN XÁM của chính ảnh áo làm displacement map cho
+   DisplacementFilter của PixiJS (uốn art theo nếp vải), đồng thời nhân lớp shading trích từ
+   độ sáng của ảnh áo (blend multiply, cắt đúng khung art) lên trên art để art ăn theo nếp gấp
+   và bóng vải. PixiJS nạp lười qua loadLib() khi chuyển sang chế độ này; tải lỗi -> báo đỏ tại
+   panel và mockup phẳng vẫn dùng bình thường. Art đổi ở bước 5 -> texture art được thay tại chỗ
+   (không dựng lại cả scene) qua fabricOnArt() được gọi từ updateMockup(). */
+var fabric={on:false,ready:false,app:null,shirtImg:null,grayCanvas:null,artSprite:null,dispSprite:null,shadeSprite:null,shadeMask:null,filter:null,lastArt:null,stageW:0,stageH:0};
+function fabricSetStatus(msg,kind){setLibStatus($("fabricStatus"),msg,kind)}
+function fabricSetMode(on){
+  fabric.on=!!on;
+  $("mkModeFlat").classList.toggle("on",!fabric.on);
+  $("mkModeFabric").classList.toggle("on",fabric.on);
+  $("mockFlat").style.display=fabric.on?"none":"";
+  $("mockFabric").style.display=fabric.on?"block":"none";
+  if(fabric.app&&fabric.app.ticker){try{fabric.on?fabric.app.ticker.start():fabric.app.ticker.stop()}catch(e){}}
+  if(fabric.on){
+    if(libState.pixi==="error"){delete libPromises.pixi; delete libState.pixi}
+    fabricSetStatus("Đang tải thư viện PixiJS từ CDN (jsDelivr)…","");
+    loadLib("pixi").then(function(ok){
+      if(!ok){
+        fabricSetStatus("✗ Không tải được PixiJS từ CDN (jsDelivr) — mockup nếp vải không chạy được trong lần này. Kiểm tra kết nối mạng rồi bấm lại chế độ “Mockup nếp vải” để thử tải lại; mockup phẳng vẫn dùng bình thường.","err");
+        return;
+      }
+      fabric.ready=true;
+      if(fabric.shirtImg)fabricBuild();
+      else fabricSetStatus("✓ Đã tải xong PixiJS. Nạp 1 ảnh áo thật ở trên để xem mockup nếp vải — nhớ đây là chế độ thử nghiệm, kết quả phụ thuộc nhiều vào ảnh áo đầu vào.","ok");
+    });
+  }
+}
+$("mkModeFlat").onclick=function(){fabricSetMode(false)};
+$("mkModeFabric").onclick=function(){fabricSetMode(true)};
+$("btnFabricPick").onclick=function(){$("fabricFile").click()};
+$("fabricFile").addEventListener("change",function(){
+  var f=$("fabricFile").files&&$("fabricFile").files[0]; $("fabricFile").value="";
+  if(!f)return;
+  if(!/^image\//.test(f.type||"")){fabricSetStatus("File chọn không phải ảnh — hãy chọn ảnh chụp áo thật (JPG / PNG).","err");return}
+  var url=URL.createObjectURL(f);
+  var img=new Image();
+  img.onload=function(){
+    try{URL.revokeObjectURL(url)}catch(e){}
+    fabric.shirtImg=img; fabric.grayCanvas=null;
+    $("btnFabricRebuild").disabled=false;
+    if(fabric.ready)fabricBuild();
+    else fabricSetStatus("Đã nạp ảnh áo ("+img.width+" × "+img.height+" px) — PixiJS đang tải, xong sẽ tự dựng mockup nếp vải.","");
+  };
+  img.onerror=function(){try{URL.revokeObjectURL(url)}catch(e){} fabricSetStatus("Không đọc được file ảnh áo này — thử file JPG / PNG khác.","err")};
+  img.src=url;
+});
+$("btnFabricRebuild").onclick=function(){
+  if(!fabric.shirtImg){fabricSetStatus("Chưa có ảnh áo thật — bấm “Nạp ảnh áo thật…” trước đã.","err");return}
+  if(!fabric.ready){fabricSetStatus("PixiJS chưa tải xong — chờ thông báo tải xong rồi bấm lại.","err");return}
+  fabricBuild();
+};
+["fabricDisp","fabricSize","fabricShade"].forEach(function(id){
+  $(id).addEventListener("input",function(){
+    $("fabricDispVal").textContent=$("fabricDisp").value;
+    $("fabricSizeVal").textContent=$("fabricSize").value+"%";
+    $("fabricShadeVal").textContent=$("fabricShade").value+"%";
+    fabricApplyParams();
+  });
+});
+function fabricGrayCanvas(img,w,h){
+  var c=mkCanvas(w,h), x=c.getContext("2d");
+  x.drawImage(img,0,0,w,h);
+  var d=x.getImageData(0,0,w,h), dd=d.data;
+  for(var i=0;i<dd.length;i+=4){
+    var lum=Math.round(dd[i]*0.299+dd[i+1]*0.587+dd[i+2]*0.114);
+    dd[i]=lum; dd[i+1]=lum; dd[i+2]=lum; dd[i+3]=255;
+  }
+  x.putImageData(d,0,0);
+  return c;
+}
+function fabricArtCanvas(){
+  if(fabric.lastArt)return fabric.lastArt;
+  if(!srcImg)return null;
+  try{return getArtCanvas(900)}catch(e){return null}
+}
+function fabricOnArt(processed){
+  fabric.lastArt=processed;
+  if(!fabric.on||!fabric.ready||!fabric.shirtImg)return;
+  if(fabric.app&&fabric.artSprite){
+    try{
+      var old=fabric.artSprite.texture;
+      fabric.artSprite.texture=new window.PIXI.Texture(new window.PIXI.BaseTexture(processed));
+      if(old&&old.destroy)old.destroy(true);
+      fabricApplyParams();
+    }catch(e){}
+  }else if(!fabric.app){
+    fabricBuild();
+  }
+}
+function fabricBuild(){
+  if(!window.PIXI||!fabric.shirtImg)return;
+  var art=fabricArtCanvas();
+  if(!art){fabricSetStatus("Chưa có art để đặt lên áo — nạp ảnh ở bước 1 và cắt vùng in ở bước 2 trước; mockup nếp vải dùng đúng art đang hiển thị ở bước 5.","err");return}
+  try{
+    var img=fabric.shirtImg;
+    var sc=Math.min(1,680/img.width,680/img.height);
+    var W=Math.max(160,Math.round(img.width*sc)), H=Math.max(160,Math.round(img.height*sc));
+    fabric.stageW=W; fabric.stageH=H;
+    if(fabric.app){try{fabric.app.destroy(true,{children:true})}catch(e){} fabric.app=null}
+    $("pixiWrap").innerHTML="";
+    var app=new window.PIXI.Application({width:W,height:H,antialias:true,backgroundColor:0xe9e7e0});
+    $("pixiWrap").appendChild(app.view);
+    fabric.app=app;
+    var bg=new window.PIXI.Sprite(window.PIXI.Texture.from(img));
+    bg.width=W; bg.height=H;
+    app.stage.addChild(bg);
+    if(!fabric.grayCanvas||fabric.grayCanvas.width!==W||fabric.grayCanvas.height!==H)fabric.grayCanvas=fabricGrayCanvas(img,W,H);
+    var grayTex=window.PIXI.Texture.from(fabric.grayCanvas);
+    var disp=new window.PIXI.Sprite(grayTex);
+    disp.width=W; disp.height=H; disp.renderable=false;
+    app.stage.addChild(disp);
+    fabric.dispSprite=disp;
+    var artSprite=new window.PIXI.Sprite(new window.PIXI.Texture(new window.PIXI.BaseTexture(art)));
+    app.stage.addChild(artSprite);
+    fabric.artSprite=artSprite;
+    var DF=(window.PIXI.filters&&window.PIXI.filters.DisplacementFilter)||window.PIXI.DisplacementFilter;
+    var filter=new DF(disp,parseFloat($("fabricDisp").value)||0);
+    artSprite.filters=[filter];
+    fabric.filter=filter;
+    var shade=new window.PIXI.Sprite(grayTex);
+    shade.width=W; shade.height=H;
+    shade.blendMode=window.PIXI.BLEND_MODES.MULTIPLY;
+    app.stage.addChild(shade);
+    fabric.shadeSprite=shade;
+    var mask=new window.PIXI.Graphics();
+    app.stage.addChild(mask);
+    shade.mask=mask;
+    fabric.shadeMask=mask;
+    fabricApplyParams();
+    fabricSetStatus("✓ Mockup nếp vải đang hiển thị (PixiJS): art được uốn theo bản xám của ảnh áo bằng DisplacementFilter và nhân shading multiply từ độ sáng ảnh áo. Kéo thanh “Cường độ uốn” / “Cỡ art” / “Độ đậm shading” để chỉnh. Nhắc lại: đây là bản thử nghiệm — ảnh áo càng phẳng, sáng đều, chụp thẳng thì càng đẹp.","ok");
+  }catch(e){
+    fabricSetStatus("✗ Dựng mockup nếp vải lỗi: "+(((e&&e.message)||e)||"lỗi không rõ")+" — thử ảnh áo khác (nhỏ hơn, chụp thẳng mặt trước) hoặc quay lại mockup phẳng.","err");
+  }
+}
+function fabricApplyParams(){
+  if(!fabric.app||!fabric.artSprite||!fabric.artSprite.texture)return;
+  var W=fabric.stageW, H=fabric.stageH, tex=fabric.artSprite.texture;
+  var targetW=W*(parseFloat($("fabricSize").value)||62)/100;
+  var s=targetW/Math.max(1,tex.width);
+  fabric.artSprite.scale.set(s,s);
+  var aw=tex.width*s, ah=tex.height*s;
+  fabric.artSprite.x=Math.round((W-aw)/2);
+  fabric.artSprite.y=Math.round(H*0.16);
+  if(fabric.filter){var v=parseFloat($("fabricDisp").value)||0; try{fabric.filter.scale.set(v,v)}catch(e){}}
+  if(fabric.shadeSprite)fabric.shadeSprite.alpha=(parseFloat($("fabricShade").value)||0)/100;
+  if(fabric.shadeMask){
+    var g=fabric.shadeMask;
+    g.clear(); g.beginFill(0xffffff);
+    g.drawRect(fabric.artSprite.x,fabric.artSprite.y,aw,ah);
+    g.endFill();
+  }
+}
 
 /* ================= SLIDERS ================= */
 [["sSmooth","vSmooth"],["sSharp","vSharp"],["sBright","vBright"],["sContrast","vContrast"],["sSat","vSat"],["sTemp","vTemp"],["sShadow","vShadow"],["sHigh","vHigh"],["sLine","vLine"],["sLevels","vLevels"]].forEach(function(pair){
@@ -2514,12 +2858,22 @@ function inpaintSync(work,mask){
   x.putImageData(img,0,0);
   return out;
 }
-/* --- chọn cách xoá: diffusion mặc định / OpenCV Telea --- */
+/* --- chọn cách xoá: diffusion mặc định / OpenCV Telea / LaMa (AI) --- */
 var wmInpaintMethod="diff";
-$("inpMethodDiff").onclick=function(){wmInpaintMethod="diff";$("inpMethodDiff").classList.add("on");$("inpMethodCv").classList.remove("on")};
+function setInpMethod(m){
+  wmInpaintMethod=m;
+  $("inpMethodDiff").classList.toggle("on",m==="diff");
+  $("inpMethodCv").classList.toggle("on",m==="cv");
+  $("inpMethodLama").classList.toggle("on",m==="lama");
+}
+$("inpMethodDiff").onclick=function(){setInpMethod("diff")};
 $("inpMethodCv").onclick=function(){
-  wmInpaintMethod="cv";$("inpMethodCv").classList.add("on");$("inpMethodDiff").classList.remove("on");
+  setInpMethod("cv");
   if(!cvState.ready)setLibStatus($("cvStatus"),"Đã chọn OpenCV — Telea. OpenCV.js sẽ tự tải (có thanh tiến độ + nút huỷ ở trên) ngay khi bạn bấm “Xoá vùng đã tô”.","");
+};
+$("inpMethodLama").onclick=function(){
+  setInpMethod("lama");
+  if(!lama.session)setLibStatus($("lamaStatus"),"Đã chọn LaMa (AI) — chất lượng cao nhất. Model LaMa ONNX (~198 MB) + onnxruntime-web sẽ tự tải lười (có thanh tiến độ % + MB và nút Huỷ ở trên) ngay khi bạn bấm “Xoá vùng đã tô” — các lần xoá sau chạy ngay, không tải lại.","");
 };
 /* --- hoàn tất sau khi xoá (dùng chung cho cả 2 cách xoá) --- */
 function finishInpaint(outC,engineLabel){
@@ -2551,8 +2905,8 @@ var wmWorkCtl=null;
 function setWmWork(show,pct,text){setLoad("wmWorkBox","wmWorkFill","wmWorkText",show,pct,text)}
 function wmThreadNoteRun(mode,extra){
   var el=$("wmThreadNote"); if(!el)return;
-  if(mode==="worker")el.innerHTML="Luồng xử lý: lần xoá gần nhất chạy trong <b>Web Worker (Comlink)</b> — giao diện vẫn thao tác được trong lúc xoá. OpenCV — Telea vẫn chạy ở luồng chính.";
-  else el.innerHTML="Luồng xử lý: lần xoá gần nhất chạy ở <b>luồng chính</b> (dự phòng)"+(extra?(" — "+escapeHtml(extra)):"")+". Lần xoá sau app vẫn ưu tiên Web Worker (Comlink); OpenCV — Telea chạy ở luồng chính.";
+  if(mode==="worker")el.innerHTML="Luồng xử lý: lần xoá gần nhất chạy trong <b>Web Worker (Comlink)</b> — giao diện vẫn thao tác được trong lúc xoá. OpenCV — Telea và LaMa (AI) chạy ở luồng chính.";
+  else el.innerHTML="Luồng xử lý: lần xoá gần nhất chạy ở <b>luồng chính</b> (dự phòng)"+(extra?(" — "+escapeHtml(extra)):"")+". Lần xoá sau app vẫn ưu tiên Web Worker (Comlink); OpenCV — Telea và LaMa (AI) chạy ở luồng chính.";
 }
 function runInpaintDiff(){
   return new Promise(function(resolve){
@@ -2602,6 +2956,17 @@ $("btnWmInpaint").onclick=function(){
     $("wmStatus").textContent="Đang chuẩn bị OpenCV.js để xoá bằng thuật toán Telea…";
     runInpaintOpenCv().then(function(outC){
       if(outC)finishInpaint(outC,"OpenCV — inpaint Telea (OpenCV.js)");
+      updateInpaintBtn();
+    },function(){
+      updateInpaintBtn();
+    });
+    return;
+  }
+  if(wmInpaintMethod==="lama"){
+    btn.disabled=true;
+    $("wmStatus").textContent="Đang chuẩn bị LaMa (AI) — model inpainting chạy ngay trong trình duyệt bằng onnxruntime-web; tiến độ tải + chạy hiện ở thanh LaMa ngay dưới phần chọn cách xoá…";
+    runInpaintLama().then(function(outC){
+      if(outC)finishInpaint(outC,"LaMa ONNX (AI inpainting)");
       updateInpaintBtn();
     },function(){
       updateInpaintBtn();
@@ -2784,6 +3149,197 @@ function runInpaintOpenCv(){
     }
   });
 }
+/* ================= LỘ TRÌNH GỘP ĐỢT 3 · XOÁ WATERMARK BẰNG LaMa (AI INPAINTING, ONNX) =================
+   Model LaMa bản ONNX chuẩn chạy qua onnxruntime-web (dùng chung runtime với Upscale AI / BiRefNet).
+   Đã kiểm chứng độc lập ngày 25/10/2026 bằng chính file model tải từ đúng URL dưới đây: chữ ký model là
+   đầu vào "image" float32 [1,3,512,512] (thang 0..1) + "mask" float32 [1,1,512,512] (1 = vùng cần lấp),
+   đầu ra thang 0..255, opset 17 chuẩn; chạy thử suy luận thật: vùng mặt nạ được lấp khớp màu / texture
+   của vùng biên xung quanh. LƯU Ý: file "lama.onnx" cùng repo là bản xuất TorchScript dùng toán tử
+   custom (aten) — onnxruntime-web KHÔNG chạy được, nên app chỉ dùng bản "lama_fp32.onnx"; nguồn 2 là
+   repo gương có hash SHA-256 trùng hệt bản chính (đã đối chiếu). Tiền xử lý giữ tỉ lệ: cắt vùng VUÔNG
+   quanh hộp bao mặt nạ + đệm lề ~75% làm ngữ cảnh (phần tràn ra ngoài ảnh lấp bằng kéo giãn pixel biên
+   như extendPad của Upscale AI — không bóp méo cả ảnh), resize vùng vuông đó về 512×512, chạy model,
+   phóng kết quả về vùng cắt rồi CHỈ ghép vào vùng mặt nạ trên ảnh gốc ở độ phân giải đầy đủ, biên mặt nạ
+   làm mềm ~2 px để không lộ ranh giới. Dùng chung mặt nạ hiện tại (tô tay + tự tô theo ô nghi ngờ),
+   chung khung so sánh trước / sau + nút quay lại và chung finishInpaint như 2 cách xoá còn lại. */
+var LAMA_SIZE=512;
+var LAMA_CANDIDATES=[
+  {label:"LaMa FP32 (Carve/LaMa-ONNX — Hugging Face)",url:"https://huggingface.co/Carve/LaMa-ONNX/resolve/main/lama_fp32.onnx"},
+  {label:"LaMa FP32 — nguồn gương hash trùng bản chính (IsGarrido/LaMa-ONNX — Hugging Face)",url:"https://huggingface.co/IsGarrido/LaMa-ONNX/resolve/main/lama_fp32.onnx"}
+];
+var lama={session:null,sessionPromise:null,ortPromise:null,modelLabel:"",cancelled:false,abort:null};
+function setLamaLoad(show,pct,text){setLoad("lamaLoadBox","lamaLoadFill","lamaLoadText",show,pct,text)}
+function loadOrtForLama(){
+  if(window.ort&&window.ort.InferenceSession)return Promise.resolve(true);
+  if(lama.ortPromise)return lama.ortPromise;
+  lama.ortPromise=(async function(){
+    try{
+      var buf=await fetchWithProgress(ORT_BASE+"ort.min.js",function(p){
+        if(p>=0)setLamaLoad(true,Math.round(p*6),"Đang tải onnxruntime-web… "+Math.round(p*100)+"%");
+      },lama.abort?lama.abort.signal:undefined);
+      await injectScriptBuf(buf);
+    }catch(e){
+      if(lama.cancelled)throw e;
+      await injectScriptUrl(ORT_BASE+"ort.min.js");
+    }
+    if(!(window.ort&&window.ort.InferenceSession))throw new Error("tải xong nhưng không thấy onnxruntime-web");
+    try{
+      window.ort.env.wasm.wasmPaths=ORT_BASE;
+      window.ort.env.wasm.numThreads=1;
+    }catch(e){}
+    return true;
+  })();
+  return lama.ortPromise;
+}
+function ensureLamaSession(){
+  if(lama.session)return Promise.resolve(lama.session);
+  if(lama.sessionPromise)return lama.sessionPromise;
+  lama.sessionPromise=(async function(){
+    await loadOrtForLama();
+    var errors=[];
+    for(var i=0;i<LAMA_CANDIDATES.length;i++){
+      if(lama.cancelled)throw new Error("__cancel__");
+      var cand=LAMA_CANDIDATES[i];
+      try{
+        setLamaLoad(true,8,"Đang tải model "+cand.label+"…");
+        var buf=await fetchWithProgress(cand.url,function(p,got,total){
+          if(p>=0)setLamaLoad(true,8+Math.round(p*54),"Đang tải model "+cand.label+" — "+Math.round(p*100)+"% ("+fmtMB(got)+(total?" / "+fmtMB(total):"")+")");
+          else setLamaLoad(true,34,"Đang tải model "+cand.label+" — đã nhận "+fmtMB(got));
+        },lama.abort?lama.abort.signal:undefined);
+        if(lama.cancelled)throw new Error("__cancel__");
+        setLamaLoad(true,64,"Đã tải model LaMa xong — đang khởi tạo phiên chạy (WASM)…");
+        var sess=await window.ort.InferenceSession.create(buf,{executionProviders:["wasm"],graphOptimizationLevel:"all"});
+        lama.session=sess; lama.modelLabel=cand.label;
+        return sess;
+      }catch(e){
+        if(lama.cancelled)throw e;
+        errors.push(cand.label+" → "+((e&&e.message)||"lỗi"));
+      }
+    }
+    throw new Error("không tải / chạy được model LaMa từ 2 nguồn đã kiểm chứng — "+errors.join(" · "));
+  })();
+  return lama.sessionPromise;
+}
+$("lamaCancel").onclick=function(){
+  lama.cancelled=true;
+  if(lama.abort)try{lama.abort.abort()}catch(e){}
+};
+function maskBBox(){
+  var w=wm.base.width, h=wm.base.height;
+  var d=wm.mask.getContext("2d").getImageData(0,0,w,h).data;
+  var minX=w, minY=h, maxX=-1, maxY=-1, x, y;
+  for(y=0;y<h;y++)for(x=0;x<w;x++){
+    if(d[(y*w+x)*4+3]>8){if(x<minX)minX=x; if(x>maxX)maxX=x; if(y<minY)minY=y; if(y>maxY)maxY=y}
+  }
+  if(maxX<0)return null;
+  return {x:minX,y:minY,w:maxX-minX+1,h:maxY-minY+1};
+}
+function runInpaintLama(){
+  lama.cancelled=false;
+  lama.abort=("AbortController" in window)?new AbortController():null;
+  return (async function(){
+    try{
+      var bb=maskBBox();
+      if(!bb)throw new Error("không tìm thấy vùng mặt nạ nào trên ảnh");
+      var session=await ensureLamaSession();
+      if(lama.cancelled)throw new Error("__cancel__");
+      var W=wm.base.width, H=wm.base.height;
+      /* vùng vuông quanh mặt nạ + đệm lề ngữ cảnh; phần tràn ngoài ảnh lấp bằng pixel biên (extendPad) */
+      var side=Math.ceil(Math.max(bb.w,bb.h)*1.75);
+      side=Math.max(side,Math.max(bb.w,bb.h)+32);
+      side=Math.min(side,2048);
+      var cx=bb.x+bb.w/2, cy=bb.y+bb.h/2;
+      var sx0=Math.round(cx-side/2), sy0=Math.round(cy-side/2);
+      var ix0=Math.max(0,sx0), iy0=Math.max(0,sy0), ix1=Math.min(W,sx0+side), iy1=Math.min(H,sy0+side);
+      var iw=ix1-ix0, ih=iy1-iy0, dx=ix0-sx0, dy=iy0-sy0;
+      var pad=Math.max(dx,dy,side-dx-iw,side-dy-ih,0);
+      var inter=mkCanvas(iw,ih);
+      inter.getContext("2d").drawImage(wm.base,ix0,iy0,iw,ih,0,0,iw,ih);
+      var padded=pad>0?extendPad(inter,pad):inter;
+      var cropC=mkCanvas(side,side), ccx=cropC.getContext("2d");
+      ccx.imageSmoothingEnabled=true; ccx.imageSmoothingQuality="high";
+      ccx.drawImage(padded,dx-pad,dy-pad);
+      var mInter=mkCanvas(iw,ih);
+      mInter.getContext("2d").drawImage(wm.mask,ix0,iy0,iw,ih,0,0,iw,ih);
+      var mPadded=pad>0?extendPad(mInter,pad):mInter;
+      var maskC=mkCanvas(side,side);
+      maskC.getContext("2d").drawImage(mPadded,dx-pad,dy-pad);
+      setLamaLoad(true,70,"Tiền xử lý: vùng cắt vuông "+side+"×"+side+" px quanh mặt nạ → resize "+LAMA_SIZE+"×"+LAMA_SIZE+" đúng chuẩn model…");
+      var img512=mkCanvas(LAMA_SIZE,LAMA_SIZE), igx=img512.getContext("2d");
+      igx.imageSmoothingEnabled=true; igx.imageSmoothingQuality="high";
+      igx.drawImage(cropC,0,0,LAMA_SIZE,LAMA_SIZE);
+      var msk512=mkCanvas(LAMA_SIZE,LAMA_SIZE), mgx=msk512.getContext("2d");
+      mgx.imageSmoothingEnabled=true; mgx.imageSmoothingQuality="high";
+      mgx.drawImage(maskC,0,0,LAMA_SIZE,LAMA_SIZE);
+      var idata=igx.getImageData(0,0,LAMA_SIZE,LAMA_SIZE).data;
+      var mdata=mgx.getImageData(0,0,LAMA_SIZE,LAMA_SIZE).data;
+      var n=LAMA_SIZE*LAMA_SIZE, ft=new Float32Array(n*3), mt=new Float32Array(n), i2;
+      for(i2=0;i2<n;i2++){
+        ft[i2]=idata[i2*4]/255; ft[i2+n]=idata[i2*4+1]/255; ft[i2+2*n]=idata[i2*4+2]/255;
+        mt[i2]=mdata[i2*4+3]>=128?1:0;
+      }
+      var names=session.inputNames||[], imgName=names[0], maskName=names[1], ni;
+      for(ni=0;ni<names.length;ni++){if(/mask/i.test(names[ni]))maskName=names[ni]; else imgName=names[ni]}
+      var feeds={};
+      feeds[imgName]=new window.ort.Tensor("float32",ft,[1,3,LAMA_SIZE,LAMA_SIZE]);
+      feeds[maskName]=new window.ort.Tensor("float32",mt,[1,1,LAMA_SIZE,LAMA_SIZE]);
+      setLamaLoad(true,78,"Đang chạy suy luận LaMa ("+lama.modelLabel+") — model AI nặng nên bước này có thể mất từ vài chục giây tới vài phút tuỳ máy…");
+      await new Promise(function(r){setTimeout(r,30)});
+      var res=await session.run(feeds);
+      if(lama.cancelled)throw new Error("__cancel__");
+      var outT=res[session.outputNames[0]];
+      if(!outT||!outT.data)throw new Error("LaMa chạy xong nhưng không có đầu ra hợp lệ");
+      var od=outT.dims, oh=od[od.length-2], ow=od[od.length-1], on=ow*oh, odata=outT.data;
+      if(!oh||!ow||odata.length<on*3)throw new Error("LaMa trả ảnh nhỏ hơn mong đợi ("+odata.length+" < "+(on*3)+")");
+      var omax=0, oi;
+      for(oi=0;oi<odata.length;oi+=613)if(odata[oi]>omax)omax=odata[oi];
+      var oscale=omax<=2?255:1; /* bản FP32 đã kiểm chứng trả thang 0..255; vẫn tự dò thang cho an toàn */
+      var out512=mkCanvas(ow,oh), ogx=out512.getContext("2d"), oimg=ogx.createImageData(ow,oh), od2=oimg.data, oj;
+      for(oj=0;oj<on;oj++){
+        od2[oj*4]=clamp(Math.round(odata[oj]*oscale),0,255);
+        od2[oj*4+1]=clamp(Math.round(odata[oj+on]*oscale),0,255);
+        od2[oj*4+2]=clamp(Math.round(odata[oj+2*on]*oscale),0,255);
+        od2[oj*4+3]=255;
+      }
+      ogx.putImageData(oimg,0,0);
+      setLamaLoad(true,92,"Đang ghép kết quả về ảnh gốc ở độ phân giải đầy đủ — chỉ trong vùng mặt nạ, biên làm mềm ~2 px…");
+      await new Promise(function(r){setTimeout(r,30)});
+      var filled=mkCanvas(side,side), fgx=filled.getContext("2d");
+      fgx.imageSmoothingEnabled=true; fgx.imageSmoothingQuality="high";
+      fgx.drawImage(out512,0,0,side,side);
+      /* mặt nạ mềm: lấy kênh alpha của mặt nạ, làm mờ nhẹ rồi dùng làm alpha khi ghép */
+      var feather=Math.max(1.5,side/256);
+      var softM=mkCanvas(side,side), sgx=softM.getContext("2d");
+      try{sgx.filter="blur("+feather+"px)"}catch(e){}
+      sgx.drawImage(maskC,0,0);
+      try{sgx.filter="none"}catch(e){}
+      var sdd=sgx.getImageData(0,0,side,side).data;
+      var alphaC=mkCanvas(side,side), agx=alphaC.getContext("2d"), aimg=agx.createImageData(side,side), ad=aimg.data, ak;
+      for(ak=0;ak<side*side;ak++){ad[ak*4]=255; ad[ak*4+1]=255; ad[ak*4+2]=255; ad[ak*4+3]=sdd[ak*4+3]}
+      agx.putImageData(aimg,0,0);
+      fgx.globalCompositeOperation="destination-in";
+      fgx.drawImage(alphaC,0,0);
+      fgx.globalCompositeOperation="source-over";
+      var outC=copyCanvas(wm.base);
+      outC.getContext("2d").drawImage(filled,sx0,sy0);
+      setLamaLoad(true,100,"✓ LaMa xoá xong.");
+      setTimeout(function(){setLamaLoad(false)},1000);
+      setLibStatus($("lamaStatus"),"✓ LaMa ("+lama.modelLabel+") đã chạy thật: vùng vuông "+side+"×"+side+" px quanh mặt nạ được đưa về 512×512 cho model, kết quả đã ghép lại đúng vùng mặt nạ trên ảnh gốc "+W+"×"+H+" px với biên làm mềm ~"+Math.max(2,Math.round(feather))+" px. So sánh ở khung trước / sau bên dưới, không ưng thì bấm “Quay lại bản trước khi xoá” rồi thử cách xoá khác trên cùng mặt nạ.","ok");
+      return outC;
+    }catch(err){
+      setLamaLoad(false);
+      if(lama.cancelled||(err&&err.message==="__cancel__")){
+        setLibStatus($("lamaStatus"),"Đã huỷ tải / chạy LaMa — ảnh chưa thay đổi. Bấm “Xoá vùng đã tô” để chạy lại, hoặc chuyển sang 2 cách xoá còn lại.","err");
+        $("wmStatus").textContent="Đã huỷ LaMa — ảnh chưa thay đổi.";
+      }else{
+        lama.sessionPromise=null; lama.ortPromise=null;
+        setLibStatus($("lamaStatus"),"✗ LaMa không chạy được: "+((err&&err.message)||"lỗi không rõ")+". Kiểm tra kết nối mạng (lần đầu phải tải onnxruntime-web + model LaMa ~198 MB từ Hugging Face) rồi bấm xoá lại — hoặc chuyển sang “Inpaint hiện tại (diffusion)” / “OpenCV — Telea” ở trên, hai cách đó vẫn dùng bình thường. Ảnh chưa thay đổi — app không giả vờ đã xoá khi model chưa chạy thật.","err");
+        $("wmStatus").textContent="LaMa lỗi — ảnh chưa thay đổi. Chuyển sang “Inpaint hiện tại (diffusion)” hoặc “OpenCV — Telea” rồi bấm xoá lại để tiếp tục.";
+      }
+      return null;
+    }
+  })();
+}
 function drawWmCompare(){
   var blk=$("wmCmpBlock"); if(!blk||!wm.beforeSnap||!wm.base)return;
   blk.style.display="block";
@@ -2813,9 +3369,11 @@ function updateExportGate(){
   else if(wm.before&&wm.before.count>0){why="Ảnh đang nghi có watermark ("+wm.before.count+" ô) — xoá ở bước 3 rồi kiểm tra lại, hoặc tích xác nhận soi tay (mục C)."}
   else{why="Đang chờ kết quả tự quét watermark ở bước 3 — app quét ngay khi vùng cắt ổn định và sẽ tự mở khoá nếu sạch; nếu chưa có kết quả, bấm “Quét lại watermark ngay” ở bước 3."}
   var en=!!srcImg&&open;
-  var bp=$("btnExportPng"), bj=$("btnExportJpg");
+  var bp=$("btnExportPng"), bj=$("btnExportJpg"), bz=$("btnExportZip"), bd=$("btnExportPdf");
   if(bp)bp.disabled=!en;
   if(bj)bj.disabled=!en;
+  if(bz)bz.disabled=!en;
+  if(bd)bd.disabled=!en;
   var note=$("exportGateNote");
   if(note){
     note.style.display=srcImg?"block":"none";
@@ -2854,7 +3412,7 @@ function extractPalette(auto){
         var pal=new window.ColorThief().getPalette(im,8);
         if(!pal||!pal.length)throw new Error("empty");
         renderPalette(pal);
-        setLibStatus(st,"✓ Đã trích "+pal.length+" màu chủ đạo bằng color-thief — bấm vào mã hex để sao chép, dùng phối màu áo / chữ cho khớp art.","ok");
+        setLibStatus(st,"✓ Đã trích "+pal.length+" màu chủ đạo bằng color-thief — mỗi màu kèm mã CMYK (tính bằng công thức chuẩn) và màu Pantone gần nhất (khớp bằng CIEDE2000); bấm vào mã hex / dòng CMYK / dòng Pantone để sao chép từng giá trị.","ok");
       }catch(e){if(!auto)setLibStatus(st,"color-thief chạy lỗi trên ảnh này — thử lại sau khi đổi vùng cắt.","err")}
     };
     im.onerror=function(){if(!auto)setLibStatus(st,"Không đọc được ảnh để trích màu.","err")};
@@ -2872,18 +3430,299 @@ function palSwatchBtn(hex){
   return b;
 }
 var lastPaletteHex=[];
+var lastPaletteRgb=[];
 function renderPalette(pal){
   var wrap=$("paletteRow"); if(!wrap)return;
   wrap.innerHTML="";
-  lastPaletteHex=[];
-  pal.forEach(function(rgb){
+  lastPaletteHex=[]; lastPaletteRgb=[];
+  pal.forEach(function(rgb,idx){
     var hex=rgbToHex(rgb[0],rgb[1],rgb[2]);
-    lastPaletteHex.push(hex);
-    wrap.appendChild(palSwatchBtn(hex));
+    lastPaletteHex.push(hex); lastPaletteRgb.push(rgb);
+    var card=document.createElement("div"); card.className="pal-card";
+    card.appendChild(palSwatchBtn(hex));
+    var cm=rgbToCmyk(rgb[0],rgb[1],rgb[2]);
+    var cmykStr="C "+cm.c+"% · M "+cm.m+"% · Y "+cm.y+"% · K "+cm.k+"%";
+    var cb=document.createElement("button"); cb.type="button"; cb.className="pal-mini"; cb.textContent=cmykStr;
+    cb.title="Mã CMYK của "+hex+" (tính từ RGB bằng công thức chuẩn) — bấm để sao chép";
+    cb.onclick=function(){
+      copyTextGeneric("CMYK "+cmykStr,function(){cb.textContent="Đã chép ✓";setTimeout(function(){cb.textContent=cmykStr},1400)},function(){cb.textContent="Chép tay: CMYK "+cmykStr});
+    };
+    card.appendChild(cb);
+    var pb=document.createElement("button"); pb.type="button"; pb.className="pal-mini pal-pantone"; pb.setAttribute("data-i",String(idx));
+    pb.textContent="Pantone ≈ …"; pb.disabled=true;
+    card.appendChild(pb);
+    wrap.appendChild(card);
   });
+  refreshPantoneLines();
   renderChromaSection();
 }
 $("btnPalette").onclick=function(){extractPalette(false)};
+
+/* ================= LỘ TRÌNH GỘP ĐỢT 5 · CMYK + PANTONE GẦN NHẤT + XEM TRƯỚC MÀU IN + PREFLIGHT =================
+   (1) CMYK tính từ RGB bằng công thức chuẩn ngay trong app. Pantone gần nhất: bộ dữ liệu cộng
+   đồng của nearest-pantone (gói npm nearest-pantone@1.0.1 — mảng dữ liệu nằm trong file
+   index.js của gói) nạp lười bằng fetch từ CDN jsDelivr, app trích xuất các mục {pantone,
+   name, hex} bằng biểu thức chính quy (mục nào hex lỗi định dạng thì tự bị bỏ qua), rồi khớp
+   màu gần nhất bằng thuật toán hiệu số màu CIEDE2000 trong không gian Lab tự cài ở dưới.
+   Đây là khớp thuật toán từ dữ liệu cộng đồng — KHÔNG phải tra cứu Pantone chính hãng.
+   (2) Xem trước màu khi in: mô phỏng vòng RGB→CMYK→RGB cơ bản + dot gain + giới hạn tổng mực.
+   (3) Preflight ở đầu bước 7: chỉ cảnh báo, không khoá xuất; kết quả gần nhất ghi vào .txt. */
+function hexToRgbArr(hex){var n=parseInt(String(hex).replace("#",""),16);return[(n>>16)&255,(n>>8)&255,n&255]}
+function rgbToCmyk(r,g,b){
+  var R=r/255,G=g/255,B=b/255,K=1-Math.max(R,G,B);
+  if(K>=0.9999)return{c:0,m:0,y:0,k:100};
+  return{
+    c:Math.round((1-R-K)/(1-K)*100),
+    m:Math.round((1-G-K)/(1-K)*100),
+    y:Math.round((1-B-K)/(1-K)*100),
+    k:Math.round(K*100)
+  };
+}
+function srgbLin(c){c/=255;return c<=0.04045?c/12.92:Math.pow((c+0.055)/1.055,2.4)}
+function rgbToLab(r,g,b){
+  var R=srgbLin(r),G=srgbLin(g),B=srgbLin(b);
+  var X=(R*0.4124+G*0.3576+B*0.1805)/0.95047, Y=R*0.2126+G*0.7152+B*0.0722, Z=(R*0.0193+G*0.1192+B*0.9505)/1.08883;
+  function f(t){return t>0.008856?Math.cbrt(t):7.787*t+16/116}
+  var fx=f(X),fy=f(Y),fz=f(Z);
+  return[116*fy-16,500*(fx-fy),200*(fy-fz)];
+}
+function ciede2000(l1,l2){
+  var rad=Math.PI/180;
+  var C1=Math.sqrt(l1[1]*l1[1]+l1[2]*l1[2]), C2=Math.sqrt(l2[1]*l2[1]+l2[2]*l2[2]);
+  var avgC=(C1+C2)/2, avgC7=Math.pow(avgC,7), P25_7=6103515625; /* 25^7 */
+  var G=0.5*(1-Math.sqrt(avgC7/(avgC7+P25_7)));
+  var a1p=l1[1]*(1+G), a2p=l2[1]*(1+G);
+  var C1p=Math.sqrt(a1p*a1p+l1[2]*l1[2]), C2p=Math.sqrt(a2p*a2p+l2[2]*l2[2]);
+  var h1p=Math.atan2(l1[2],a1p)/rad; if(h1p<0)h1p+=360;
+  var h2p=Math.atan2(l2[2],a2p)/rad; if(h2p<0)h2p+=360;
+  var avgCp=(C1p+C2p)/2, avgHp;
+  if(C1p*C2p===0)avgHp=h1p+h2p;
+  else if(Math.abs(h1p-h2p)<=180)avgHp=(h1p+h2p)/2;
+  else avgHp=(h1p+h2p<360)?(h1p+h2p+360)/2:(h1p+h2p-360)/2;
+  var T=1-0.17*Math.cos((avgHp-30)*rad)+0.24*Math.cos(2*avgHp*rad)+0.32*Math.cos((3*avgHp+6)*rad)-0.20*Math.cos((4*avgHp-63)*rad);
+  var dhp=h2p-h1p;
+  if(C1p*C2p===0)dhp=0; else if(Math.abs(dhp)>180)dhp+=(dhp>0?-360:360);
+  var dLp=l2[0]-l1[0], dCp=C2p-C1p, dHp=2*Math.sqrt(C1p*C2p)*Math.sin(dhp/2*rad);
+  var avgLp=(l1[0]+l2[0])/2, dl50=avgLp-50;
+  var Sl=1+(0.015*dl50*dl50)/Math.sqrt(20+dl50*dl50);
+  var Sc=1+0.045*avgCp, Sh=1+0.015*avgCp*T;
+  var dTheta=30*Math.exp(-Math.pow((avgHp-275)/25,2));
+  var avgCp7=Math.pow(avgCp,7);
+  var Rc=2*Math.sqrt(avgCp7/(avgCp7+P25_7));
+  var Rt=-Rc*Math.sin(2*dTheta*rad);
+  var dL=dLp/Sl, dC=dCp/Sc, dH=dHp/Sh;
+  return Math.sqrt(dL*dL+dC*dC+dH*dH+Rt*dC*dH);
+}
+var PANTONE_DATA_URL="https://cdn.jsdelivr.net/npm/nearest-pantone@1.0.1/index.js";
+var pantoneData=null, pantoneState="idle", pantonePromise=null;
+function loadPantoneData(){
+  if(pantoneData)return Promise.resolve(pantoneData);
+  if(pantonePromise)return pantonePromise;
+  pantoneState="loading";
+  var timeout=new Promise(function(res,rej){setTimeout(function(){rej(new Error("Quá 45 giây chưa tải được dữ liệu Pantone"))},45000)});
+  var work=(typeof fetch==="function"?fetch(PANTONE_DATA_URL):Promise.reject(new Error("Trình duyệt không hỗ trợ fetch"))).then(function(res){
+    if(!res.ok)throw new Error("HTTP "+res.status);
+    return res.text();
+  }).then(function(txt){
+    var re=/\{pantone\s*:\s*"([^"]+)",\s*name\s*:\s*"([^"]+)",\s*hex\s*:\s*"(#[0-9a-fA-F]{6})"\}/g, m, list=[];
+    while((m=re.exec(txt))!==null){
+      var rgb=hexToRgbArr(m[3]);
+      list.push({code:m[1],name:m[2],hex:m[3].toLowerCase(),lab:rgbToLab(rgb[0],rgb[1],rgb[2])});
+    }
+    if(list.length<500)throw new Error("Dữ liệu Pantone trích xuất được quá ít ("+list.length+" màu) — coi như tải lỗi");
+    pantoneData=list; pantoneState="ready"; return list;
+  });
+  pantonePromise=Promise.race([work,timeout]).then(function(list){return list},function(err){
+    pantoneState="error"; pantonePromise=null; throw err;
+  });
+  return pantonePromise;
+}
+function nearestPantoneFor(hex){
+  if(!pantoneData)return null;
+  var rgb=hexToRgbArr(hex), lab=rgbToLab(rgb[0],rgb[1],rgb[2]);
+  var best=null, bd=Infinity, i, dd;
+  for(i=0;i<pantoneData.length;i++){dd=ciede2000(lab,pantoneData[i].lab); if(dd<bd){bd=dd;best=pantoneData[i]}}
+  return best?{code:best.code,name:best.name,hex:best.hex,de:bd}:null;
+}
+function refreshPantoneLines(){
+  var btns=document.querySelectorAll(".pal-pantone");
+  if(!btns.length)return;
+  var st=$("pantoneStatus"), i;
+  if(pantoneState==="ready"&&pantoneData){
+    btns.forEach(function(b){
+      var idx=parseInt(b.getAttribute("data-i"),10), hex=lastPaletteHex[idx];
+      var np=hex?nearestPantoneFor(hex):null;
+      if(!np){b.textContent="Pantone ≈ không khớp được"; b.disabled=true; return}
+      b.disabled=false;
+      var pretty=np.name.replace(/-/g," ");
+      b.textContent="Pantone ≈ "+np.code+" "+pretty+" (ΔE "+(Math.round(np.de*10)/10)+")";
+      b.title="Pantone gần nhất theo CIEDE2000: "+np.code+" "+pretty+" ("+np.hex+"), ΔE "+(Math.round(np.de*100)/100)+" — bấm để sao chép mã Pantone";
+      b.onclick=function(){
+        var val="Pantone "+np.code+" "+np.name;
+        copyTextGeneric(val,function(){var old=b.textContent;b.textContent="Đã chép ✓ "+val;setTimeout(function(){b.textContent=old},1400)},function(){b.textContent="Chép tay: "+val});
+      };
+    });
+    if(st)setLibStatus(st,"✓ Đã tải bộ dữ liệu Pantone cộng đồng ("+pantoneData.length+" màu) và khớp màu gần nhất bằng CIEDE2000 cho "+btns.length+" màu trong bảng. Nhắc lại: đây là Pantone gần nhất tính theo thuật toán từ dữ liệu cộng đồng, không phải tra cứu Pantone chính hãng.","ok");
+    return;
+  }
+  if(pantoneState==="error"){
+    btns.forEach(function(b){
+      b.disabled=false;
+      b.textContent="Pantone ≈ không tải được dữ liệu — bấm để thử lại";
+      b.title="Bấm để thử tải lại dữ liệu Pantone từ CDN";
+      b.onclick=function(){pantoneState="idle"; refreshPantoneLines()};
+    });
+    if(st)setLibStatus(st,"✗ Không tải được dữ liệu Pantone từ CDN (bộ dữ liệu cộng đồng nearest-pantone) — kiểm tra kết nối mạng rồi bấm vào dòng Pantone của 1 màu để thử lại. Mã CMYK ở trên vẫn hiển thị và dùng bình thường.","err");
+    return;
+  }
+  btns.forEach(function(b){b.disabled=true; b.textContent="Pantone ≈ đang tải dữ liệu…"});
+  if(st)setLibStatus(st,"Đang tải dữ liệu Pantone (bộ dữ liệu cộng đồng nearest-pantone) từ CDN jsDelivr…","");
+  loadPantoneData().then(function(){refreshPantoneLines()},function(){refreshPantoneLines()});
+}
+
+/* ---------- Xem trước màu khi in: mô phỏng RGB→CMYK→RGB ---------- */
+$("btnPrintSim").onclick=function(){
+  var st=$("printSimStatus");
+  if(!srcImg){setLibStatus(st,"Chưa có ảnh — nạp ảnh ở bước 1 và cắt ở bước 2 trước.","err");return}
+  var btn=this; btn.disabled=true;
+  setLibStatus(st,"Đang mô phỏng màu in (RGB → CMYK → RGB)…","");
+  setTimeout(function(){
+    try{
+      var art=getArtCanvas(640), w=art.width, h=art.height;
+      var co=$("simOrig"), cs=$("simCmyk");
+      co.width=w; co.height=h; cs.width=w; cs.height=h;
+      var xo=co.getContext("2d"); xo.fillStyle="#ffffff"; xo.fillRect(0,0,w,h); xo.drawImage(art,0,0);
+      var xs=cs.getContext("2d"); xs.fillStyle="#ffffff"; xs.fillRect(0,0,w,h); xs.drawImage(art,0,0);
+      var id=xs.getImageData(0,0,w,h), d=id.data, i;
+      for(i=0;i<d.length;i+=4){
+        var R=d[i]/255, G=d[i+1]/255, B=d[i+2]/255;
+        var K=1-Math.max(R,G,B), C=0, M=0, Y=0;
+        if(K<1){C=(1-R-K)/(1-K); M=(1-G-K)/(1-K); Y=(1-B-K)/(1-K)}
+        /* dot gain: mực in lan trên vải làm tông trung gian đậm / xỉn hơn */
+        C=1-Math.pow(1-C,1.18); M=1-Math.pow(1-M,1.18); Y=1-Math.pow(1-Y,1.18); K=1-Math.pow(1-K,1.18);
+        /* giới hạn tổng mực 300% (TAC) như xưởng in thường áp */
+        var tac=C+M+Y+K;
+        if(tac>3&&(C+M+Y)>0){var scf=Math.max(0,1-(tac-3)/(C+M+Y)); C*=scf; M*=scf; Y*=scf}
+        d[i]=Math.round(255*(1-Math.min(1,C*(1-K)+K)));
+        d[i+1]=Math.round(255*(1-Math.min(1,M*(1-K)+K)));
+        d[i+2]=Math.round(255*(1-Math.min(1,Y*(1-K)+K)));
+      }
+      xs.putImageData(id,0,0);
+      $("printSimBlock").style.display="block";
+      setLibStatus(st,"✓ Đã mô phỏng màu khi in cho art hiện tại ("+w+"×"+h+" px) — bản mô phỏng nằm cạnh bản gốc ở trên. Chỉ là xem trước tham khảo bằng chuyển đổi cơ bản: art không thay đổi, màu in thật còn phụ thuộc xưởng in và chất liệu vải.","ok");
+    }catch(e){setLibStatus(st,"Mô phỏng màu in lỗi trên ảnh này — art giữ nguyên, các tính năng khác không bị ảnh hưởng.","err")}
+    btn.disabled=false;
+  },40);
+};
+
+/* ---------- Kiểm tra trước in (preflight) — đầu bước 7 ---------- */
+var lastPreflight=null;
+function currentArtDims(){
+  if(derivedArt)return{w:derivedArt.width,h:derivedArt.height};
+  if(wm.base&&!wm.baseDirty)return{w:wm.base.width,h:wm.base.height};
+  var r=cropRectSrc(); return{w:Math.max(1,Math.round(r.w)),h:Math.max(1,Math.round(r.h))};
+}
+function fmtBytesEst(n){
+  if(n>=1048576)return (Math.round(n/104857.6)/10)+" MB";
+  if(n>=1024)return (Math.round(n/102.4)/10)+" KB";
+  return Math.round(n)+" B";
+}
+function renderPreflightRows(rows){
+  var list=$("preflightList"); if(!list)return;
+  list.innerHTML="";
+  rows.forEach(function(r){
+    var row=document.createElement("div"); row.className="pf-row";
+    var b=document.createElement("span"); b.className="pf-badge "+r.level; b.textContent=r.tag;
+    var t=document.createElement("div"); t.textContent=r.text;
+    row.appendChild(b); row.appendChild(t); list.appendChild(row);
+  });
+}
+function finishPreflight(rows,btn){
+  lastPreflight={time:new Date(),rows:rows};
+  renderPreflightRows(rows);
+  var bad=0, warn=0;
+  rows.forEach(function(r){if(r.level==="bad")bad++; else if(r.level==="warn")warn++});
+  setLibStatus($("preflightStatus"),
+    "✓ Đã kiểm tra trước in lúc "+lastPreflight.time.toLocaleString("vi-VN")+": "+rows.length+" mục"+(bad?(" — "+bad+" lỗi"):"")+(warn?(" — "+warn+" cảnh báo"):"")+(bad||warn?"":", tất cả đều đạt")+". Kết quả này sẽ được ghi vào file .txt hồ sơ khi xuất. Preflight chỉ cảnh báo, không khoá xuất file.",
+    bad?"err":(warn?"":"ok"));
+  if(btn)btn.disabled=false;
+}
+$("btnPreflight").onclick=function(){
+  var st=$("preflightStatus");
+  if(!srcImg){setLibStatus(st,"Chưa có ảnh — nạp ảnh ở bước 1 và cắt ở bước 2 trước.","err");return}
+  var btn=this; btn.disabled=true;
+  setLibStatus(st,"Đang phân tích art hiện tại cho khổ in "+exportSize.w+"×"+exportSize.h+" px…","");
+  setTimeout(function(){
+    try{
+      var dims=currentArtDims();
+      var art=getArtCanvas(2000), w=art.width, h=art.height, n=w*h;
+      var d=art.getContext("2d").getImageData(0,0,w,h).data;
+      var minX=w, minY=h, maxX=-1, maxY=-1, solid=0, px, py, idx;
+      for(py=0;py<h;py++)for(px=0;px<w;px++){
+        if(d[(py*w+px)*4+3]>=128){
+          solid++;
+          if(px<minX)minX=px; if(px>maxX)maxX=px;
+          if(py<minY)minY=py; if(py>maxY)maxY=py;
+        }
+      }
+      var rows=[];
+      /* (a) DPI hiệu dụng */
+      var dpi=Math.min(dims.w/(exportSize.w/300), dims.h/(exportSize.h/300));
+      var dpiTxt="DPI hiệu dụng ≈ "+Math.round(dpi)+" — art "+dims.w+"×"+dims.h+" px in ở khổ "+exportSize.w+"×"+exportSize.h+" px @300 DPI ("+(Math.round(exportSize.w/300*10)/10)+"×"+(Math.round(exportSize.h/300*10)/10)+" inch). ";
+      if(dpi>=150)rows.push({level:"ok",tag:"ĐẠT",text:dpiTxt+"Từ 150 DPI trở lên là đủ nét cho in áo ở khổ này."});
+      else if(dpi>=72)rows.push({level:"warn",tag:"CẢNH BÁO",text:dpiTxt+"Trong khoảng 72–150 DPI ảnh in sẽ hơi mềm — cân nhắc upscale ở bước 5 hoặc chọn khổ in nhỏ hơn."});
+      else rows.push({level:"bad",tag:"LỖI",text:dpiTxt+"Dưới 72 DPI là quá thấp: in ra sẽ vỡ nét rõ rệt. Hãy upscale art hoặc dùng ảnh gốc lớn hơn."});
+      if(maxX<0){
+        rows.push({level:"bad",tag:"LỖI",text:"Art gần như trong suốt hoàn toàn — không tìm thấy vùng đặc (alpha ≥ 128) nào để in. Kiểm tra lại bước tách nền / vùng cắt."});
+      }else{
+        /* (b) pixel thừa gần trong suốt + pixel bán trong suốt ở biên */
+        var stray=0, semiB=0, borderN=0;
+        for(py=0;py<h;py++)for(px=0;px<w;px++){
+          idx=py*w+px;
+          var a2=d[idx*4+3];
+          if(a2<10&&(px<minX||px>maxX||py<minY||py>maxY))stray++;
+          if(px<2||py<2||px>=w-2||py>=h-2){borderN++; if(a2>=10&&a2<250)semiB++}
+        }
+        var strayPct=stray/n*100, semiPct=borderN?semiB/borderN*100:0;
+        var bTxt="Pixel thừa gần trong suốt: "+stray.toLocaleString("vi-VN")+" px (alpha < 10) nằm ngoài hộp bao của vùng đặc, chiếm "+(Math.round(strayPct*100)/100)+"% tổng số pixel; pixel bán trong suốt ở biên art: "+(Math.round(semiPct*10)/10)+"% số pixel biên. (Đo trên bản phân tích "+w+"×"+h+" px.) ";
+        if(strayPct>0.3||semiPct>5)rows.push({level:"warn",tag:"CẢNH BÁO",text:bTxt+"Viền art còn rác gần trong suốt / bán trong suốt — khi in dễ lộ quầng mờ quanh art; cân nhắc tách nền lại hoặc cắt sát viền hơn."});
+        else rows.push({level:"ok",tag:"ĐẠT",text:bTxt+"Viền art sạch, không đáng lo."});
+        /* (c) vùng gần trắng trong vùng đặc */
+        var nw=0;
+        for(py=minY;py<=maxY;py++)for(px=minX;px<=maxX;px++){
+          idx=(py*w+px)*4;
+          if(d[idx+3]<128)continue;
+          var mx=Math.max(d[idx],d[idx+1],d[idx+2]), mn=Math.min(d[idx],d[idx+1],d[idx+2]);
+          if(mx>=245&&(mx-mn)<=12)nw++;
+        }
+        var nwPct=solid?nw/solid*100:0;
+        var cTxt="Vùng gần trắng: "+(Math.round(nwPct*10)/10)+"% số pixel vùng đặc có độ sáng ≥ 245 và độ bão hoà thấp ("+nw.toLocaleString("vi-VN")+" / "+solid.toLocaleString("vi-VN")+" px vùng đặc). ";
+        if(nwPct>30)rows.push({level:"warn",tag:"CẢNH BÁO",text:cTxt+"Tỉ lệ gần trắng cao — chi tiết ở vùng này rất dễ mất khi in lên áo trắng; cân nhắc thêm viền / bóng đổ cho art hoặc đổi sang áo màu."});
+        else rows.push({level:"ok",tag:"ĐẠT",text:cTxt+"Tỉ lệ gần trắng ở mức an toàn cho áo trắng."});
+      }
+      /* (d) dung lượng PNG ước lượng ở khổ đã chọn */
+      if(typeof art.toBlob==="function"){
+        art.toBlob(function(blob){
+          if(blob){
+            var est=blob.size*(exportSize.w*exportSize.h)/(w*h);
+            var dTxt="Dung lượng file PNG ước lượng ở khổ "+exportSize.w+"×"+exportSize.h+" px: ≈ "+fmtBytesEst(est)+" (ước lượng từ file PNG "+fmtBytesEst(blob.size)+" của bản phân tích "+w+"×"+h+" px, tỉ lệ theo diện tích).";
+            if(est>25*1048576)rows.push({level:"warn",tag:"CẢNH BÁO",text:dTxt+" File khá nặng — gửi cho xưởng in sẽ chậm; nếu art không cần nền trong suốt, cân nhắc xuất JPG cho nhẹ."});
+            else rows.push({level:"ok",tag:"ĐẠT",text:dTxt});
+          }else{
+            rows.push({level:"warn",tag:"CẢNH BÁO",text:"Không ước lượng được dung lượng PNG (trình duyệt không tạo được file thử) — các mục kiểm tra khác ở trên vẫn có giá trị."});
+          }
+          finishPreflight(rows,btn);
+        },"image/png");
+      }else{
+        rows.push({level:"warn",tag:"CẢNH BÁO",text:"Trình duyệt không hỗ trợ canvas.toBlob nên không ước lượng được dung lượng PNG — các mục kiểm tra khác ở trên vẫn có giá trị."});
+        finishPreflight(rows,btn);
+      }
+    }catch(e){
+      setLibStatus(st,"Kiểm tra trước in lỗi: "+shortErr(e),"err");
+      btn.disabled=false;
+    }
+  },40);
+};
 
 /* ================= ĐỢT 4 · CHROMA.JS — PHỐI MÀU HÀI HOÀ + KIỂM TRA TƯƠNG PHẢN =================
    Từ màu chủ đạo đầu tiên của bảng màu color-thief: gợi ý phối màu tương đồng / bổ sung /
@@ -3032,6 +3871,186 @@ $("btnQDiscard").onclick=function(){
   qPending=null;
   $("qCmpBlock").style.display="none";
   setLibStatus($("qStatus"),"Đã bỏ kết quả giới hạn màu — art hiện tại giữ nguyên.","");
+};
+
+/* ================= ĐỢT 6 · TÁCH MÀU IN LỤA =================
+   Bảng màu lấy từ bản lượng tử hoá của art (bản làm việc tối đa 1024 px như mục giới hạn màu):
+   art có sẵn ≤ 12 màu đặc -> tách đúng các màu đó; nhiều hơn 12 màu -> tự lượng tử hoá về tối đa
+   12 màu bằng image-q trước (chỉ để lấy bảng màu + phân loại, art chính KHÔNG đổi) và báo rõ.
+   Phân loại chạy 1 lượt trên art ở độ phân giải ĐẦY ĐỦ thành bản đồ chỉ số màu (Int16Array,
+   vùng alpha < 128 tính là nền), rồi kết xuất từng màu theo dải ngang thành PNG đen trên trắng,
+   chuyển ngay sang Blob để không giữ nhiều canvas khổ lớn trong RAM cùng lúc.
+   Tải từng PNG riêng hoặc cả bộ .zip bằng JSZip (nạp lười). Thao tác ghi vào dot4Log -> .txt hồ sơ. */
+var sepItems=[];
+function sepSetStatus(msg,kind){setLibStatus($("sepStatus"),msg,kind)}
+function sepWorkingArt(){
+  if(derivedArt){
+    var sc=Math.min(1,1024/Math.max(derivedArt.width,derivedArt.height));
+    if(sc<1){var cc=mkCanvas(Math.round(derivedArt.width*sc),Math.round(derivedArt.height*sc)); cc.getContext("2d").drawImage(derivedArt,0,0,cc.width,cc.height); return cc}
+    return derivedArt;
+  }
+  return getArtCanvas(1024);
+}
+function sepCountColors(canvas){
+  var d=canvas.getContext("2d").getImageData(0,0,canvas.width,canvas.height).data;
+  var map=new Map();
+  for(var i=0;i<d.length;i+=4){
+    if(d[i+3]<128)continue;
+    var key=(d[i]<<16)|(d[i+1]<<8)|d[i+2];
+    map.set(key,(map.get(key)||0)+1);
+  }
+  return map;
+}
+function sepPaletteFromCounts(map){
+  return Array.from(map.entries()).sort(function(a,b){return b[1]-a[1]}).map(function(en){
+    return[(en[0]>>16)&255,(en[0]>>8)&255,en[0]&255];
+  });
+}
+$("btnScreenSep").onclick=function(){
+  if(!srcImg){sepSetStatus("Chưa có ảnh — nạp ảnh ở bước 1 và cắt ở bước 2 trước.","err");return}
+  var btn=this; btn.disabled=true;
+  $("btnSepZip").disabled=true;
+  sepItems.forEach(function(it){if(it.url&&it.url.indexOf("blob:")===0){try{URL.revokeObjectURL(it.url)}catch(e){}}});
+  sepItems=[]; $("sepList").innerHTML="";
+  sepSetStatus("Đang tải thư viện image-q từ CDN (jsDelivr)…","");
+  loadLib("imageq").then(function(ok){
+    if(!ok){sepSetStatus("✗ Không tải được image-q từ CDN — kiểm tra kết nối mạng rồi bấm lại. Art hiện tại giữ nguyên, các tính năng khác không bị ảnh hưởng.","err");btn.disabled=false;return}
+    sepSetStatus("Đang phân tích bảng màu của art (bản làm việc tối đa 1024 px)…","");
+    setTimeout(function(){
+      try{sepRun(btn)}catch(e){sepSetStatus("✗ Tách màu lỗi: "+(((e&&e.message)||e)||"lỗi không rõ")+" — art hiện tại giữ nguyên, chưa có bản tách nào được tạo.","err");btn.disabled=false}
+    },30);
+  });
+};
+function sepRun(btn){
+  var work=sepWorkingArt();
+  var counts=sepCountColors(work);
+  if(!counts.size)throw new Error("art không có vùng đặc nào (toàn trong suốt) — không có màu để tách");
+  var palette=null, autoQ=false, origColors=counts.size;
+  if(counts.size<=12){
+    palette=sepPaletteFromCounts(counts);
+  }else{
+    autoQ=true;
+    var iq=window.iq;
+    var imgd=work.getContext("2d").getImageData(0,0,work.width,work.height);
+    var pc=iq.utils.PointContainer.fromImageData(imgd);
+    var dc=new iq.distance.Euclidean();
+    var pq=new iq.palette.RGBQuant(dc,12);
+    pq.sample(pc);
+    var pal=pq.quantize();
+    var nq=new iq.image.NearestColor(dc);
+    var out=nq.quantize(pc,pal);
+    var bytes=out.toUint8Array();
+    var qc=mkCanvas(work.width,work.height);
+    qc.getContext("2d").putImageData(new ImageData(new Uint8ClampedArray(bytes),work.width,work.height),0,0);
+    palette=sepPaletteFromCounts(sepCountColors(qc));
+    if(!palette.length)throw new Error("image-q không tạo được bảng màu từ art này");
+  }
+  var art=getArtCanvas(1000000000), W=art.width, H=art.height, N=W*H;
+  sepSetStatus("Bảng màu có "+palette.length+" màu"+(autoQ?" (đã tự lượng tử hoá về tối đa 12 màu)":"")+" — đang phân loại "+W+" × "+H+" px ở độ phân giải đầy đủ…","");
+  var data=art.getContext("2d").getImageData(0,0,W,H).data;
+  var idxMap=new Int16Array(N); idxMap.fill(-1);
+  var cache=new Map();
+  var countsFull=[]; for(var z=0;z<palette.length;z++)countsFull.push(0);
+  for(var i=0,p=0;i<data.length;i+=4,p++){
+    if(data[i+3]<128)continue;
+    var key=(data[i]<<16)|(data[i+1]<<8)|data[i+2];
+    var ci=cache.get(key);
+    if(ci===undefined){
+      ci=0; var bd=Infinity;
+      for(var j=0;j<palette.length;j++){
+        var dr=data[i]-palette[j][0], dg=data[i+1]-palette[j][1], db=data[i+2]-palette[j][2];
+        var dd=dr*dr+dg*dg+db*db;
+        if(dd<bd){bd=dd;ci=j}
+      }
+      cache.set(key,ci);
+    }
+    idxMap[p]=ci; countsFull[ci]++;
+  }
+  data=null;
+  var totalOpaque=0; countsFull.forEach(function(v){totalOpaque+=v});
+  var results=[], cur=0;
+  function finish(){
+    sepItems=results;
+    var list=$("sepList"); list.innerHTML="";
+    results.forEach(function(it,ix){
+      var row=document.createElement("div"); row.className="sep-row";
+      var sw=document.createElement("span"); sw.className="sw"; sw.style.background=it.hex; row.appendChild(sw);
+      var hx=document.createElement("span"); hx.className="hx"; hx.textContent="Màu "+(ix+1)+" · "+it.hex; row.appendChild(hx);
+      if(pantoneState==="ready"&&pantoneData){
+        var np=nearestPantoneFor(it.hex);
+        if(np){var pt=document.createElement("span"); pt.className="pt"; pt.textContent="Pantone ≈ "+np.code+" "+np.name.replace(/-/g," "); row.appendChild(pt)}
+      }
+      var cv=document.createElement("span"); cv.className="cv"; cv.textContent="chiếm "+(totalOpaque?Math.round(it.count/totalOpaque*1000)/10:0)+"% vùng đặc của art"; row.appendChild(cv);
+      var a=document.createElement("a"); a.className="ed-mini"; a.textContent="Tải PNG"; a.href=it.url; a.download="tach-mau-"+(ix+1)+"-"+it.hex.replace("#","")+"-"+W+"x"+H+".png"; a.style.textDecoration="none"; row.appendChild(a);
+      list.appendChild(row);
+    });
+    $("btnSepZip").disabled=!results.length;
+    dot4Note("Tách màu in lụa ở Bước 5: "+results.length+" bản tách đen/trắng "+W+"x"+H+" px, bảng màu "+(autoQ?("tự lượng tử hoá tối đa 12 màu bằng image-q (art có "+origColors+" màu ở bản làm việc 1024 px)"):(results.length+" màu gốc của art"))+" — các màu: "+results.map(function(r){return r.hex}).join(", "));
+    sepSetStatus("✓ Đã tách xong "+results.length+" màu ở độ phân giải đầy đủ "+W+" × "+H+" px"+(autoQ?(" — art có "+origColors+" màu ở bản làm việc nên app đã TỰ lượng tử hoá về tối đa 12 màu bằng image-q để lấy bảng màu trước khi tách (art chính không thay đổi)"):" — art đã có sẵn "+results.length+" màu nên tách theo đúng các màu đó")+". Tải từng bản PNG riêng ở danh sách trên hoặc bấm “Tải cả bộ (.zip)”. Thao tác tách màu đã ghi vào nhật ký cho file .txt hồ sơ khi xuất ở bước 7.","ok");
+    btn.disabled=false;
+  }
+  function nextColor(){
+    if(cur>=palette.length){finish();return}
+    var rgb=palette[cur], hex=rgbToHex(rgb[0],rgb[1],rgb[2]);
+    sepSetStatus("Đang tách màu "+(cur+1)+" / "+palette.length+" — "+hex+" (độ phân giải đầy đủ "+W+" × "+H+" px)…","");
+    setTimeout(function(){
+      try{
+        var oc=mkCanvas(W,H), ox=oc.getContext("2d"), BAND=240;
+        for(var y0=0;y0<H;y0+=BAND){
+          var bh=Math.min(BAND,H-y0);
+          var im=ox.createImageData(W,bh), dd=im.data;
+          for(var y=0;y<bh;y++){
+            var rowBase=(y0+y)*W;
+            for(var xx=0;xx<W;xx++){
+              var o=(y*W+xx)*4, v=(idxMap[rowBase+xx]===cur)?0:255;
+              dd[o]=v; dd[o+1]=v; dd[o+2]=v; dd[o+3]=255;
+            }
+          }
+          ox.putImageData(im,0,y0);
+        }
+        if(oc.toBlob){
+          oc.toBlob(function(blob){
+            if(blob){results.push({hex:hex,rgb:rgb,blob:blob,url:URL.createObjectURL(blob),count:countsFull[cur]})}
+            else{results.push({hex:hex,rgb:rgb,blob:null,url:oc.toDataURL("image/png"),count:countsFull[cur]})}
+            cur++; nextColor();
+          },"image/png");
+        }else{
+          results.push({hex:hex,rgb:rgb,blob:null,url:oc.toDataURL("image/png"),count:countsFull[cur]});
+          cur++; nextColor();
+        }
+      }catch(e){
+        sepSetStatus("✗ Tách màu lỗi ở màu "+(cur+1)+" ("+hex+"): "+(((e&&e.message)||e)||"lỗi không rõ")+" — art quá lớn so với bộ nhớ trình duyệt có thể là nguyên nhân; thử cắt vùng nhỏ hơn hoặc giảm kích thước art rồi tách lại.","err");
+        btn.disabled=false;
+      }
+    },20);
+  }
+  nextColor();
+}
+$("btnSepZip").onclick=function(){
+  if(!sepItems.length)return;
+  var btn=this; btn.disabled=true;
+  sepSetStatus("Đang tải JSZip từ CDN (jsDelivr) để đóng gói "+sepItems.length+" bản tách…","");
+  loadLib("jszip").then(function(ok){
+    if(!ok){sepSetStatus("✗ Không tải được JSZip từ CDN — tải từng file PNG riêng ở danh sách trên vẫn dùng bình thường.","err");btn.disabled=false;return}
+    var zip=new window.JSZip();
+    var jobs=sepItems.map(function(it,ix){
+      var name="tach-mau-"+(ix+1)+"-"+it.hex.replace("#","")+".png";
+      if(it.blob)return Promise.resolve({name:name,blob:it.blob});
+      return fetch(it.url).then(function(r){return r.blob()}).then(function(b){return{name:name,blob:b}});
+    });
+    Promise.all(jobs).then(function(fs){
+      fs.forEach(function(f){zip.file(f.name,f.blob)});
+      return zip.generateAsync({type:"blob"});
+    }).then(function(blob){
+      var fname="tach-mau-in-lua-"+srcName+"-"+sepItems.length+"mau.zip";
+      downloadBlob(blob,fname);
+      sepSetStatus("✓ Đã tải bộ ZIP "+fname+" ("+fmtKB(blob.size)+") bằng JSZip — gồm "+sepItems.length+" bản tách màu in lụa.","ok");
+      btn.disabled=false;
+    }).catch(function(e){
+      sepSetStatus("✗ Đóng gói ZIP lỗi: "+shortErr(e)+" — tải từng file PNG riêng ở danh sách trên vẫn dùng bình thường.","err");
+      btn.disabled=false;
+    });
+  });
 };
 /* --- vector hoá --- */
 var tracedSvgStr=null;
@@ -3203,7 +4222,7 @@ function resetDerivedUi(){
   var ub=$("upCmpBlock"); if(ub)ub.style.display="none";
   var sb=$("segCmpBlock"); if(sb)sb.style.display="none";
   var us=$("upStatus"); if(us){us.className="hint";us.textContent="Chưa chạy Upscale AI. Model chạy bằng WASM nên máy càng mạnh càng nhanh; ảnh đầu vào quá lớn sẽ được thu về tối đa ~900 px cạnh dài (khi phóng ×4) / ~1200 px (khi phóng ×2) trước khi chạy model để tránh hụt bộ nhớ — kích thước thật sẽ ghi rõ khi chạy."}
-  var ss=$("segStatus"); if(ss){ss.className="hint";ss.textContent="Chưa chạy tách nền AI. BiRefNet (mặc định) tách viền tóc / chi tiết mịn tốt hơn hẳn deeplab_v3 nhưng model nặng và chạy chậm hơn trên máy yếu; MediaPipe deeplab_v3 nhẹ, nhanh nhưng chỉ nhận diện các lớp đối tượng phổ biến (người, thú, xe, đồ vật…) — art phẳng thuần chữ / hoạ tiết có thể không tách được bằng MediaPipe, app sẽ báo rõ nếu không tìm thấy đối tượng nào."}
+  var ss=$("segStatus"); if(ss){ss.className="hint";ss.textContent="Chưa chạy tách nền AI. BiRefNet (mặc định) và BEN2 (mới nhất, của PramaLLC) tách viền tóc / chi tiết mịn tốt hơn hẳn deeplab_v3 nhưng model nặng (~220 MB) và chạy chậm hơn trên máy yếu; MediaPipe deeplab_v3 nhẹ, nhanh nhưng chỉ nhận diện các lớp đối tượng phổ biến (người, thú, xe, đồ vật…) — art phẳng thuần chữ / hoạ tiết có thể không tách được bằng MediaPipe, app sẽ báo rõ nếu không tìm thấy đối tượng nào."}
 }
 
 /* ================= LỘ TRÌNH 2 · UPSCALE AI (onnxruntime-web + Real-ESRGAN ONNX) ================= */
@@ -3212,7 +4231,39 @@ var ESRGAN_CANDIDATES=[
   {label:"Real-ESRGAN realesr-general-x4v3 (Hugging Face)",url:"https://huggingface.co/Kizi-Art/real-esrgan-v3/resolve/main/realesr-general-x4v3.onnx"},
   {label:"Real-ESRGAN x4plus — Qualcomm AI Hub (Hugging Face)",url:"https://huggingface.co/qualcomm/Real-ESRGAN-x4plus/resolve/main/Real-ESRGAN-x4plus.onnx"}
 ];
-var up={session:null,sessionPromise:null,ortPromise:null,modelLabel:"",running:false,cancelled:false,abort:null,scale:4,candidate:null};
+/* SwinIR (đợt 4 lộ trình gộp): bản ONNX SwinIR-M realSR ×4 GAN của rocca/swin-ir-onnx — chính là file
+   model mà demo super-resolution-js (josephrocca) chạy thật trong trình duyệt bằng onnxruntime-web/WASM.
+   Đã kiểm chứng ngoại tuyến: tải đủ 61.316.800 byte, SHA-256 khớp LFS oid trên Hugging Face, đọc bằng onnx
+   (đầu vào 'input' float32 [1,3,h,w] động, đầu ra 'output', opset 12, toàn op chuẩn) và chạy suy luận thật
+   bằng onnxruntime: tile 64×64 → 256×256 (×4 đúng), dải giá trị đầu ra hợp lệ. Nguồn 2 là bản gương cùng
+   file (wuminghao/swinir) — size + SHA-256 LFS trùng hệt bản chính. Tiền xử lý giống Real-ESRGAN: RGB 0–1
+   NCHW (canvasToTensor dùng chung); model nguyên bản ×4, chọn ×2 thì app thu bản ×4 về đúng như cơ chế
+   sẵn có khi hệ số thật của model khác hệ số đích. */
+var SWINIR_CANDIDATES=[
+  {label:"SwinIR-M realSR ×4 GAN (rocca/swin-ir-onnx — Hugging Face)",url:"https://huggingface.co/rocca/swin-ir-onnx/resolve/main/003_realSR_BSRGAN_DFO_s64w8_SwinIR-M_x4_GAN.onnx"},
+  {label:"SwinIR-M realSR ×4 GAN — bản gương hash trùng hệt (wuminghao/swinir — Hugging Face)",url:"https://huggingface.co/wuminghao/swinir/resolve/main/003_realSR_BSRGAN_DFO_s64w8_SwinIR-M_x4_GAN%20(1).onnx"}
+];
+var UP_MODELS={
+  esrgan:{name:"Real-ESRGAN",candidates:ESRGAN_CANDIDATES},
+  swinir:{name:"SwinIR",candidates:SWINIR_CANDIDATES}
+};
+var up={ortPromise:null,modelLabel:"",running:false,cancelled:false,abort:null,scale:4,candidate:null,model:"esrgan",sessions:{},sessionPromises:{},modelLabels:{},runLabel:"",runScale:4};
+function setUpModel(m){
+  up.model=m;
+  var e=$("upModelEsrgan"), s=$("upModelSwin");
+  if(e)e.classList.toggle("on",m==="esrgan");
+  if(s)s.classList.toggle("on",m==="swinir");
+  var hint=$("upModelHint");
+  if(hint){
+    hint.innerHTML=(m==="esrgan")
+      ?"Đang chọn: <b>Real-ESRGAN — đa dụng</b> (mặc định). Cần khôi phục nét mảnh / texture (art anime, line mảnh) thì chuyển sang SwinIR — model SwinIR nặng ~61 MB, chạy theo tile 128 px và có thể chậm hơn Real-ESRGAN trên máy yếu."
+      :"Đang chọn: <b>SwinIR — phục hồi nét</b>. Model SwinIR-M realSR ×4 GAN bản ONNX (Hugging Face: rocca/swin-ir-onnx, có nguồn gương hash trùng hệt) — chính là bản demo super-resolution-js đã chạy thật trong trình duyệt bằng onnxruntime-web. Model nguyên bản phóng ×4 (chọn ×2 thì app thu kết quả ×4 về đúng tỉ lệ), tiền xử lý RGB 0–1 như Real-ESRGAN, xử lý theo tile 128 px; máy yếu sẽ chạy chậm hơn Real-ESRGAN.";
+  }
+  var btn=$("btnUpscale");
+  if(btn)btn.textContent=(m==="esrgan")?"Chạy Upscale AI (Real-ESRGAN)":"Chạy Upscale AI (SwinIR)";
+}
+$("upModelEsrgan").onclick=function(){setUpModel("esrgan")};
+$("upModelSwin").onclick=function(){setUpModel("swinir")};
 $("upScale2").onclick=function(){up.scale=2;$("upScale2").classList.add("on");$("upScale4").classList.remove("on")};
 $("upScale4").onclick=function(){up.scale=4;$("upScale4").classList.add("on");$("upScale2").classList.remove("on")};
 function setUpLoad(show,pct,text){setLoad("upLoadBox","upLoadFill","upLoadText",show,pct,text)}
@@ -3238,15 +4289,17 @@ function loadOrt(){
   })();
   return up.ortPromise;
 }
-function ensureUpSession(){
-  if(up.session)return Promise.resolve(up.session);
-  if(up.sessionPromise)return up.sessionPromise;
-  up.sessionPromise=(async function(){
+function ensureUpSession(kind){
+  kind=kind||up.model;
+  if(up.sessions[kind])return Promise.resolve(up.sessions[kind]);
+  if(up.sessionPromises[kind])return up.sessionPromises[kind];
+  var cands=UP_MODELS[kind].candidates;
+  up.sessionPromises[kind]=(async function(){
     await loadOrt();
     var errors=[];
-    for(var i=0;i<ESRGAN_CANDIDATES.length;i++){
+    for(var i=0;i<cands.length;i++){
       if(up.cancelled)throw new Error("__cancel__");
-      var cand=ESRGAN_CANDIDATES[i];
+      var cand=cands[i];
       try{
         setUpLoad(true,10,"Đang tải model "+cand.label+"…");
         var buf=await fetchWithProgress(cand.url,function(p,got,total){
@@ -3256,16 +4309,16 @@ function ensureUpSession(){
         if(up.cancelled)throw new Error("__cancel__");
         setUpLoad(true,68,"Đã tải model xong — đang khởi tạo phiên chạy (WASM)…");
         var sess=await window.ort.InferenceSession.create(buf,{executionProviders:["wasm"],graphOptimizationLevel:"all"});
-        up.session=sess; up.modelLabel=cand.label;
+        up.sessions[kind]=sess; up.modelLabels[kind]=cand.label; up.modelLabel=cand.label;
         return sess;
       }catch(e){
         if(up.cancelled)throw e;
         errors.push(cand.label+" → "+((e&&e.message)||"lỗi"));
       }
     }
-    throw new Error("không tải / chạy được model từ các nguồn công khai đã thử — "+errors.join(" · "));
+    throw new Error("không tải / chạy được model "+UP_MODELS[kind].name+" từ các nguồn công khai đã thử — "+errors.join(" · "));
   })();
-  return up.sessionPromise;
+  return up.sessionPromises[kind];
 }
 function canvasToTensor(c){
   var w=c.width,h=c.height;
@@ -3328,11 +4381,14 @@ async function runUpscale(){
   $("btnUpscale").disabled=true;
   $("upCmpBlock").style.display="none";
   var target=up.scale;
+  var kind=up.model;
   try{
     var cap=(target===4)?900:1200;
     var input=getArtCanvas(cap);
     setLibStatus($("upStatus"),"Đang chuẩn bị upscale: art đầu vào "+input.width+"×"+input.height+" px"+(Math.max(input.width,input.height)>=cap?" (đã thu về cạnh dài tối đa "+cap+" px trước khi chạy model để tránh hụt bộ nhớ)":"")+" — mục tiêu phóng ×"+target+". Đang nạp thư viện + model…","");
-    var session=await ensureUpSession();
+    var session=await ensureUpSession(kind);
+    up.runLabel=UP_MODELS[kind].name+" — "+(up.modelLabels[kind]||UP_MODELS[kind].name);
+    up.runScale=target;
     if(up.cancelled)throw new Error("__cancel__");
     var meta=(session.inputMetadata&&session.inputMetadata[0])||null;
     var dims=meta?(meta.shape||meta.dims):null;
@@ -3343,7 +4399,7 @@ async function runUpscale(){
     var originsX=tileOrigins(ext.width,tileW), originsY=tileOrigins(ext.height,tileH);
     var total=originsX.length*originsY.length, done=0, S=0, outExt=null, octx=null;
     var inName=session.inputNames[0], outName=session.outputNames[0];
-    setUpLoad(true,72,"Bắt đầu chạy model "+up.modelLabel+" — tổng "+total+" tile ("+tileW+"×"+tileH+" px/tile)…");
+    setUpLoad(true,72,"Bắt đầu chạy model "+up.runLabel+" — tổng "+total+" tile ("+tileW+"×"+tileH+" px/tile)…");
     for(var yi=0;yi<originsY.length;yi++){
       for(var xi=0;xi<originsX.length;xi++){
         if(up.cancelled)throw new Error("__cancel__");
@@ -3377,14 +4433,14 @@ async function runUpscale(){
     showUpCompare(input,finalC);
     setUpLoad(true,100,"✓ Chạy model xong — "+total+" tile.");
     setTimeout(function(){setUpLoad(false)},1000);
-    setLibStatus($("upStatus"),"✓ Model "+up.modelLabel+" đã chạy thật xong: "+input.width+"×"+input.height+" → "+finalC.width+"×"+finalC.height+" px (×"+target+", qua "+total+" tile). So sánh ở khung trên, bấm “Áp dụng kết quả upscale” để dùng bản này cho các bước sau + file xuất, hoặc bỏ nếu không ưng.","ok");
+    setLibStatus($("upStatus"),"✓ Model "+up.runLabel+" đã chạy thật xong: "+input.width+"×"+input.height+" → "+finalC.width+"×"+finalC.height+" px (×"+target+", qua "+total+" tile). So sánh ở khung trên, bấm “Áp dụng kết quả upscale” để dùng bản này cho các bước sau + file xuất, hoặc bỏ nếu không ưng.","ok");
   }catch(err){
     setUpLoad(false);
     if(up.cancelled||(err&&err.message==="__cancel__")){
       setLibStatus($("upStatus"),"Đã huỷ upscale — art hiện tại không thay đổi gì.","err");
     }else{
-      up.sessionPromise=null; up.ortPromise=null;
-      setLibStatus($("upStatus"),"✗ Upscale AI không chạy được: "+((err&&err.message)||"lỗi không rõ")+". Kiểm tra kết nối mạng (lần đầu phải tải thư viện + model vài chục MB từ CDN / Hugging Face) rồi bấm chạy lại. Art hiện tại không thay đổi — app không giả vờ đã upscale khi model chưa chạy thật.","err");
+      delete up.sessionPromises[kind]; up.ortPromise=null;
+      setLibStatus($("upStatus"),"✗ Upscale AI ("+UP_MODELS[kind].name+") không chạy được: "+((err&&err.message)||"lỗi không rõ")+". Kiểm tra kết nối mạng (lần đầu phải tải thư viện + model vài chục MB từ CDN / Hugging Face) rồi bấm chạy lại — hoặc chuyển sang model upscale còn lại ở trên. Art hiện tại không thay đổi — app không giả vờ đã upscale khi model chưa chạy thật.","err");
     }
   }
   up.running=false; $("btnUpscale").disabled=false;
@@ -3397,7 +4453,7 @@ $("upCancel").onclick=function(){
 $("btnUpApply").onclick=function(){
   if(!up.candidate)return;
   derivedArt=up.candidate;
-  derivedLabel="bản Upscale AI (Real-ESRGAN ×"+up.scale+", onnxruntime-web)";
+  derivedLabel="bản Upscale AI ("+(up.runLabel||"Real-ESRGAN")+" ×"+(up.runScale||up.scale)+", onnxruntime-web)";
   edOnArtReset();
   up.candidate=null;
   $("upCmpBlock").style.display="none";
@@ -3414,22 +4470,26 @@ $("btnUpDiscard").onclick=function(){
 var MP_BUNDLE="https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/vision_bundle.mjs";
 var MP_WASM="https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm";
 var MP_MODEL="https://storage.googleapis.com/mediapipe-models/image_segmenter/deeplab_v3/float32/1/deeplab_v3.tflite";
-var sg={running:false,cancelled:false,abort:null,candidate:null,model:"birefnet",lastModelLabel:"",brSession:null,brSessionPromise:null,brModelLabel:"",ortPromise:null};
+var sg={running:false,cancelled:false,abort:null,candidate:null,model:"birefnet",lastModelLabel:"",brSession:null,brSessionPromise:null,brModelLabel:"",ortPromise:null,benSession:null,benSessionPromise:null,benModelLabel:"",benNormalize:true};
 function setSegModel(m){
   sg.model=m;
-  var b=$("segModelBiref"), p=$("segModelMp");
+  var b=$("segModelBiref"), n=$("segModelBen2"), p=$("segModelMp");
   if(b)b.classList.toggle("on",m==="birefnet");
+  if(n)n.classList.toggle("on",m==="ben2");
   if(p)p.classList.toggle("on",m==="mediapipe");
   var hint=$("segModelHint");
   if(hint){
     hint.innerHTML=(m==="birefnet")
       ?"Đang chọn: <b>BiRefNet — chất lượng cao</b> (mặc định). Model BiRefNet bản ONNX công khai (Hugging Face: onnx-community/BiRefNet-ONNX, có 2 nguồn dự phòng) khá nặng — lần đầu tải có thể lên tới vài trăm MB và chạy chậm hơn trên máy yếu, bù lại viền tách mịn và sạch hơn rõ rệt. Máy yếu hoặc cần nhanh thì chuyển sang MediaPipe."
-      :"Đang chọn: <b>MediaPipe — nhẹ, nhanh</b>. Image Segmenter của MediaPipe Tasks Vision với model deeplab_v3 (Google) — tải nhẹ, chạy nhanh, nhưng chỉ nhận diện các lớp đối tượng phổ biến (người, thú, xe, đồ vật…); art phẳng / chữ thuần thường không tách được bằng model này. Cần viền tách mịn (tóc, lông, chi tiết mảnh) thì chuyển sang BiRefNet.";
+      :(m==="ben2")
+      ?"Đang chọn: <b>BEN2 — mới nhất</b>. Model BEN2 (Background Erase Network 2) của PramaLLC — bản ONNX chính thức BEN2_Base trên Hugging Face (đã kiểm chứng: file ~223 MB, đầu vào float32 1024×1024, toàn op ONNX chuẩn chạy được bằng onnxruntime-web), có nguồn dự phòng onnx-community/BEN2-ONNX. Tiền xử lý theo đúng tài liệu của model: resize 1024×1024; bản chính thức nạp pixel 0–1 như file onnx_run.py kèm model, bản dự phòng chuẩn hoá ImageNet như preprocessor_config.json của nó; hậu xử lý chuẩn hoá min–max như mã nguồn chính thức. Thế hệ mới hơn BiRefNet, chuyên trị tóc / mép mảnh — nhưng model nặng và chạy chậm trên máy yếu."
+      :"Đang chọn: <b>MediaPipe — nhẹ, nhanh</b>. Image Segmenter của MediaPipe Tasks Vision với model deeplab_v3 (Google) — tải nhẹ, chạy nhanh, nhưng chỉ nhận diện các lớp đối tượng phổ biến (người, thú, xe, đồ vật…); art phẳng / chữ thuần thường không tách được bằng model này. Cần viền tách mịn (tóc, lông, chi tiết mảnh) thì chuyển sang BiRefNet hoặc BEN2.";
   }
   var btn=$("btnSegment");
-  if(btn)btn.textContent=(m==="birefnet")?"Tách nền bằng AI (BiRefNet)":"Tách nền bằng AI (MediaPipe)";
+  if(btn)btn.textContent=(m==="birefnet")?"Tách nền bằng AI (BiRefNet)":(m==="ben2")?"Tách nền bằng AI (BEN2)":"Tách nền bằng AI (MediaPipe)";
 }
 $("segModelBiref").onclick=function(){setSegModel("birefnet")};
+$("segModelBen2").onclick=function(){setSegModel("ben2")};
 $("segModelMp").onclick=function(){setSegModel("mediapipe")};
 function setSegLoad(show,pct,text){setLoad("segLoadBox","segLoadFill","segLoadText",show,pct,text)}
 async function runSegment(){
@@ -3469,7 +4529,7 @@ async function runSegment(){
     var ratio=arr.length?fg/arr.length:0;
     if(ratio<0.005||ratio>0.995){
       setSegLoad(false);
-      setLibStatus($("segStatus"),"MediaPipe đã chạy thật nhưng không tách được đối tượng rõ trên art này (mặt nạ phủ "+Math.round(ratio*100)+"% diện tích — gần như toàn nền hoặc toàn ảnh). deeplab_v3 chỉ nhận diện được các lớp đối tượng phổ biến; art phẳng / chữ thuần thường không tách được bằng model này. Hãy thử chuyển sang lựa chọn “BiRefNet — chất lượng cao” ở trên rồi chạy lại. Art hiện tại giữ nguyên.","err");
+      setLibStatus($("segStatus"),"MediaPipe đã chạy thật nhưng không tách được đối tượng rõ trên art này (mặt nạ phủ "+Math.round(ratio*100)+"% diện tích — gần như toàn nền hoặc toàn ảnh). deeplab_v3 chỉ nhận diện được các lớp đối tượng phổ biến; art phẳng / chữ thuần thường không tách được bằng model này. Hãy thử chuyển sang lựa chọn “BiRefNet — chất lượng cao” hoặc “BEN2 — mới nhất” ở trên rồi chạy lại. Art hiện tại giữ nguyên.","err");
       sg.running=false; $("btnSegment").disabled=false;
       return;
     }
@@ -3503,7 +4563,7 @@ async function runSegment(){
   }
   sg.running=false; $("btnSegment").disabled=false;
 }
-$("btnSegment").onclick=function(){if(sg.model==="birefnet")runBiRefNet();else runSegment()};
+$("btnSegment").onclick=function(){if(sg.model==="birefnet")runBiRefNet();else if(sg.model==="ben2")runBen2();else runSegment()};
 $("segCancel").onclick=function(){
   sg.cancelled=true;
   if(sg.abort)try{sg.abort.abort()}catch(e){}
@@ -3668,7 +4728,172 @@ async function runBiRefNet(){
       setLibStatus($("segStatus"),"Đã huỷ tách nền — art hiện tại không thay đổi gì.","err");
     }else{
       sg.brSessionPromise=null; sg.ortPromise=null;
-      setLibStatus($("segStatus"),"✗ Tách nền bằng BiRefNet không chạy được: "+((err&&err.message)||"lỗi không rõ")+". Kiểm tra kết nối mạng (lần đầu phải tải onnxruntime-web + model BiRefNet từ CDN / Hugging Face) rồi bấm chạy lại — hoặc chuyển sang lựa chọn “MediaPipe — nhẹ, nhanh” ở trên, model nhẹ hơn nhiều và thường chạy được ngay. Art hiện tại giữ nguyên — app không giả vờ đã tách nền khi model chưa chạy thật.","err");
+      setLibStatus($("segStatus"),"✗ Tách nền bằng BiRefNet không chạy được: "+((err&&err.message)||"lỗi không rõ")+". Kiểm tra kết nối mạng (lần đầu phải tải onnxruntime-web + model BiRefNet từ CDN / Hugging Face) rồi bấm chạy lại — hoặc chuyển sang lựa chọn “BEN2 — mới nhất” / “MediaPipe — nhẹ, nhanh” ở trên. Art hiện tại giữ nguyên — app không giả vờ đã tách nền khi model chưa chạy thật.","err");
+    }
+  }
+  sg.running=false; $("btnSegment").disabled=false;
+}
+
+/* ================= TÁCH NỀN AI · BEN2 (PramaLLC — ONNX qua onnxruntime-web, dùng chung runtime với BiRefNet) =================
+   Kiểm chứng ngoại tuyến trước khi tích hợp (đợt 4 lộ trình gộp):
+   · Nguồn 1 (chính): PramaLLC/BEN2 — file BEN2_Base.onnx tải đủ 222.932.053 byte, SHA-256 khớp LFS oid
+     trên Hugging Face; đọc bằng onnx: đầu vào float32 [1,3,1024,1024] (tên input.1), đầu ra float16
+     [1,1,1024,1024], opset 15, toàn bộ 13.328 node là op ONNX chuẩn (không domain lạ, không custom op,
+     không dữ liệu ngoài file) — onnxruntime-web chạy được. Suy luận đầy đủ 1024×1024 bằng CPU trong máy
+     kiểm chứng bị hệ điều hành giết vì giới hạn RAM của máy ảo (model tách patch như bản PyTorch) nên
+     chưa có số đo mask từ lần chạy đó — mức kiểm chứng ngang đợt BiRefNet, phép thử cuối ở trình duyệt thật.
+   · Nguồn 2 (dự phòng): onnx-community/BEN2-ONNX — file onnx/model_fp16.onnx tải đủ 219.121.675 byte,
+     SHA-256 khớp LFS oid; đầu vào 'pixel_values' float32 [1,3,1024,1024], đầu ra 'alphas' float32 —
+     lưu ý bản này có 24 node domain com.microsoft nên onnxruntime-web có thể từ chối; nó chỉ là dự phòng
+     khi nguồn 1 lỗi, lỗi thì app báo đỏ rõ và giữ nguyên art như thiết kế.
+   Tiền xử lý theo đúng tài liệu của model: resize về 1024×1024 (kèm BEN2.py của PramaLLC và
+   preprocessor_config.json của bản onnx-community đều ghi size 1024×1024). Điểm khác nhau theo nguồn:
+   file onnx_run.py chính thức đi kèm BEN2_Base.onnx nạp pixel 0–1 (ToTensor, KHÔNG chuẩn hoá) → nguồn 1
+   normalize=false; preprocessor_config.json của bản onnx-community ghi chuẩn hoá ImageNet → nguồn 2
+   normalize=true. Hậu xử lý theo postprocess_image chính thức của BEN2: chuẩn hoá min–max
+   (result − min) / (max − min) trên toàn mặt nạ, rồi phóng về kích thước gốc + làm mềm viền ~1.5 px
+   như BiRefNet. Đầu ra của BEN2_Base là float16 — hàm ortTensorToFloat32 bên dưới giải mã cả
+   float16 (Uint16Array) lẫn float32. */
+var BEN_SIZE=1024;
+var BEN_CANDIDATES=[
+  {label:"BEN2_Base FP32 chính thức (PramaLLC/BEN2 — Hugging Face)",url:"https://huggingface.co/PramaLLC/BEN2/resolve/main/BEN2_Base.onnx",normalize:false},
+  {label:"BEN2 FP16 (onnx-community/BEN2-ONNX — Hugging Face)",url:"https://huggingface.co/onnx-community/BEN2-ONNX/resolve/main/onnx/model_fp16.onnx",normalize:true}
+];
+function ensureBenSession(){
+  if(sg.benSession)return Promise.resolve(sg.benSession);
+  if(sg.benSessionPromise)return sg.benSessionPromise;
+  sg.benSessionPromise=(async function(){
+    await loadOrtForSeg();
+    var errors=[];
+    for(var i=0;i<BEN_CANDIDATES.length;i++){
+      if(sg.cancelled)throw new Error("__cancel__");
+      var cand=BEN_CANDIDATES[i];
+      try{
+        setSegLoad(true,14,"Đang tải model "+cand.label+"…");
+        var buf=await fetchWithProgress(cand.url,function(p,got,total){
+          if(p>=0)setSegLoad(true,14+Math.round(p*46),"Đang tải model "+cand.label+" — "+Math.round(p*100)+"% ("+fmtMB(got)+(total?" / "+fmtMB(total):"")+")");
+          else setSegLoad(true,36,"Đang tải model "+cand.label+" — đã nhận "+fmtMB(got));
+        },sg.abort?sg.abort.signal:undefined);
+        if(sg.cancelled)throw new Error("__cancel__");
+        setSegLoad(true,64,"Đã tải model BEN2 xong — đang khởi tạo phiên chạy (WASM)…");
+        var sess=await window.ort.InferenceSession.create(buf,{executionProviders:["wasm"],graphOptimizationLevel:"all"});
+        sg.benSession=sess; sg.benModelLabel=cand.label; sg.benNormalize=cand.normalize;
+        return sess;
+      }catch(e){
+        if(sg.cancelled)throw e;
+        errors.push(cand.label+" → "+((e&&e.message)||"lỗi"));
+      }
+    }
+    throw new Error("không tải / chạy được model BEN2 từ 2 nguồn công khai đã thử — "+errors.join(" · "));
+  })();
+  return sg.benSessionPromise;
+}
+function canvasToBenTensor(c,normalize){
+  var w=c.width,h=c.height;
+  var d=c.getContext("2d").getImageData(0,0,w,h).data;
+  var mean=[0.485,0.456,0.406], std=[0.229,0.224,0.225];
+  var f=new Float32Array(w*h*3), n=w*h, i;
+  for(i=0;i<n;i++){
+    var r=d[i*4]/255, g=d[i*4+1]/255, b=d[i*4+2]/255;
+    if(normalize){r=(r-mean[0])/std[0]; g=(g-mean[1])/std[1]; b=(b-mean[2])/std[2]}
+    f[i]=r; f[i+n]=g; f[i+2*n]=b;
+  }
+  return new window.ort.Tensor("float32",f,[1,3,h,w]);
+}
+function ortTensorToFloat32(t){
+  var data=t.data;
+  if(data instanceof Float32Array)return data;
+  if(data instanceof Uint16Array&&t.type==="float16"){
+    var out=new Float32Array(data.length), i, h, sign, exp, frac, val;
+    for(i=0;i<data.length;i++){
+      h=data[i]; sign=(h>>15)&1; exp=(h>>10)&31; frac=h&1023;
+      if(exp===0)val=(frac/1024)*Math.pow(2,-14);
+      else if(exp===31)val=frac?NaN:Infinity;
+      else val=(1+frac/1024)*Math.pow(2,exp-15);
+      out[i]=sign?-val:val;
+    }
+    return out;
+  }
+  var res=new Float32Array(data.length);
+  for(var j=0;j<data.length;j++)res[j]=Number(data[j]);
+  return res;
+}
+async function runBen2(){
+  if(sg.running)return;
+  if(!srcImg){setLibStatus($("segStatus"),"Chưa có ảnh — nạp ảnh ở bước 1 và cắt ở bước 2 trước.","err");return}
+  sg.running=true; sg.cancelled=false;
+  sg.abort=("AbortController" in window)?new AbortController():null;
+  $("btnSegment").disabled=true;
+  $("segCmpBlock").style.display="none";
+  try{
+    var fullArt=getArtCanvas(8192);
+    setSegLoad(true,2,"Đang chuẩn bị tách nền bằng BEN2 — art gốc "+fullArt.width+"×"+fullArt.height+" px…");
+    setLibStatus($("segStatus"),"Đang chạy BEN2: tải model (lần đầu ~220 MB) rồi suy luận ngay trong trình duyệt — không gửi ảnh đi đâu cả. BEN2 là model nặng, bước suy luận có thể mất vài phút trên máy yếu.","");
+    var session=await ensureBenSession();
+    if(sg.cancelled)throw new Error("__cancel__");
+    setSegLoad(true,72,"Tiền xử lý: resize art về "+BEN_SIZE+"×"+BEN_SIZE+(sg.benNormalize?" + chuẩn hoá ImageNet (theo preprocessor_config của nguồn model này)":" (pixel 0–1 như onnx_run.py chính thức của BEN2_Base)")+"…");
+    var small=mkCanvas(BEN_SIZE,BEN_SIZE), sx=small.getContext("2d");
+    sx.imageSmoothingEnabled=true; sx.imageSmoothingQuality="high";
+    sx.drawImage(fullArt,0,0,BEN_SIZE,BEN_SIZE);
+    var inName=session.inputNames[0], outName=session.outputNames[0];
+    var feeds={}; feeds[inName]=canvasToBenTensor(small,sg.benNormalize);
+    setSegLoad(true,80,"Đang chạy suy luận BEN2 ("+sg.benModelLabel+") — model nặng nên bước này có thể mất từ vài chục giây tới vài phút tuỳ máy…");
+    await new Promise(function(r){setTimeout(r,30)});
+    var res=await session.run(feeds);
+    if(sg.cancelled)throw new Error("__cancel__");
+    var outT=res[outName];
+    if(!outT||!outT.data||!outT.dims||outT.dims.length<2)throw new Error("BEN2 chạy xong nhưng đầu ra không có mặt nạ hợp lệ");
+    var md=outT.dims, mh=md[md.length-2], mw=md[md.length-1], mn=mw*mh;
+    var raw=ortTensorToFloat32(outT);
+    if(raw.length<mn)throw new Error("BEN2 trả mặt nạ nhỏ hơn mong đợi ("+raw.length+" < "+mn+")");
+    /* hậu xử lý chính thức của BEN2: chuẩn hoá min–max trên toàn mặt nạ */
+    var mnV=Infinity, mxV=-Infinity, k;
+    for(k=0;k<mn;k++){var vv=raw[k]; if(vv<mnV)mnV=vv; if(vv>mxV)mxV=vv}
+    var range=mxV-mnV, useNorm=range>1e-6;
+    var maskSmall=mkCanvas(mw,mh), mx2=maskSmall.getContext("2d"), mimg=mx2.createImageData(mw,mh), fg=0;
+    for(k=0;k<mn;k++){
+      var v=raw[k];
+      v=useNorm?((v-mnV)/range):v;
+      v=clamp(v,0,1);
+      if(v>0.5)fg++;
+      var a=Math.round(v*255);
+      mimg.data[k*4]=a; mimg.data[k*4+1]=a; mimg.data[k*4+2]=a; mimg.data[k*4+3]=255;
+    }
+    mx2.putImageData(mimg,0,0);
+    var ratio=mn?fg/mn:0;
+    if(ratio<0.005||ratio>0.995){
+      setSegLoad(false);
+      setLibStatus($("segStatus"),"BEN2 ("+sg.benModelLabel+") đã chạy thật nhưng mặt nạ phủ "+Math.round(ratio*100)+"% diện tích — gần như toàn nền hoặc toàn ảnh, không có đối tượng tách rõ trên art này. Bạn có thể thử lại với lựa chọn “BiRefNet — chất lượng cao” hoặc “MediaPipe — nhẹ, nhanh” ở trên. Art hiện tại giữ nguyên.","err");
+      sg.running=false; $("btnSegment").disabled=false;
+      return;
+    }
+    setSegLoad(true,92,"Đang phóng mặt nạ về kích thước gốc "+fullArt.width+"×"+fullArt.height+" px + làm mềm viền ~1.5 px…");
+    await new Promise(function(r){setTimeout(r,30)});
+    var maskFull=mkCanvas(fullArt.width,fullArt.height), fx=maskFull.getContext("2d");
+    fx.imageSmoothingEnabled=true; fx.imageSmoothingQuality="high";
+    try{fx.filter="blur(1.5px)"}catch(e){}
+    fx.drawImage(maskSmall,0,0,maskFull.width,maskFull.height);
+    try{fx.filter="none"}catch(e){}
+    var out=copyCanvas(fullArt), ox2=out.getContext("2d");
+    ox2.globalCompositeOperation="destination-in";
+    ox2.drawImage(maskFull,0,0);
+    ox2.globalCompositeOperation="source-over";
+    sg.candidate=out;
+    sg.lastModelLabel="BEN2 — "+sg.benModelLabel+" (onnxruntime-web)";
+    var pv=$("segPreview"); pv.width=out.width; pv.height=out.height;
+    pv.getContext("2d").clearRect(0,0,out.width,out.height);
+    pv.getContext("2d").drawImage(out,0,0);
+    $("segCmpBlock").style.display="block";
+    setSegLoad(true,100,"✓ Tách nền bằng BEN2 xong.");
+    setTimeout(function(){setSegLoad(false)},1000);
+    setLibStatus($("segStatus"),"✓ BEN2 ("+sg.benModelLabel+") đã chạy thật: đối tượng chính chiếm khoảng "+Math.round(ratio*100)+"% diện tích art, mặt nạ đã chuẩn hoá min–max theo đúng hậu xử lý chính thức của BEN2, phóng về đúng kích thước gốc "+out.width+"×"+out.height+" px, làm mềm viền ~1.5 px và nền đã chuyển trong suốt — xem trước ở khung caro bên trên. Bấm “Áp dụng nền trong suốt” để dùng cho các bước sau + xuất PNG trong suốt, hoặc bỏ nếu mặt nạ chưa đúng.","ok");
+  }catch(err){
+    setSegLoad(false);
+    if(sg.cancelled||(err&&err.message==="__cancel__")){
+      setLibStatus($("segStatus"),"Đã huỷ tách nền — art hiện tại không thay đổi gì.","err");
+    }else{
+      sg.benSessionPromise=null; sg.ortPromise=null;
+      setLibStatus($("segStatus"),"✗ Tách nền bằng BEN2 không chạy được: "+((err&&err.message)||"lỗi không rõ")+". Kiểm tra kết nối mạng (lần đầu phải tải onnxruntime-web + model BEN2 ~220 MB từ CDN / Hugging Face) rồi bấm chạy lại — hoặc chuyển sang lựa chọn “BiRefNet — chất lượng cao” / “MediaPipe — nhẹ, nhanh” ở trên, hai lựa chọn cũ vẫn hoạt động bình thường. Art hiện tại giữ nguyên — app không giả vờ đã tách nền khi model chưa chạy thật.","err");
     }
   }
   sg.running=false; $("btnSegment").disabled=false;
@@ -3933,44 +5158,13 @@ function doExport(format){
       return encodeExportFile(canvas,format).then(function(res){return{canvas:canvas,res:res}});
     }).then(function(pair){
       var res=pair.res, info=res.info;
-      var slug=promptText?slugify(promptText):"";
-      var baseName="front-2d-"+srcName+"-"+exportSize.w+"x"+exportSize.h+"-300dpi"+(slug?"-"+slug:"");
+      var baseName=exportBaseName();
       var outBlob=new Blob([res.bytes],{type:format==="png"?"image/png":"image/jpeg"});
       downloadBlob(outBlob,baseName+(format==="png"?".png":".jpg"));
-      var exifTxt=(format==="jpg")
-        ?(info.exif?"Đã chèn EXIF DPI 300 bằng piexifjs (XResolution/YResolution = 300, ResolutionUnit = inch), kèm JFIF density 300 như trước":"Không chèn được EXIF ("+(info.exifReason||"lỗi không rõ")+") — file vẫn mang JFIF density 300 DPI như cơ chế cũ")
-        :"PNG: không dùng EXIF — DPI 300 nằm ở chunk pHYs như cơ chế cũ, độ trong suốt được giữ nguyên";
+      var exifTxt=exifTxtFor(format,info);
       setExportCodecStatus("✓ Lần xuất "+(format==="png"?"PNG":"JPG")+" vừa rồi — Codec: "+info.codec+". "+exifTxt+". Chi tiết cũng đã ghi vào file .txt hồ sơ tải kèm.",info.codecShort.indexOf("dự phòng")>=0?"err":"ok");
       setTimeout(function(){
-        var lines=[];
-        lines.push("STUDIO POD 2D — HỒ SƠ FILE IN");
-        lines.push("File in: "+baseName+(format==="png"?".png":".jpg"));
-        lines.push("Khổ: "+exportSize.w+"x"+exportSize.h+" px · 300 DPI");
-        lines.push("Phóng ảnh lên khổ in: "+lastResizeMethod);
-        lines.push("Codec mã hoá: "+info.codec);
-        lines.push("EXIF DPI (piexifjs): "+exifTxt);
-        lines.push("Nguồn art: "+(derivedArt?derivedLabel+" ("+derivedArt.width+"x"+derivedArt.height+" px)":"vùng cắt gốc ở bước 2"+(wm.cleaned?" + đã xoá watermark ở bước 3":"")));
-        if(dot4Log.length){
-          lines.push("");
-          lines.push("=== THAO TÁC ĐỢT 4 (chroma.js / image-q / opentype.js / SVGO / potrace) ===");
-          dot4Log.forEach(function(s){lines.push("- "+s)});
-        }
-        lines.push("");
-        lines.push("=== KIỂM TRA WATERMARK (bước 3) ===");
-        lines.push(wmTxtLine("Kiểm tra trước",wm.before));
-        lines.push(wmTxtLine("Kiểm tra lại sau khi xoá",wm.after));
-        lines.push("Đã xoá watermark trong app: "+(wm.cleaned?("Có — cách xoá đã dùng: "+(wm.lastEngine||"inpainting")):"Không"));
-        lines.push("Xác nhận của người dùng về quyền dùng ảnh: "+(($("wmRights")&&$("wmRights").checked)||wmManualChecked()?"Có":"Không ghi nhận"));
-        lines.push("Xác nhận soi tay từng ô: "+(wmManualChecked()?"Có — xác nhận không còn watermark và có quyền dùng ảnh này":"Không"));
-        if(promptText){
-          lines.push("");
-          lines.push("=== PROMPT SỬA ART ===");
-          lines.push("Prompt gốc:");
-          lines.push(promptText);
-          lines.push("");
-          lines.push("Prompt hoàn chỉnh (dán vào AI tạo sinh nếu muốn vẽ lại hẳn):");
-          lines.push(fullPromptText());
-        }
+        var lines=buildProfileLines(baseName+(format==="png"?".png":".jpg"),info.codec,exifTxt,[]);
         downloadBlob(new Blob([lines.join("\r\n")],{type:"text/plain;charset=utf-8"}),baseName+"-ho-so.txt");
       },450);
       btn.disabled=false; btn.textContent=old;
@@ -3984,6 +5178,182 @@ function doExport(format){
 }
 $("btnExportPng").onclick=function(){doExport("png")};
 $("btnExportJpg").onclick=function(){doExport("jpg")};
+
+/* ================= HỒ SƠ .TXT DÙNG CHUNG (PNG / JPG / ZIP / PDF) =================
+   Tên file gốc + câu chữ EXIF + toàn bộ nội dung file .txt hồ sơ được dựng tại 1 chỗ để cả 4
+   cách xuất (lẻ PNG, lẻ JPG, bộ ZIP, PDF) ghi hồ sơ giống hệt nhau; mỗi cách xuất chỉ khác ở
+   dòng “File in”, dòng codec và vài dòng riêng (đóng gói ZIP / xuất PDF) truyền qua extraLines. */
+function exportBaseName(){
+  var slug=promptText?slugify(promptText):"";
+  return "front-2d-"+srcName+"-"+exportSize.w+"x"+exportSize.h+"-300dpi"+(slug?"-"+slug:"");
+}
+function exifTxtFor(format,info){
+  if(format==="jpg"){
+    return info.exif
+      ?"Đã chèn EXIF DPI 300 bằng piexifjs (XResolution/YResolution = 300, ResolutionUnit = inch), kèm JFIF density 300 như trước"
+      :("Không chèn được EXIF ("+(info.exifReason||"lỗi không rõ")+") — file vẫn mang JFIF density 300 DPI như cơ chế cũ");
+  }
+  return "PNG: không dùng EXIF — DPI 300 nằm ở chunk pHYs như cơ chế cũ, độ trong suốt được giữ nguyên";
+}
+function buildProfileLines(fileDesc,codecLine,exifLine,extraLines){
+  var lines=[];
+  lines.push("STUDIO POD 2D — HỒ SƠ FILE IN");
+  lines.push("File in: "+fileDesc);
+  lines.push("Khổ: "+exportSize.w+"x"+exportSize.h+" px · 300 DPI");
+  lines.push("Phóng ảnh lên khổ in: "+lastResizeMethod);
+  if(codecLine)lines.push("Codec mã hoá: "+codecLine);
+  if(exifLine)lines.push("EXIF DPI (piexifjs): "+exifLine);
+  (extraLines||[]).forEach(function(s){lines.push(s)});
+  lines.push("Nguồn art: "+(derivedArt?derivedLabel+" ("+derivedArt.width+"x"+derivedArt.height+" px)":"vùng cắt gốc ở bước 2"+(wm.cleaned?" + đã xoá watermark ở bước 3":"")));
+  if(dot4Log.length){
+    lines.push("");
+    lines.push("=== THAO TÁC ĐỢT 4 (chroma.js / image-q / opentype.js / SVGO / potrace) ===");
+    dot4Log.forEach(function(s){lines.push("- "+s)});
+  }
+  if(lastPreflight){
+    lines.push("");
+    lines.push("=== KIỂM TRA TRƯỚC IN — PREFLIGHT (bước 7, chỉ cảnh báo, không khoá xuất) ===");
+    lines.push("Thời điểm kiểm tra: "+lastPreflight.time.toLocaleString("vi-VN"));
+    lastPreflight.rows.forEach(function(r){lines.push("- ["+r.tag+"] "+r.text)});
+  }
+  lines.push("");
+  lines.push("=== KIỂM TRA WATERMARK (bước 3) ===");
+  lines.push(wmTxtLine("Kiểm tra trước",wm.before));
+  lines.push(wmTxtLine("Kiểm tra lại sau khi xoá",wm.after));
+  lines.push("Đã xoá watermark trong app: "+(wm.cleaned?("Có — cách xoá đã dùng: "+(wm.lastEngine||"inpainting")):"Không"));
+  lines.push("Xác nhận của người dùng về quyền dùng ảnh: "+(($("wmRights")&&$("wmRights").checked)||wmManualChecked()?"Có":"Không ghi nhận"));
+  lines.push("Xác nhận soi tay từng ô: "+(wmManualChecked()?"Có — xác nhận không còn watermark và có quyền dùng ảnh này":"Không"));
+  if(promptText){
+    lines.push("");
+    lines.push("=== PROMPT SỬA ART ===");
+    lines.push("Prompt gốc:");
+    lines.push(promptText);
+    lines.push("");
+    lines.push("Prompt hoàn chỉnh (dán vào AI tạo sinh nếu muốn vẽ lại hẳn):");
+    lines.push(fullPromptText());
+  }
+  return lines;
+}
+
+/* ================= LỘ TRÌNH GỘP ĐỢT 2 · JSZip — XUẤT CẢ BỘ (.ZIP) =================
+   JSZip nạp lười từ CDN jsDelivr qua loadLib() chỉ khi bấm nút ZIP. Bộ ZIP gồm: PNG + JPG ở
+   khổ in đã chọn (đúng pipeline mã hoá của xuất lẻ), file .txt hồ sơ, và SVG (+ bản SVG đã
+   tối ưu SVGO nếu đã tạo) khi đã vector hoá ở bước 5. Nút ZIP dùng chung cổng khoá watermark
+   trong updateExportGate() như 2 nút xuất lẻ. JSZip tải lỗi / nén lỗi -> báo đỏ rõ lý do tại
+   dòng trạng thái ZIP; xuất lẻ PNG / JPG không hề bị ảnh hưởng. */
+function setZipStatus(msg,kind){setLibStatus($("zipStatus"),msg,kind)}
+function doExportZip(){
+  if(!srcImg)return;
+  var btn=$("btnExportZip"); if(!btn||btn.disabled)return;
+  var old=btn.textContent; btn.disabled=true; btn.textContent="Đang đóng gói ZIP…";
+  var box=$("zipLoadBox"), fill=$("zipLoadFill"), txt=$("zipLoadTxt");
+  function prog(pct,label){
+    if(box)box.style.display="block";
+    if(fill)fill.style.width=clamp(Math.round(pct),0,100)+"%";
+    if(txt&&label)txt.textContent=label;
+  }
+  prog(2,"Đang tải JSZip từ CDN jsDelivr…");
+  setZipStatus("Đang chuẩn bị bộ ZIP — tải JSZip (nạp lười từ CDN jsDelivr, chỉ tải khi bấm nút này)…","");
+  loadLib("jszip").then(function(ok){
+    if(!ok)throw new Error("không tải được JSZip từ CDN jsDelivr (jszip@3.10.1) — kiểm tra kết nối mạng rồi bấm lại");
+    prog(6,"Đã có JSZip — đang dựng file PNG ở khổ "+exportSize.w+"×"+exportSize.h+" px…");
+    setZipStatus("Đã tải JSZip — đang mã hoá PNG + JPG ở khổ "+exportSize.w+" × "+exportSize.h+" px (đúng codec của xuất lẻ) rồi mới nén…","");
+    return buildExportCanvas("png").then(function(c){return encodeExportFile(c,"png")}).then(function(pngRes){
+      prog(38,"PNG xong ("+fmtKB(pngRes.bytes.length)+") — đang dựng file JPG cùng khổ…");
+      return buildExportCanvas("jpg").then(function(c){return encodeExportFile(c,"jpg")}).then(function(jpgRes){
+        return{png:pngRes,jpg:jpgRes};
+      });
+    });
+  }).then(function(pair){
+    var baseName=exportBaseName();
+    var names={
+      png:baseName+".png",
+      jpg:baseName+".jpg",
+      txt:baseName+"-ho-so.txt",
+      svg:"vector-"+srcName+"-"+exportSize.w+"x"+exportSize.h+".svg",
+      svgOpt:"vector-"+srcName+"-"+exportSize.w+"x"+exportSize.h+"-svgo.svg"
+    };
+    var included=[names.png,names.jpg];
+    if(tracedSvgStr)included.push(names.svg);
+    if(tracedSvgStr&&optimizedSvgStr)included.push(names.svgOpt);
+    included.push(names.txt);
+    var codecLine="PNG — "+pair.png.info.codec+" · JPG — "+pair.jpg.info.codec;
+    var exifLine="JPG: "+exifTxtFor("jpg",pair.jpg.info)+" · PNG: không dùng EXIF — DPI 300 nằm ở chunk pHYs như cơ chế cũ";
+    var extra=["Đóng gói cả bộ: file ZIP này được tạo bằng JSZip, gồm đúng "+included.length+" file: "+included.join(", ")];
+    var lines=buildProfileLines(names.png+" + "+names.jpg+" (trong bộ ZIP "+baseName+".zip)",codecLine,exifLine,extra);
+    var zip=new window.JSZip();
+    zip.file(names.png,pair.png.bytes);
+    zip.file(names.jpg,pair.jpg.bytes);
+    if(tracedSvgStr)zip.file(names.svg,tracedSvgStr);
+    if(tracedSvgStr&&optimizedSvgStr)zip.file(names.svgOpt,optimizedSvgStr);
+    zip.file(names.txt,lines.join("\r\n"));
+    prog(55,"Đã gom "+included.length+" file — đang nén ZIP…");
+    return zip.generateAsync({type:"blob",compression:"DEFLATE",compressionOptions:{level:6}},function(meta){
+      prog(55+(meta.percent||0)*0.45,"Đang nén ZIP… "+Math.round(meta.percent||0)+"%"+(meta.currentFile?(" — "+meta.currentFile):""));
+    }).then(function(blob){return{blob:blob,included:included,baseName:baseName}});
+  }).then(function(r){
+    prog(100,"Nén xong — đang tải xuống "+r.baseName+".zip");
+    downloadBlob(r.blob,r.baseName+".zip");
+    btn.disabled=false; btn.textContent=old;
+    setZipStatus("✓ Đã tải bộ ZIP "+r.baseName+".zip ("+fmtKB(r.blob.size)+") bằng JSZip — gồm đúng "+r.included.length+" file: "+r.included.join(", ")+". File .txt hồ sơ nằm ngay trong ZIP.","ok");
+    showOk("⬇️ Đã tải <b>"+escapeHtml(r.baseName)+".zip</b> (JSZip) — gồm: "+r.included.map(function(n){return escapeHtml(n)}).join(", ")+".");
+    setTimeout(function(){if(box)box.style.display="none"},3000);
+  }).catch(function(err){
+    btn.disabled=false; btn.textContent=old;
+    if(box)box.style.display="none";
+    setZipStatus("✗ Xuất ZIP lỗi: "+shortErr(err)+". Chưa có file ZIP nào được tải xuống — xuất lẻ PNG / JPG ở trên vẫn dùng bình thường, không bị ảnh hưởng.","err");
+  });
+}
+$("btnExportZip").onclick=doExportZip;
+
+/* ================= LỘ TRÌNH GỘP ĐỢT 2 · pdf-lib — XUẤT PDF IN ẤN =================
+   pdf-lib nạp lười từ CDN jsDelivr qua loadLib() chỉ khi bấm nút PDF. PDF có đúng 1 trang,
+   kích thước trang = kích thước in thật của khổ đã chọn: inch = px / 300, point = inch × 72
+   (4500×5400 px -> 15×18 inch -> 1080×1296 pt). Ảnh nhúng là bản JPG đã mã hoá ở bước 7
+   (encodeExportFile — cùng codec / EXIF như xuất lẻ), vẽ phủ đầy trang. Lần xuất PDF được
+   ghi vào file .txt hồ sơ tải kèm, kèm kích thước trang. pdf-lib tải lỗi -> báo đỏ rõ,
+   các định dạng khác không bị ảnh hưởng. */
+function setPdfStatus(msg,kind){setLibStatus($("pdfStatus"),msg,kind)}
+function fmtPt(v){return String(Math.round(v*100)/100)}
+function doExportPdf(){
+  if(!srcImg)return;
+  var btn=$("btnExportPdf"); if(!btn||btn.disabled)return;
+  var old=btn.textContent; btn.disabled=true; btn.textContent="Đang dựng PDF…";
+  setPdfStatus("Đang chuẩn bị PDF — tải pdf-lib (nạp lười từ CDN jsDelivr, chỉ tải khi bấm nút này)…","");
+  loadLib("pdflib").then(function(ok){
+    if(!ok)throw new Error("không tải được pdf-lib từ CDN jsDelivr (pdf-lib@1.17.1) — kiểm tra kết nối mạng rồi bấm lại");
+    setPdfStatus("Đã có pdf-lib — đang mã hoá ảnh art ở khổ "+exportSize.w+"×"+exportSize.h+" px để nhúng vào PDF…","");
+    return buildExportCanvas("jpg").then(function(c){return encodeExportFile(c,"jpg")});
+  }).then(function(jpgRes){
+    var wIn=exportSize.w/300, hIn=exportSize.h/300;
+    var wPt=wIn*72, hPt=hIn*72;
+    return window.PDFLib.PDFDocument.create().then(function(doc){
+      try{doc.setTitle("Studio POD 2D — file in "+exportSize.w+"x"+exportSize.h+" px · 300 DPI"); doc.setProducer("Studio POD 2D (pdf-lib)")}catch(e){}
+      return doc.embedJpg(jpgRes.bytes).then(function(img){
+        var page=doc.addPage([wPt,hPt]);
+        page.drawImage(img,{x:0,y:0,width:wPt,height:hPt});
+        return doc.save();
+      });
+    }).then(function(pdfBytes){
+      return{bytes:pdfBytes,jpgRes:jpgRes,wPt:wPt,hPt:hPt,wIn:wIn,hIn:hIn};
+    });
+  }).then(function(r){
+    var baseName=exportBaseName();
+    downloadBlob(new Blob([r.bytes],{type:"application/pdf"}),baseName+".pdf");
+    var pdfLine="Đã xuất PDF bằng pdf-lib: PDF 1 trang, kích thước trang "+fmtPt(r.wPt)+" × "+fmtPt(r.hPt)+" pt ("+fmtPt(r.wIn)+" × "+fmtPt(r.hIn)+" inch) — đúng kích thước in thật của khổ "+exportSize.w+"x"+exportSize.h+" px ở 300 DPI (point = inch × 72); ảnh nhúng là bản JPG đã mã hoá ở bước 7 ("+r.jpgRes.info.codecShort+"), phủ đầy trang.";
+    var lines=buildProfileLines(baseName+".pdf",r.jpgRes.info.codec,exifTxtFor("jpg",r.jpgRes.info),[pdfLine]);
+    setTimeout(function(){
+      downloadBlob(new Blob([lines.join("\r\n")],{type:"text/plain;charset=utf-8"}),baseName+"-ho-so.txt");
+    },450);
+    btn.disabled=false; btn.textContent=old;
+    setPdfStatus("✓ Đã tải "+baseName+".pdf ("+fmtKB(r.bytes.length)+") bằng pdf-lib — 1 trang "+fmtPt(r.wPt)+" × "+fmtPt(r.hPt)+" pt, ảnh phủ đầy trang; file .txt hồ sơ tải kèm có dòng ghi lần xuất PDF này kèm kích thước trang.","ok");
+    showOk("⬇️ Đã tải file in <b>PDF</b> 1 trang <b>"+fmtPt(r.wPt)+" × "+fmtPt(r.hPt)+" pt</b> ("+exportSize.w+" × "+exportSize.h+" px · 300 DPI, bằng pdf-lib) + file <b>.txt</b> hồ sơ kèm theo.");
+  }).catch(function(err){
+    btn.disabled=false; btn.textContent=old;
+    setPdfStatus("✗ Xuất PDF lỗi: "+shortErr(err)+". Chưa có file PDF nào được tải xuống — xuất PNG / JPG / ZIP vẫn dùng bình thường, không bị ảnh hưởng.","err");
+  });
+}
+$("btnExportPdf").onclick=doExportPdf;
 
 /* ================= RADAR MẪU BÁN CHẠY ================= */
 var RADAR_NICHES=[
@@ -4274,6 +5644,15 @@ function edAttachNode(rec){
   rec.node.on("dragend transformend",function(){if(ed.mvOn)edSyncProxy()});
 }
 /* ---------- lớp ảnh phụ ---------- */
+function edAddImageNode(img,name){
+  var s=Math.min(1,(ed.stageW*0.45)/img.width,(ed.stageH*0.45)/img.height); if(!(s>0))s=1;
+  var w=Math.max(24,Math.round(img.width*s)), h=Math.max(24,Math.round(img.height*s));
+  var node=new Konva.Image({image:img,x:Math.round((ed.stageW-w)/2),y:Math.round((ed.stageH-h)/2),width:w,height:h,draggable:true,name:"ednode"});
+  ed.layer.add(node); ed.tr.moveToTop(); ed.layer.draw();
+  var rec={id:"ed"+(++ed.seq),kind:"image",name:name,node:node};
+  ed.layers.push(rec); edAttachNode(rec); edSelect(rec.id);
+  return rec;
+}
 function edAddImageFromFile(file){
   if(!ed.stage){edSetLibStatus("Mở editor trước rồi mới thêm ảnh phụ được.","err");return}
   if(!file||!/^image\//.test(file.type||"")){edSetStatus("File chọn không phải ảnh — hãy chọn file PNG / JPG (logo, sticker).","err");return}
@@ -4281,17 +5660,75 @@ function edAddImageFromFile(file){
   var img=new Image();
   img.onload=function(){
     try{URL.revokeObjectURL(url)}catch(e){}
-    var s=Math.min(1,(ed.stageW*0.45)/img.width,(ed.stageH*0.45)/img.height); if(!(s>0))s=1;
-    var w=Math.max(24,Math.round(img.width*s)), h=Math.max(24,Math.round(img.height*s));
-    var node=new Konva.Image({image:img,x:Math.round((ed.stageW-w)/2),y:Math.round((ed.stageH-h)/2),width:w,height:h,draggable:true,name:"ednode"});
-    ed.layer.add(node); ed.tr.moveToTop(); ed.layer.draw();
-    var rec={id:"ed"+(++ed.seq),kind:"image",name:"Ảnh: "+(file.name||"ảnh phụ"),node:node};
-    ed.layers.push(rec); edAttachNode(rec); edSelect(rec.id);
+    edAddImageNode(img,"Ảnh: "+(file.name||"ảnh phụ"));
     edSetStatus("Đã thêm lớp ảnh phụ “"+(file.name||"ảnh phụ")+"” ("+img.width+"×"+img.height+" px gốc) — kéo thả / resize / xoay trên khung vẽ.","");
   };
   img.onerror=function(){try{URL.revokeObjectURL(url)}catch(e){} edSetStatus("Không đọc được file ảnh này — thử file PNG / JPG khác.","err")};
   img.src=url;
 }
+/* ---------- ĐỢT 6 · LỚP QR (qrcode-generator) + LỚP MÃ VẠCH (JsBarcode) ----------
+   Cả hai vẽ ra canvas nét cao rồi vào editor qua edAddImageNode như 1 lớp ảnh thường:
+   kéo / resize / xoay / ẩn hiện / nhân bản / áp dụng full-res dùng nguyên cơ chế sẵn có.
+   Thư viện nạp lười qua loadLib() khi bấm nút; lỗi -> báo đỏ tại edCodeStatus, editor không ảnh hưởng. */
+function edSetCodeStatus(msg,kind){setLibStatus($("edCodeStatus"),msg,kind)}
+function edAddCanvasLayer(canvas,name,okMsg){
+  var img=new Image();
+  img.onload=function(){edAddImageNode(img,name); if(okMsg)edSetStatus(okMsg,"")};
+  img.onerror=function(){edSetStatus("Không đưa được hình vừa tạo vào editor — thử lại.","err")};
+  img.src=canvas.toDataURL("image/png");
+}
+$("btnEdAddQr").onclick=function(){
+  if(!ed.stage){edSetStatus("Mở editor trước rồi mới thêm lớp QR được.","err");return}
+  var text=$("edQrText").value.trim();
+  if(!text){edSetCodeStatus("Chưa nhập nội dung / link cho QR — nhập link hoặc nội dung trước đã.","err");return}
+  var btn=this; btn.disabled=true;
+  edSetCodeStatus("Đang tải thư viện qrcode-generator từ CDN (jsDelivr)…","");
+  loadLib("qrcodegen").then(function(ok){
+    btn.disabled=false;
+    if(!ok){edSetCodeStatus("✗ Không tải được qrcode-generator từ CDN (jsDelivr) — kiểm tra kết nối mạng rồi bấm lại. Editor và các tính năng khác vẫn dùng bình thường.","err");return}
+    try{
+      var ec=$("edQrEc").value||"M";
+      var qr=window.qrcode(0,ec);
+      qr.addData(text);
+      qr.make();
+      var n=qr.getModuleCount(), margin=2;
+      var cell=Math.max(5,Math.round(960/(n+margin*2)));
+      var size=(n+margin*2)*cell;
+      var c=mkCanvas(size,size), x=c.getContext("2d");
+      x.fillStyle="#ffffff"; x.fillRect(0,0,size,size);
+      x.fillStyle=$("edQrColor").value||"#171713";
+      for(var r=0;r<n;r++)for(var col=0;col<n;col++){
+        if(qr.isDark(r,col))x.fillRect((col+margin)*cell,(r+margin)*cell,cell,cell);
+      }
+      var short=text.length>26?text.slice(0,26)+"…":text;
+      edAddCanvasLayer(c,"QR: "+short,"Đã thêm lớp QR cho “"+short+"” — kéo thả / resize / xoay trên khung vẽ như lớp ảnh thường.");
+      edSetCodeStatus("✓ Đã tạo lớp QR ("+n+" × "+n+" ô, mức sửa lỗi "+ec+") cho “"+short+"” bằng qrcode-generator.","ok");
+    }catch(e){
+      edSetCodeStatus("✗ Không tạo được QR từ nội dung này ("+(((e&&e.message)||e)||"lỗi không rõ")+") — nội dung có thể quá dài so với dung lượng QR. Rút ngắn link / nội dung hoặc hạ mức sửa lỗi rồi thử lại.","err");
+    }
+  });
+};
+$("btnEdAddBarcode").onclick=function(){
+  if(!ed.stage){edSetStatus("Mở editor trước rồi mới thêm lớp mã vạch được.","err");return}
+  var text=$("edBarcodeText").value.trim();
+  if(!text){edSetCodeStatus("Chưa nhập chuỗi mã vạch — nhập mã sản phẩm / SKU trước đã.","err");return}
+  var btn=this; btn.disabled=true;
+  edSetCodeStatus("Đang tải thư viện JsBarcode từ CDN (jsDelivr)…","");
+  loadLib("jsbarcode").then(function(ok){
+    btn.disabled=false;
+    if(!ok){edSetCodeStatus("✗ Không tải được JsBarcode từ CDN (jsDelivr) — kiểm tra kết nối mạng rồi bấm lại. Editor và các tính năng khác vẫn dùng bình thường.","err");return}
+    try{
+      var c=document.createElement("canvas");
+      window.JsBarcode(c,text,{format:"CODE128",width:4,height:150,displayValue:true,fontSize:36,margin:18,background:"#ffffff",lineColor:"#171713",font:"monospace"});
+      if(!c.width||!c.height)throw new Error("JsBarcode không vẽ được mã vạch từ chuỗi này");
+      var short=text.length>26?text.slice(0,26)+"…":text;
+      edAddCanvasLayer(c,"Mã vạch: "+short,"Đã thêm lớp mã vạch CODE128 cho “"+short+"” — kéo thả / resize / xoay trên khung vẽ như lớp ảnh thường.");
+      edSetCodeStatus("✓ Đã tạo lớp mã vạch CODE128 cho “"+short+"” bằng JsBarcode.","ok");
+    }catch(e){
+      edSetCodeStatus("✗ Không tạo được mã vạch CODE128 từ chuỗi này ("+(((e&&e.message)||e)||"lỗi không rõ")+") — CODE128 chỉ nhận ký tự ASCII thông dụng; bỏ dấu tiếng Việt / ký tự đặc biệt lạ rồi thử lại.","err");
+    }
+  });
+};
 /* ---------- thao tác lớp ---------- */
 function edDuplicate(rec){
   var clone=rec.node.clone();
@@ -4466,6 +5903,75 @@ $("btnEdUndo").onclick=function(){
   updateArtSrcNote(); scheduleRender();
   try{csOnArtReset()}catch(e){}
   edSetStatus("Đã hoàn tác áp dụng — art chính quay lại đúng bản trước lần áp dụng gần nhất. Các lớp trong editor vẫn giữ nguyên, sửa tiếp rồi áp dụng lại được.","ok");
+};
+
+/* ---------- ĐỢT 6 · XUẤT PSD THEO LỚP (ag-psd) ----------
+   PSD gồm: lớp nền = art hiện tại (dưới cùng) + mỗi lớp chữ / ảnh / QR / mã vạch trong editor
+   thành 1 lớp riêng, raster hoá ở độ phân giải ĐẦY ĐỦ của art bằng chính cơ chế stage.toCanvas
+   của nút “Áp dụng vào art” (ẩn các lớp khác + lớp nền, kết xuất từng lớp một, khôi phục lại
+   trạng thái editor y hệt sau khi xong). Tên lớp lấy theo danh sách lớp trong editor.
+   Chưa mở editor / chưa có lớp nào -> vẫn xuất PSD chỉ 1 lớp art. Các lớp trong PSD là RASTER,
+   không phải chữ sống. ag-psd nạp lười qua loadLib(); lỗi -> báo đỏ, editor giữ nguyên. */
+function edSetPsdStatus(msg,kind){setLibStatus($("edPsdStatus"),msg,kind)}
+function edRenderFullStage(){
+  var pr=ed.fullW/ed.stageW;
+  var rendered=ed.stage.toCanvas({pixelRatio:pr});
+  var out=mkCanvas(ed.fullW,ed.fullH);
+  var x=out.getContext("2d"); x.imageSmoothingEnabled=true; x.imageSmoothingQuality="high";
+  x.drawImage(rendered,0,0,out.width,out.height);
+  return out;
+}
+$("btnEdPsd").onclick=function(){
+  if(!srcImg){edSetPsdStatus("✗ Chưa có art — nạp ảnh ở bước 1 và cắt vùng in ở bước 2 trước đã.","err");return}
+  var btn=this; btn.disabled=true;
+  edSetPsdStatus("Đang tải thư viện ag-psd từ CDN (jsDelivr)…","");
+  if(libState.agpsd==="error"){delete libPromises.agpsd; delete libState.agpsd}
+  loadLib("agpsd").then(function(ok){
+    if(!ok){btn.disabled=false; edSetPsdStatus("✗ Không tải được ag-psd từ CDN (jsDelivr) — kiểm tra kết nối mạng rồi bấm lại. Editor, art và mọi tính năng khác không bị ảnh hưởng.","err");return}
+    edSetPsdStatus("Đang kết xuất từng lớp ở độ phân giải đầy đủ và dựng file PSD — art lớn có thể mất ít giây…","");
+    setTimeout(function(){
+      try{
+        var artFull=getArtCanvas(1000000000);
+        var children=[], comp=null;
+        if(ed.open&&ed.stage&&ed.layers.length){
+          var sorted=ed.layers.slice().sort(function(a,b){return b.node.getZIndex()-a.node.getZIndex()});
+          var selBefore=ed.selId;
+          if(ed.mvOn)edSetMv(false);
+          edSelect(null);
+          var baseVis=ed.baseNode.visible();
+          var visMap={};
+          ed.layers.forEach(function(r){visMap[r.id]=r.node.visible()});
+          try{
+            comp=edRenderFullStage();
+            ed.baseNode.visible(false);
+            sorted.forEach(function(rec){
+              ed.layers.forEach(function(r){r.node.visible(r===rec)});
+              ed.layer.draw();
+              children.push({name:rec.name,canvas:edRenderFullStage(),hidden:!visMap[rec.id]});
+            });
+          }finally{
+            ed.baseNode.visible(baseVis);
+            ed.layers.forEach(function(r){r.node.visible(visMap[r.id])});
+            ed.layer.draw();
+            edSelect(selBefore);
+          }
+          children.push({name:"Nền — art hiện tại",canvas:artFull});
+        }else{
+          comp=artFull;
+          children.push({name:"Art hiện tại",canvas:artFull});
+        }
+        var buf=window.agPsd.writePsdBuffer({width:artFull.width,height:artFull.height,canvas:comp,children:children});
+        var blob=new Blob([buf],{type:"image/vnd.adobe.photoshop"});
+        var fname="layers-"+srcName+"-"+artFull.width+"x"+artFull.height+".psd";
+        downloadBlob(blob,fname);
+        edSetPsdStatus("✓ Đã tải file PSD "+fname+" ("+fmtKB(blob.size)+") bằng ag-psd — gồm "+children.length+" lớp raster: "+children.map(function(c){return "“"+c.name+"”"}).join(", ")+", ở độ phân giải đầy đủ "+artFull.width+" × "+artFull.height+" px. Nhắc lại: đây là các lớp RASTER (ảnh đã kết xuất), không phải chữ sống / text layer chỉnh sửa được trong Photoshop.","ok");
+        showOk("⬇️ Đã tải <b>"+escapeHtml(fname)+"</b> — PSD "+children.length+" lớp raster (ag-psd).");
+      }catch(e){
+        edSetPsdStatus("✗ Xuất PSD lỗi: "+(((e&&e.message)||e)||"lỗi không rõ")+" — chưa có file PSD nào được tải xuống; art và các lớp trong editor giữ nguyên như trước khi bấm nút.","err");
+      }
+      btn.disabled=false;
+    },30);
+  });
 };
 
 /* ================= KẾT NỐI GOOGLE DRIVE (LƯU LINK — APP TĨNH, KHÔNG OAUTH) =================
@@ -5353,6 +6859,306 @@ $("btnCsBgDownload").onclick=function(){
 /* khởi tạo xưởng */
 csRender();
 csRenderTextPrev();
+
+/* ================= DỰ ÁN THIẾT KẾ — localForage / IndexedDB =================
+   Lưu / mở dự án thiết kế + tự lưu nháp. localForage nạp lười từ CDN jsDelivr qua loadLib()
+   (khoá "localforage" trong LIBS), dữ liệu nằm ở IndexedDB của trình duyệt này — không đồng bộ
+   đi đâu cả. Nội dung lưu: ảnh gốc, art hiện tại (derivedArt), bản làm việc bước 3 (wm.base —
+   chứa kết quả đã xoá watermark), khung cắt + tỉ lệ + bleed, trạng thái watermark (kết quả quét
+   trước/sau, đã xoá, tick soi tay + quyền dùng ảnh), khổ in + định dạng xuất gần nhất, ô prompt
+   + hiệu ứng prompt, thanh trượt làm đẹp bước 5 và dot4Log (nhật ký thao tác ghi vào .txt).
+   KHÔNG lưu: lớp Konva đang dựng dở trong Editor lớp, thao tác chưa áp dụng của Xưởng sáng tạo,
+   mặt nạ tô dở ở bước 3 — đã ghi rõ trong panel. Mọi lỗi lưu/mở chỉ báo đỏ tại panel, tuyệt đối
+   không đụng vào trạng thái đang hiển thị (restore chỉ thay trạng thái sau khi ảnh gốc trong
+   dự án đã nạp thành công). */
+var PROJ_LIMIT=50*1024*1024;
+var projStore=null, projReady=false, projLastFormat="", projRestoring=false;
+var projSig="", projDraftTimer=null, projDraftData=null, projDraftErrShown=false;
+function projSetStatus(msg,kind){setLibStatus($("projStatus"),msg,kind)}
+function projErrText(err){
+  if(!err)return "lỗi không rõ";
+  var m=(err.name||"")+" "+(err.message||"");
+  if(/quota|QuotaExceeded/i.test(m))return "trình duyệt đã hết dung lượng lưu trữ (quota IndexedDB) — xoá bớt dự án cũ trong danh sách bên dưới hoặc giải phóng dung lượng rồi thử lại.";
+  if(/IndexedDB|IDB/i.test(m))return "IndexedDB của trình duyệt bị lỗi hoặc đang bị chặn (thường gặp ở chế độ ẩn danh) — thử mở app ở cửa sổ thường.";
+  return shortErr(err);
+}
+function projImgFromUrl(url){
+  return new Promise(function(resolve,reject){
+    var im=new Image();
+    im.onload=function(){resolve(im)};
+    im.onerror=function(){reject(new Error("không đọc được ảnh lưu trong dự án (dữ liệu ảnh có thể đã hỏng)"))};
+    im.src=url;
+  });
+}
+function projCanvasFromUrl(url){
+  return projImgFromUrl(url).then(function(im){
+    var c=mkCanvas(im.width,im.height); c.getContext("2d").drawImage(im,0,0); return c;
+  });
+}
+function projSerWmRes(res){
+  if(!res)return null;
+  var t=res.time instanceof Date?res.time:new Date(res.time);
+  return{count:res.count,confidence:res.confidence,time:isNaN(t.getTime())?new Date().toISOString():t.toISOString(),cells:res.cells||null,suspects:res.suspects||[]};
+}
+function projDeWmRes(o){
+  if(!o)return null;
+  return{count:o.count||0,confidence:o.confidence||0,time:new Date(o.time),cells:o.cells||[],suspects:o.suspects||[]};
+}
+var PROJ_SLIDERS=["sBright","sContrast","sSat","sTemp","sShadow","sHigh","sSmooth","sSharp","sLine","sLevels"];
+function projSerialize(name){
+  if(!srcImg)return null;
+  var srcC=mkCanvas(srcImg.width,srcImg.height);
+  srcC.getContext("2d").drawImage(srcImg,0,0);
+  var srcUrl=canvasHasAlpha(srcC)?srcC.toDataURL("image/png"):srcC.toDataURL("image/jpeg",0.92);
+  var sliders={};
+  PROJ_SLIDERS.forEach(function(id){var el=$(id); if(el)sliders[id]=el.value});
+  return{
+    app:"studio-pod", kind:"project", version:1,
+    name:name||"", savedAt:new Date().toISOString(),
+    srcName:srcName, srcDataUrl:srcUrl,
+    crop:{x:crop.x,y:crop.y,w:crop.w,h:crop.h},
+    ratio:ratio, bleed:$("bleed")?$("bleed").value:"3",
+    derivedDataUrl:derivedArt?derivedArt.toDataURL("image/png"):null, derivedLabel:derivedLabel,
+    wmBaseDataUrl:(wm.base&&!wm.baseDirty)?wm.base.toDataURL("image/png"):null,
+    wm:{cleaned:wm.cleaned,lastEngine:wm.lastEngine,fileNameWarn:wm.fileNameWarn,dpiText:wm.dpiText,
+        before:projSerWmRes(wm.before), after:projSerWmRes(wm.after),
+        manual:wmManualChecked(), rights:!!($("wmRights")&&$("wmRights").checked), ocrBoxes:wm.ocrBoxes||null},
+    exportSize:{w:exportSize.w,h:exportSize.h}, lastFormat:projLastFormat,
+    promptInput:$("promptInput")?$("promptInput").value:"", promptText:promptText, redrawStyle:redrawStyle,
+    sliders:sliders, dot4Log:dot4Log.slice()
+  };
+}
+function projSizeOf(p){try{return JSON.stringify(p).length}catch(e){return Infinity}}
+function projFmtSize(n){return (n/1048576).toFixed(1)+" MB"}
+function projSignature(){
+  if(!srcImg)return "";
+  var sl="";
+  PROJ_SLIDERS.forEach(function(id){var el=$(id); if(el)sl+=el.value+","});
+  return [srcName,srcImg.width+"x"+srcImg.height,
+    Math.round(crop.x)+","+Math.round(crop.y)+","+Math.round(crop.w)+","+Math.round(crop.h),
+    derivedArt?(derivedArt.width+"x"+derivedArt.height+"|"+derivedLabel):"-",
+    wm.cleaned?"cleaned":"-", wm.before?wm.before.count:"-", wm.after?wm.after.count:"-", wmManualChecked()?"m":"-",
+    promptText, redrawStyle, sl, exportSize.w+"x"+exportSize.h, dot4Log.length].join("|");
+}
+/* --- khôi phục: thay toàn bộ trạng thái app bằng nội dung dự án --- */
+function projRestore(p){
+  if(!p||p.app!=="studio-pod"||p.kind!=="project"||!p.srcDataUrl)
+    return Promise.reject(new Error("dữ liệu không phải dự án Studio POD hợp lệ (thiếu ảnh gốc hoặc sai định dạng file)"));
+  projRestoring=true;
+  return projImgFromUrl(p.srcDataUrl).then(function(img){
+    setImage(img,(p.srcName||"art")+".png");
+    clearTimeout(wmAutoTimer); /* chặn lượt quét tự động ghi đè kết quả watermark đã lưu */
+    if(p.ratio){ratio=p.ratio; $("ratio45").classList.toggle("on",Math.abs(ratio-4/5)<0.001); $("ratio11").classList.toggle("on",ratio===1)}
+    if(p.bleed!=null&&$("bleed")){$("bleed").value=p.bleed; $("bleedVal").textContent=p.bleed+"%"}
+    if(p.crop&&p.crop.w>0&&p.crop.h>0){crop.x=p.crop.x; crop.y=p.crop.y; crop.w=p.crop.w; crop.h=p.crop.h}
+    drawCrop(); updateCropInfo();
+    if($("promptInput"))$("promptInput").value=p.promptInput||"";
+    if(p.promptText){
+      var pr=parsePrompt(p.promptText);
+      promptFx=pr.fx; promptText=p.promptText; renderAppliedLabels(pr.labels);
+      $("specPrompt").textContent="“"+(p.promptText.length>42?p.promptText.slice(0,42)+"…":p.promptText)+"”";
+    }
+    if(p.sliders)PROJ_SLIDERS.forEach(function(id){
+      if(p.sliders[id]==null)return; var el=$(id); if(!el)return;
+      el.value=p.sliders[id]; var lb=$(id.replace("s","v")); if(lb)lb.textContent=p.sliders[id];
+    });
+    redrawStyle=p.redrawStyle||"none";
+    document.querySelectorAll(".redraw-card").forEach(function(el){el.classList.toggle("on",el.getAttribute("data-style")===redrawStyle)});
+    dot4Log=Array.isArray(p.dot4Log)?p.dot4Log.slice():[];
+    if(p.exportSize&&p.exportSize.w){
+      exportSize={w:p.exportSize.w,h:p.exportSize.h};
+      document.querySelectorAll(".size-card").forEach(function(el){
+        el.classList.toggle("on",parseInt(el.getAttribute("data-w"),10)===exportSize.w&&parseInt(el.getAttribute("data-h"),10)===exportSize.h);
+      });
+      $("specPx").textContent=exportSize.w+" × "+exportSize.h+" px · 300 DPI";
+    }
+    projLastFormat=p.lastFormat||"";
+    var wp=p.wm||{};
+    wm.cleaned=!!wp.cleaned; wm.lastEngine=wp.lastEngine||""; wm.fileNameWarn=wp.fileNameWarn||"";
+    if(wp.dpiText)wm.dpiText=wp.dpiText;
+    wm.before=projDeWmRes(wp.before); wm.after=projDeWmRes(wp.after); wm.ocrBoxes=wp.ocrBoxes||null;
+    wm.heatCells=(wm.after&&wm.after.cells&&wm.after.cells.length?wm.after.cells:(wm.before?wm.before.cells:null))||null;
+    var mc=$("wmManualConfirm"); if(mc)mc.checked=!!wp.manual;
+    var rc=$("wmRights"); if(rc)rc.checked=!!wp.rights;
+    if(wm.before)renderWmReport($("wmReport"),wm.before,"khôi phục từ dự án — kết quả quét lúc "+wm.before.time.toLocaleString("vi-VN"));
+    if(wm.after)renderWmReport($("wmReport2"),wm.after,"khôi phục từ dự án — kiểm tra lại lúc "+wm.after.time.toLocaleString("vi-VN"));
+    var chain=Promise.resolve();
+    if(p.wmBaseDataUrl){
+      chain=chain.then(function(){return projCanvasFromUrl(p.wmBaseDataUrl)}).then(function(c){
+        wm.base=c; wm.baseDirty=false; wm.mask=mkCanvas(c.width,c.height); wm.undoStack=[]; wm.maskHas=false;
+        ["wmCanvas","wmHeat","wmMaskView"].forEach(function(id){var cv=$(id); if(cv){cv.width=c.width; cv.height=c.height}});
+      }).catch(function(){wm.base=null; wm.baseDirty=true});
+    }
+    if(p.derivedDataUrl){
+      chain=chain.then(function(){return projCanvasFromUrl(p.derivedDataUrl)}).then(function(c){
+        derivedArt=c; derivedLabel=p.derivedLabel||"Art khôi phục từ dự án đã lưu";
+      }).catch(function(){derivedArt=null; derivedLabel=""});
+    }
+    return chain.then(function(){
+      drawWmStage(); drawHeat(); drawMaskView(); updateInpaintBtn(); updateWmFileInfo(); updateArtSrcNote();
+      scheduleRender(); updateExportGate();
+      if($("projName"))$("projName").value=p.name||"";
+      projSig=projSignature(); projRestoring=false;
+    });
+  }).catch(function(err){projRestoring=false; throw err});
+}
+/* --- danh sách dự án --- */
+function projLoadIndex(){
+  if(!projStore)return Promise.resolve([]);
+  return projStore.getItem("meta:index").then(function(v){return Array.isArray(v)?v:[]}).catch(function(){return[]});
+}
+function projRenderList(idx){
+  var wrap=$("projList"); if(!wrap)return;
+  wrap.innerHTML="";
+  $("projListEmpty").style.display=idx.length?"none":"block";
+  idx.slice().sort(function(a,b){return String(b.savedAt||"").localeCompare(String(a.savedAt||""))}).forEach(function(e){
+    var row=document.createElement("div"); row.className="radar-idea";
+    var p=document.createElement("p");
+    p.innerHTML="<b>"+escapeHtml(e.name)+"</b><br><small style=\"color:var(--muted)\">Lưu lúc "+(e.savedAt?new Date(e.savedAt).toLocaleString("vi-VN"):"—")+" · dung lượng ~"+(e.size?projFmtSize(e.size):"?")+"</small>";
+    var btns=document.createElement("div"); btns.className="radar-idea-btns";
+    var bOpen=document.createElement("button"); bOpen.className="radar-mini accent"; bOpen.type="button"; bOpen.textContent="Mở dự án";
+    bOpen.onclick=function(){projOpenById(e.id,e.name)};
+    var bDel=document.createElement("button"); bDel.className="radar-mini"; bDel.type="button"; bDel.textContent="Xoá";
+    bDel.onclick=function(){projDeleteById(e.id,e.name)};
+    btns.appendChild(bOpen); btns.appendChild(bDel);
+    row.appendChild(p); row.appendChild(btns); wrap.appendChild(row);
+  });
+}
+function projOpenById(id,name){
+  if(!projReady||!projStore){projSetStatus("✗ Kho dự án chưa sẵn sàng — xem thông báo lỗi phía trên.","err"); return}
+  projSetStatus("Đang mở dự án “"+name+"”…","");
+  projStore.getItem("proj:"+id).then(function(p){
+    if(!p)throw new Error("không tìm thấy dữ liệu của dự án này trong IndexedDB (có thể đã bị xoá hoặc hỏng)");
+    return projRestore(p);
+  }).then(function(){
+    projSetStatus("✓ Đã mở dự án “"+name+"” — ảnh gốc, art, khung cắt, trạng thái watermark, khổ in và prompt đã khôi phục đúng như lúc lưu (cổng khoá xuất file cũng theo đúng trạng thái đã lưu).","ok");
+  }).catch(function(err){
+    projSetStatus("✗ Mở dự án thất bại: "+projErrText(err),"err");
+  });
+}
+function projDeleteById(id,name){
+  if(!projStore)return;
+  projStore.removeItem("proj:"+id).then(function(){
+    return projLoadIndex().then(function(idx){
+      idx=idx.filter(function(e){return e.id!==id});
+      return projStore.setItem("meta:index",idx).then(function(){
+        projRenderList(idx);
+        projSetStatus("Đã xoá dự án “"+name+"” khỏi trình duyệt này.","ok");
+      });
+    });
+  }).catch(function(err){projSetStatus("✗ Xoá dự án thất bại: "+projErrText(err),"err")});
+}
+$("btnProjSave").onclick=function(){
+  if(!projReady||!projStore){projSetStatus("✗ Kho lưu dự án chưa sẵn sàng (thư viện localForage / IndexedDB chưa dùng được — xem thông báo phía trên). Việc đang làm trên màn hình vẫn nguyên vẹn.","err"); return}
+  if(!srcImg){projSetStatus("✗ Chưa có ảnh nào trên màn hình — nạp ảnh ở bước 1 rồi mới lưu dự án được.","err"); return}
+  var name=($("projName").value||"").trim()||("Dự án "+new Date().toLocaleString("vi-VN"));
+  var p=null;
+  try{p=projSerialize(name)}catch(e){projSetStatus("✗ Không đóng gói được dự án ("+shortErr(e)+") — việc trên màn hình vẫn nguyên vẹn.","err"); return}
+  var size=projSizeOf(p);
+  if(size>PROJ_LIMIT){
+    projSetStatus("✗ Dự án quá lớn: ~"+projFmtSize(size)+", vượt giới hạn an toàn ~50 MB nên app từ chối lưu để tránh làm hỏng kho IndexedDB. Hãy dùng ảnh gốc nhỏ hơn hoặc bỏ bản art phái sinh quá lớn rồi lưu lại — việc trên màn hình không bị ảnh hưởng.","err");
+    return;
+  }
+  projSetStatus("Đang lưu dự án “"+name+"” (~"+projFmtSize(size)+") vào IndexedDB…","");
+  projLoadIndex().then(function(idx){
+    var id=null;
+    for(var i=0;i<idx.length;i++){if(String(idx[i].name).toLowerCase()===name.toLowerCase()){id=idx[i].id; break}}
+    if(!id)id="p"+Date.now().toString(36)+Math.floor(Math.random()*1296).toString(36);
+    return projStore.setItem("proj:"+id,p).then(function(){
+      var entry={id:id,name:name,savedAt:p.savedAt,size:size}, found=false;
+      idx=idx.map(function(e){if(e.id===id){found=true; return entry} return e});
+      if(!found)idx.push(entry);
+      return projStore.setItem("meta:index",idx).then(function(){
+        projRenderList(idx);
+        projSetStatus("✓ Đã lưu dự án “"+name+"” (~"+projFmtSize(size)+") lúc "+new Date(p.savedAt).toLocaleString("vi-VN")+" — lưu trùng tên sẽ ghi đè bản cũ cùng tên.","ok");
+      });
+    });
+  }).catch(function(err){
+    projSetStatus("✗ Lưu dự án thất bại: "+projErrText(err)+" Việc đang làm trên màn hình vẫn nguyên vẹn, không mất gì.","err");
+  });
+};
+/* --- xuất / nhập file .json --- */
+$("btnProjExportFile").onclick=function(){
+  if(!srcImg){projSetStatus("✗ Chưa có việc nào trên màn hình để xuất — nạp ảnh ở bước 1 trước.","err"); return}
+  var name=($("projName").value||"").trim()||("du-an-"+srcName);
+  var p=null;
+  try{p=projSerialize(name)}catch(e){projSetStatus("✗ Không đóng gói được dự án ("+shortErr(e)+").","err"); return}
+  var json=JSON.stringify(p);
+  if(json.length>PROJ_LIMIT){projSetStatus("✗ Dự án quá lớn (~"+projFmtSize(json.length)+") — vượt giới hạn an toàn ~50 MB nên không xuất file. Việc trên màn hình không bị ảnh hưởng.","err"); return}
+  downloadBlob(new Blob([json],{type:"application/json;charset=utf-8"}),"du-an-"+slugify(name)+".json");
+  projSetStatus("✓ Đã xuất file dự án “"+name+"” (~"+projFmtSize(json.length)+") — mang file này sang máy / trình duyệt khác rồi dùng “Nhập file dự án” để khôi phục.","ok");
+};
+$("btnProjImportFile").onclick=function(){$("projFileInput").click()};
+$("projFileInput").addEventListener("change",function(e){
+  var f=e.target.files&&e.target.files[0]; e.target.value="";
+  if(!f)return;
+  if(f.size>PROJ_LIMIT+2*1024*1024){projSetStatus("✗ File chọn vào lớn hơn ~52 MB — không giống file dự án Studio POD hợp lệ, app không nhập. Trạng thái hiện tại giữ nguyên.","err"); return}
+  f.text().then(function(txt){
+    var p=null;
+    try{p=JSON.parse(txt)}catch(err){projSetStatus("✗ File này không phải JSON hợp lệ — không nhập được. Trạng thái hiện tại giữ nguyên.","err"); return}
+    projRestore(p).then(function(){
+      projSetStatus("✓ Đã nhập dự án “"+(p.name||"")+"” từ file — toàn bộ trạng thái app đã thay bằng nội dung trong file.","ok");
+    }).catch(function(err){
+      projSetStatus("✗ Nhập file dự án thất bại: "+projErrText(err),"err");
+    });
+  }).catch(function(){projSetStatus("✗ Không đọc được file đã chọn — trạng thái hiện tại giữ nguyên.","err")});
+});
+/* --- tự lưu nháp (debounce theo chữ ký trạng thái) --- */
+function projSaveDraft(){
+  if(!projReady||!projStore||!srcImg||projRestoring)return;
+  var p=null;
+  try{p=projSerialize("(Nháp tự động)")}catch(e){return}
+  if(projSizeOf(p)>PROJ_LIMIT){
+    if(!projDraftErrShown){projDraftErrShown=true; projSetStatus("⚠ Nháp tự lưu bị bỏ qua vì phiên làm việc hiện tại lớn hơn ~50 MB — hãy bấm “Lưu dự án” cũng sẽ gặp giới hạn này; cân nhắc dùng ảnh gốc nhỏ hơn.","err")}
+    return;
+  }
+  projStore.setItem("draft:autosave",p).catch(function(err){
+    if(!projDraftErrShown){projDraftErrShown=true; projSetStatus("⚠ Tự lưu nháp thất bại: "+projErrText(err)+" Việc trên màn hình vẫn nguyên — hãy chủ động bấm “Lưu dự án” khi làm xong từng chặng.","err")}
+  });
+}
+setInterval(function(){
+  if(!projReady||projRestoring)return;
+  if(!srcImg){projSig=""; return}
+  var s=projSignature();
+  if(s!==projSig){projSig=s; clearTimeout(projDraftTimer); projDraftTimer=setTimeout(projSaveDraft,3000)}
+},1600);
+$("btnProjDraftRestore").onclick=function(){
+  if(!projDraftData)return;
+  var d=projDraftData;
+  projRestore(d).then(function(){
+    $("projDraftBar").style.display="none"; projDraftData=null;
+    projSetStatus("✓ Đã khôi phục bản nháp tự lưu"+(d.savedAt?" lúc "+new Date(d.savedAt).toLocaleString("vi-VN"):"")+" — toàn bộ trạng thái đã quay về đúng bản nháp.","ok");
+  }).catch(function(err){projSetStatus("✗ Khôi phục nháp thất bại: "+projErrText(err),"err")});
+};
+$("btnProjDraftDismiss").onclick=function(){
+  $("projDraftBar").style.display="none"; projDraftData=null;
+  if(projStore)projStore.removeItem("draft:autosave").catch(function(){});
+  projSetStatus("Đã bỏ qua và xoá bản nháp của phiên trước. App vẫn tiếp tục tự lưu nháp mới khi bạn thay đổi art.","");
+};
+/* ghi nhận định dạng xuất gần nhất để lưu vào dự án */
+var projOldPng=$("btnExportPng").onclick, projOldJpg=$("btnExportJpg").onclick;
+$("btnExportPng").onclick=function(){projLastFormat="png"; if(projOldPng)projOldPng()};
+$("btnExportJpg").onclick=function(){projLastFormat="jpg"; if(projOldJpg)projOldJpg()};
+/* khởi động kho dự án: nạp lười localForage, hiện danh sách + kiểm tra nháp phiên trước */
+loadLib("localforage").then(function(ok){
+  if(!ok||typeof window.localforage==="undefined"){
+    projReady=false;
+    projSetStatus("✗ Không tải được thư viện localForage từ CDN jsDelivr nên tính năng lưu / mở dự án và tự lưu nháp tạm không dùng được — kiểm tra kết nối mạng rồi tải lại trang. Mọi tính năng khác của app không bị ảnh hưởng.","err");
+    return;
+  }
+  try{projStore=window.localforage.createInstance({name:"studio-pod",storeName:"projects"})}
+  catch(e){projReady=false; projSetStatus("✗ Không khởi tạo được kho IndexedDB ("+shortErr(e)+") — tính năng dự án tạm không dùng được, các tính năng khác không bị ảnh hưởng.","err"); return}
+  projReady=true;
+  projLoadIndex().then(function(idx){projRenderList(idx)});
+  projStore.getItem("draft:autosave").then(function(d){
+    if(d&&d.srcDataUrl){
+      projDraftData=d;
+      $("projDraftInfo").textContent="Nháp lưu lúc "+(d.savedAt?new Date(d.savedAt).toLocaleString("vi-VN"):"—")+". Khôi phục sẽ thay toàn bộ trạng thái hiện tại bằng bản nháp này.";
+      $("projDraftBar").style.display="block";
+    }
+  }).catch(function(){});
+  projSetStatus("✓ Kho dự án sẵn sàng — dữ liệu chỉ lưu trong IndexedDB của trình duyệt này. Tự lưu nháp đang bật: art thay đổi là app tự lưu nháp (chờ ~3 giây sau thay đổi cuối).","");
+});
 
 /* ================= INIT ================= */
 drawCrop();
