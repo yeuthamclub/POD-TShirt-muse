@@ -275,6 +275,11 @@ input[type=text].txtin,input[type=url].txtin{width:100%;padding:11px;border:1px 
 #advWrap>summary small{font-weight:600;font-size:12px;color:var(--muted)}
 #advWrap[open ]>summary{border-bottom:1.5px solid var(--dark)}
 #advWrap .adv-in{padding:14px;display:grid;gap:14px;background:var(--bg)}
+/* ===== FLOW CHÍNH MỚI — TỰ ĐỘNG A→Z ===== */
+.auto-panel{border:2.5px solid var(--dark)}
+.auto-blink{position:relative;max-width:400px;margin:10px auto 0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background-color:#fff;background-image:conic-gradient(#ddd9cf 25%,#fff 0 50%,#ddd9cf 0 75%,#fff 0);background-size:16px 16px;line-height:0}
+.auto-blink canvas{display:block;width:100%;height:auto}
+.auto-blink canvas.abs{position:absolute;inset:0;width:100%;height:100%}
 </style>
 </head>
 <body>
@@ -283,7 +288,7 @@ input[type=text].txtin,input[type=url].txtin{width:100%;padding:11px;border:1px 
   <div class="in">
     <div>
       <h1>STUDIO <span>POD 2D</span> — Tách design khỏi ảnh áo mẫu</h1>
-      <p><b>Flow V3.1 (mặc định):</b> nạp 1 ảnh chụp người mẫu mặc áo in hình → kéo 4 góc khít vùng in → app tự gỡ nghiêng, <b>upscale AI trước</b>, tách nền vải 2 vòng theo trường sáng, snap màu palette Lab (có chốt an toàn cho design gradient), hỗ trợ <b>chế độ áo tối</b> + xuất <b>vector SVG</b> → xuất <b>design phẳng PNG trong suốt 4500×5400 · 300 DPI</b> gửi nhà in. Kiểm tra watermark nằm ở <b>cuối flow</b> dạng gợi ý soi lại, không chặn giữa chừng. Toàn bộ công cụ cắt / sửa tay trước đây nằm trong khu <b>Chỉnh tay nâng cao</b> ở dưới.</p>
+      <p><b>Flow chính — tự động A→Z:</b> bạn chỉ <b>nạp ảnh áo mẫu</b> rồi <b>nhận kết quả</b>. App tự nhận vùng artwork + đo màu nền áo → tự cắt / gỡ nghiêng → tự upscale + làm nét hướng tới khổ <b>4200×4800</b> → tự xoá nền theo màu áo → bàn giao cho <b>AI bên ngoài vẽ lại</b> (kèm prompt nguyên văn có sẵn) → <b>kiểm tra đối chiếu</b> art AI trả về so với art gốc (chữ / màu / hình khối, tự soạn prompt sửa, tối đa 3 vòng) → trả đúng <b>1 file PNG không nền 4200×4800 · 300 DPI</b>. Pipeline tách tay V3.1 và toàn bộ công cụ cũ nằm trong khu <b>Chỉnh tay nâng cao</b> ở dưới, làm dự phòng.</p>
     </div>
     <div class="badge">1 ảnh · 1 file in</div>
   </div>
@@ -291,9 +296,97 @@ input[type=text].txtin,input[type=url].txtin{width:100%;padding:11px;border:1px 
 
 <div class="flow">
 
+  <!-- FLOW CHÍNH MỚI: TỰ ĐỘNG A→Z — nạp file -> nhận PNG không nền 4200x4800 -->
+  <section class="panel auto-panel" id="autoPanel">
+    <div class="panel-head"><div class="num hot">⚡</div><div><h2>Flow chính — nạp file, nhận PNG (tự động A→Z)</h2><p>Bạn chỉ chạm 2 đầu: <b>nạp ảnh áo mẫu</b> và <b>nhận file kết quả</b>. Mọi bước giữa app tự chạy hết: tự nhận vùng artwork + đo màu nền áo → tự cắt / gỡ nghiêng → tự upscale + làm nét → tự xoá nền theo màu áo → bàn giao cho AI vẽ lại → kiểm tra đối chiếu → trả về đúng <b>1 file PNG không nền 4200×4800 px · 300 DPI</b>.</p></div></div>
+
+    <p class="subhead">Bước 1 — Nạp ảnh áo mẫu (nạp xong app tự chạy tiếp, không cần bấm “Chạy”)</p>
+    <div class="drop" id="autoDrop">
+      <strong>Thả ảnh áo mẫu vào đây</strong>
+      <p>Kéo thả file ảnh, dán ảnh bằng Ctrl+V, hoặc bấm chọn ảnh từ máy / điện thoại.</p>
+      <div class="row" style="max-width:560px;margin:0 auto">
+        <button class="btn btn-dark" id="autoPick" type="button">Chọn ảnh áo mẫu</button>
+        <button class="btn btn-light" id="autoSample" type="button">Dùng ảnh áo mẫu thật (SMILE MOOD)</button>
+      </div>
+    </div>
+    <input type="file" id="autoFile" accept="image/*" hidden>
+    <p class="hint" id="autoSrcInfo" style="margin-top:8px">Chưa có ảnh áo mẫu.</p>
+    <div class="row" style="max-width:760px;margin-top:6px">
+      <input type="url" class="txtin" id="autoDriveLink" placeholder="Hoặc dán link file Google Drive của ảnh áo mẫu…" style="flex:2;min-width:220px">
+      <button class="btn btn-outline" id="autoDriveBtn" type="button">Nạp từ Drive</button>
+    </div>
+    <p class="hint" id="autoDriveStatus" style="margin-top:6px">Nạp từ Drive dùng đúng cơ chế ở Bước 1 (khu nâng cao): file phải chia sẻ “Bất kỳ ai có link đều xem được” và qua kiểm tra CORS mới dùng được.</p>
+
+    <div class="loadbox" id="autoProgBox" style="display:none;max-width:none">
+      <div class="loadbar"><div class="loadfill" id="autoProgFill"></div></div>
+      <div class="loadrow"><span id="autoStatus">Sẵn sàng — nạp ảnh ở Bước 1 là app tự chạy hết các bước 2–4.</span></div>
+    </div>
+    <p class="hint" style="margin-top:8px"><b>Bước 2</b> tự cắt / gỡ nghiêng theo vùng artwork app tự nhận · <b>Bước 3</b> tự upscale + làm nét (Real-ESRGAN sẵn có, kèm nguồn AnimeVideo v3; lỗi / không có mạng thì lùi pica + unsharp, engine đã dùng được ghi vào dòng trạng thái và hồ sơ .txt) · <b>Bước 4</b> tự xoá nền theo màu áo đã đo ở Bước 1 bằng lõi tách V3.1 (trường sáng 2 vòng + flood-fill + snap màu + chế độ áo tối), dung sai tự tính. Giao diện chính không có thanh chỉnh nào — cần sửa tay (kéo góc, cọ alpha…) thì mở khu <b>Chỉnh tay nâng cao → Tách thủ công V3.1</b> ở dưới.</p>
+
+    <div id="autoDone" style="display:none">
+      <p class="subhead">Bước 5 — Bàn giao cho AI vẽ lại</p>
+      <div class="v3-cmp">
+        <figure class="v3-fig"><canvas id="autoArtPrev" class="alpha-bg" width="360" height="440"></canvas><figcaption>ART ĐÃ XỬ LÝ — SAU BƯỚC 4 (ĐƯA CHO AI)</figcaption></figure>
+        <figure class="v3-fig"><div class="v3-mockrow"><canvas id="autoMockW" width="176" height="220"></canvas><canvas id="autoMockB" width="176" height="220"></canvas></div><figcaption>MOCKUP XEM ĐỐI CHIẾU — ÁO TRẮNG / ÁO ĐEN (KHÔNG PHẢI KẾT QUẢ)</figcaption></figure>
+      </div>
+      <p class="hint" id="autoMetrics" style="margin-top:8px"></p>
+      <div class="row" style="margin-top:8px">
+        <button class="btn btn-dark" id="autoDlProcessed" type="button">Tải ảnh đã xử lý (PNG 4200×4800)</button>
+        <button class="btn btn-accent" id="autoCopyPrompt" type="button">Sao chép prompt AI</button>
+      </div>
+      <label class="f" style="margin-top:10px">Prompt đưa cho AI — nguyên văn, app không sửa một chữ</label>
+      <textarea class="txtin" id="autoPromptText" rows="3" readonly style="width:100%">dựa vào hình ảnh trên, chọn vùng artwork của hình trên áo, sau đó chỉnh lại thành 1 hình artwork hoàn chỉnh size 4200x4800px, sau đó hãy tách nền artwork sao cho có thể bỏ lên các màu nền khác nhau</textarea>
+      <p class="hint" id="autoStep5Status" style="margin-top:6px">Tải ảnh đã xử lý rồi dán kèm prompt này vào AI của bạn. Art AI trả về thì nạp vào ô ngay dưới để sang Bước 6 đối chiếu.</p>
+      <div class="notice"><b>Nói thẳng về bước này:</b> bước vẽ lại chạy ở <b>AI bên ngoài</b> — app tĩnh này <b>không tự tạo sinh được</b>, app chỉ chuẩn bị ảnh + prompt và kiểm tra kết quả. Bạn dán ảnh + prompt vào AI của mình, hoặc dùng panel <b>“Tương tác trực tiếp với Muse”</b> sẵn có trong khu Chỉnh tay nâng cao (Bước 4) để gửi cho Muse trong chat xử lý thay.</div>
+      <div class="drop" id="autoAiDrop" style="margin-top:12px">
+        <strong>Thả art AI trả về vào đây</strong>
+        <p>File PNG/JPG do AI vẽ lại — nạp vào là app tự chạy Bước 6 đối chiếu ngay.</p>
+        <div class="row" style="max-width:420px;margin:0 auto">
+          <button class="btn btn-dark" id="autoAiPick" type="button">Chọn art AI trả về</button>
+        </div>
+      </div>
+      <input type="file" id="autoAiFile" accept="image/*" hidden>
+      <p class="hint" id="autoAiInfo" style="margin-top:8px">Chưa nạp art AI trả về.</p>
+    </div>
+
+    <div id="autoCmp" style="display:none">
+      <p class="subhead">Bước 6 — Kiểm tra đối chiếu: art AI ↔ art gốc app đã tách</p>
+      <div class="auto-blink">
+        <canvas id="autoBlinkRef" width="420" height="480"></canvas>
+        <canvas id="autoBlinkAi" class="abs" width="420" height="480"></canvas>
+      </div>
+      <p class="hint" style="text-align:center;margin-top:6px">Chồng hình nhấp nháy: lớp trên là <b>art AI trả về</b>, lớp dưới là <b>art gốc (bước 4)</b> — chỗ nào nhấp nháy lệch nhau là chỗ cần soi.</p>
+      <p class="hint" id="autoCmpStatus">Chưa chạy đối chiếu.</p>
+      <div class="repbox" id="autoCmpList"></div>
+      <div id="autoFixWrap" style="display:none">
+        <label class="f" style="margin-top:10px">Prompt sửa — app tự soạn theo đúng các lỗi trên, sao chép gửi lại cho AI</label>
+        <textarea class="txtin" id="autoFixText" rows="5" readonly style="width:100%"></textarea>
+        <div class="row" style="margin-top:8px">
+          <button class="btn btn-accent" id="autoCopyFix" type="button">Sao chép prompt sửa</button>
+        </div>
+        <p class="hint" id="autoRoundInfo" style="margin-top:6px"></p>
+      </div>
+    </div>
+
+    <p class="subhead">Kết quả cuối — 1 file PNG không nền · 4200×4800 · 300 DPI</p>
+    <p class="hint" id="autoPreInfo">Preflight (kiểm tra cuối) chưa chạy — mục này chạy cùng lúc tách ở bước 2–4, quét gợi ý trên ảnh nguồn; trạng thái cổng của nó dùng chung với mục preflight ở Chỉnh tay nâng cao và cổng xuất Bước 7 (một cổng duy nhất).</p>
+    <label class="checkrow"><input type="checkbox" id="autoPreConfirm"><span><b>Đã soi tay các ô preflight được gợi ý, xác nhận không còn watermark và ảnh áo mẫu này là của tôi hoặc tôi có quyền sử dụng / chỉnh sửa design trong ảnh.</b> Ô này đồng bộ 2 chiều với ô xác nhận ở mục “Kiểm tra cuối (preflight)” trong Chỉnh tay nâng cao — tích ở đâu cũng là cùng 1 cổng mở khoá tải.</span></label>
+    <div class="row" style="margin-top:10px">
+      <button class="btn btn-accent" id="autoDlFinal" type="button" disabled>Tải PNG kết quả — không nền · 4200×4800 · 300 DPI</button>
+      <button class="btn btn-outline" id="autoDlTxt" type="button">Tải hồ sơ .txt</button>
+    </div>
+    <p class="hint" id="autoFinalStatus" style="margin-top:8px">Chưa có art AI trả về — hoàn thành Bước 5 rồi nạp art vào Bước 6.</p>
+    <div class="notice"><b>Ghi chú trung thực:</b> bước AI là vẽ lại ở bên ngoài, app chỉ chuẩn bị + kiểm tra. Đối chiếu kiểm được <b>chữ (OCR), màu và hình khối (vùng alpha)</b> — khớp ~99% là <b>mục tiêu chứ không cam kết tuyệt đối</b>. Phần design bị che khuất trong ảnh gốc thì AI chỉ phỏng lại, cần soi ở bước đối chiếu. Mockup áo trắng / đen chỉ để xem đối chiếu, không phải kết quả.</div>
+  </section>
+
+  <details id="advWrap">
+    <summary>🛠 Chỉnh tay nâng cao — toàn bộ công cụ cũ <small>Tách thủ công V3.1 (dự phòng) · Radar · Dự án · Drive · Bước 1–7 · Editor lớp · Xưởng sáng tạo — bấm để mở</small></summary>
+    <div class="adv-in">
+
   <!-- FLOW V3: TÁCH DESIGN KHỎI ẢNH ÁO MẪU -->
   <section class="panel v3-panel" id="v3Panel">
-    <div class="panel-head"><div class="num hot">⚡</div><div><h2>Tách design khỏi áo — Flow V3.1</h2><p>Nạp <b>ảnh chụp áo mẫu</b> (người mẫu mặc áo in hình), kéo <b>4 góc</b> cho khít vùng in, bấm 1 nút — app tự gỡ nghiêng phối cảnh → <b>upscale AI (Real-ESRGAN) trước</b> lên ~2× (chặn cạnh dài 3000 px) → <b>tách 2 vòng theo trường sáng</b> (vòng 1 tách thô để ước lượng trường sáng từ vùng vải, vòng 2 chuẩn hoá lại rồi flood-fill alpha) → lọc bảo toàn cạnh → <b>snap màu palette k-means Lab</b> → đóng gói file in <b>4500×5400 px · 300 DPI</b>, kèm đường xuất <b>vector SVG</b> cho art phẳng.</p></div></div>
+    <div class="notice"><b>Mục dự phòng của flow chính:</b> dùng khi flow tự động ở trên nhận sai vùng artwork hoặc ảnh quá khó. Toàn bộ pipeline V3.1 ở đây <b>giữ nguyên chức năng</b> và dùng <b>chung ảnh nguồn + art</b> với flow chính. Mục <b>Kiểm tra cuối (preflight)</b> ở cuối panel này vẫn là <b>cổng mở khoá tải dùng chung</b> cho flow chính, flow này và Bước 7 — chỉ 1 cổng duy nhất.</div>
+    <div class="panel-head"><div class="num hot">⚡</div><div><h2>Tách thủ công V3.1 (dự phòng) — kéo 4 góc &amp; tách tay</h2><p>Nạp <b>ảnh chụp áo mẫu</b> (người mẫu mặc áo in hình), kéo <b>4 góc</b> cho khít vùng in, bấm 1 nút — app tự gỡ nghiêng phối cảnh → <b>upscale AI (Real-ESRGAN) trước</b> lên ~2× (chặn cạnh dài 3000 px) → <b>tách 2 vòng theo trường sáng</b> (vòng 1 tách thô để ước lượng trường sáng từ vùng vải, vòng 2 chuẩn hoá lại rồi flood-fill alpha) → lọc bảo toàn cạnh → <b>snap màu palette k-means Lab</b> → đóng gói file in <b>4500×5400 px · 300 DPI</b>, kèm đường xuất <b>vector SVG</b> cho art phẳng.</p></div></div>
 
     <div class="drop" id="v3Drop">
       <strong>Thả ảnh áo mẫu vào đây</strong>
@@ -354,7 +447,7 @@ input[type=text].txtin,input[type=url].txtin{width:100%;padding:11px;border:1px 
         <button class="btn btn-outline" id="v3BtnVecPng" type="button" disabled>PNG in từ vector</button>
       </div>
       <p class="hint" id="v3VecStatus" style="margin-top:6px">Xuất vector chỉ mở khi art đã <b>snap palette</b> (art phẳng). App ưu tiên <b>vtracer WASM</b> (@visioncortex/vtracer trên jsDelivr); nạp / chạy không được thì tự lùi về <b>imagetracerjs</b> sẵn có và ghi rõ tracer đã dùng ở đây + trong hồ sơ.</p>
-      <p class="hint" id="v3DlStatus" style="margin-top:8px">Các nút tải mở sau bước <b>Kiểm tra cuối (preflight)</b> ngay bên dưới — quét gợi ý sạch thì app <b>tự tải ZIP 1 lần</b>, 2 nút này để tải lại khi cần. Design đã tách cũng được đưa vào <b>art chính dùng chung</b>: mở khu Chỉnh tay nâng cao bên dưới để sửa tiếp bằng toàn bộ công cụ cũ (prompt, editor lớp, xưởng sáng tạo…) rồi xuất ở Bước 7 — cổng xuất ở Bước 7 dùng <b>chung trạng thái preflight</b> này.</p>
+      <p class="hint" id="v3DlStatus" style="margin-top:8px">Các nút tải mở sau bước <b>Kiểm tra cuối (preflight)</b> ngay bên dưới — quét gợi ý sạch thì app <b>tự tải ZIP 1 lần</b>, 2 nút này để tải lại khi cần. Design đã tách cũng được đưa vào <b>art chính dùng chung</b>: sửa tiếp bằng toàn bộ công cụ cũ ngay trong khu Chỉnh tay nâng cao này (prompt, editor lớp, xưởng sáng tạo…) rồi xuất ở Bước 7 — cổng xuất ở Bước 7 dùng <b>chung trạng thái preflight</b> này.</p>
 
       <div id="v3PalWrap" style="display:none">
         <p class="subhead">Bảng palette sau snap — chọn lại màu in thật</p>
@@ -414,10 +507,6 @@ input[type=text].txtin,input[type=url].txtin{width:100%;padding:11px;border:1px 
       <p class="hint" id="v3WmStatus" style="margin-top:8px">Chưa vẽ mặt nạ nào. “Xem trước” chỉ hiển thị thử, không thay đổi gì; chỉ nút “Xoá trên ảnh nguồn & chạy lại” mới áp dụng thật.</p>
     </div>
   </section>
-
-  <details id="advWrap">
-    <summary>🛠 Chỉnh tay nâng cao — toàn bộ công cụ cũ <small>Radar · Dự án · Drive · Bước 1–7 · Editor lớp · Xưởng sáng tạo — bấm để mở</small></summary>
-    <div class="adv-in">
 
   <!-- RADAR: MẪU ÁO BÁN CHẠY TRONG NGÀY -->
   <section class="panel radar-panel" id="radarPanel">
@@ -1737,6 +1826,7 @@ function setImage(img,name){
   $("srcInfo").innerHTML="Đã nạp: <b>"+img.width+" × "+img.height+" px</b> — "+(name||"ảnh")+". Sang bước 2 kéo khung cam để cắt vùng tràn mặt trước, rồi qua bước 3 kiểm tra watermark trước khi sửa art.";
   drawCrop(); scheduleRender();
   if(typeof v3OnImage==="function")v3OnImage();
+  if(typeof autoOnImage==="function")autoOnImage();
 }
 function resetCrop(){
   if(!srcImg)return;
@@ -8946,6 +9036,355 @@ function v3RunPipeline(fromErase){
   })();
 }
 $("v3Run").onclick=function(){v3RunPipeline(false)};
+
+/* ================= FLOW CHÍNH MỚI — TỰ ĐỘNG A→Z =================
+   Người dùng chỉ chạm 2 đầu: nạp file (Bước 1) và nhận PNG kết quả. Bước 2–4 chạy
+   bằng ĐÚNG lõi V3.1 (v3RunPipeline: tự đề xuất khung ở v3OnImage, đo vải, upscale
+   ESRGAN/pica, tách 2 vòng, snap, preflight) nhưng không cần thao tác tay — khối này
+   chỉ điều phối + hiện 1 dòng trạng thái. Bước 5 bàn giao AI ngoài (prompt nguyên văn
+   của người dùng). Bước 6 đối chiếu art AI với art gốc bước 4 (blink + OCR + màu +
+   alpha), tự soạn prompt sửa, tối đa 3 vòng. Cổng tải cuối = đạt đối chiếu (hoặc hết
+   3 vòng, lấy bản tốt nhất) VÀ v3.preOpen — cùng trạng thái preflight với V3.1/Bước 7. */
+var AUTO_W=4200, AUTO_H=4800;
+var AUTO_PROMPT="dựa vào hình ảnh trên, chọn vùng artwork của hình trên áo, sau đó chỉnh lại thành 1 hình artwork hoàn chỉnh size 4200x4800px, sau đó hãy tách nền artwork sao cho có thể bỏ lên các màu nền khác nhau";
+var auto={art:null,aiCanvas:null,rounds:0,passed:false,bestCanvas:null,bestScore:1e18,log:[],running:false,watchTimer:null,lastProg:"",cmpBusy:false,blinkTimer:null};
+
+function autoSetStatus(t){
+  var el=$("autoStatus"); if(el)el.textContent=t;
+  var b=$("autoProgBox"); if(b)b.style.display="block";
+  var f=$("autoProgFill"), vf=$("v3ProgFill");
+  if(f&&vf)f.style.width=vf.style.width||"0%";
+}
+function autoDrawFit(cv,art){
+  if(!cv||!art)return;
+  var W=cv.width,H=cv.height,x=cv.getContext("2d");
+  x.clearRect(0,0,W,H);
+  var s=Math.min(W/art.width,H/art.height), dw=art.width*s, dh=art.height*s;
+  x.drawImage(art,(W-dw)/2,(H-dh)/2,dw,dh);
+}
+function autoFitCanvas(art,W,H){
+  var out=mkCanvas(W,H), x=out.getContext("2d");
+  var s=Math.min(W/art.width,H/art.height), dw=Math.round(art.width*s), dh=Math.round(art.height*s);
+  x.drawImage(art,(W-dw)/2,(H-dh)/2,dw,dh);
+  return out;
+}
+function autoBuildPrint(art){
+  var out=mkCanvas(AUTO_W,AUTO_H), x=out.getContext("2d");
+  var s=Math.min(AUTO_W/art.width,AUTO_H/art.height);
+  var dw=Math.round(art.width*s), dh=Math.round(art.height*s);
+  var target=mkCanvas(dw,dh);
+  return resizeHQ(art,target).then(function(){
+    x.drawImage(target,(AUTO_W-dw)/2,(AUTO_H-dh)/2);
+    return out;
+  });
+}
+function autoWatch(){
+  if(auto.watchTimer)clearInterval(auto.watchTimer);
+  auto.watchTimer=setInterval(function(){
+    var t=$("v3ProgText")?$("v3ProgText").textContent:"";
+    if(t&&t!==auto.lastProg){auto.lastProg=t; autoSetStatus(t)}
+    var f=$("autoProgFill"), vf=$("v3ProgFill");
+    if(f&&vf)f.style.width=vf.style.width||"0%";
+    if(!v3.running){
+      clearInterval(auto.watchTimer); auto.watchTimer=null;
+      var wasRunning=auto.running; auto.running=false;
+      if(v3.final){autoOnPipelineDone()}
+      else if(wasRunning){autoSetStatus("✗ Pipeline tự động chưa tách được — chi tiết ở dòng trên. Mở khu Chỉnh tay nâng cao → mục “Tách thủ công V3.1 (dự phòng)” để kéo góc và chạy tay.")}
+    }
+  },350);
+}
+function autoOnImage(){
+  if(typeof projRestoring!=="undefined"&&projRestoring)return;
+  auto.art=null; auto.aiCanvas=null; auto.rounds=0; auto.passed=false;
+  auto.bestCanvas=null; auto.bestScore=1e18; auto.log=[]; auto.lastProg="";
+  var d=$("autoDone"); if(d)d.style.display="none";
+  var c=$("autoCmp"); if(c)c.style.display="none";
+  var si=$("autoSrcInfo");
+  if(si&&srcImg)si.innerHTML="Đã nạp ảnh áo mẫu: <b>"+srcImg.width+" × "+srcImg.height+" px</b> — app đang tự chạy tiếp các bước 2–4.";
+  autoSetStatus("Bước 1 ✓ Đã nhận ảnh "+(srcImg?srcImg.width+"×"+srcImg.height+" px":"")+" — app đang TỰ nhận vùng artwork + đo màu nền áo, rồi tự chạy tiếp: Bước 2 tự cắt → Bước 3 tự upscale + làm nét → Bước 4 tự xoá nền. Bạn không cần bấm gì thêm.");
+  setTimeout(function(){
+    if(typeof projRestoring!=="undefined"&&projRestoring)return;
+    if(!srcImg||!v3.quad||v3.running||auto.running)return;
+    auto.running=true;
+    v3RunPipeline(false);
+    autoWatch();
+  },400);
+}
+function autoOnPipelineDone(){
+  if(!v3.final)return;
+  auto.art=copyCanvas(v3.final);
+  var m=v3.metrics||v3Measure(auto.art), r=v3.report||{};
+  var fab=v3.fabric?("rgb("+v3.fabric.map(Math.round).join(", ")+")"):"không đo được";
+  $("autoDone").style.display="block";
+  autoDrawFit($("autoArtPrev"),auto.art);
+  v3DrawMock($("autoMockW"),"#ffffff",auto.art);
+  v3DrawMock($("autoMockB"),"#111111",auto.art);
+  $("autoMetrics").innerHTML="Số đo thật của art đã tách (Bước 4): khổ làm việc <b>"+m.w+" × "+m.h+" px</b> · nền trong suốt <b>"+m.transPct+"%</b> · số màu ≈ <b>"+(r.colorCount!=null?r.colorCount:m.colors)+"</b> · màu nền áo đã đo ở Bước 1: <b>"+fab+"</b>"+(r.dark?" · <b>chế độ áo tối: BẬT</b>":"")+" · tách <b>"+(r.rounds===2?"2 vòng theo trường sáng":"1 vòng (lùi)")+"</b>.<br>Upscale + làm nét (Bước 3) — engine đã dùng: <b>"+escapeHtml(r.upscale||v3.upscaleNote||"không ghi nhận")+"</b><br>Ảnh bàn giao cho AI và file kết quả cuối đều đặt art lên khổ <b>"+AUTO_W+"×"+AUTO_H+" px · 300 DPI</b> (contain-fit, giữ nền trong suốt).";
+  autoPreSync();
+  autoSetStatus("✓ Bước 2–4 đã tự chạy xong — art đã tách hiện ở Bước 5 bên dưới. Tải ảnh đã xử lý + sao chép prompt đưa cho AI vẽ lại, rồi nạp art AI trả về vào Bước 6 để đối chiếu.");
+  autoRefreshFinal();
+}
+function autoPreSync(){
+  var info=$("autoPreInfo"); if(!info)return;
+  var c=$("autoPreConfirm"); if(c)c.checked=!!($("v3PreConfirm")&&$("v3PreConfirm").checked);
+  if(!v3.preRes){info.textContent="Preflight (kiểm tra cuối) chưa chạy — mục này chạy cùng lúc tách ở bước 2–4, quét gợi ý trên ảnh nguồn; trạng thái cổng của nó dùng chung với mục preflight ở Chỉnh tay nâng cao và cổng xuất Bước 7 (một cổng duy nhất)."; return}
+  info.innerHTML="Preflight trên ảnh nguồn: <b>"+v3.preRes.count+" ô nghi ngờ / 36</b>"+(v3.preOpen?" — <b>cổng tải ĐÃ MỞ</b>.":" — soi các ô được gợi ý (heatmap chi tiết ở mục Kiểm tra cuối trong Chỉnh tay nâng cao) rồi tích ô xác nhận bên dưới để mở cổng tải; cổng này dùng chung với Bước 7, chỉ 1 cổng duy nhất.");
+}
+function autoRefreshFinal(){
+  var btn=$("autoDlFinal"); if(!btn)return;
+  var canDl=!!(auto.bestCanvas&&(auto.passed||auto.rounds>=3)&&v3.preOpen);
+  btn.disabled=!canDl;
+  var st=$("autoFinalStatus"); if(!st)return;
+  if(!auto.bestCanvas){st.textContent="Chưa có art AI trả về — hoàn thành Bước 5 rồi nạp art vào Bước 6."; return}
+  if(!v3.preOpen){st.textContent="Đối chiếu đã có kết quả, nhưng còn thiếu cổng preflight: tích ô xác nhận soi tay + quyền ngay trên đây (đồng bộ với mục Kiểm tra cuối ở Chỉnh tay nâng cao) thì nút tải kết quả mới mở."; return}
+  if(auto.passed){st.innerHTML="✓ Đối chiếu <b>ĐẠT</b> + preflight đã mở — bấm tải để nhận đúng 1 file PNG không nền "+AUTO_W+"×"+AUTO_H+" · 300 DPI."; return}
+  if(auto.rounds>=3){st.textContent="Đã hết 3 vòng sửa mà đối chiếu chưa đạt hẳn — nút tải đã mở cho BẢN TỐT NHẤT (ít lỗi nhất trong các vòng), các điểm còn lệch đã liệt kê ở Bước 6 và ghi vào hồ sơ .txt."; return}
+  st.textContent="Đối chiếu chưa đạt — sao chép prompt sửa ở Bước 6, gửi lại cho AI rồi nạp bản mới (còn "+(3-auto.rounds)+" vòng).";
+}
+/* --- Bước 5: tải ảnh đã xử lý + sao chép prompt nguyên văn --- */
+$("autoPick").onclick=function(){$("autoFile").click()};
+$("autoFile").onchange=function(e){loadFile(e.target.files[0]); e.target.value=""};
+$("autoSample").onclick=function(){$("v3Sample").click()};
+$("autoDriveBtn").onclick=function(){
+  var link=$("autoDriveLink").value.trim();
+  if(!link){$("autoDriveStatus").textContent="Hãy dán link file Drive của ảnh áo mẫu vào ô trên trước."; return}
+  $("driveImgLink").value=link;
+  $("autoDriveStatus").textContent="Đang nạp qua cơ chế Drive của Bước 1 (khu nâng cao) — nạp được là flow chính tự chạy tiếp.";
+  loadDriveImage();
+};
+(function(){
+  var dz=$("autoDrop");
+  dz.addEventListener("dragover",function(e){e.preventDefault(); dz.classList.add("drag")});
+  dz.addEventListener("dragleave",function(){dz.classList.remove("drag")});
+  dz.addEventListener("drop",function(e){e.preventDefault(); dz.classList.remove("drag"); loadFile(e.dataTransfer.files[0])});
+})();
+$("autoDlProcessed").onclick=function(){
+  if(!auto.art)return;
+  var st=$("autoStep5Status"), btn=$("autoDlProcessed"); btn.disabled=true;
+  st.textContent="Đang dựng PNG "+AUTO_W+"×"+AUTO_H+" · 300 DPI của art đã xử lý…";
+  autoBuildPrint(auto.art).then(function(c){return encodeExportFile(c,"png")}).then(function(res){
+    var name="art-da-xu-ly-"+srcName+"-4200x4800-300dpi.png";
+    downloadBlob(new Blob([res.bytes],{type:"image/png"}),name);
+    st.innerHTML="✓ Đã tải <b>"+escapeHtml(name)+"</b> — dán ảnh này kèm prompt nguyên văn ở trên vào AI của bạn. Codec: "+escapeHtml(res.info.codec)+".";
+  }).catch(function(err){
+    st.textContent="✗ Dựng ảnh đã xử lý lỗi ("+shortErr(err)+") — thử lại.";
+  }).then(function(){btn.disabled=false});
+};
+$("autoCopyPrompt").onclick=function(){
+  copyTextGeneric(AUTO_PROMPT,function(){
+    $("autoStep5Status").innerHTML="✓ Đã sao chép <b>nguyên văn</b> prompt AI — dán kèm ảnh đã xử lý vào AI của bạn.";
+    var b=$("autoCopyPrompt"); b.textContent="Đã sao chép ✓"; setTimeout(function(){b.textContent="Sao chép prompt AI"},2000);
+  },function(){
+    var t=$("autoPromptText"); t.focus(); t.select();
+    $("autoStep5Status").textContent="Trình duyệt chặn sao chép tự động — prompt đã được bôi đen trong ô trên, bấm Ctrl/Cmd+C để chép nguyên văn.";
+  });
+};
+/* --- Bước 6: nạp art AI + đối chiếu --- */
+$("autoAiPick").onclick=function(){$("autoAiFile").click()};
+$("autoAiFile").onchange=function(e){autoLoadAiFile(e.target.files[0]); e.target.value=""};
+(function(){
+  var dz=$("autoAiDrop");
+  dz.addEventListener("dragover",function(e){e.preventDefault(); dz.classList.add("drag")});
+  dz.addEventListener("dragleave",function(){dz.classList.remove("drag")});
+  dz.addEventListener("drop",function(e){e.preventDefault(); dz.classList.remove("drag"); autoLoadAiFile(e.dataTransfer.files[0])});
+})();
+function autoLoadAiFile(f){
+  if(!f)return;
+  if(!auto.art){$("autoAiInfo").textContent="Chưa có art gốc ở Bước 4 để đối chiếu — hãy nạp ảnh áo mẫu ở Bước 1 và chờ app tách xong trước."; return}
+  var url=URL.createObjectURL(f), img=new Image();
+  img.onload=function(){
+    var c=mkCanvas(img.naturalWidth||img.width,img.naturalHeight||img.height);
+    c.getContext("2d").drawImage(img,0,0);
+    auto.aiCanvas=c;
+    if(auto.rounds<3)auto.rounds++;
+    $("autoAiInfo").innerHTML="Đã nạp art AI trả về: <b>"+escapeHtml(f.name||"art-ai")+"</b> ("+c.width+"×"+c.height+" px) — <b>vòng đối chiếu "+auto.rounds+" / 3</b>. Đang tự chạy đối chiếu ở Bước 6…";
+    $("autoCmp").style.display="block";
+    autoStartBlink();
+    autoCompare();
+  };
+  img.onerror=function(){$("autoAiInfo").textContent="Không đọc được file art AI này — hãy thử PNG/JPG khác."};
+  img.src=url;
+}
+function autoStartBlink(){
+  var a=$("autoBlinkRef"), b=$("autoBlinkAi");
+  if(!a||!b||!auto.art||!auto.aiCanvas)return;
+  autoDrawFit(a,auto.art); autoDrawFit(b,auto.aiCanvas);
+  if(auto.blinkTimer)return;
+  var show=true;
+  auto.blinkTimer=setInterval(function(){
+    var bb=$("autoBlinkAi"); if(!bb)return;
+    show=!show; bb.style.opacity=show?"1":"0";
+  },750);
+}
+function autoAlphaDiff(refC,aiC){
+  var W=420,H=480;
+  var rc=mkCanvas(W,H); rc.getContext("2d").drawImage(refC,0,0,W,H);
+  var ac=mkCanvas(W,H); ac.getContext("2d").drawImage(aiC,0,0,W,H);
+  var rd=rc.getContext("2d").getImageData(0,0,W,H).data, ad=ac.getContext("2d").getImageData(0,0,W,H).data;
+  var refN=0,extra=0,miss=0,i;
+  for(i=0;i<W*H;i++){
+    var r=rd[i*4+3]>128, a=ad[i*4+3]>128;
+    if(r)refN++;
+    if(a&&!r)extra++;
+    if(r&&!a)miss++;
+  }
+  if(!refN)refN=1;
+  return{extraPct:Math.round(extra/refN*1000)/10, missPct:Math.round(miss/refN*1000)/10};
+}
+function autoTopColors(cnv,k){
+  var W=210,H=240,t=mkCanvas(W,H),x=t.getContext("2d");
+  x.drawImage(cnv,0,0,W,H);
+  var d=x.getImageData(0,0,W,H).data, hist={}, tot=0, i;
+  for(i=0;i<W*H;i++){
+    if(d[i*4+3]<160)continue;
+    var key=((d[i*4]>>4)<<8)|((d[i*4+1]>>4)<<4)|(d[i*4+2]>>4);
+    hist[key]=(hist[key]||0)+1; tot++;
+  }
+  var arr=Object.keys(hist).map(function(key){
+    key=+key;
+    var r=((key>>8)&15)*16+8, g=((key>>4)&15)*16+8, b=(key&15)*16+8;
+    return{rgb:[r,g,b],hex:v3HexOf([r,g,b]),n:hist[key],share:hist[key]/Math.max(1,tot)};
+  });
+  arr.sort(function(a,b){return b.n-a.n});
+  return arr.slice(0,k||8);
+}
+function autoColorIssues(refTop,aiTop){
+  var issues=[];
+  refTop.forEach(function(rc){
+    if(rc.share<0.02)return;
+    var best=-1,bd=1e18;
+    aiTop.forEach(function(ac,j){
+      var l1=v3Rgb2Lab(rc.rgb[0],rc.rgb[1],rc.rgb[2]), l2=v3Rgb2Lab(ac.rgb[0],ac.rgb[1],ac.rgb[2]);
+      var de=Math.sqrt((l1[0]-l2[0])*(l1[0]-l2[0])+(l1[1]-l2[1])*(l1[1]-l2[1])+(l1[2]-l2[2])*(l1[2]-l2[2]));
+      if(de<bd){bd=de; best=j}
+    });
+    if(bd>14)issues.push("Màu "+rc.hex+" (chiếm ≈"+Math.round(rc.share*100)+"% art gốc) bị lệch đáng kể ở bản AI — màu gần nhất bên bản AI là "+(aiTop[best]?aiTop[best].hex:"không có")+" (ΔE ≈ "+Math.round(bd)+")");
+  });
+  return issues;
+}
+function autoOcrWords(cnv){
+  return window.Tesseract.recognize(cnv,"eng").then(function(res){
+    var words=((res&&res.data&&res.data.words)||[]).map(function(w){
+      return (w.text||"").toLowerCase().replace(/[^a-z0-9]/g,"");
+    }).filter(function(w){return w.length>=2});
+    return words;
+  });
+}
+async function autoCompare(){
+  if(!auto.art||!auto.aiCanvas||auto.cmpBusy)return;
+  auto.cmpBusy=true;
+  var st=$("autoCmpStatus"), list=$("autoCmpList");
+  st.textContent="Đang đối chiếu vòng "+auto.rounds+" / 3: chồng hình + so chữ (OCR) + so màu + so hình khối…";
+  list.style.display="none";
+  try{
+    var refN=autoFitCanvas(auto.art,840,960), aiN=autoFitCanvas(auto.aiCanvas,840,960);
+    var ad=autoAlphaDiff(refN,aiN);
+    var ci=autoColorIssues(autoTopColors(refN,8),autoTopColors(aiN,8));
+    var textIssues=[], ocrNote="";
+    var okLib=false;
+    try{ okLib=await loadLib("tesseract"); }catch(e){ okLib=false }
+    if(okLib&&window.Tesseract){
+      try{
+        var w1=await autoOcrWords(refN), w2=await autoOcrWords(aiN);
+        var s1={}, s2={};
+        w1.forEach(function(w){s1[w]=1}); w2.forEach(function(w){s2[w]=1});
+        var miss=Object.keys(s1).filter(function(w){return !s2[w]});
+        var extra=Object.keys(s2).filter(function(w){return !s1[w]});
+        if(miss.length)textIssues.push("Chữ có ở art gốc nhưng THIẾU hoặc đọc khác ở bản AI: "+miss.slice(0,12).join(", "));
+        if(extra.length)textIssues.push("Chữ THỪA ở bản AI (art gốc không có): "+extra.slice(0,12).join(", "));
+        ocrNote="OCR đọc được "+w1.length+" từ ở art gốc, "+w2.length+" từ ở bản AI.";
+      }catch(e){
+        ocrNote="OCR chạy lỗi ("+shortErr(e)+") — mục chữ tạm bỏ qua vòng này, hãy soi chữ bằng chồng hình nhấp nháy.";
+      }
+    }else{
+      ocrNote="Không tải được tesseract.js (môi trường chặn CDN / mất mạng) — mục so CHỮ tạm bỏ qua vòng này; vẫn so được màu + hình khối, chữ hãy soi bằng chồng hình nhấp nháy.";
+    }
+    var issues=[];
+    if(ad.missPct>3)issues.push("Hình khối: bản AI THIẾU vùng so với art gốc ≈ "+ad.missPct+"% diện tích art — kiểm tra chi tiết bị mất / bị che trong ảnh gốc");
+    if(ad.extraPct>3)issues.push("Hình khối: bản AI THỪA vùng so với art gốc ≈ "+ad.extraPct+"% diện tích art — có thể là chi tiết bịa thêm hoặc nền chưa tách sạch");
+    issues=issues.concat(ci).concat(textIssues);
+    var score=ad.missPct+ad.extraPct+ci.length*2+textIssues.length*3;
+    if(score<auto.bestScore){auto.bestScore=score; auto.bestCanvas=auto.aiCanvas}
+    auto.passed=(issues.length===0);
+    auto.log.push({round:auto.rounds,extraPct:ad.extraPct,missPct:ad.missPct,issues:issues.slice(),passed:auto.passed});
+    list.style.display="block";
+    list.className="repbox "+(auto.passed?"ok":(auto.rounds>=3?"bad":"warn"));
+    var html="<b>Đối chiếu vòng "+auto.rounds+" / 3 — "+(auto.passed?"✓ ĐẠT CHUẨN":"CHƯA ĐẠT")+"</b><br>"
+      +"Hình khối (vùng alpha): thừa <b>"+ad.extraPct+"%</b> · thiếu <b>"+ad.missPct+"%</b> diện tích art (ngưỡng đạt: mỗi loại ≤ 3%).<br>"
+      +"Màu: "+(ci.length?("<b>"+ci.length+" màu lệch đáng kể</b> trong bảng màu chính."):("<b>không có màu chính nào lệch đáng kể</b> (ΔE ≤ 14)."))+"<br>"
+      +"Chữ: "+escapeHtml(ocrNote);
+    if(issues.length)html+="<br><b>Sai sót cụ thể:</b><br>• "+issues.map(escapeHtml).join("<br>• ");
+    if(auto.passed)html+="<br>Chữ khớp, không thừa / thiếu vùng lớn, màu không lệch đáng kể → đã mở khoá tải kết quả ở dưới (kèm cổng preflight).";
+    list.innerHTML=html;
+    st.textContent=auto.passed?("✓ Đối chiếu vòng "+auto.rounds+" ĐẠT — xem kết quả và tải file ở mục Kết quả cuối.") : ("Đối chiếu vòng "+auto.rounds+" chưa đạt — "+(auto.rounds<3?"app đã tự soạn prompt sửa ở dưới, sao chép gửi lại cho AI rồi nạp bản mới.":"đã hết 3 vòng, app sẽ trả bản tốt nhất kèm ghi chú."));
+    var fw=$("autoFixWrap");
+    if(!auto.passed&&auto.rounds<3){
+      fw.style.display="block";
+      var lines=["Hãy sửa lại hình artwork này cho khớp với artwork gốc. Chỉ sửa đúng các lỗi sau đây, giữ nguyên toàn bộ phần còn lại, giữ nền trong suốt và khổ 4200x4800px:"];
+      issues.forEach(function(it,i){lines.push((i+1)+". "+it)});
+      lines.push("Sau khi sửa, xuất lại artwork hoàn chỉnh nền trong suốt, size 4200x4800px.");
+      $("autoFixText").value=lines.join("\n");
+      $("autoRoundInfo").textContent="Đây là vòng sửa "+auto.rounds+" / 3 — nạp art AI sửa vào ô Bước 5, app tự đối chiếu lại. Tối đa 3 vòng; hết vòng mà chưa đạt, app trả bản tốt nhất kèm ghi chú điểm còn lệch.";
+    }else{
+      fw.style.display="none";
+    }
+  }catch(err){
+    st.textContent="✗ Đối chiếu lỗi ("+shortErr(err)+") — thử nạp lại art AI.";
+  }
+  auto.cmpBusy=false;
+  autoRefreshFinal();
+}
+$("autoCopyFix").onclick=function(){
+  copyTextGeneric($("autoFixText").value,function(){
+    var b=$("autoCopyFix"); b.textContent="Đã sao chép ✓"; setTimeout(function(){b.textContent="Sao chép prompt sửa"},2000);
+  },function(){
+    var t=$("autoFixText"); t.focus(); t.select();
+  });
+};
+/* --- Kết quả cuối: PNG + hồ sơ .txt; cổng = đối chiếu + preflight dùng chung --- */
+$("autoPreConfirm").addEventListener("change",function(){
+  var v=$("v3PreConfirm"); if(v)v.checked=$("autoPreConfirm").checked;
+  var mc=$("wmManualConfirm"); if(mc)mc.checked=$("autoPreConfirm").checked;
+  if(typeof updateExportGate==="function")updateExportGate();
+  v3RefreshGate(); autoPreSync(); autoRefreshFinal();
+});
+$("v3PreConfirm").addEventListener("change",function(){autoPreSync(); autoRefreshFinal()});
+function autoProfileText(){
+  var r=v3.report||{}, m=v3.metrics||{};
+  var L=[];
+  L.push("STUDIO POD — HỒ SƠ FLOW CHÍNH TỰ ĐỘNG (nạp file -> nhận PNG)");
+  L.push("Ảnh nguồn: "+srcName+" ("+(srcImg?srcImg.width+"x"+srcImg.height+" px":"không rõ")+")");
+  L.push("Màu nền áo đo được ở Bước 1: "+(v3.fabric?("rgb("+v3.fabric.map(Math.round).join(", ")+")"):"không đo được")+" · chế độ áo tối: "+(r.dark?"BẬT":"tắt"));
+  L.push("Upscale + làm nét Bước 3 (engine đã dùng): "+(r.upscale||v3.upscaleNote||"không ghi nhận"));
+  L.push("Tách nền Bước 4: "+(r.rounds===2?"2 vòng theo trường sáng":(r.rounds===1?"1 vòng (lùi)":"không ghi nhận"))+" · lọc cạnh: "+(r.filter||"không ghi nhận")+" · flood-fill: "+(r.floodEngine||"không ghi nhận")+" · màu: "+(r.snapped?("ĐÃ SNAP palette "+r.colorCount+" màu, ΔE "+r.snapErr):("GIỮ màu ảnh — "+(r.snapWhy||""))));
+  L.push("Số đo art tách Bước 4: "+(m.w||"?")+"x"+(m.h||"?")+" px · trong suốt "+(m.transPct!=null?m.transPct:"?")+"% · số màu cuối ≈ "+(r.colorCount!=null?r.colorCount:(m.colors||"?")));
+  L.push("Prompt AI Bước 5 (nguyên văn): "+AUTO_PROMPT);
+  L.push("Số vòng đối chiếu / sửa đã chạy: "+auto.rounds+" / tối đa 3");
+  auto.log.forEach(function(g){
+    L.push(" - Vòng "+g.round+": thừa vùng "+g.extraPct+"% · thiếu vùng "+g.missPct+"% · "+(g.passed?"ĐẠT":("chưa đạt — "+(g.issues.join(" | ")||"không ghi lỗi"))));
+  });
+  L.push("Kết quả đối chiếu cuối: "+(auto.passed?"ĐẠT chuẩn (chữ khớp, không thừa/thiếu vùng lớn, màu không lệch đáng kể)":(auto.rounds>=3?"CHƯA ĐẠT sau 3 vòng — đã trả bản tốt nhất kèm ghi chú các điểm còn lệch ở trên":"chưa đối chiếu đạt")));
+  L.push("Preflight cuối flow: "+(v3.preRes?(""+v3.preRes.count+" ô nghi ngờ / 36"):"chưa quét")+" · xác nhận soi tay + quyền: "+(($("v3PreConfirm")&&$("v3PreConfirm").checked)?"Có":"Không")+" (cổng dùng chung với Flow V3.1 và Bước 7)");
+  L.push("Kết quả cuối: PNG nền trong suốt "+AUTO_W+"x"+AUTO_H+" px · 300 DPI (contain-fit từ art AI đạt chuẩn / bản tốt nhất).");
+  L.push("Ghi chú trung thực: bước vẽ lại chạy ở AI bên ngoài, app chỉ chuẩn bị + kiểm tra; đối chiếu kiểm được chữ/màu/hình khối, khớp ~99% là mục tiêu chứ không cam kết tuyệt đối; phần design bị che khuất trong ảnh gốc do AI phỏng lại.");
+  return L.join("\r\n");
+}
+$("autoDlTxt").onclick=function(){
+  downloadBlob(new Blob(["\ufeff"+autoProfileText()],{type:"text/plain;charset=utf-8"}),"ho-so-flow-tu-dong-"+srcName+".txt");
+  $("autoFinalStatus").textContent="✓ Đã tải hồ sơ .txt (engine đã dùng, số vòng sửa, sai sót từng vòng, kết quả đối chiếu, preflight).";
+};
+$("autoDlFinal").onclick=function(){
+  if(!auto.bestCanvas||!v3.preOpen)return;
+  var btn=$("autoDlFinal"); btn.disabled=true;
+  $("autoFinalStatus").textContent="Đang dựng PNG kết quả "+AUTO_W+"×"+AUTO_H+" · 300 DPI bằng đúng pipeline codec Bước 7…";
+  autoBuildPrint(auto.bestCanvas).then(function(c){return encodeExportFile(c,"png")}).then(function(res){
+    var name="art-hoan-thien-"+srcName+"-4200x4800-300dpi.png";
+    downloadBlob(new Blob([res.bytes],{type:"image/png"}),name);
+    $("autoFinalStatus").innerHTML="✓ Đã tải <b>"+escapeHtml(name)+"</b> — PNG nền trong suốt "+AUTO_W+"×"+AUTO_H+", DPI 300 nhúng ở chunk pHYs. Codec: "+escapeHtml(res.info.codec)+". "+(auto.passed?"Bản này đã ĐẠT đối chiếu.":"Bản tốt nhất sau 3 vòng — các điểm còn lệch đã ghi trong hồ sơ .txt.");
+  }).catch(function(err){
+    $("autoFinalStatus").textContent="✗ Xuất PNG kết quả lỗi ("+shortErr(err)+") — thử lại.";
+  }).then(function(){autoRefreshFinal()});
+};
 
 /* ================= INIT ================= */
 v3Draw();
